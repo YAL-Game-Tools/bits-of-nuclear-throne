@@ -1,0 +1,12 @@
+
+trace("1");
+function func1() {
+
+}
+trace("2");
+#define func2
+trace("3");
+function func3() {
+	
+}
+trace("4");

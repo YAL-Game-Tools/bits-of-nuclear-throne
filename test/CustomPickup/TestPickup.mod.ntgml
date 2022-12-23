@@ -1,0 +1,57 @@
+/*
+/load test/CustomPickup
+Causes enemies to also drop cursed health pickups that explode if not picked up.
+
+*/
+#pragma preload sprRiskyHP.png
+globalvar sprRiskyHP = sprite_add("sprRiskyHP.png", 7, 5, 5);
+
+#define step
+with (instances_matching(enemy, "__test_pickup", undefined)) {
+	with (self) { // this gets us a self-struct instead of an ID in gml2
+		wait_for_death();
+	}
+}
+
+#define wait_for_death
+__test_pickup = true;
+if (!fork()) exit;
+while (my_health > 0) wait 1;
+make_pickup();
+
+#define make_pickup
+if (random(maxhealth) < 3) exit;
+with (instance_create(x, y, CustomPickup)) {
+	sprite_index = sprRiskyHP;
+	on_pickup = function() {
+		// self is CustomPickup
+		// other is Player
+		other.my_health = min(other.my_health + 1, other.maxhealth);
+		sound_play(sndHPPickup);
+	}
+	on_disappear_base = on_disappear;
+	on_disappear = function(_picked) {
+		if (!_picked) {
+			instance_create(x, y, SmallExplosion);
+			sound_play(sndExplosion);
+		} else on_disappear_base(_picked);
+	}
+	on_find_target = function() {
+		var best = noone;
+		var bestdist = infinity;
+		with (Player) {
+			if (my_health >= maxhealth) continue;
+			var dist = point_distance(x, y, other.x, other.y);
+			if (dist > bestdist) continue;
+			best = self;
+			bestdist = dist;
+		}
+		if (best == noone) {
+			best = instance_nearest(x, y, Player);
+			if (best == noone) return noone;
+			bestdist = point_distance(x, y, best.x, best.y);
+		}
+		if (bestdist > best.calc_pickup_attract_distance()) return noone;
+		return best;
+	}
+}
