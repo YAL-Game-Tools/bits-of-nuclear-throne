@@ -10,7 +10,7 @@ on_begin_step = null;
 on_end_step = null;
 on_draw = null;
 on_cleanup = null;
-
+sprite_visible = true;
 
 
 #event destroy
@@ -26,7 +26,7 @@ mod_refcall(on_begin_step);
 mod_refcall(on_end_step);
 
 #event draw
-draw_self_w();
+if (sprite_visible) draw_self_w();
 mod_refcall(on_draw);
 
 #event cleanup
