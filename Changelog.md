@@ -1,3 +1,20 @@
+# 100.014 (november 2023)
+
+General:
+- Updated to GameMaker 2023.8
+- Fixed some speed checks not respecting time scale
+- Fixed titles drawing twice for a few menus
+- Blast Armor no longer blows up IDPD nades and yourself
+- Pausing the game now pauses the looping sounds (and resumes them afterwards)
+- Becoming Skeleton now gives you an extra mutation after Back in Flesh for consistency with old behaviour
+- Halloween/xmas now last a little longer
+- Halloween/xmas now work in NTT
+
+Modding:
+- Fixed a crash when the game duplicates custom enemies on loops
+- Fixed instance_nearest_bbox not working
+- Fixed replaced music/ambient sounds not taking effect
+
 # 100.013
 
 General:

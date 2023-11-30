@@ -192,7 +192,6 @@ function scrPopulate() {
 				case CustomEnemy:
 					repeat (3 + GameCont.loops) {
 						with (instance_copy(false)) {
-							scope = array_clone(scope);
 							x += random_w(8) - 4;
 							y += random_w(8) - 4;
 						}
