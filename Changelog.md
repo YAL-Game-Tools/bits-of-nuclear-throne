@@ -1,4 +1,28 @@
-# 100.014 (november 2023)
+# 100.016 (December 2023)
+
+General:
+- It is now cheaper to destroy walls, both for the game and for the mods.  
+  On the technical side, FloorExplos now avoid creating walls on top of other walls
+  (which are immediately destroyed), and explosions/portal objects queue walls for destruction
+  by UberCont in end step (which further avoids creating instances that would be destroyed right away).
+
+Modding:
+- Fixed wrong sound names being reported for external audio files  
+  (for `sound_get_name` and `asset_get_index`)
+- Laser/lightning sprites now have "rotated rectangle" bounding box type in case you want that instead of the default bounding box
+- Fixed an error when using `instance_create` without a struct argument
+- Tips are now stored in UberCont.tips, and you can add your own in there.
+
+# 100.015 (December 2023)
+
+General:
+- Fixed the Super Blast Armor mystery crash  
+
+Modding:
+- Sound functions no longer error when provided a nonexistent sound ID (for consistency with old behaviour)
+- Replacing a sprite subimage no longer crashes the game
+
+# 100.014 (November 2023)
 
 General:
 - Updated to GameMaker 2023.8
