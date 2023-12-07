@@ -1,3 +1,16 @@
+# 100.017 / 99r2b13 (December 2023)
+
+General:
+- You can no longer change aspect ratio mid-daily/weekly
+- You can now enter daily/weekly without changing your aspect ratio to 4:3 by hand
+- Necromancers will no longer try to revive things that they cannot revive
+- "Hide HUD" no longer disables low health/low ammo cues
+- Cars, flowers, rad canisters, and pizza entrances no longer spawn on top of other things
+- Frog can now start Throne/Captain fights with gas, complete with a little visual effect
+
+NTT:
+- Fixed there being an extra GameCont in NTT character select
+
 # 100.016 (December 2023)
 
 General:

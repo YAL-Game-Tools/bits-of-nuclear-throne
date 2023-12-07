@@ -55,8 +55,19 @@ function scrPopChests() {
 		&& GameCont.area != 0
 	) repeat (gol + rgol - instance_number(RadChest)) {
 		with (instance_furthest(10016, 10016, Floor)) {
-			with (instance_nearest(x + random_range_w(-250, 250), y + random_range_w(-250, 250), Floor)) {
-				instance_create(bbox_cx, bbox_cy, RadChest);
+			with ({
+				x: x + random_range_w(-250, 250),
+				y: y + random_range_w(-250, 250),
+			}) {
+				var _floor = scrFindFloor((_candidate) => {
+					with (_candidate) {
+						if (mcrFloorHasPropOrChest) continue;
+						return -point_distance(x, y, other.x, other.y);
+					}
+				});
+				with (_floor) {
+					instance_create(bbox_cx, bbox_cy, RadChest);
+				}
 			}
 		}
 	}

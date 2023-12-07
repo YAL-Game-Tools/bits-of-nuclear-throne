@@ -4,17 +4,18 @@ function scrPopulate() {
 	var i, k, c, z, q, _x, _y;
 	var _area = GameCont.area;
 	var _sub = GameCont.subarea;
-	var spawndist = safedist;
-	var spawn_x = self.spawn_x;
-	var spawn_y = self.spawn_y;
+	var _spawn_dist = safedist;
+	var _spawn_x = self.spawn_x;
+	var _spawn_y = self.spawn_y;
 	with (Floor) {
 		if (random_w(10 + GameCont.hard) < GameCont.hard
-		&& point_distance(x, y, spawn_x, spawn_y) > spawndist
-		&& point_distance(x, y, 10016, 10016) > spawndist
-		&& !place_meeting(x, y, RadChest)
-		&& !place_meeting(x, y, AmmoChest)
-		&& !place_meeting(x, y, WeaponChest)) scrPopEnemies(_area);
+			&& point_distance(x, y, _spawn_x, _spawn_y) > _spawn_dist
+			&& point_distance(x, y, 10016, 10016) > _spawn_dist
+			&& !mcrFloorHasChest
+		) scrPopEnemies(_area);
 	}
+	
+	//#mark Bones/etc. (around the pathways):
 	if (is_number(_area)) switch (_area) {
 	case 1: case 0: case 3: case 5: case 4: case 104: case 101:
 		switch (_area) {
@@ -28,8 +29,10 @@ function scrPopulate() {
 			default: c = 1; q = sprBones; break;
 		}
 		//
-		with (Floor)
-		if (!place_free(x - 32, y) && !place_free(x + 32, y) && place_free(x, y)) {
+		with (Floor) if (!place_free(x - 32, y)
+			&& !place_free(x + 32, y)
+			&& place_free(x, y)
+		) {
 			for (i = -1; i <= 1; i += 2)
 			for (k = 0; k <= 1; k += 1)
 			if (c <= 1 || random_w(c) < 1) {
@@ -48,11 +51,11 @@ function scrPopulate() {
 			default: q = sprBones; break;
 		}
 		//
-		with (Floor)
-		if (!place_free(x - 32, y)
-		&& !place_free(x + 32, y)
-		&& place_free(x, y)
-		&& random_w(10) < 1){
+		with (Floor) if (!place_free(x - 32, y)
+			&& !place_free(x + 32, y)
+			&& place_free(x, y)
+			&& random_w(10) < 1
+		) {
 			for (i = -1; i <= 1; i += 2) {
 				with (instance_create(x + (1 - i) * 16, y + 16, Bones)) {
 					image_xscale = i;
@@ -64,19 +67,17 @@ function scrPopulate() {
 	random_set_seed_w(GameCont.levseed);
 	with (Floor) {
 		if (instance_number(enemy) < 3 + GameCont.hard / 1.5
-		&& point_distance(x, y, spawn_x, spawn_y) > spawndist
-		&& point_distance(x, y, 10016, 10016) > spawndist
-		&& !place_meeting(x, y, RadChest)
-		&& !place_meeting(x, y, AmmoChest)
-		&& !place_meeting(x, y, WeaponChest)) scrPopEnemies(_area);
+			&& point_distance(x, y, _spawn_x, _spawn_y) > _spawn_dist
+			&& point_distance(x, y, 10016, 10016) > _spawn_dist
+			&& !mcrFloorHasChest
+		) scrPopEnemies(_area);
 		//
-		if (GameCont.crown == 7
-		&& random_w(8 + GameCont.hard) < GameCont.hard
-		&& point_distance(x, y, spawn_x, spawn_y) > spawndist
-		&& point_distance(x, y, 10016, 10016) > spawndist
-		&& !place_meeting(x, y, RadChest)
-		&& !place_meeting(x, y, AmmoChest)
-		&& !place_meeting(x, y, WeaponChest)) scrPopEnemies(_area);
+		if (GameCont.crown == CrownOf.Blood
+			&& random_w(8 + GameCont.hard) < GameCont.hard
+			&& point_distance(x, y, _spawn_x, _spawn_y) > _spawn_dist
+			&& point_distance(x, y, 10016, 10016) > _spawn_dist
+			&& !mcrFloorHasChest
+		) scrPopEnemies(_area);
 		scrPopProps(_area);
 	}
 	with (NOWALLSHEREPLEASE) instance_destroy_w();
@@ -90,19 +91,19 @@ function scrPopulate() {
 	if (_area == 1 && UberCont.showtutorial == 0) instance_create(x, y, WantBoss);
 	if (_area == 5 && _sub == 3) instance_create(x, y, WantLH);
 	if (_area == 3 && _sub == 1) {
-		if (instance_number(prop) > 0) {
-			with (instance_furthest(10016, 10016, prop)) {
-				instance_create(x, y, CarVenus);
-				instance_destroy_q();
+		var _floor = scrFindFloor((_candidate) => {
+			with (_candidate) {
+				if (mcrFloorHasPropOrChest) continue;
+				return point_distance(x, y, 10016, 10016);
 			}
-		} else with (instance_furthest(10016, 10016, Floor)) {
-			with (instance_nearest(
-				x + random_range_w(-320, 320),
-				y + random_range_w(-320, 320),
-			Floor)) instance_create(x + 16, y + 16, CarVenus);
+			return 0;
+		});
+		with (_floor) {
+			instance_create(x + 16, y + 16, CarVenus);
 		}
 	}
-	// Bandits camp chests:
+	
+	//#mark Bandits camp chests:
 	if (UberCont.showtutorial == 0) switch (_area) {
 		case 1: case 2: case 3: case 4:
 		case 101: case 102: case 103: case 104: case 105:
@@ -111,7 +112,8 @@ function scrPopulate() {
 			with (AmmoChest) if (place_free(x, y)) instance_create(x, y, Bandit);
 			break;
 	}
-	// Pizza sewers:
+	
+	//#mark Pizza sewers:
 	if (_area == 102) {
 		with (enemy) instance_destroy_w();
 		with (instance_furthest(10016, 10016, Floor)) {
@@ -126,26 +128,44 @@ function scrPopulate() {
 		with (HPPickup) instance_destroy_w();
 		with (Corpse) instance_destroy_w();
 	}
-	// Pizza entrance:
+	
+	//#mark Pizza entrance:
 	if (_area == 2) {
 		with (Floor) if (sprite_index == sprFloor2 && image_index == 1 || image_index == 5) instance_create(x, y, PizzaEntrance);
 		//
 		do {
-			with (instance_nearest(10016 + random_w(240) - 120, 10016 + random_w(240) - 120, PizzaEntrance)) instance_destroy_w();
+			with (instance_nearest(
+				10016 + random_w(240) - 120,
+				10016 + random_w(240) - 120,
+				PizzaEntrance
+			)) instance_destroy_w();
 		} until (instance_number(PizzaEntrance) <= 1);
-		//
+		// 
 		if (instance_number(PizzaEntrance) == 0) {
-			i = 100;
-			while (--i >= 0) with (instance_furthest(
-				10016 + random_w(640) - 320,
-				10016 + random_w(640) - 320,
-			Floor)) if (sprite_index == sprFloor2) {
+			var _floor = scrFindFloor((_candidate) => {
+				with (_candidate) {
+					if (mcrFloorHasPropOrChest) continue;
+					if (sprite_index != sprFloor2) continue;
+					return point_distance(x, y, 10016, 10016);
+				}
+				return 0;
+			});
+			if (_floor == noone) _floor = scrFindFloor((_candidate) => {
+				with (_candidate) {
+					if (mcrFloorHasPropOrChest) continue;
+					if (sprite_index != sprFloor2B) continue;
+					return point_distance(x, y, 10016, 10016);
+				}
+				return 0;
+			});
+			with (_floor) {
+				sprite_index = sprFloor2;
 				instance_create(x, y, PizzaEntrance);
-				i = 0;
 			}
 		}
 	}
-	//
+	
+	//#mark Police 'n vans:
 	if (_area != 0
 		&& _area != 100
 		&& !(_area == 106 && _sub == 3)
@@ -158,13 +178,15 @@ function scrPopulate() {
 			repeat (GameCont.loops - UberCont.hardmode) instance_create(x, y, WantVan);
 		}
 	}
-	//
+	
+	//#mark Details:
 	random_set_seed_w(GameCont.levseed + 110000);
 	repeat (2) random_skip;
 	with (Floor) if (random_w(6) < 1) {
 		instance_create(x + random_w(32), y + random_w(32), Detail);
 	}
-	// Loop stuff:
+	
+	//#mark Loop stuff:
 	if (GameCont.loops > 0) {
 		random_set_seed_w(GameCont.levseed + 150000);
 		repeat (2) random_skip;
@@ -201,10 +223,13 @@ function scrPopulate() {
 			}
 			if (o != -1) repeat (3 + GameCont.loops) instance_create(x + random_w(8) - 4, y + random_w(8) - 4, o);
 		}
+		
 		// frog mom:
 		if (_area == 2) with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, FrogQueen);
+		
 		// hyper crystal:
 		if ((_area == 4 || _area == 104)) with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, HyperCrystal);
+		
 		// technomancer:
 		if (_area == 6) {
 			with (enemy) if (distance_to_object(TechnoMancer) > 120
@@ -216,34 +241,40 @@ function scrPopulate() {
 		}
 		with (TechnoMancer) repeat (6) instance_create(x + random_w(120) - 60, y + random_w(120) - 60, PortalClear);
 	}
-	// Jungle flower:
+	
+	//#mark Jungle flower:
 	if (GameCont.skill_got[Skill.LastWish] != 0 && _area == 5 && _sub == 1) {
 		random_set_seed_w(GameCont.levseed + 120000);
 		repeat (2) random_skip;
-		z = true;
-		with (instance_nearest(10016 + random_w(640) - 320, 10016 + random_w(640) - 320, prop)) {
-			instance_create(x, y, IceFlower);
-			instance_destroy_q();
-			z = false;
-		}
-		if (z) repeat (10) {
-			q = instance_nearest(10016 + random_w(640) - 320, 10016 + random_w(640) - 320, Floor);
-			z = false;
-			with (q) {
-				_x = bbox_cx; _y = bbox_cy;
-				if (point_distance(10016, 10016, _x, _y) < 32) break;
-				instance_create(_x, _y, IceFlower);
-				z = true;
+		with ({
+			x: 10016 + random_range_w(-320, 320),
+			y: 10016 + random_range_w(-320, 320),
+			spawndist: _spawn_dist,
+			spawn_x: _spawn_x,
+			spawn_y: _spawn_y,
+		}) {
+			var _floor = scrFindFloor((_candidate) => {
+				with (_candidate) {
+					if (mcrFloorHasPropOrChest) continue;
+					//if (point_distance(x, y, 10016, 10016) < other.spawndist) continue;
+					if (point_distance(x, y, other.spawn_x, other.spawn_y) < 64) continue;
+					return -point_distance(x, y, other.x, other.y);
+				}
+				return 0;
+			});
+			with (_floor) {
+				instance_create(x + 16, y + 16, IceFlower);
 			}
-			if (z) break;
 		}
 	}
-	//
+	
+	//#mark mod callbacks
 	if (is_string(_area)) {
 		random_set_seed_w(GameCont.levseed + 130000);
 		repeat (2) random_skip;
 		mod_rawcall("area", _area, "area_pop_extras");
 	}
+	
 	//
 	if (GameCont.droppedsword > 0 && _area != 0 && GameCont.loops >= 1 + UberCont.hardmode) {
 		repeat (GameCont.droppedsword) with (instance_create(10016, 10016, WepPickup)) {
