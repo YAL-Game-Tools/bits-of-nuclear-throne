@@ -1,3 +1,33 @@
+# 99r2b14 (December 2023)
+
+General:
+
+- Fixed a crash when unlocking B-skins
+- The player can no longer get stuck while auto-walking during victory sequence
+- Fixed the `KeyboardDirect` flag not working
+- \[Semi-]secret characters are now consistently shown on Stats screen and can be selected with non-mouse
+- Fixed some keys having incorrect display icons
+- Fixed the mystery square cursor when playing with gamepad and native cursors enabled
+- The game now uses XB1 (instead of XB360) style icons when XBOX style is selected
+- Thrown gold weapons now sparkle correctly when localized (and make the gold pickup sound)
+
+Controls:
+
+- The controls menu has received a big overhaul in general
+- You can now re-bind most of the alternative controls, and bind two inputs per control in general  
+  (pause controls are partially locked to prevent unfortunate situations)
+- You can now bind mouse buttons
+- The most important keybind is now re-bindable, including on gamepad
+- You can now bind movement keys on a gamepad
+- Keyboard can now be used in menus even when gamepad is enabled
+- Gamepad deadzones are now adjustable
+- Gamepad rumble is now adjustable
+- There is now an option for 360-degree movement on a gamepad
+- There is now an option for aiming with a mouse while using a gamepad
+- There is now an option to assign gamepad settings individually for players
+- The game is now more consistent about gamepad-specific behaviour when only some players use a gamepad
+- Possibly more things I forgot about
+
 # 100.017 / 99r2b13 (December 2023)
 
 General:
@@ -5,7 +35,8 @@ General:
 - You can now enter daily/weekly without changing your aspect ratio to 4:3 by hand
 - Necromancers will no longer try to revive things that they cannot revive
 - "Hide HUD" no longer disables low health/low ammo cues
-- Cars, flowers, rad canisters, and pizza entrances no longer spawn on top of other things
+- Cars, flowers, and rad canisters no longer spawn on top of other things
+- Pizza entrances are now guaranteed to spawn.
 - Frog can now start Throne/Captain fights with gas, complete with a little visual effect
 
 NTT:
