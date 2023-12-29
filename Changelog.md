@@ -1,3 +1,19 @@
+# 100.018 (not yet)
+
+- If you replace the spiral sprites, the HD spirals (that are used when pixel scale is over 2) are now correctly colored
+- Added `key0` input for sake of completeness
+
+# 99r2b15 (December 2023)
+
+General:
+
+- Fixed (?) a mystery crash when unlocking crowns  
+  This is the same kind of thing that was previously causing a crash with ultra mutations and I do not like the implication that it's now unsafe to work with 2d arrays.
+- Updated lang-example.ini
+- Fixed unlock popups not appearing
+- You can now add more tips to categories in the language file and they will be picked up.
+- Fixed mismatched tips for two secret areas.
+
 # 99r2b14 (December 2023)
 
 General:

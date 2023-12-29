@@ -1,4 +1,14 @@
 function TipsStruct() constructor {
+	static loadUserTips = (_array, _prefix) => {
+		var i = array_length(_array) + 1;
+		repeat (1024) {
+			 var _str = loc(_prefix + string(i), "");
+			 if (_str == "") break;
+			 array_push(_array, _str);
+			 i += 1;
+		}
+	}
+	
 	general = [
 		loc("Tips:General:1", "@rHP@s will only drop when damaged"),
 		loc("Tips:General:2", "@yexplosives@s can destroy walls"),
@@ -52,12 +62,16 @@ function TipsStruct() constructor {
 		loc("Tips:General:50", "doing alright"),
 		loc("Tips:General:51", "there are other worlds out there"),
 	];
+	loadUserTips(general, "Tips:General:");
+	
 	tutorial = [
 		loc("Tips:Tutorial:1", "everything will be just fine"),
 		loc("Tips:Tutorial:2", "don't worry"),
 		loc("Tips:Tutorial:3", "the nuclear throne..."),
 		loc("Tips:Tutorial:4", "good luck")
 	];
+	loadUserTips(tutorial, "Tips:Tutorial:");
+	
 	daily = [
 		loc("Tips:Daily:1", "such a nice day"),
 		loc("Tips:Daily:2", "the weather isn't so bad"),
@@ -66,6 +80,8 @@ function TipsStruct() constructor {
 		loc("Tips:Daily:5", "there's always tomorrow"),
 		loc("Tips:Daily:6", "one day")
 	];
+	loadUserTips(daily, "Tips:Daily:");
+	
 	weekly = [
 		loc("Tips:Weekly:1", "this seems familiar"),
 		loc("Tips:Weekly:2", "what's next?"),
@@ -73,6 +89,8 @@ function TipsStruct() constructor {
 		loc("Tips:Weekly:4", "well prepared"),
 		loc("Tips:Weekly:5", "keep trying")
 	];
+	loadUserTips(weekly, "Tips:Weekly:");
+	
 	var _sfmt = () => choose_w("", "", "", "", "", loc("Tips:Hardmode:8", "what does SFMT stand for?"));
 	_sfmt.name = "sfmt";
 	hardmode = [
@@ -85,6 +103,8 @@ function TipsStruct() constructor {
 		loc("Tips:Hardmode:7", "it can't be that bad"),
 		_sfmt,
 	];
+	loadUserTips(hardmode, "Tips:Hardmode:");
+	
 	var _heads = () => {
 		switch (instance_number(Player) + instance_number(Revive)) {
 			case 0: return loc("Tips:Coop:7", "no heads");
@@ -105,6 +125,8 @@ function TipsStruct() constructor {
 		loc("Tips:Coop:6", "but who gets the throne?"),
 		_heads
 	];
+	loadUserTips(hardmode, "Tips:Coop:");
+	
 	area = [
 		[
 			loc("Tips:Area:0:1", "it's so dark"),
@@ -166,6 +188,10 @@ function TipsStruct() constructor {
 			loc("Tips:Area:7:2", "the palace")
 		],
 	];
+	for (var i = 0; i < array_length(area); i++) {
+		loadUserTips(area[i], `Tips:Area:${i}:`);
+	}
+	
 	secret = [
 		[loc("Tips:Area:100:1", "awww yes")],
 		[
@@ -177,12 +203,6 @@ function TipsStruct() constructor {
 		[
 			loc("Tips:Area:102:1", "hunger..."),
 			loc("Tips:Area:102:2", "it smells nice here")
-		],
-		[
-			loc("Tips:Area:103:1", "space..."),
-			loc("Tips:Area:103:2", "always wanted to go here"),
-			loc("Tips:Area:103:3", "so much money"),
-			loc("Tips:Area:103:4", "4 years later...")
 		],
 		[
 			loc("Tips:Area:103:1", "space..."),
@@ -211,6 +231,10 @@ function TipsStruct() constructor {
 			loc("Tips:Area:107:5", "wakkala wayo")
 		],
 	];
+	for (var i = 0; i < array_length(secret); i++) {
+		loadUserTips(secret[i], `Tips:Area:${i+100}:`);
+	}
+	
 	race_ultra = [
 		[
 			loc("Tips:Ultra:0:1", "random @gultra@s, unstoppable")
@@ -296,6 +320,10 @@ function TipsStruct() constructor {
 			loc("Tips:Ultra:16:1", "what a good time")
 		],
 	];
+	for (var i = 0; i < array_length(race_ultra); i++) {
+		loadUserTips(race_ultra[i], `Tips:Ultra:${i}:`);
+	}
+	
 	race = [
 		[
 			loc("Tips:Race:0:1", "random shifts shapes"), 
@@ -444,6 +472,10 @@ function TipsStruct() constructor {
 			loc("Tips:Race:16:2", "nice")
 		],
 	];
+	for (var i = 0; i < array_length(race); i++) {
+		loadUserTips(race[i], `Tips:Race:${i}:`);
+	}
+	
 	curse = [
 		loc("Tips:Curse:1", "@qw @qh @qy"),
 		loc("Tips:Curse:2", "@qh @qe @ql @ql @qo"),
@@ -451,6 +483,8 @@ function TipsStruct() constructor {
 		loc("Tips:Curse:4", "@ql @qe @qt @qm @qe @qo @qu @qt"),
 		loc("Tips:Curse:5", "@qp @ql @qe @qa @qs @qe @qs @qt @qo @qp")
 	];
+	loadUserTips(curse, "Tips:Curse:");
+	
 	lowhp = [
 		loc("Tips:Low:1", "oh dear"),
 		loc("Tips:Low:2", "this isn't going to end well"),
@@ -458,6 +492,8 @@ function TipsStruct() constructor {
 		loc("Tips:Low:4", "no no no"),
 		loc("Tips:Low:5", "help")
 	];
+	loadUserTips(lowhp, "Tips:Low:");
+	
 	loop = [
 		loc("Tips:Loop:1", "this will never end"),
 		loc("Tips:Loop:2", "it's a whole new world"),
@@ -468,6 +504,8 @@ function TipsStruct() constructor {
 		loc("Tips:Loop:7", "no valley too deep"),
 		loc("Tips:Loop:8", "no mountain too high")
 	];
+	loadUserTips(loop, "Tips:Loop:");
+	
 	misc = [];
 }
 function scrTipsInit() {
@@ -513,7 +551,7 @@ function scrTipsGet() {
 		if (is_string(GameCont.area)) return mod_defcall("area", GameCont.area, "area_text", "");
 		if (GameCont.area >= 100) {
 			return scrTipsGetOneOf(tips.secret, GameCont.area - 100);
-		} else return scrTipsGetOneOf(tips.area, GameCont.area - 100);
+		} else return scrTipsGetOneOf(tips.area, GameCont.area);
 	}
 	var _player = instance_find(Player, floor(random_w(instance_number(Player))));
 	if (t == 2) {
