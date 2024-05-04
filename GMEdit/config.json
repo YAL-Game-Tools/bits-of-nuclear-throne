@@ -1,0 +1,19 @@
+{
+	"parent": "gml1",
+	"name": "Nuclear Throne Together",
+	"hasTernaryOperator": true,
+	"hasDefineArgs": true,
+	"hasTemplateStrings": true,
+	"hasPragma": true,
+	"hasRegions": true,
+	"additionalKeywords": ["function", "delete", "wait", "in", "try", "catch", "throw"],
+	
+	"indexingMode": "local",
+	"resetLineCounterOnDefine": false,
+	"projectRegex": "^(?:main\\.(?:txt|cfg)|.+\\.ntgml)$",
+	"gmlExtensions": ["gml", "ntgml"],
+	
+	"helpURL": "https://yal.cc/r/17/ntt/gml/#$1",
+	"apiFiles": ["api.gml", "default.gml"],
+	"assetFiles": ["raw-assets.gml"]
+}
