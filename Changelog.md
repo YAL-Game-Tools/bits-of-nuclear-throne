@@ -1,7 +1,49 @@
-# 100.018 (not yet)
+## 100.019
 
+Changes:
+
+- With 2024.11, GM now assigns resource indexes alphabetically, which means that hard-coded resource indexes might no longer behave like they did before.
+- As one exception, I gave `Player` a `__PlayerParent` parent object so that you can still do `/gml =0.x` and alike for quick tests.
 - If you replace the spiral sprites, the HD spirals (that are used when pixel scale is over 2) are now correctly colored
 - Added `key0` input for sake of completeness
+
+## 99r2b17 (December 2024)
+
+Changes:
+
+- Updated to GM IDE v2024.11.0.179 / Runtime v2024.11.0.226!
+- New GM version changed how 3d audio works but I _think_ I got it to act the same as before.
+- There could be other differences in behaviours, but hopefully not.
+
+General:
+
+- Snowtank laser sights are now also lighter on performance
+- Fixed corpses not dealing more damage based on velocity (mostly seen with Impact Wrists), fixed Impact Wrists hits not playing their sound effect
+
+Menus/UI:
+
+- Fixed missing Back button on Coop menu
+- Fixed the game taskbar caption flipping between "Nuclear Throne" and "0" if you launch it unfocused
+- Incorrect stream key response (TB error?) no longer crashes the game
+
+Controls:
+
+- Fixed the game reverting to keyboard controls when returning to main menu
+- Fixed "Press A" on start screen not assigning the gamepad correctly
+- Fixed scroll wheel not switching weapons when bound
+- Fixed inability to use mouse wheel on char select
+
+## 99r2b16 (July 2024)
+
+- Fixed wrong right/down input on gamepads
+- You can now have >100% completion by doing crowns on frog/skeleton
+- Fixed native cursor sometimes being a black square on launch
+- Added a set of controller button sprites for SteamDeck (only shown on SteamDeck)
+- Game now auto-switches input method depending on whether you've clicked the logo or pressed a gamepad button
+- Fixed Mansion chest only containing golden screwdrivers
+- Rebel B now only puts up the hood in Frozen City (intended behaviour according to JW)
+- Probably fixed fish digging
+- Sniper laser sights are now lighter on performance
 
 # 99r2b15 (December 2023)
 
