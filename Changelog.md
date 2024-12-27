@@ -1,4 +1,18 @@
-## 100.019
+Legend:
+
+- Base-game versions are structured like 99r#(b#)
+- NTT versions are structured like 100.###
+
+# 99r2b18 / 100.020 (December 2024)
+
+Fixes:
+
+- Custom localizations no longer show "ALWAYS BELIEVE IN YOUR SOUL" in place of many strings
+- Fixed weapons playing various ambient sounds instead of their swap sounds
+- Fixed a handful of ultra mutations not working correctly
+- Fixed character select using the in-game fire/confirm button instead of the fixed one from the menus
+
+# 100.019 (December 2024)
 
 Changes:
 
@@ -7,7 +21,7 @@ Changes:
 - If you replace the spiral sprites, the HD spirals (that are used when pixel scale is over 2) are now correctly colored
 - Added `key0` input for sake of completeness
 
-## 99r2b17 (December 2024)
+# 99r2b17 (December 2024)
 
 Changes:
 
