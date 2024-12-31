@@ -3,6 +3,43 @@ Legend:
 - Base-game versions are structured like 99r#(b#)
 - NTT versions are structured like 100.###
 
+# 100.021 (December 2024)
+
+Additions:
+
+- IceFlower now has `feed_cost` and `feed_target` variables.
+- Added `object_has_event` for checking what objects have which events.
+
+Fixes:
+
+- Fixed "self is not an instance" popping up when calling specific functions.
+- With execution order hopefully back to original, more mods should function normally.
+
+# 99r2b19 (December 2024)
+
+Changes:
+
+- To make the game work closer to how it did before,
+  I changed all of the step events to be user events that the game runs from a script.  
+  Functionally everything should be the same as before, but let me know.
+- Mouse lock now only applies mid-game, not in menus.
+- I tried to make the audio work like it did before, but it's still kind of weird,
+  so you can now add the following section to NuclearThrone.ini
+  ```ini
+  [snd_play_hit_big]
+  min=320
+  max=64000
+  cap=320
+  ```
+  and play around with values.
+
+Fixes:
+
+- NTT-specific documentation no longer ends up in NT builds.
+- Clicking during heavy lag should now be buffered.
+- "Fish digging" should now be harder to pull off
+  (but the logic stays in case you _really_ get stuck in a wall)
+
 # 99r2b18 / 100.020 (December 2024)
 
 Fixes:
