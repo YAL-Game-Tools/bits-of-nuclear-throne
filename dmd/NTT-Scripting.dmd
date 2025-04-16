@@ -1,0 +1,1766 @@
+```set template default.html```
+```set title NTT Scripting cheat sheet```
+```set tag:defcode gml```
+```setmd intro
+This is a "cheat sheet" for the scripting language in Nuclear Throne Together mod.
+
+The mod can be downloaded [from itch.io](https://yellowafterlife.itch.io/nuclear-throne-together)
+or from the [official Discord server](https://discord.gg/nt).<br>
+An up-to-date version of this document can always be found <a href="https://yal.cc/r/17/ntt/gml">online</a>.
+```
+#[GameMaker Language in NTT](gml) {
+	NTT uses a custom scripting language that largely resembles that of GameMaker.
+	
+	As result, the [GameMaker manual](https://manual.yoyogames.com) and related tutorials can be handy for learning the language.
+	
+	NTT has two language versions, chosen based on file extension (or [#pragma](pragma)): --{
+	-	`.gml`: Classic version, inspired by GMS1 GML\
+		Despite this, it has many GMS2 features like ternary operators and macros.
+	-	`.ntgml`: Modern version, inspired by GM2022 GML
+	}
+	
+	The following are extensions, notes, and differences from vanilla GML:
+	#[Script/function declarations](gml-define) {
+		GameMaker itself has you create scripts via UI and displays separate (or tabbed) code editors for each of them.
+		
+		NTT uses one source file per mod, and thus uses a slightly different scheme - you can define an arbitrary amount of scripts per file using the `#define` directive:
+		```
+		#define scr_1
+		// scr_1' code here
+		#define scr_2
+		// scr_2' code here
+		#define scr_3
+		// and so on
+		```
+		You can also name the script' arguments by specifying them on `#define`-line:
+		```
+		#define scr_add(a, b)
+		return a + b;
+		```
+		Which is equivalent to having
+		```
+		/// scr_add(a, b)
+		return argument0 + argument1;
+		```
+		in regular GML.
+	}
+	#[Array creation](gml-array-alloc) {
+		Same as regular GML, doing
+		```
+		something[1] = 4;
+		```
+		would replace `something` by a new 2-element array (containing values `0` and `4`) if it wasn't an array before.
+		
+		Legacy "copy on write" behaviour does not exist in NTT-GML.
+		
+		If you need to clone an array, you can do so explicitly via [array_clone] or other functions.
+		
+		Using `[@index]` for write-access remains preferable for all cases where you are sure that a value is an array, as it saves from runtime checks for whether it is.
+	}
+	#["in" operator](gml-in) {
+		Like with current versions of GM, `variable_instance_` functions are supported:
+		```
+		trace(variable_instance_exists(self, "test")); // 0
+		variable_instance_set(self, "test", 4);
+		trace(variable_instance_exists(self, "test")); // 1
+		trace(variable_instance_get(self, "test")); // 4
+		```
+		However, the nature of scripting generally implies that often you'll find yourself setting variables on instances only if they aren't set yet, which prompts for a shorter syntax.
+		
+		Therefore NTT's GML variant supports `<variable name> in <instance id>` syntax.
+		
+		So, instead of having
+		```
+		if (variable_instance_exists(self, "count")) {
+			count += 1;
+		} else count = 1;
+		```
+		You can have
+		```
+		if ("count" in self) {
+			count += 1;
+		} else count = 1;
+		```
+		Or even
+		```
+		count = (("count" in self) ? count : 0) + 1;
+		```
+		For cases where you would use
+		```
+		if (!variable_instance_exists(self, "marked")) {
+			marked = true;
+			// do something
+		}
+		```
+		you can also do `not in`:
+		```
+		if ("marked" not in self) {
+			marked = true;
+			// do something
+		}
+		```
+	}
+	#[Lightweight objects](gml-lq) {
+		Sometimes you may want to group several values together in an easy-to-read way, but without the hassle of creating-managing-destroying instances or data structures. For such cases you can use lightweight objects instead.
+		
+		To create one of these, use `{ key1: value1, key2: value2, ... }`:
+		```
+		myobj = { num: 1, str: "hi" };
+		```
+		you can then work with it exactly like you would with instances:
+		```
+		myobj.num += 1;
+		trace(myobj.num);
+		```
+		when you are done using it, no further action is required - lightweight are freed as soon as there are no more variables referencing them, just like with arrays.
+		
+		Also see [lightweight object API](api-lq).
+	}
+	#[Template strings](gml-template) {
+		Another quality-of-life feature of the mod's scripting language is template strings (sometimes also called template literals or string interpolation).
+		
+		Say, you want to display "HP: <current>/<max>" in UI.
+		
+		Normally you would need to do it like
+		```
+		#define draw_gui
+		with (Player) {
+			draw_text(10, 50, "HP: " + string(my_health) + "/" + string(maxhealth));
+			break;
+		}
+		```
+		which is... a little inconvenient.
+		
+		With template strings (denoted via `\`\`` quotes), however, you can use `${expression}` right inside the string to have values converted to strings and appended:
+		```
+		#define draw_gui
+		with (Player) {
+			draw_text(10, 50, `HP: ${my_health}/${maxhealth}`);
+			break;
+		}
+		```
+	}
+	#[Wait-instruction](wait) {
+		One of the scripting language's most notable features is the wait-instruction.
+
+		To put it shortly, when executed, the program will pause for the given number of frames while the rest of the game continues executing. So,
+		```
+		for (var i = 1; i <= 5; i++) {
+			trace(i);
+			wait 30;
+		}
+		```
+		will count up to 5 while waiting 30 frames (one second) between each step.
+
+		This allows to do lots of interesting things. For example, to make an explosive bullet for a custom weapon, you could simply `wait` for projectile to be destroyed while tracking it's position:
+		```
+		#define weapon_fire
+		motion_add(gunangle, -4);
+		weapon_post(6, -7, 5);
+		// create and configure a projectile:
+		var qx = x, qy = y;
+		var q = instance_create(qx, qy, HeavyBullet);
+		with (q) {
+			team = other.team;
+			motion_add(other.gunangle + random_range(-5, 5), 1);
+			friction = -0.8; // gradual acceleration
+			image_angle = direction;
+		}
+		// track projectile' position while it exists:
+		while (instance_exists(q)) {
+			qx = q.x + q.hspeed;
+			qy = q.y + q.vspeed;
+			wait 1;
+		}
+		// create an explosion at it's last position once it's gone:
+		instance_create(qx, qy, SmallExplosion);
+		```
+		Overall, `wait` is extremely useful for writing sequentially executing code without hassle.
+	}
+	#[Fork-instruction](fork) {
+		Another notable language feature is the `fork` instruction.
+
+		`fork()` acts like a function that, when called, will create a copy of the currently running script. The copy will have it's own (copied) local variables, but will share global variables, arrays, and game context with the original; The copy will execute it's script and finish while the original will continue it's own way; The function returns `true` to the copy and `false` to the original. For a more visual example,
+		```
+		if (fork()) {
+			trace("fork");
+		} else trace("orig");
+		trace("post");
+		```
+		This would output
+		```text
+		fork
+		post
+		orig
+		post
+		```
+		since the copy executes before the original script resumes. If you were to add a `wait` call into the copy however, the original would resume as soon as the copy pauses:
+		```
+		if (fork()) {
+			trace("fork");
+			wait 1;
+		} else trace("orig");
+		trace("post");
+		```
+		which would output
+		```text
+		fork
+		orig
+		post [from orig]
+		[1 frame pause]
+		post [from fork]
+		```
+		The most common use case scenario for `fork` is executing something involving `wait` without interrupting the original program. For that you would insert an `exit` statement in the end of `fork`'s branch to prevent it from executing the rest of the script. For example,
+		```
+		if (fork()) {
+			wait 10;
+			trace("fork");
+			exit;
+		} else trace("orig");
+		trace("post");
+		```
+		which would output
+		```text
+		orig
+		post <from orig>
+		<10 frame pause>
+		fork
+		```
+		So, if you wanted to give the earlier shown explosive bullet weapon to also have triple-shot (each projectile being tracked and exploding, obviously), you could do that like so:
+		```
+		motion_add(gunangle, -4);
+		weapon_post(6, -7, 5);
+		for (var i = -15; i <= 15; i += 15) if (fork()) {
+			var qx = x, qy = y;
+			var q = instance_create(qx, qy, HeavyBullet);
+			with (q) {
+				team = other.team;
+				motion_add(i + other.gunangle + random_range(-5, 5), 1);
+				friction = -0.8;
+				image_angle = direction;
+			}
+			while (instance_exists(q)) {
+				qx = q.x + q.hspeed;
+				qy = q.y + q.vspeed;
+				wait 1;
+			}
+			instance_create(qx, qy, SmallExplosion);
+			exit;
+		}
+		```
+		To summarize, `fork` compliments `wait` and even further extends what you can do with it.
+	}
+}
+#[General reference](api) {
+	#[General notes](api-general) {
+		First things first, Doing `/gmlapi` in chat produces a `api` subdirectory in game's save directory (`%LOCALAPPDATA%/nuclearthrone` on Windows), which contains a `api.gml` file. The file contains an auto-generated list of all supported functions, including ones not covered here.
+	}
+	#[Output functions](api-debug) {
+		#[trace(...values)]() {
+			Displays the given value(s) in chat.
+			
+			Values are separated by a single space.
+			
+			Non-string values are converted to string prior.
+			```
+			trace(1, 2); // "1 2"
+			trace(room_speed, "FPS"); // "30 FPS"
+			var arr = [1,2,3];
+			trace(arr); // "[1, 2, 3]"
+			var obj = {a:1,b:2};
+			trace(obj); // "{ a: 1, b: 2 }"
+			```
+			Advanced users can also enable this function to log to stdout via `/stdout` chat command - that allows to use it to debug code even if it crashes the game.
+		}
+		#[trace_time(?caption)]() {
+			Measures time (in nanoseconds) since the last call to this function, and displays it in chat if `caption` argument was specified.
+			```
+			trace_time();
+			// do something
+			trace_time("Time spent on something"); // "Time spent on something: #ns"
+			```
+		}
+		#[trace_color(text, color)]() {
+			Displays a message in chat with a colored line like those sent by players have.
+			```
+			trace_color("Red!", c_red);
+			trace_color("Green!", c_lime);
+			trace_color("Fancy!", make_color_rgb(250, 50, 200));
+			```
+		}
+	}
+	#[String functions](api-string) {
+		Most of these functions are exactly the same as [GM ones](http://docs.yoyogames.com/source/dadiospice/002_reference/strings/index.html), so only the non-standard ones are described here.
+		#[string_lpad(str, padstr, length)]() {
+			Prepends `padstr` to `str` until it reaches specified length.
+			```
+			trace(string_lpad(string(42), "0", 4)); // "0042"
+			```
+		}
+		#[string_rpad(str, padstr, length)]() {
+			Appends `padstr` to `str` until it reaches specified length.
+			```
+			trace(string_rpad(string(42), "0", 4)); // "4200"
+			```
+		}
+		#[string_auto(number)]() {
+			Converts a number to a string with automatic precision (unlike `string_format`, which requires specifying the number of decimal places).
+			```
+			trace(string_auto(0.4)); // "0.4"
+			trace(string_auto(0.4040)); // "0.404"
+			```
+		}
+		#[string_trim(string)]() {
+			Removes leading and trailing spaces from a string.
+			```
+			trace(string_trim(" hi ")); // "hi"
+			```
+		}
+		#[string_ltrim(string)]() {
+			Removes leading spaces from a string.
+			```
+			trace(string_trim(" hi ")); // "hi "
+			```
+		}
+		#[string_rtrim(string)]() {
+			Removes trailing spaces from a string.
+			```
+			trace(string_trim(" hi ")); // " hi"
+			```
+		}
+		#[string_split(string, delimiter)]() {
+			Splits a string on delimiter into an array of strings.
+			The general opposite of [array_join].
+			
+			If the string does no contain the delimiter, returns a 1-element array with the entire string.
+			```
+			trace(string_split("1|2|3", "|")); // [1, 2, 3]
+			```
+		}
+		#[string_sha1(string)]() {
+			Returns a SHA-1 hash of a string, assuming Unicode encoding.
+		}
+		#[string_sha1_utf8(string)]() {
+			Returns a SHA-1 hash of a string, assuming UTF-8 encoding.
+		}
+		#[string_md5(string)]() {
+			Returns a MD5 hash of a string, assuming Unicode encoding.
+		}
+		#[string_md5_utf8(string)]() {
+			Returns a MD5 hash of a string, assuming UTF-8 encoding.
+		}
+		Also see: [string_load], [string_save].
+	}
+	#[Array functions](api-array) {
+		Array functions in NTT's API include a set of additional helper functions.
+		#[array_create(size, value = 0)]() {
+			Creates an array of given size. Size of 0 is allowed.
+			
+			If `value` argument is specified, the array is filled with the given value.
+			
+			Otherwise it is filled with zeroes.
+			```
+			var arr = array_create(3);
+			trace(arr); // [0, 0, 0]
+			arr = array_create(2, "hi");
+			trace(arr); // ["hi", "hi"]
+			```
+		}
+		#[array_length(array)]() {
+			Returns the length of the provided array.
+			
+			Returns 0 for non-array values.
+			
+			You can also use the standard `array_length_1d` alias for this function.
+			```
+			var arr = [1, 2, 3];
+			trace(array_length(arr)); // 3
+			```
+		}
+		#[array_push(array, value)]() {
+			Inserts a value to the end of the array, expanding it.
+			
+			Creates a 1-element array if the value isn't an array yet.
+			
+			Returns the array (either the same if the value was an array or a newly made one).
+			```
+			var arr = [1];
+			trace(arr); // [1]
+			array_push(arr, 2);
+			trace(arr); // [1, 2]
+			```
+		}
+		#[array_find_index(array, value)]() {
+			Returns the index of first occurrence of a value in the array.
+			```
+			var arr = ["a", "b", "c"];
+			trace(array_find_index(arr, "b")); // 1
+			trace(array_find_index(arr, "c")); // 2
+			trace(array_find_index(arr, "d")); // -1
+			```
+		}
+		#[array_clear(array, value)]() {
+			Replaces the contents of an array with given value.
+			```
+			var arr = [1, 2, 3];
+			array_clear(arr, 4);
+			trace(arr); // [4, 4, 4]
+			```
+		}
+		#[array_clone(array)]() {
+			Returns a shallow copy of the given array.
+			```
+			var a = [1, 2, 3];
+			var b = array_clone(a);
+			a[1] = 4;
+			trace(a); // [1, 4, 3]
+			trace(b); // [1, 2, 3]
+			```
+		}
+		#[array_copy(dest_array, dest_index, source_array, source_index, length)]() {
+			Copies values between arrays.
+			
+			Destination-array is expanded to fit new size if needed.
+			```
+			var a = [1, 2, 3, 4];
+			var b = [4, 5];
+			array_copy(a, 3, b, 0, 2);
+			trace(a); // [1, 2, 3, 4, 5]
+			```
+		}
+		#[array_slice(array, start, length)]() {
+			Returns a new array with values representing a section of an array.
+			
+			This is more or less a shortcut for [array_create] + [array_copy].
+			```
+			var arr = [1, 2, 3, 4, 5];
+			trace(array_slice(arr, 1, 3)); // [1, 2, 3]
+			```
+		}
+		#[array_join(array, delimiter:string)]() {
+			Joins the contents of an array into a string, separating them as specified.
+			```
+			var arr = [1, 2, 3];
+			trace(array_join(arr, "|")); // "1|2|3"
+			```
+			[string_split] can be considered a counterpart of this function.
+		}
+	}
+	#[Lightweight object functions](api-lq) {
+		The following functions deal with [lightweight objects](gml-lq):
+		#[lq_get(obj, field)]() {
+			Retrieves a field' value from a lightweight object by name.
+			
+			Returns `undefined` if the field is amiss or the value is not a lightweight object.
+			```
+			var obj = { str: "hi" };
+			trace(lq_get(obj, "str")); // "hi"
+			```
+		}
+		#[lq_defget(obj, field, defvalue)]() {
+			Retrieves a field' value from a lightweight object by name.
+			
+			Returns `defvalue` if the field is amiss or the value is not a lightweight object.
+			```
+			var obj = { str: "hi" };
+			trace(lq_defget(obj, "some", "oh no")); // "oh no"
+			```
+		}
+		#[lq_set(obj, field, value)]() {
+			Modifies a field' value in a lightweight object by name.
+			```
+			var obj = { num: 1 };
+			lq_set(obj, "num", 2);
+			trace(obj.num); // 2
+			```
+		}
+		#[lq_exists(obj, field)]() {
+			Returns whether a field is present in the given object.
+			```
+			var obj = { a: 4 };
+			trace(lq_exists(obj, "a")); // 1
+			trace(lq_exists(obj, "b")); // 0
+			```
+		}
+		#[lq_size(obj)]() {
+			Returns the number of fields on the given object.
+			```
+			var obj = { a: 4, b: "?" };
+			trace(lq_size(obj)); // 2
+			```
+		}
+		#[lq_get_key(obj, index)]() {
+			Retrieves a field' name by index.
+			
+			Fields are numbered by order of their definiion.
+			```
+			var obj = { a: 4, b: "?" };
+			trace(lq_get_key(obj, 0)); // "a"
+			trace(lq_get_key(obj, 1)); // "b"
+			```
+		}
+		#[lq_get_value(obj, index)]() {
+			Retrieves a field' value by index.
+			
+			Fields are numbered by order of their definiion.
+			```
+			var obj = { a: 4, b: "?" };
+			trace(lq_get_value(obj, 0)); // 4
+			trace(lq_get_value(obj, 1)); // "?"
+			```
+		}
+		#[lq_clone(obj)]() {
+			Produces a shallow copy of an object.
+			```
+			var obj = { a: 4, b: "?" };
+			var copy = lq_clone(obj);
+			copy.a += 4;
+			trace(obj); // { a: 4, b: "?" }
+			trace(copy); // { a: 8, b: "?" }
+			```
+		}
+	}
+	#[File functions](api-file) {
+		#[Introduction](api-file-intro) {
+			Things aren't quite as they seem with file functions in modding.
+			
+			The general concept is that files on disk have to be explicitly loaded by the mod before you can do anything with them. In local modes, it's just a 1 frame delay.
+			
+			In online multiplayer, the file(s) also have to be transmitted to the co-player(s) so that the performed actions are the same, which means more delay before loading. Modified files are kept on the machine of player that loaded the mod.
+			
+			Modified files are saved into a special "data" directory created per-mod.
+			When loading, the priority of picking files is as following (from first tried to last tried):
+			--{
+			--	Mod's data directory (previously created\modified files)
+			--	Directory in which mod's .gml file is located.
+			--	Game's appdata directory.
+			--	Game's installation directory.
+			}
+			Files created at runtime (i.e. saved by mod) are considered to be loaded instantly, obviously.
+		}
+		#[file_load(...paths)]() {
+			Start loading the given path(s).
+			
+			Paths can be either actual paths (strings) or arrays of paths.
+			
+			Returns the number of frames until files will be ready.
+			
+			If the file doesn't exist, it is still to be "loaded", which in online multiplayer simply informs the other player(s) that the file is amiss.
+			
+			The following would preload a text file `test.txt` and display it's contents once done:
+			```
+			wait file_load("test.txt"); // pause the script's execution until file's loaded.
+			trace("test.txt:", string_load("test.txt")); // display the contents
+			```
+		}
+		#[file_unload(...paths)]() {
+			Unloads the given files from memory.
+			
+			This is instantaneous and returns nothing.
+		}
+		#[file_loaded(path)]() {
+			Returns whether the file by given path is loaded (regardless of whether it exists).
+			```
+			var t = file_load("test.txt");
+			trace(file_loaded("test.txt")); // 0 - not yet
+			wait t;
+			trace(file_loaded("test.txt")); // 1 - now it is
+			```
+		}
+		#[file_exists(path)]() {
+			Returns whether the file by given path is loaded and exists.
+			```
+			trace(file_exists("test.txt")); // 0 
+			string_save("hi", "test.txt");
+			trace(file_exists("test.txt")); // 1
+			```
+		}
+		#[file_delete(path)]() {
+			Unloads a file from memory and removes it from disk (on machine of player that loaded the mod).
+		}
+		#[file_size(path)]() {
+			Returns the size (in bytes) of file at given path, or -1 if it isn't loaded / does not exist.
+		}
+		#[file_sha1(path)]() {
+			Returns a SHA-1 hash of the file at given path, or `undefined` if it does not exist / is not loaded.
+		}
+		#[file_md5(path)]() {
+			Returns a MD5 hash of the file at given path, or `undefined` if it does not exist / is not loaded.
+		}
+		#[file_download(url, path)]() {
+			Initiates downloading of a file from the internet to the given location.
+			
+			The function returns nothing and makes no promises as to when and whether operation will complete - use [file_loaded] to find when it loads.
+			
+			The file is downloaded from original URL by the player that loaded the mod - in online multiplayer, the other player will be sent the mod-loading-player's copy of it once it loads.
+			
+			The following would download a file and display it's contents:
+			```
+			file_download("http://yal.cc/ping", "ping.txt");
+			while (!file_loaded("ping.txt")) wait 1;
+			trace("Unix time at Yellow's website:", string_load("ping.txt"));
+			```
+		}
+		#[file_upload(upload_path, upload_url, ?response_path)]() {
+			Submits a file via HTTP POST to an URL.
+			
+			If `response_path` argument is specified, response will be saved into a file.
+			
+			As it's based on `http_post_string`, can only upload "texty" files.
+			```
+			string_save("hello!", "post.txt");
+			file_upload("http://httpbin.org/post", "post.txt", "out.txt");
+			while (!file_loaded("out.txt")) wait 1;
+			trace("Response: ", string_load("out.txt"));
+			```
+		}
+		#[file_find_all(path, array, depth = 0)]() {
+			Finds all files in the given directory and populates the provided array.
+			
+			The function looks relative to mod's data directory first and then directory where the mod itself is located, first of two taking priority for "overlapping" files.
+			
+			If `array` already contains items, any extras are replaced with `undefined` (to avoid clashing between multiple searches).
+			
+			If `depth` is above 0, recursively searches in subdirectories as well, up to specified depth.
+			
+			Returns the number of frames until data will be ready.
+			
+			The array is filled with [lightweight objects](gml-lq) with the following fields: --{
+				--	`name`: name and extension of the item (e.g. `"some.png"`)
+				--	`path`: full path to the item (e.g. `"sprites/some.png"`)
+				--	`ext`: the extension of the file, including dot (e.g. `".png"`)
+					This is a blank string `""` for directories and files without extension.
+				--	`is_dir`: whether it is a directory (true or false).
+				--	`is_data`: whether the entry resides inside the mod's `data` directory.
+			}
+			For example, the following would display paths to all files inside the "sprites" directory next to the mod.
+			```
+			var arr = [];
+			wait file_find_all("sprites", arr);
+			var n = array_length(arr);
+			for (var i = 0; i < n; i++) {
+				trace(arr[i].path);
+			}
+			```
+			If you want to look in mod's directory specifically, you can use `"."` as path, but note that you should usually only do this if your mod comes with it's own directory (as otherwise you would be picking up files form other mods in search).
+		}
+		#[string_load(path)]() {
+			Loads and returns the contents of given file as a string.
+			
+			Returns `undefined` if the file does not exist or is not loaded.
+			```
+			trace(string_load("test.txt")); // "hi" or undefined
+			string_save("test.txt", "hi");
+			trace(string_load("test.txt")); // "hi"
+			```
+		}
+		#[string_save(string, path)]() {
+			Saves the contents of a string to the given file.
+			
+			The following example would add one "hi" to "test.txt" upon each execution:
+			```
+			wait file_load("test.txt");
+			var s = string_load("test.txt");
+			if (s == undefined) s = "hi"; else s += "hi";
+			trace("text: " + s);
+			string_save(s, "test.txt");
+			```
+		}
+	}
+	#[Sprite functions](api-sprite) {
+		Most of the sprite functions map exactly to [GameMaker ones](http://docs.yoyogames.com/source/dadiospice/002_reference/game%20assets/sprites/index.html), so only the NTT-specific ones and those differing in behaviour are described here.
+		#[General notes](api-sprite-notes) {
+			--{
+			-- Same as with built-in GameMaker functions, for ones that allow to load files with multiples frames (subimages), they should be arranged in a horizontal strip:
+			![sprMutant1Idle](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHASURBVGhD7ZXNccQgDIV9SAk5pY20kK7SQrpIEykhHaSHNOEggVgBMsZI8uTAm3ljlp/vgfB4t6WlpaWlpY72ZBBvL0W512f/+XhG8O/3CwVYBnGWJZfkzneuTwz4fIsB/AljcYpKxQEY14INcn+BPOuzv74/7dtXACUDnAJwTB9yywU78Yv6QA6wia+tT1N8bgiBpzJEzLA6QFDDNyyQuHfKwAsObU1GAT0KQ88FFExvfm2DF6hhchMfPccvFuNGJdN48hXdw09GFvtd+DobVDAs+bSggPDvm2QYT+vO5M0nRXbK4pfKTePJI3rM9+GXxaACQRu+a0fGuWMh7vzsxAYbXrC4f0M+Kh/cKcCTX7CID23KlIxzFfu35IsHOPWFzTvzQfngtN77gg35OAmN37AU0PUgOMmdLxXo1OMZNHd8/+Bxftbjj6SCUX8em4AHiWywkk/zD/mNr/FJ5R57nuOXBzgKwv7/eYBDPvXnMQW/ZtZ87JvjozIQ24IVAXGtcABuK35msd+5b44PqhmNlfywEDYqA9TwIO8D3MLHZ8uoc6fUW6wCJxFD4vTGRtVj9MZG1VuvZS8tLS35atv+ACRn5lw8z+YoAAAAAElFTkSuQmCC)
+			
+			-- For functions dealing with loading from files, behaviour depends on file status: --{
+			-- If the file is already loaded (see [file_load]), the function performs it's action (addition/replacement) immediately, also returning the result (e.g. -1 for [sprite_add] if a sprite cannot be loaded).
+			--	If the file is not yet loaded, it will be loaded asynchronously.
+				Functions that return new sprites will return an initially empty sprite and update it once the image becomes available.
+				Functions that replace existing sprites will not carry out the operation until the image is loaded.
+				If an error occurs, error text will be shown in chat.
+			}
+			
+			-- Many functions allow to specify origin (x, y). Origin defines rotation point for the sprite. General rules are as following: --{
+				--	Level tiles have origin at top-left (0, 0).
+				--	Various entities and projectiles have origin at center of mass.
+				--	Weapons have origin at "handle" point.
+				--	When replacing sprites/subimages, origin can be omitted to not change it.
+			}
+			
+			-- Sprites loaded by the mod are automatically unloaded when the mod is - no need to do that manually.
+			}
+		}
+		#[sprite_add(path, subimages, x, y)]() {
+			Loads a sprite from a file and returns resulting sprite index.
+			
+			If the file is loaded but image loading fails, returns `-1`.
+			
+			So, if you wanted to load and draw the sprite shown in [notes](api-sprite-notes) section, you could save that as `test.png` next to a `test.mod.gml`, with code as following:
+			```
+			global.spr_test = sprite_add("test.png", 4, 12, 12);
+			#define draw
+			draw_sprite(global.spr_test, current_frame * 0.4, mouse_x, mouse_y - 32);
+			```
+		}
+		#[sprite_add_base64(base64, subimages, x, y)]() {
+			Loads a sprite from a base64-encoded string.
+			
+			This can be convenient for smaller mods, where embedding images into code allows to distribute them as a single .gml file.
+			
+			You can find both online tools (search for "image to base64") for the purpose and plugins for popular image editors.
+			
+			The following loads a 18x24 [image](^sprite by blaac) from a base64-encoded string and draws it spinning at mouse cursor.
+			```
+			global.spr_test = sprite_add("iVBORw0KGgoAAAANSUhEUgAAABIAAAAYCAYAAAD3Va0xAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADFSURBVDhPnZKLDcMwCES9/z6ZogN0nFbHxx8MBudJKDa+O+EkLeHn1BVksjyfbzmQRDCcmAJd0gALPGwdyNEd8LGdkfaOeSdRdboJ6B5g7VRIF80UpgmRiBxo2eKzfTXsbUHHciIMlIjxfoATZGuDjPY5g54TvCFyxu4VM5kLiQDWETgj9YE+8onTlRSR5kDLloE2qaqIfqFfJ7vSDHxsHyxB1TD4pBaugmYdvBwxoKYXhJ6eB+Ui9tqPd0Ji/LFveDFFa38MVTOUat2nfgAAAABJRU5ErkJggg==", 1, 9, 12);
+			#define draw
+			draw_sprite_ext(global.spr_test, 0, mouse_x, mouse_y - 32, 1, 1, current_frame * 15, c_white, 1);
+			```
+		}
+		#[sprite_add_weapon(path, x, y)]() {
+			Loads a single-frame weapon sprite from a file and automatically generates "shine" frames required for such:
+			
+			![sprMinigun](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAAKCAYAAAAZ+KQKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHXSURBVFhH7ZExTgQxDEX3DlRcgBaJjgYuQE2HuA8HoOSqS77zHTxeJ5PdSRYJ5klfKI7jN14OOzv/iWOQFr7HvrP1BccAXoWwpfTwWGA5Qr/DpoXvse9sfQE/o6uX+B77ztY9cm/J5Sp+np593eP7Wr2/+v+xsLZAHjzf3hzf7+/k78vrmw6pJur5+PyS8LyA/uFwvEX8v7HPDE9C6nafHkZ4evZZI/V45N25nto+SjoX5FIFGpzxAIP0h/DRO7y3NScX6J0GNUC8s/dJ0Bwz0oPU9ukB77d69Juj6F2LrBA2e/De1hDUnCdLIhEePDw+rQYz7FmlqIshIdaJUAOusk9CZrawM6Jghj23PK19ehjhWQtm1MgKYYjHniv7/Ih80AxZKzpQz1bOCNxvGtSAcBdk5D6JMreFnW1zicfH7tPDCE8tdp+IrBBCB3KuB2nsUxfhIe5biXpUyrPA/aZBDQh3QUbuk1jMboFen0s9Nn5GD+jb6omy9i2ppoQO5BKP1ky9sBiOc5AWvse+K3Xu14StIWypzmNZ6tfYJ3Hi8eS2KifzXJQTT5Aq/BTbU3u7yZPwPTRnWAPDPS6F6sVIuF+B5eFw/PR9Etaxe/q5lmdn5y9xOHwD0/DG3iXYjxoAAAAASUVORK5CYII=)
+			
+			As outlined above, for weapon sprites the origin should be somewhere at the handle, as it is pivoted to player sprite using that.
+		}
+		#[sprite_add_weapon_base64(base64, x, y)]() {
+			Same as [sprite_add_weapon], but loads from a base64-encoded string like [sprite_add_base64] does.
+		}
+		#[sprite_replace(sprite, path, subimages, ?x, ?y)]() {
+			Replaces an existing sprite with one from the image.
+			
+			If loading fails, the sprite is left untouched.
+			
+			If origin is not specified, the existing one is used. 
+		}
+		#[sprite_replace_base64(sprite, path, subimages, ?x, ?y)]() {
+			Same as [sprite_replace], but loads a base64-encoded string like [sprite_add_base64] does.
+		}
+		#[sprite_restore(sprite)]() {
+			Restores a "built-in" (non-mod-created) sprite to it's original state.
+		}
+		#[sprite_delete(sprite)]() {
+			Deletes a previously created sprite.
+			
+			Mods can only delete sprites created by them.
+		}
+	}
+	#[Drawing functions](api-draw) {
+		Drawing functions are largely the same as [GameMaker ones](http://docs.yoyogames.com/source/dadiospice/002_reference/drawing/index.html), but include a few additions to make things easier:
+		#[draw_text_shadow](x, y, string) {
+			Draws a string with a simple "drop shadow" type effect - that is, by drawing it 3 more times in black color at (+1, +0), (+0, +1) and (+1, +1) offsets.
+		}
+		#[draw_text_nt(x, y, string)]() {
+			Draws a string with "tags" for multiple colors, images, and more.
+			
+			Supported tags are as following: --{
+				-- `@w`: Changes color to white.
+				-- `@s`: Changes color to silver.
+				-- `@d`: Changes color to dark gray.
+				-- `@r`: Changes color to red.
+				-- `@g`: Changes color to green.
+				-- `@b`: Changes color to blue.
+				-- `@p`: Changes color to purple.
+				-- `@y`: Changes color to yellow.
+				-- `@q`: Randomly offsets the subsequent offsets.
+				
+				Is used for cursed weapon' tips in base game.
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "@qh @qe @ql @ql @qo");
+				```
+				
+				-- `@(color:<decimal color>)`
+				Allows to use arbitrary colors. Best used with [template strings](gml-template):
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, `@(color:${c_yellow})hi`);
+				draw_text_nt(10, 70, `@(color:${make_color_hsv(current_frame, 200, 255)})hi`);
+				```
+				
+				-- `@(<sprite>)`
+				Inserts a sprite into text. Can be either name of built-in sprite or a decimal sprite index for custom sprites.
+				The sprite will be shown animated at 12fps (game's standard).
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "@(sprMutant1Idle) can roll");
+				```
+				
+				-- `@(<sprite>:<frame>)`
+				Shows a specific frame of the given sprite.
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "@(sprRevolver:0) s that make breakfast");
+				```
+				
+				-- `@(<sprite>:<-speed>)`
+				Shows the given sprite animated at given speed, measured in multiplier relative to 30fps.
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "@(sprGammaGuts:-0.5) blast");
+				```
+				
+				-- `@(sprButSmall:<button>)`, `@(sprButBig:<button>)`
+				Displays a controller button as per player's settings (controls + gamepad type).
+				
+				Button can be one of following:
+				--{
+					-- `fire`
+					-- `spec`
+					-- `pick`
+					-- `swap`
+					-- `move`: Movement stick
+					-- `aim`: Aiming stick
+				}
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "Move with @1(sprButSmall:move)");
+				```
+				
+				-- `(sprButBug:<button>)`
+				Same as sprButSmall, but, well, larger sprites. Used for menus.
+				
+				-- `(sprKeySmall:<button>)`
+				Displays a keyboard button as per player's settings (controls).
+				
+				Button can be one of following:
+				--{
+					-- `fire`
+					-- `spec`
+					-- `pick`
+					-- `swap`
+					-- `nort`
+					-- `sout`
+					-- `east`
+					-- `west`
+					-- (custom): as per [MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731%28v=vs.85%29.aspx)
+				}
+				Key images are 3 characters wide at most.
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "Fire with @1(keysmall:0) or @1(keysmall:fire)");
+				```
+				
+				-- `@1(...)` ... `@9(...)`
+				Same as `@(...)` tags, but aligns the image to be in the middle of X symbols.
+				```
+				#define draw_gui
+				draw_text_nt(10, 50, "@2(sprMapIcon:10)x3");
+				```
+			}
+		}
+	}
+	
+}
+#[NTT mod types](api-mod) {
+	#[Introduction](any.gml) {
+		NTT mods are presented as .gml files, with a (fake) extension indicating the mod' type.
+		
+		So, for instance, a [global mod](mod.gml) could be named `some.mod.gml`, while a [custom weapon](wep.gml) could be named `some.wep.gml`, and so on.
+		
+		Every mod has it's own scripts, macros, data structures, and global variables.
+		Game' objects, functions, and variables are shared between all mods.
+		
+		The primary method of communication between game and mods is through scripts - if the mod defines certain script(s), the game will call them at certain times.
+		
+		The following scripts can be defined on any mod:
+		#[init()](init) {
+			Executed once when the mod finishes loading.
+			
+			This is where you would usually load sprites, set global variables, and so on.
+			
+			You do not have to declare an `init` script explicitly - if the mod file contains code before the start of the first script, it'll be automatically considered to be the `init` code.
+			
+			```
+			#define init
+			global.map = ds_map_create();
+			```
+		}
+		#[cleanup()](cleanup) {
+			Executed just before a mod is unloaded.
+			
+			This is where you clean up after your mod if you intend it to be loaded-unloaded freely.
+			
+			Assets and data structures created by the mod will be destroyed automatically, but instances won't, so consider taking care of those, particularly if they behave unusually when left unsupervised.
+			```
+			#define cleanup
+			trace("See you later!");
+			```
+		}
+	}
+	#[Global mods](mod.gml) {
+		These are the most general mod type, running at majority of times.
+		Global mods are denoted by `.mod.gml` extension.
+		
+		They may define the following special scripts:
+		#[game_start()](mod.gml:game_start) {
+			Executed whenever a run is \[re-\]started.
+		}
+		#[step()](mod.gml:step) {
+			Executed every frame.
+			
+			An important distinction is that this is executed before _anything else_, making it perfect for quickly responding to game' events before anything else might.
+		}
+		#[draw()](mod.gml:draw) {
+			Executed from draw event - after most other things are drawn, but before any HUD elements are drawn.
+			
+			Draws relative to level by default.
+		}
+		#[draw_shadows()]() {
+			Can be used to draw non-standard shadows beneath select objects.
+			
+			Anything drawn here will be displayed in black semi-transparent color like shadows are.
+			
+			For simpler cases, you can change `spr_shadow`, `spr_shadow_x`, and `spr_shadow_y` on entities.
+		}
+		#[draw_bloom()]() {
+			Can be used to draw custom bloom, such as on projectiles.
+		}
+		#[draw_dark(), draw_dark_begin(), draw_dark_end()](draw_dark) {
+			The game's lighting system (for dark levels) is an interesting one - it clears a surface with white color, then "punches out" black and gray holes in the surface, then draws it with subtractive blending mode over the game, having it that white areas of surface become black on screen, gray areas darken the image, and black areas leave the image unaffected.
+			
+			`draw_dark_begin` executes after the surface is cleared. You can use it to re-clear it with a different color to have completely dark areas still visible.
+			
+			`draw_dark` executes after the game finishes drawing it's gray circles, and is where you draw your own gray circles.
+			
+			`draw_dark_end` executes after the game finishes drawing it's black circles, and is where you draw your own black circles. You can also use this to _hide_ something by drawing white circles.
+			
+			```
+			#define step
+			with (TopCont) darkness = 1; // force all levels to be dark
+
+			#define draw_dark_begin
+			draw_clear($dddddd);
+
+			#define draw_dark
+			draw_set_color($808080);
+			draw_circle(mouse_x, mouse_y, 30 + random(4), false);
+
+			#define draw_dark_end
+			draw_set_color($000000);
+			draw_circle(mouse_x, mouse_y, 20 + random(4), false);
+			```
+		}
+		#[draw_gui()]() {
+			Allows to draw things on top of HUD - for custom UI and such.
+			
+			Draws relative to screen by default.
+		}
+		#[draw_gui_end()]() {
+			Allows to draw things on top of literally everything - you can even draw on top of sideart by specifying X coordinate below 0 or above [game_width].
+			
+			Draws relative to screen by default.
+		}
+		#[draw_pause()]() {
+			Executes while the game is paused (can be used for custom UI).
+		}
+	}
+	#[Custom characters](race.gml) {
+		Custom race mods allow to introduce additional characters into the game.
+		Denoted by `.race.gml` extension.
+		
+		They may define the following special scripts:
+		#[game_start()](race.gml:game_start) {
+			Executed on run \[re-\]start if any player(s) use the character.
+			
+			This is where you would reset any run-related global variables.
+		}
+		*UI-related:*
+		#[race_name()]() {
+			Should return the custom character' name.
+			```
+			#define race_name
+			return "SOME";
+			```
+		}
+		#[race_text()]() {
+			Should return the character' description for character select.
+			```
+			#define race_text
+			return "PASSIVE TEXT#@rACTIVE@w TEXT";
+			```
+		}
+		#[race_swep()]() {
+			May return the starting weapon for the character. Defaults to revolver.
+			```
+			#define race_swep
+			return wep_pop_rifle;
+			```
+		}
+		#[race_mapicon(player_index, skin)]() {
+			May return a sprite for use as map (shown in pause / on gameover) icon.
+			
+			`player_index` is a 0-based index.
+			
+			`skin` is the skin as per `Player.skin`.
+		}
+		#[race_portrait(player_index, skin)]() {
+			May return a sprite for use as portrait art (on character select and in pause menu).
+			
+			`player_index` is a 0-based index.
+			
+			`skin` is the skin as per `Player.skin`.
+		}
+		#[race_ttip()]() {
+			Can return one or more tips for display on loading screens.
+			```
+			#define race_ttip
+			return choose("Tip 1", "Tip 2");
+			```
+		}
+		#[race_menu_button()]() {
+			Executed for character' button on character selection screen. This is where you would set it's `sprite_index` and anything else that you require.
+		}
+		*Audio-related:*
+		#[race_soundbank()]() {
+			May return the race ID for use as default sounds for the character.
+			
+			Can be overriden in [create](race.gml:create) script.
+			```
+			#define race_soundbank
+			return char_fish;
+			```
+		}
+		#[race_menu_select()]() {
+			May return the sound to be played when when selecting (but not yet starting with) the character on the character select menu.
+			```
+			#define race_menu_confirm
+			return sndMutant1Slct;
+			```
+		}
+		#[race_menu_confirm()]() {
+			May return the sound to be played when when starting a run with the character.
+			```
+			#define race_menu_confirm
+			return sndMutant1Cnfm;
+			```
+		}
+		*Instance-related*:
+		#[create()](race.gml:create) {
+			Executes when: --{
+				-- The character is spawned (on [game start](race.gml:game_start)).
+				-- The character is revived.
+				-- Character' race/skin is changed via assigning Player.race/skin.
+			}
+			You should use this to: --{
+				-- Set character' sprites and sounds.
+				-- Change character-specific stats.
+				-- Initialize any variables for later use in [step](race.gml:step)/[draw](race.gml:draw).
+			}
+			```
+			#define create
+			spr_idle = sprMolesargeIdle;
+			spr_walk = sprMolesargeWalk;
+			spr_hurt = sprMolesargeHurt;
+			spr_dead = sprMolesargeDead;
+			```
+		}
+		#[step()](race.gml:step) {
+			Executes from character's step event after all standard-issue logic and before the final check for death. This is where you usually handle passive/active abilities.
+			```
+			#define step
+			if (button_pressed(index, "spec")) {
+				trace("<active ability>");
+			}
+			```
+		}
+		#[draw_begin()](race.gml:draw_begin) {
+			Executes from character's draw event before most things are drawn.
+			
+			Can be used to draw anything (e.g. additional weapon(s)) behind the character, as well as temporarily overriding any variables.
+		}
+		#[draw()](race.gml:draw) {
+			Executes from character's draw event just after the character sprite is drawn.
+			
+			If the situation requires you to draw something in front of the character but behind the front-facing weapon, this is where you do that.
+		}
+		#[draw_end()](race.gml:draw_end) {
+			Executes from character's draw event after most things are drawn.
+			
+			Can be used to draw anything (e.g. additional weapon(s)) in front of the character and front-facing weapon.
+		}
+		*Unlock-related:*
+		#[race_avail()]() {
+			May return whether the character is unlocked. Defaults to true.
+		}
+		#[race_lock()]() {
+			May return the unlock hint text when the character is locked. Defaults to `"???"`.
+		}
+		*Skin-related:*
+		#[race_skins()]() {
+			May return the number of skins available for the character. Defaults to 1.
+			
+			You would then set sprites/sounds/etc. based on `skin` variable in [create](race.gml:create).
+			Default skins would have incremental indexes (0, 1, 2, ..) while [custom skins](skin.gml) have string indexes and execute after race-mod's create script.
+		}
+		#[race_skin_avail(skin)]() {
+			May return whether the specified character' skin is unlocked. Defaults to true.
+		}
+		#[race_skin_name(skin)]() {
+			May return the custom label for character' skin. Defaults to `"Skin <A, B, ..>"`.
+		}
+		#[race_skin_button(skin)]() {
+			Executed for character' skin' button. This is where you would set it's `sprite_index` and anything else that you require.
+			```
+			#define race_skin_button(skin)
+			switch (skin) {
+				case 0: sprite_index = sprMolesargeIdle; break;
+				case 1: sprite_index = sprMolefishIdle; break;
+			}
+			```
+		}
+		*Throne Butt related:*
+		#[race_tb_text()]() {
+			Should return character-specific Throne Butt (mutation) text.
+			
+			This shouldn't be _too_ long, since in coop multiple of these can be appended together to form the combined description.
+		}
+		#[race_tb_take(value)]() {
+			Called when Throne Butt is taken or lost.
+			
+			You are not _required_ to make TB "cancelable" since it can only be removed via [skill_set] call.
+		}
+		*Ultra mutation related:*
+		#[race_ultra_name(index)]() {
+			Should return the ultra mutation' name per it's number (1-based).
+			
+			Number of available ultra mutations is deducted based on number of valid strings returned from this function.
+			```
+			#define race_ultra_name(i)
+			switch (i) {
+				case 1: return "Ultra A";
+				case 2: return "Ultra B";
+			}
+			```
+		}
+		#[race_ultra_text(index)]() {
+			Should return the ultra mutation' description per it's number (1-based).
+		}
+		#[race_ultra_button(index)]() {
+			Called for ultra mutation' button to set it's `sprite_index` (and anything else).
+		}
+		#[race_ultra_icon(index)]() {
+			Should return the ultra mutation' sprite for use in HUD per it's number (1-based).
+		}
+		#[race_ultra_take(index, value)]() {
+			Called when an ultra mutation is picked.
+			
+			If [race_ultra_lose] is defined, it is called only when ultra mutation is taken and with one argument. Otherwise it's called both when it is taken or lost with additional `value` argument (for consistency with [race_tb_take]).
+		}
+		#[race_ultra_lose(index)]() {
+			Legacy script. If defined, [race_ultra_take] will receive only one argument (index) and will not be called when ultra mutation is removed.
+			
+			It is not _required_ to make ultras "cancelable" since they can only be lost via [ultra_set] call.
+		}
+	}
+	#[Custom skins](skin.gml) {
+		Custom skin mods can introduce additional skins for game's characters - be that built-in ones or custom characters.
+		Denoted by `.race.gml` extension.
+		
+		They may define the following special scripts:
+		#[skin_race]() {
+			Must return the race ID to apply to - can be either decimal for adding skins to default characters, or a string for adding skins to custom characters.
+		}
+		#[game_start](skin.gml:game_start) {
+			Much like [game_start](race.gml:game_start) in custom character mods, executes on run \[re-\]start if the skin is in use by any player(s).
+		}
+		*UI-related:*
+		#[skin_avail()]() {
+			May return whether the skin is unlocked. Defaults to true.
+		}
+		#[skin_name(locked)]() {
+			May return text to display on skin button' mouseover.
+			
+			Argument contains result from [skin_avail] for easier reuse.
+		}
+		#[skin_button()]() {
+			Much like [race_skin_button], applies to skin select button in loadout UI.
+		}
+		#[skin_portrait(player_index)]() {
+			May return a sprite for use as portrait art (on character select and in pause menu).
+		}
+		#[skin_mapicon(player_index)]() {
+			May return a sprite for use as map (shown in pause / on gameover) icon.
+		}
+		*Overrides:*
+		#[skin_race_name()]() {
+			If defined, overrides [race_name].
+		}
+		#[skin_race_text()]() {
+			If defined, overrides [race_text].
+		}
+		#[skin_race_tb_text()]() {
+			If defined, overrides [race_tb_text].
+		}
+		*Instance-related:*
+		#[create](skin.gml:create) {
+			Much like [create](race.gml:create) in custom character mods, executes in Player' create event.
+		}
+		#[step](skin.gml:step) {
+			Much like [step](race.gml:step) in custom character mods, executes in Player' step event.
+		}
+		#[draw_begin](skin.gml:draw_begin) {
+			Much like [draw_begin](race.gml:draw_begin) in custom character mods, executes in Player' draw event before most things are drawn.
+		}
+		#[draw_begin](skin.gml:draw) {
+			Much like [draw](race.gml:draw) in custom character mods, executes in Player' draw event just after the actual player sprite is drawn
+		}
+		#[draw_begin](skin.gml:draw_end) {
+			Much like [draw_end](race.gml:draw_begin) in custom character mods, executes in Player' draw event after most things are drawn.
+		}
+	}
+	#[Custom weapons](wep.gml) {
+		Custom weapon mods allow to introduce additional weapons into the game.
+		Denoted by `.wep.gml` or `.weapon.gml` extension.
+		
+		They may define the following special scripts:
+		#[step(primary)](wep.gml:step) {
+			Executed every step while the player is carrying the weapon.
+			
+			First passed argument indicates whether the weapon is in primary (1) or secondary (0) slot.
+		}
+		#[weapon_reloaded(primary)]() {
+			Executed whenever the weapon is reloaded.
+			
+			This is where you play custom sounds, create shells, etc.
+			
+			If this is not defined, behaviour is as following: --{
+				--	For melee weapons, `sndMeleeFlip` is played.
+				--	For shell-type weapons, `sndShotReload` is played and the number of shells equal to [weapon_cost] is created.
+				--	For bolt-type weapons, `sndCrossReload` is played.
+				--	For weapons with name starting with "PLASMA", either `sndPlasmaReload` or `sndPlasmaReloadUpg` are played, depending on whether player has Laser Brain.
+				--	For weapons with name starting with "LIGHTNING", either `sndLightningReload` or `sndLightningReloadUpg` are played, depending on whether player has Laser Brain.
+				--	For other modded weapons no action occurs by default.
+			}
+		}
+		The following scripts all receive the weapon-value as first argument (more on what to do with it later):
+		#[weapon_name(wep)]() {
+			Should return weapon' name.
+			
+			Defaults to file name.
+			```
+			#define weapon_name(q)
+			return "SMG";
+			```
+		}
+		#[weapon_text(wep)]() {
+			May return weapon' loading screen tip, if any.
+			
+			Defaults to "" (no weapon-specific tip).
+			```
+			#define weapon_text(q)
+			return "quickly"
+			```
+		}
+		#[weapon_type(wep)]() {
+			Should return weapon' ammo type. Possible values:
+			
+			--{
+				-- `0`: Melee
+				-- `1`: Bullet
+				-- `2`: Shell
+				-- `3`: Bolt
+				-- `4`: Explosive
+				-- `5`: Energy
+			}
+			```
+			#define weapon_type(q)
+			return 1;
+			```
+		}
+		#[weapon_auto(wep)]() {
+			Should return whether the weapon is automatic. Possible values are:
+			--{
+				-- `1`/`true`: Automatic
+				-- `0`/`false`: Non-automatic, except for Steroids
+				-- `-1`: Non-automatic even for Steroids
+			}
+			```
+			#define weapon_auto(q)
+			return true;
+			```
+		}
+		#[weapon_load(wep)]() {
+			Should return the cooldown between weapon' shots, in frames.
+			
+			Defaults to 1.
+			```
+			#define weapon_load(q)
+			return 3; // 1/10 sec.
+			```
+		}
+		#[weapon_cost(wep)]() {
+			Should return the weapon' ammo cost per shot.
+			
+			Defaults to 0 for melee-type weapons and to 1 for the rest.
+			```
+			#define weapon_cost(q)
+			return 1;
+			```
+		}
+		#[weapon_rads(wep)]() {
+			Should return the number of rads spent per shot, for "ultra" weapons.
+			
+			Defaults to 0.
+			```
+			#define weapon_rads(q)
+			return 0;
+			```
+		}
+		#[weapon_swap(wep)]() {
+			Should return the sound played when swapping to the weapon.
+			
+			Defaults to `sndSwapPistol`.
+			```
+			#define weapon_swap(q)
+			return sndSwapPistol
+			```
+		}
+		#[weapon_melee(wep)]() {
+			May return whether the weapon is melee (held and swung accordingly).
+			
+			Defaults to 1 for melee-type weapons and to 0 for the rest.
+		}
+		#[weapon_area(wep)]() {
+			Should return the weapon' "difficulty tier", which determines when it'll drop.
+			
+			You can check built-in weapon' tiering via [weapon_get_area] for reference.
+			
+			```
+			#define weapon_area(q)
+			return 1;
+			```
+		}
+		#[weapon_sprt(wep)]() {
+			Should return the weapon' sprite. Also see [sprite_add_weapon].
+			```
+			#define init
+			global.spr_smg = sprite_add_weapon_base64("iVBORw0KGgoAAAANSUhEUgAAABIAAAANCAYAAACkTj4ZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB5SURBVDhPYwACRhBBTfAfigkBvOrAkrraZjBFODGSGqwArACG/bxjMTCyPEg9GoYDFIWEsJS4GpwN0gsxAgHACkAYm4tgciAMUouGMQCKBlwYpA6iHD9A14CCcXkHG8BmM5ymxCBkTRS7CAZgYkQZBAIka6ASYGAAANr1jVDoeE7cAAAAAElFTkSuQmCCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==", 3, 4);
+			
+			#define weapon_sprt
+			return global.spr_smg;
+			```
+		}
+		#[weapon_sprt_hud(wep)]() {
+			May return a different sprite from weapon's normal sprite for use in HUD.
+			
+			This is useful for cases where the weapon is too big to have a meaningful outline in HUD when cropped automatically.
+			
+			Defaults to what is returned from [weapon_sprt].
+		}
+		#[weapon_loadout(wep)]() {
+			May return a weapon sprite for display in Loadout.
+			
+			If not defined, a tilted 2x version of [weapon_sprt] will be shown.
+			
+			You would usually only care about this for custom golden weapons and those used as start weapons for custom races.
+		}
+		#[weapon_laser_sight(wep)]() {
+			May return whether and which laser sight sprite the weapon should use.
+			
+			Allowed values are as following: --{
+				-- `1`/`true`: show laser sight
+				-- `0`/`false`: hide laser sight
+				-- `(sprite index)`: use custom laser sight sprite
+			}
+			Defaults to `true` for bolt-type weapons and to `false` for the rest.
+		}
+		#[weapon_gold(wep)]() {
+			May return whether the weapon is golden and can occur in Mansion.
+			
+			Possible values are as following: --{
+				-- `1`: Golden; can drop from Mansion' chest.
+				-- `0`: Not golden
+				-- `-1`: Golden, but does not drop in Mansion (like loop-specific golden weapons).
+			}
+			
+			Custom golden weapons can be locked on characters, but will only function when the according weapon mod is loaded, obviously.
+		}
+		#[weapon_fire(wep)]() {
+			Called when the weapon should be fired.
+			
+			You are only obliged to create the actual projectile(s), play sound(s), and spawn any additional effects (if needed) - cooldown and ammo are deducted automatically.
+			```
+			#define weapon_fire(wep)
+			sound_play(sndPistol);
+			// create a shell (cosmetic):
+			with (instance_create(x, y, Shell)) motion_add(
+				other.gunangle + other.right * 100 + random(60) - 30,
+				2 + random(2)
+			);
+			// create the bullet:
+			with (instance_create(x, y, Bullet1)) {
+				motion_add(other.gunangle + (random(32) - 16) * other.accuracy, 16);
+				image_angle = direction;
+				team = other.team;
+				creator = other;
+			}
+			weapon_post(2, -6, 3); // weapon shift, camera shift, camera shake
+			```
+		}
+		Advanced topics:
+		#[Lightweight object weapons](wep.gml:lq) {
+			Sometimes you may want to store some additional information with the weapon - say, have the weapon be far more powerful that it's tier counterparts, but only last for a limited number of shots.
+			
+			For such occasions you can have the weapon-value presented as a [lightweight object](gml-lq) - if you set the weapon-value (`wep` / `bwep` on Player, `wep` on WepPickup, etc.) to a lightweight object with the field `wep` equal to your mod' ID (see `mod_current`), the game will call your mod on all occasions, passing the weapon-value to `weapon_` scripts as first argument.
+			
+			A simple limited-ammo super-heavy revolver mod would be as following:
+			```
+			#macro defammo 50
+			#define weapon_name(q)
+			return `LIMTIED REVOLVER (${is_object(q) ? q.ammo : defammo})`;
+			#define weapon_type(q) return 1;
+			#define weapon_cost(q) return 1;
+			#define weapon_sprt(q) return sprHeavyRevolver;
+			#define weapon_fire(q)
+			// pack the weapon into an object if it isn't yet:
+			if (!is_object(wep)) wep = { wep: mod_current, ammo: defammo };
+			// check ammo:
+			if (wep.ammo <= 0) {
+				if (infammo == 0) ammo[weapon_get_type(wep)] += weapon_get_cost(wep);
+				sound_play(sndEmpty);
+				with (instance_create(x, y, PopupText)) {
+					target = other.index;
+					mytext = "EMPTY";
+				}
+				exit;
+			} else wep.ammo -= 1;
+			// actual firing:
+			sound_play_gun(sndHeavyRevoler, 0.2, -0.5);
+			with (instance_create(x, y, Shell)) {
+				sprite_index = sprHeavyShell;
+				motion_add(other.gunangle + other.right * 100 + random(50) - 25, 2 + random(2));
+			}
+			with (instance_create(x, y, HeavyBullet)) {
+				motion_add(other.gunangle + random_range(-1, 1) * other.accuracy, 16);
+				image_angle = direction;
+				team = other.team;
+				creator = other;
+				damage *= 2;
+			}
+			weapon_post(6, -7, 5);
+			```
+			If saving it as `limited-revolver.wep.gml`, you could then do `/loadwep limited-revolver` to load the mod and `/gml Player.bwep = "limited-revolver"` to assign it to player's secondary weapon slot for testing.
+		}
+	}
+	#[Custom mutations](skill.gml) {
+		WIP
+	}
+	#[Custom crowns](crown.gml) {
+		WIP
+	}
+	#[Custom areas](area.gml) {
+		Custom area mods allow to introduce additional locations into the game. 
+		Denoted by .area.gml extension.
+		They may define the following special scripts:
+		*Visual:*
+		#[area_name(subarea, loops)]() {
+			Should return area code for display on map/loading screens (e.g. "6-?").
+			" L#"/" H#" are appended automatically.
+			```
+			#define area_name
+			return "ZZZ";
+			```
+		}
+		#[area_secret()]() {
+			May return "true" if the area is in fact a secret area.
+		}
+		#[area_sprite(sprite)]() {
+			Is called with a number of area #1 sprites and should return the new sprite for them.
+			Used to determine sprites for floors, walls, and debris.
+			```
+			#define area_sprite(q)
+			switch (q) {
+				case sprFloor1: return sprFloor0;
+				case sprFloor1B: return sprFloor0;
+				case sprFloor1Explo: return sprFloor0Explo;
+				case sprWall1Trans: return sprWall0Trans;
+				case sprWall1Bot: return sprWall0Bot;
+				case sprWall1Out: return sprWall0Out;
+				case sprWall1Top: return sprWall0Top;
+				case sprDebris1: return sprDebris0;
+			}
+			```
+		}
+		#[area_mapdata(lastx, lasty, lastarea, lastsubarea, subarea, loops)]() {
+			Can return `[x, y]` or `[x, y, showdot]` or `[x, y, showdot, showline]` for use on map.
+			
+			For secret areas you'll usually want to just return `[argument0, 9]`.
+		}
+		*Generation:*
+		#[area_setup()]() {
+			Is executed prior to anything being generated. A good time to set seed/etc.
+		}
+		#[area_make_floor()]() {
+			Is called by FloorMaker instances as they advance around. Should create floor(s) relative to current position (x, y) as well as adjusting the instance' `direction`. For example,
+			```
+			#define area_make_floor
+			instance_create(x, y, Floor);
+			var turn = choose(0, 0, 0, 0, 0, 0, 0, 0, 0, 90, -90, 90, -90, 180);
+			direction += turn;
+			if (turn == 180 && point_distance(x, y, 10016, 10016) > 48) {
+				// turnarounds - weapon chests spawn in such
+				instance_create(x, y, Floor);
+				instance_create(x + 16, y + 16, WeaponChest);
+			}
+			if (random(19 + instance_number(FloorMaker)) > 22) {
+				// dead ends - ammo chests spawn in such
+				if (point_distance(x, y, 10016, 10016) > 48) {
+					instance_create(x + 16, y + 16, AmmoChest);
+					instance_create(x, y, Floor);
+				}
+				instance_destroy();
+			} else if (random(4) < 1) {
+				// branching
+				instance_create(x, y, FloorMaker);
+			}
+			```
+		}
+		#[area_pop_enemies()]() {
+			Is called for floors when they may spawn an enemy. Usually are to be spawned at (x + 16, y + 16).
+		}
+		#[area_pop_props()]() {
+			Is called for floor tiles when it's time to spawn props. Example:
+			```
+			#define area_pop_props
+			if (random(5) < 1
+				&& point_distance(10016, 10016, x, y) > 100
+				&& !place_meeting(x, y, NOWALLSHEREPLEASE)
+			) {
+				// quarter-walls (optional)
+				var myx = x + choose_w(0, 16);
+				var myy = y + choose_w(0, 16);
+				if (!place_meeting(myx, myy, hitme)) {
+					instance_create(myx, myy, Wall);
+					instance_create(x, y, NOWALLSHEREPLEASE);
+				}
+			} else if (random_w(12) < 1) {
+				instance_create(x, y, Cactus);
+			}
+			```
+		}
+		#[area_pop_chests()]() {
+			Called after numerous chests have been plucked onto the level and before the extras are cleaned up. Can modify a number of variables: --{
+				--	`gol`: Base quantity of any chest.
+				--	`wgol`: Extra weapon chests
+				--	`agol`: Extra ammo chests
+				--	`rgol`: Extra radiation canisters / Rogue canisters
+			}
+		}
+		#[area_pop_extras()]() {
+			Used for spawning extra things such as wall decals or doing area-specific postfixes, e.g.
+			```
+			#define area_pop_extras
+			with (Floor)
+			if (!place_free(x - 32, y) && !place_free(x + 32, y) && place_free(x, y)) {
+				for (var i = -1; i <= 1; i += 2)
+				for (var k = 0; k <= 1; k += 1) {
+					with (instance_create(x + (1 - i) * 16, y + k * 16, Bones)) {
+						image_xscale = i;
+						sprite_index = sprBones;
+					}
+				}
+			}
+			```
+		}
+		*Flow:*
+		#[area_start()]() {
+			Executed when everything finishes generating in the custom area.
+		}
+		#[area_finish()]() {
+			Is called by GameCont on room end of the area. Should change area/subarea accordingly. For example, if you wanted to have the game go to 2-1 after your area, you could do
+			```
+			#define area_finish
+			area = 2;
+			subarea = 1;
+			```
+		}
+		#[area_transit()]() {
+			Called by GameCont just after calculating the next area in a normal way. Can be used to insert areas by deciding whether to change area to yours based on `lastarea`, `lastsubarea`, `area`, `subarea`. For example, if you wanted to insert your area before 2-1, you could do
+			```
+			#define area_transit
+			if (lastarea != "test" && area == 2) {
+				area = "test";
+			}
+			```
+		}
+		*Examples:*
+		#[test.area.gml] {
+			```
+			#define area_name
+			return "ZZZ";
+
+			#define area_sprite(q)
+			switch (q) {
+				case sprFloor1: return sprFloor0;
+				case sprFloor1B: return sprFloor0;
+				case sprFloor1Explo: return sprFloor0Explo;
+				case sprWall1Trans: return sprWall0Trans;
+				case sprWall1Bot: return sprWall0Bot;
+				case sprWall1Out: return sprWall0Out;
+				case sprWall1Top: return sprWall0Top;
+				case sprDebris1: return sprDebris0;
+			}
+
+			#define area_transit
+			if (lastarea != "test" && area == 2) {
+				area = "test";
+			}
+
+			#define area_finish
+			area = 2;
+			subarea = 1;
+
+			#define area_setup
+			goal = 40;
+			background_color = make_color_rgb(106, 122, 175);
+			BackCont.shadcol = c_black;
+			TopCont.fog = sprFog2;
+
+			#define area_make_floor
+			instance_create(x, y, Floor);
+			var turn = choose(0, 0, 0, 0, 0, 0, 0, 0, 0, 90, -90, 90, -90, 180);
+			direction += turn;
+			if (turn == 180 && point_distance(x, y, 10016, 10016) > 48) {
+				// turnarounds - weapon chests spawn in such
+				instance_create(x, y, Floor);
+				instance_create(x + 16, y + 16, WeaponChest);
+			}
+			if (random(19 + instance_number(FloorMaker)) > 22) {
+				// dead ends - ammo chests spawn in such
+				if (point_distance(x, y, 10016, 10016) > 48) {
+					instance_create(x + 16, y + 16, AmmoChest);
+					instance_create(x, y, Floor);
+				}
+				instance_destroy();
+			} else if (random(4) < 1) {
+				// branching
+				instance_create(x, y, FloorMaker);
+			}
+
+			#define area_pop_enemies
+			if (random(4) < 1) instance_create(x + 16, y + 16, Bandit);
+
+			#define area_pop_props
+			if (random(4) < 1) instance_create(x + 16, y + 16, NightCactus);
+
+			#define area_mapdata(lx, ly, lp, ls, ws, ll)
+			return [lx, 9];
+			```
+		}
+	}
+}
+#[NTT-specific reference](api-ntt) {
+	#[Mutation API](skill) {
+		#[skill_get(skill)]() {
+			Returns whether the mutation is currently acquired.
+			
+			`skill` can be either a numeric value (see [constants](mut)) or a mod name.
+		}
+		#[skill_set(skill, value)]() {
+			Acquires or unacquires the given mutation.
+			
+			`skill` can be either a numeric value (see [constants](mut)) or a mod name.
+		}
+		#[skill_clear()]() {
+			Removes all currently acquired mutations with their effects.
+			
+			Used for Melting<->Skeleton transformations, for example.
+		}
+		#[skill_get_at(index)]() {
+			Returns the mutation identifier ([constants](mut) for built-in mutations, strings for mods) for the mutation at given position (0-based).
+			
+			Returns `undefined` if out of range.
+			
+			For example, if you wanted to show names of all currently acquired mutations, you could do
+			```
+			var i = 0;
+			while (true) {
+				var mut = skill_get_at(i++);
+				if (mut == undefined) break;
+				trace(skill_get_name(mut));
+			}
+			```
+		}
+		#[skill_get_active(skill)]() {
+			Returns whether the given mutation is currently enabled and can appear in mutation pool.
+			
+			`skill` can be either a numeric value (see [constants](mut)) or a mod name.
+		}
+		#[skill_set_active(skill, active)]() {
+			Changes whether the given mutation is enabled and can appear in mutation pool.
+			
+			`skill` can be either a numeric value (see [constants](mut)) or a mod name.
+		}
+		#[Mutation constants](mut) {
+			```
+			mut_none = 0
+			mut_rhino_skin = 1
+			mut_extra_feet = 2
+			mut_plutonium_hunger = 3
+			mut_rabbit_paw = 4
+			mut_throne_butt = 5
+			mut_lucky_shot = 6
+			mut_bloodlust = 7
+			mut_gamma_guts = 8
+			mut_second_stomach = 9
+			mut_back_muscle = 10
+			mut_scarier_face = 11
+			mut_euphoria = 12
+			mut_long_arms = 13
+			mut_boiling_veins = 14
+			mut_shotgun_shoulders = 15
+			mut_recycle_gland = 16
+			mut_laser_brain = 17
+			mut_last_wish = 18
+			mut_eagle_eyes = 19
+			mut_impact_wrists = 20
+			mut_bolt_marrow = 21
+			mut_stress = 22
+			mut_trigger_fingers = 23
+			mut_sharp_teeth = 24
+			mut_patience = 25
+			mut_hammerhead = 26
+			mut_strong_spirit = 27
+			mut_open_mind = 28
+			mut_heavy_heart = 29
+			```
+		}
+	}
+	#[Mod API](api-mod) {
+		- WIP -
+		*Sideloading*:
+		#[mod_sideload()]() {
+			Returns whether the mod is allowed to sideload other mods.
+			
+			This shows a prompt to the player that loaded the mod on first call and the player needs to accept via `/allowmod`.
+			
+			Once the player had confirmed permission, the mod can use the additional functions shown below.
+		}
+		#[mod_load(path)]() {
+			If sideloading ([mod_sideload]) is on for the mod, attempts to load the given mod much like `/loadmod` command would. You'll usually need to specify the path or at least the mod-type extension in this.
+			
+			Returns 1 if sideloading is enabled and 0 if sideloading is disabled.
+			```
+			#define init
+			while (!mod_sideload()) wait 1;
+			mod_load("test.mod");
+			```
+			would load `test.mod.gml` from the same directory that the executing mod is in.
+		}
+		#[mod_loadlive(path)]() {
+			Same as [mod_load], but as with `/loadlive` command.
+		}
+		#[mod_loadtext(path)]() {
+			Same as [mod_load], but as with `/loadtext` command.
+		}
+		#[mod_unload(path)]() {
+			If sideloading ([mod_sideload]) is on for the mod, attempts to unload the given mod much like `/unloadmod` command would. You'll usually need to specify the path or at least the mod-type extension in this.
+			
+			Returns 1 if sideloading is enabled and 0 if sideloading is disabled.
+		}
+	}
+	~~ WIP ~~
+}

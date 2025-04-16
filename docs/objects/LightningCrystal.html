@@ -1,0 +1,122 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>LightningCrystal</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>LightningCrystal</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./hitme.html">hitme</a> ➜ <a href="./enemy.html">enemy</a> ➜ <a href="./crystaltype.html">crystaltype</a> ➜ <a href="./LightningCrystal.html">LightningCrystal</a>
+</p><p>
+Variables:
+</p><section><header id="hitme"><a href="#hitme" title="(permalink)">from hitme</a></header><article><a class="sticky-side" href="#hitme" title="from hitme"><span>from hitme</span></a><p>
+	Object: <a href="./hitme.html">hitme</a>
+	</p><section class="empty"><header id="nexthurt"><a href="#nexthurt" title="(permalink)">nexthurt: number</a></header></section><section><header id="my_health"><a href="#my_health" title="(permalink)">my_health: number</a></header><article><p>
+		Current health
+	</p></article></section><section><header id="team"><a href="#team" title="(permalink)">team: number</a></header><article><p>
+		Default enemy team is 1, default IDPD team is 3
+	</p></article></section><section><header id="maxhealth"><a href="#maxhealth" title="(permalink)">maxhealth: number</a></header><article><p>
+		Maximum health
+	</p></article></section><section><header id="size"><a href="#size" title="(permalink)">size: number</a></header><article><p>
+		"bigger" entities are harder to push around
+	</p></article></section><section><header id="spr_idle"><a href="#spr_idle" title="(permalink)">spr_idle: sprite</a></header><article><p>
+		Played if (speed == 0)
+	</p></article></section><section><header id="spr_walk"><a href="#spr_walk" title="(permalink)">spr_walk: sprite</a></header><article><p>
+		Played if (speed != 0)
+	</p></article></section><section><header id="spr_hurt"><a href="#spr_hurt" title="(permalink)">spr_hurt: sprite</a></header><article><p>
+		3-frame sprite for taking damage
+	</p></article></section><section><header id="spr_dead"><a href="#spr_dead" title="(permalink)">spr_dead: sprite</a></header><article><p>
+		Death+corpse sprite
+	</p></article></section><section><header id="spr_shadow"><a href="#spr_shadow" title="(permalink)">spr_shadow: sprite</a></header><article><p>
+		Shadow sprite (if any)
+	</p></article></section><section><header id="spr_shadow_x"><a href="#spr_shadow_x" title="(permalink)">spr_shadow_x: number</a></header><article><p>
+		Shadow X offset
+	</p></article></section><section><header id="spr_shadow_y"><a href="#spr_shadow_y" title="(permalink)">spr_shadow_y: number</a></header><article><p>
+		Shadow Y offset
+	</p></article></section><section><header id="snd_hurt"><a href="#snd_hurt" title="(permalink)">snd_hurt: sound</a></header><article><p>
+		Played upon hit
+	</p></article></section><section><header id="snd_dead"><a href="#snd_dead" title="(permalink)">snd_dead: sound</a></header><article><p>
+		Played upon death
+	</p></article></section></article></section><section><header id="enemy"><a href="#enemy" title="(permalink)">from enemy</a></header><article><a class="sticky-side" href="#enemy" title="from enemy"><span>from enemy</span></a><p>
+	Object: <a href="./enemy.html">enemy</a>
+	</p><section><header id="spr_chrg"><a href="#spr_chrg" title="(permalink)">spr_chrg: sprite</a></header><article><p>
+		Charge attack sprite, if any
+	</p></article></section><section><header id="corpse"><a href="#corpse" title="(permalink)">corpse: number</a></header><article><p>
+		Whether the enemy should leave a corpse
+	</p></article></section><section><header id="canmelee"><a href="#canmelee" title="(permalink)">canmelee: number</a></header><article><p>
+		Whether the enemy can deal contact damage right now
+			Any enemy can only deal contact damage once per second at most.
+	</p></article></section><section><header id="canfly"><a href="#canfly" title="(permalink)">canfly: number</a></header><article><p>
+		Whether the enemy should not be killed for being off-level
+	</p></article></section><section><header id="wepseed"><a href="#wepseed" title="(permalink)">wepseed: number</a></header><article><p>
+		Set by level generator, used for weapon drops
+	</p></article></section><section><header id="right"><a href="#right" title="(permalink)">right</a></header><article><p>
+		Facing direction
+	</p></article></section><section><header id="kills"><a href="#kills" title="(permalink)">kills: number</a></header><article><p>
+		Number of kills added for killing this enemy
+	</p></article></section><section><header id="target"><a href="#target" title="(permalink)">target</a></header><article><p>
+		Current player to pursue
+	</p></article></section><section><header id="cantarget"><a href="#cantarget" title="(permalink)">cantarget: bool</a></header><article><p>
+		If set to false, enemy will not auto-update target
+	</p></article></section><section><header id="snd_mele"><a href="#snd_mele" title="(permalink)">snd_mele: sound</a></header><article><p>
+		Player upon dealing contact damage
+	</p></article></section><section><header id="wkick"><a href="#wkick" title="(permalink)">wkick: number</a></header><article><p>
+		Weapon offset for enemies that have them
+	</p></article></section><section><header id="raddrop"><a href="#raddrop" title="(permalink)">raddrop: number</a></header><article><p>
+		Number of rads dropped upon death
+	</p></article></section><section><header id="meleedamage"><a href="#meleedamage" title="(permalink)">meleedamage: number</a></header><article><p>
+		How much damage we deal on contact
+	</p></article></section><section><header id="hitid"><a href="#hitid" title="(permalink)">hitid: number</a></header><article><p>
+		See lasthit on <a href="./Player.html">Player</a>
+	</p></article></section><section><header id="spr_fire"><a href="#spr_fire" title="(permalink)">spr_fire: sprite</a></header><article><p>
+		Normal attack sprite, if any
+	</p></article></section></article></section><section><header id="LightningCrystal"><a href="#LightningCrystal" title="(permalink)">from LightningCrystal</a></header><article><a class="sticky-side" href="#LightningCrystal" title="from LightningCrystal"><span>from LightningCrystal</span></a><section class="empty"><header id="ammo"><a href="#ammo" title="(permalink)">ammo: number</a></header></section><section class="empty"><header id="explode"><a href="#explode" title="(permalink)">explode: number</a></header></section><section class="empty"><header id="gunangle"><a href="#gunangle" title="(permalink)">gunangle</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[1]</code>
+	</li><li> <code>alarm[2]</code>
+	</li><li> <code>alarm[4]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

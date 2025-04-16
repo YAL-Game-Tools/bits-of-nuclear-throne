@@ -1,0 +1,25 @@
+#nav {
+	border: 0.10em solid transparent;
+}
+#page {
+	background: #899FC6;
+}
+
+/*main {
+	display: flex;
+	position: absolute;
+	inset: 0;
+}
+#nav {
+	width: 200px;
+	resize: horizontal;
+	overflow: auto;
+	border: 0.3em solid transparent;
+}
+#nav details > * {
+	padding-left: 1em;
+}
+#page {
+	border: none;
+	flex-grow: 1;
+}*/

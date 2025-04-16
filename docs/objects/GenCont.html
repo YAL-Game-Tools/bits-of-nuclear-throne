@@ -1,0 +1,90 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>GenCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>GenCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./GenCont.html">GenCont</a>
+</p><p>
+Manages level generation
+</p><p>
+Variables:
+</p><section><header id="GenCont"><a href="#GenCont" title="(permalink)">from GenCont</a></header><article><a class="sticky-side" href="#GenCont" title="from GenCont"><span>from GenCont</span></a><section><header id="tip"><a href="#tip" title="(permalink)">tip: string</a></header><article><p>
+		Currently shown tip text
+	</p></article></section><section class="empty"><header id="random_track"><a href="#random_track" title="(permalink)">random_track: number</a></header></section><section class="empty"><header id="wave"><a href="#wave" title="(permalink)">wave: number</a></header></section><section class="empty"><header id="race_id"><a href="#race_id" title="(permalink)">race_id</a></header></section><section><header id="goal"><a href="#goal" title="(permalink)">goal</a></header><article><p>
+		Rough estimate for floor tiles to place
+	</p></article></section><section><header id="safespawn"><a href="#safespawn" title="(permalink)">safespawn: number</a></header><article><p>
+		Safespawn behaviour </p><ul>
+				<li> <code>0</code>: the game just puts the player wherever (possibly in open area)
+				</li><li> <code>0.1</code>: L0 behaviour (half-open nook)
+				</li><li> <code>1</code>: L1 behaviour (small nook)
+				</li><li> <code>2</code>: L2+ behaviour (medium nook)
+				</li><li> Higher values produce long corridors.
+			</li></ul><p>
+			Can only be changed by area mods.
+	</p></article></section><section><header id="spawn_x"><a href="#spawn_x" title="(permalink)">spawn_x: number</a></header><article><p>
+		Original spawn's X
+	</p></article></section><section><header id="spawn_y"><a href="#spawn_y" title="(permalink)">spawn_y: number</a></header><article><p>
+		Original spawn's Y
+	</p></article></section><section><header id="gol"><a href="#gol" title="(permalink)">gol: number</a></header><article><p>
+		Desired number of chests
+	</p></article></section><section><header id="wgol"><a href="#wgol" title="(permalink)">wgol: number</a></header><article><p>
+		Extra weapon chests
+	</p></article></section><section><header id="agol"><a href="#agol" title="(permalink)">agol: number</a></header><article><p>
+		Extra ammo chests
+	</p></article></section><section><header id="rgol"><a href="#rgol" title="(permalink)">rgol: number</a></header><article><p>
+		Extra radiation canisters
+	</p></article></section><section><header id="safedist"><a href="#safedist" title="(permalink)">safedist: number</a></header><article><p>
+		Area around spawn to not put any enemies in
+	</p></article></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>: Places walls, starts populating
+	</li><li> <code>alarm[1]</code>: Finish, cleanup
+	</li><li> <code>alarm[2]</code>: Handles safe spawns, places proto statues, and other misc
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

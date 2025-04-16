@@ -1,0 +1,78 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>projectile</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>projectile</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./projectile.html">projectile</a>
+</p><p>
+Children: <a href="./AllyBullet.html">AllyBullet</a>, <a href="./Bolt.html">Bolt</a>, <a href="./BloodSlash.html">BloodSlash</a>, <a href="./BouncerBullet.html">BouncerBullet</a>, <a href="./Bullet1.html">Bullet1</a>, <a href="./Bullet2.html">Bullet2</a>, <a href="./CustomProjectile.html">CustomProjectile</a>, <a href="./Devastator.html">Devastator</a>, <a href="./Disc.html">Disc</a>, <a href="./EFlakBullet.html">EFlakBullet</a>, <a href="./EnemyBullet1.html">EnemyBullet1</a>, <a href="./EnemyBullet4.html">EnemyBullet4</a>, <a href="./EnemyBullet3.html">EnemyBullet3</a>, <a href="./EnemyLaser.html">EnemyLaser</a>, <a href="./EnemyLightning.html">EnemyLightning</a>, <a href="./EnemySlash.html">EnemySlash</a>, <a href="./EnergyHammerSlash.html">EnergyHammerSlash</a>, <a href="./EnergyShank.html">EnergyShank</a>, <a href="./EnergySlash.html">EnergySlash</a>, <a href="./FireBall.html">FireBall</a>, <a href="./FlakBullet.html">FlakBullet</a>, <a href="./Flame.html">Flame</a>, <a href="./FlameBall.html">FlameBall</a>, <a href="./FlameShell.html">FlameShell</a>, <a href="./Grenade.html">Grenade</a>, <a href="./GuardianDeflect.html">GuardianDeflect</a>, <a href="./GuitarSlash.html">GuitarSlash</a>, <a href="./HeavyBullet.html">HeavyBullet</a>, <a href="./HeavyBolt.html">HeavyBolt</a>, <a href="./HeavySlug.html">HeavySlug</a>, <a href="./HorrorBullet.html">HorrorBullet</a>, <a href="./HyperSlug.html">HyperSlug</a>, <a href="./HyperGrenade.html">HyperGrenade</a>, <a href="./IDPDBullet.html">IDPDBullet</a>, <a href="./JockRocket.html">JockRocket</a>, <a href="./Laser.html">Laser</a>, <a href="./LHBouncer.html">LHBouncer</a>, <a href="./Lightning.html">Lightning</a>, <a href="./LightningBall.html">LightningBall</a>, <a href="./LightningSlash.html">LightningSlash</a>, <a href="./Nuke.html">Nuke</a>, <a href="./PlasmaBall.html">PlasmaBall</a>, <a href="./PlasmaBig.html">PlasmaBig</a>, <a href="./PlasmaHuge.html">PlasmaHuge</a>, <a href="./PopoRocket.html">PopoRocket</a>, <a href="./PopoPlasmaBall.html">PopoPlasmaBall</a>, <a href="./PopoSlug.html">PopoSlug</a>, <a href="./Rocket.html">Rocket</a>, <a href="./Seeker.html">Seeker</a>, <a href="./Shank.html">Shank</a>, <a href="./Slash.html">Slash</a>, <a href="./Slug.html">Slug</a>, <a href="./Splinter.html">Splinter</a>, <a href="./SuperFlakBullet.html">SuperFlakBullet</a>, <a href="./TangleSeed.html">TangleSeed</a>, <a href="./ThrownWep.html">ThrownWep</a>, <a href="./ToxicBolt.html">ToxicBolt</a>, <a href="./ToxicGas.html">ToxicGas</a>, <a href="./TrapFire.html">TrapFire</a>, <a href="./UltraBolt.html">UltraBolt</a>, <a href="./UltraBullet.html">UltraBullet</a>, <a href="./UltraShell.html">UltraShell</a>
+</p><p>
+Variables:
+</p><section><header id="projectile"><a href="#projectile" title="(permalink)">from projectile</a></header><article><a class="sticky-side" href="#projectile" title="from projectile"><span>from projectile</span></a><section><header id="hitid"><a href="#hitid" title="(permalink)">hitid: number</a></header><article><p>
+		See lasthit on <a href="./Player.html">Player</a>
+	</p></article></section><section class="empty"><header id="team"><a href="#team" title="(permalink)">team: number</a></header></section><section><header id="creator"><a href="#creator" title="(permalink)">creator</a></header><article><p>
+		<a href="./hitme.html">hitme</a> that created this projectile (if any)
+	</p></article></section><section><header id="creator_projectile"><a href="#creator_projectile" title="(permalink)">creator_projectile</a></header><article><p>
+		<a href="./projectile.html">projectile</a> that created this projectile (if any, used for flak/etc.)
+	</p></article></section><section class="empty"><header id="damage"><a href="#damage" title="(permalink)">damage: number</a></header></section><section><header id="force"><a href="#force" title="(permalink)">force: number</a></header><article><p>
+		Determines applied velocity on impact
+	</p></article></section><section><header id="typ"><a href="#typ" title="(permalink)">typ: number</a></header><article><p>
+		Projectile type, </p><ul>
+			<li> <code>1</code>: Can be deflected by shields/melee (e.g. bullets)
+			</li><li> <code>2</code>: Is destroyed by shields/melee (e.g. rockets)
+			</li><li> other: Cannot be deflected (e.g. lightning).
+		</li></ul></article></section><section class="empty"><header id="deflected"><a href="#deflected" title="(permalink)">deflected: number</a></header></section><section><header id="nopopo"><a href="#nopopo" title="(permalink)">nopopo: number</a></header><article><p>
+		IDPD explosion treatment: </p><ul>
+		<li>  <code>0</code>: Can be exploded
+		</li><li>  <code>1</code>: Cannot be exploded by Blast Armor
+		</li><li>  <code>2</code>: Cannot be exploded by any IDPD explosions (vans, freaks, Rogue Strike)
+		</li></ul></article></section><section><header id="portal_immunity"><a href="#portal_immunity" title="(permalink)">portal_immunity: bool</a></header><article><p>
+		If enabled, doesn't get cleared by <a href="./PortalShock.html">PortalShock</a>.
+	</p></article></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

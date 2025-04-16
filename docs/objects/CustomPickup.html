@@ -1,0 +1,63 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>CustomPickup</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>CustomPickup</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./Pickup.html">Pickup</a> ➜ <a href="./PickupBox.html">PickupBox</a> ➜ <a href="./CustomPickup.html">CustomPickup</a>
+</p><p>
+@ref
+</p><p>
+Variables:
+</p><section><header id="CustomPickup"><a href="#CustomPickup" title="(permalink)">from CustomPickup</a></header><article><a class="sticky-side" href="#CustomPickup" title="from CustomPickup"><span>from CustomPickup</span></a><section class="empty"><header id="blink"><a href="#blink" title="(permalink)">blink: number</a></header></section><section class="empty"><header id="spr_fade"><a href="#spr_fade" title="(permalink)">spr_fade: sprite</a></header></section><section class="empty"><header id="spr_pickup"><a href="#spr_pickup" title="(permalink)">spr_pickup: sprite</a></header></section><section class="empty"><header id="snd_pickup"><a href="#snd_pickup" title="(permalink)">snd_pickup: sound</a></header></section><section class="empty"><header id="snd_disappear"><a href="#snd_disappear" title="(permalink)">snd_disappear: sound</a></header></section><section class="empty"><header id="attract_speed"><a href="#attract_speed" title="(permalink)">attract_speed: number</a></header></section><section class="empty"><header id="on_pickup"><a href="#on_pickup" title="(permalink)">on_pickup</a></header></section><section class="empty"><header id="on_step"><a href="#on_step" title="(permalink)">on_step</a></header></section><section class="empty"><header id="on_draw"><a href="#on_draw" title="(permalink)">on_draw</a></header></section></article></section><section><header id="CustomPickup_init"><a href="#CustomPickup_init" title="(permalink)">from CustomPickup_init</a></header><article><a class="sticky-side" href="#CustomPickup_init" title="from CustomPickup_init"><span>from CustomPickup_init</span></a><p>
+	@interface
+	</p><section class="empty"><header id="sprite_index"><a href="#sprite_index" title="(permalink)">sprite_index</a></header></section><section class="empty"><header id="on_disappear"><a href="#on_disappear" title="(permalink)">on_disappear</a></header></section><section class="empty"><header id="on_find_target"><a href="#on_find_target" title="(permalink)">on_find_target</a></header></section><section class="empty"><header id="on_attract"><a href="#on_attract" title="(permalink)">on_attract</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

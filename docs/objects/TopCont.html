@@ -1,0 +1,70 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>TopCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>TopCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./TopCont.html">TopCont</a>
+</p><p>
+Draws darkness, HUD, and other things
+</p><p>
+Variables:
+</p><section><header id="TopCont"><a href="#TopCont" title="(permalink)">from TopCont</a></header><article><a class="sticky-side" href="#TopCont" title="from TopCont"><span>from TopCont</span></a><section><header id="darkness"><a href="#darkness" title="(permalink)">darkness: number</a></header><article><p>
+		Whether the level should be dark
+	</p></article></section><section><header id="dead"><a href="#dead" title="(permalink)">dead: number</a></header><article><p>
+		Whether any players died/won (for unlock screen conditions)
+	</p></article></section><section class="empty"><header id="gameoversplat"><a href="#gameoversplat" title="(permalink)">gameoversplat: number</a></header></section><section><header id="fog"><a href="#fog" title="(permalink)">fog: sprite</a></header><article><p>
+		Fog sprite (-1 for none)
+	</p></article></section><section class="empty"><header id="dark"><a href="#dark" title="(permalink)">dark: surface</a></header></section><section class="empty"><header id="gameovertime"><a href="#gameovertime" title="(permalink)">gameovertime: number</a></header></section><section class="empty"><header id="wave"><a href="#wave" title="(permalink)">wave: number</a></header></section><section><header id="fogscroll"><a href="#fogscroll" title="(permalink)">fogscroll: number</a></header><article><p>
+		Fog scroll offset
+	</p></article></section><section><header id="mapanim"><a href="#mapanim" title="(permalink)">mapanim: number</a></header><article><p>
+		Controls waypoint animation on gameover screen
+	</p></article></section><section class="empty"><header id="fadeout"><a href="#fadeout" title="(permalink)">fadeout: number</a></header></section><section><header id="fade"><a href="#fade" title="(permalink)">fade: number</a></header><article><p>
+		Fadeout alpha for victory screens
+	</p></article></section><section class="empty"><header id="go_addy1"><a href="#go_addy1" title="(permalink)">go_addy1: number</a></header></section><section class="empty"><header id="go_addy2"><a href="#go_addy2" title="(permalink)">go_addy2: number</a></header></section><section class="empty"><header id="go_stage"><a href="#go_stage" title="(permalink)">go_stage: number</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

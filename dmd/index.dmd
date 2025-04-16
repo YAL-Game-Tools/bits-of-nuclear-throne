@@ -1,0 +1,9 @@
+```set template default.html```
+```set title NTT Documentation```
+```set tag:defcode gml```
+
+Where would you rather be? --{
+-	[Frequently Asked Questions](./NTT-FAQ.html)
+-	[NTT Scripting](./NTT-Scripting.html)
+-	[Objects of Nuclear Throne](./NTT-Objects.html)
+}

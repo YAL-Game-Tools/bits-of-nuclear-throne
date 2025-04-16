@@ -1,0 +1,64 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>WepPickup</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>WepPickup</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./Pickup.html">Pickup</a> ➜ <a href="./WepPickup.html">WepPickup</a>
+</p><p>
+Variables:
+</p><section><header id="WepPickup"><a href="#WepPickup" title="(permalink)">from WepPickup</a></header><article><a class="sticky-side" href="#WepPickup" title="from WepPickup"><span>from WepPickup</span></a><section class="empty"><header id="rotation"><a href="#rotation" title="(permalink)">rotation</a></header></section><section class="empty"><header id="rotspeed"><a href="#rotspeed" title="(permalink)">rotspeed</a></header></section><section class="empty"><header id="creator"><a href="#creator" title="(permalink)">creator</a></header></section><section class="empty"><header id="wep"><a href="#wep" title="(permalink)">wep: number</a></header></section><section class="empty"><header id="type"><a href="#type" title="(permalink)">type: number</a></header></section><section class="empty"><header id="name"><a href="#name" title="(permalink)">name</a></header></section><section class="empty"><header id="ammo"><a href="#ammo" title="(permalink)">ammo: number</a></header></section><section class="empty"><header id="curse"><a href="#curse" title="(permalink)">curse: number</a></header></section><section><header id="roll"><a href="#roll" title="(permalink)">roll: number</a></header><article><p>
+		Whether the weapon is randomized
+	</p></article></section><section class="empty"><header id="sprite_index"><a href="#sprite_index" title="(permalink)">sprite_index</a></header></section></article></section><section><header id="scrWeapons"><a href="#scrWeapons" title="(permalink)">from scrWeapons</a></header><article><a class="sticky-side" href="#scrWeapons" title="from scrWeapons"><span>from scrWeapons</span></a><p>
+	ScrWeapons
+	</p><section class="empty"><header id="maxwep"><a href="#maxwep" title="(permalink)">maxwep: number</a></header></section><section class="empty"><header id="typ_ammo"><a href="#typ_ammo" title="(permalink)">typ_ammo: int[]</a></header></section><section class="empty"><header id="typ_amax"><a href="#typ_amax" title="(permalink)">typ_amax: int[]</a></header></section><section class="empty"><header id="typ_name"><a href="#typ_name" title="(permalink)">typ_name: string[]</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>: Determination' return
+	</li><li> <code>alarm[1]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

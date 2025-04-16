@@ -1,0 +1,2017 @@
+<!DOCTYPE HTML><html lang="en"><head>
+<meta charset="UTF-8">
+<title>NTT Scripting cheat sheet</title>
+<meta name="viewport" content="width=device-width" />
+<meta name="livenode" content="#doc" />
+<meta property="theme-color" content="#FFF037" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="en_us" />
+<meta property="og:site_name" content="YellowAfterlife" />
+<meta property="og:title" content="NTT Scripting cheat sheet" />
+<script type="text/javascript">
+if (document.location.host == "yal.cc" && location.protocol == "http:") {
+	document.location.protocol = "https:";
+}
+</script>
+<style type="text/css">body, #doc tt, #doc code {
+	font: 15px 'Open Sans', sans-serif;
+	line-height: 1.35;
+}
+body {
+	margin: 0;
+}
+.main {
+	width: 100%;
+	min-height: 100%;
+	min-height: 100vh;
+	background-color: #f5f7f9;
+}
+.page {
+	max-width: 656px;
+	background: #ffffff;
+	margin: 0 auto;
+	padding: 8px;
+	min-height: 100%;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+.page, .navmenu {
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.page > p:first-child {
+	margin-top: 0;
+}
+#doc, #doc ul, #doc ol {
+	padding-left: 0;
+	margin: 0;
+}
+#doc blockquote { margin: 0.5em 0; padding: 0; }
+#doc article > ul, #doc li > ul,
+#doc article > ol, #doc li > ol {
+	padding-left: 20px;
+}
+#doc article ul li {
+	list-style: disc;
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px"/></svg>'); 
+}
+
+#doc header {
+	margin: 0;
+	font-weight: 700;
+	font-size: 100%;
+	color: #458;
+	border-left: 2px solid #f3f3f3;/* #f9f9f9*/
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+#doc header a {
+	outline: none;
+	text-decoration: none;
+	color: #458;
+	word-break: break-word;
+}
+#doc header::before {
+	display: inline-block;
+	content: "+";
+	font: 12px monospace;
+	border: 1px solid #458;
+	line-height: 11px;
+	height: 11px;
+	width: 11px;
+	text-align: center;
+	border-radius: 50%;
+	margin-right: 4px;
+	vertical-align: middle;
+	flex-shrink: 0;
+}
+#doc section.open > header::before {
+	content: "-";
+}
+#doc section.empty > header::before {
+	content: " "; /*"·"*/
+}
+
+#doc header:hover,
+#doc .sticky-side:hover {
+	border-left-color: #E7E7E7; /* rgba(0, 0, 0, 0.05) */
+	background: rgba(0, 0, 0, 0.048);
+}
+#doc header .ret-arrow {
+	font-weight: normal;
+	margin: 0 0.1em;
+}
+
+#doc a.broken {
+	color: red;
+}
+#doc p, .intro p {
+	margin: 0;
+}
+#doc p + p, .intro p + p, #doc p.pad, .display-controls {
+	margin-top: 0.5em;
+}
+#doc img {
+	max-width: 100%;
+}
+#doc h3 {
+	margin: 0.25em 0;
+	font-size: 125%;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+}
+
+#doc article,
+#doc ul,
+#doc ol,
+#doc blockquote {
+	padding-left: 20px;
+	border-left: 2px solid #f3f3f3;
+}
+#doc article {
+	padding-top: 0.25em;
+	padding-bottom: 0.5em;
+	position: relative;
+}
+#doc .sticky-side {
+	position: absolute;
+	left: -2px;
+	top: 0;
+	bottom: 1px;
+	width: 20px;
+	writing-mode: vertical-rl;
+	font-size: 85%;
+	text-orientation: sideways;
+	/*transform: rotate(0.05deg);*/
+}
+#doc .sticky-side,
+#doc .sticky-side:visited {
+	color: rgba(0, 0, 0, 0.3);
+}
+#doc .sticky-side > span {
+	display: inline-block;
+	position: sticky;
+	left: 0;
+	top: 0;
+	padding: 0.3em 0;
+	max-height: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	white-space: nowrap;
+}
+#doc tt {
+	font-weight: bold;
+}
+#doc code {
+	display: inline-block;
+	background: #FFFBE4;
+	font-family: Consolas, Ubuntu Mono, Dejavu Sans Mono, Lucida Console, monospace;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 0 2px;
+	border: 1px solid #E6E0C4;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-width: 100%;
+	word-break: break-word;
+}
+
+#doc table {
+	border-spacing: 0;
+	color: currentColor;
+}
+#doc table, #doc table td, #doc table th {
+	border: 1px solid #f3f3f3;
+}
+#doc table td, #doc table th {
+	padding: 0.1em 0.5em;
+}
+#doc pre {
+	font-family: Consolas, Dejavu Sans Mono, Segoe UI Mono, Ubuntu Mono, Lucida Console, monospace;
+	font-size: 9pt;
+	line-height: 1.25;
+	background: white;
+	padding: 4px 2px 4px 10px;
+	margin: 0;
+	-moz-tab-size: 4;
+	tab-size: 4;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+#doc pre a {
+	text-decoration: none;
+}
+#doc pre a:hover {
+	text-decoration: underline;
+}
+#doc abbr[title] {
+	text-decoration: underline;
+	-webkit-text-decoration-color: #bbb;
+	text-decoration-color: #bbb;
+	-webkit-text-decoration-style: double;
+	text-decoration-style: double;
+}
+#doc hr {
+	margin: 0.5em 0;
+	margin-right: 1em;
+	border: 0;
+	border-top: 2px dashed #f3f3f3;
+}
+#doc section + hr {
+	margin: 0;
+	height: 1em;
+	border: 1px solid #f3f3f3;
+	border-width: 1px 0 1px 0;
+}
+#doc section {
+	border-top: 1px solid #f3f3f3;
+	margin-top: 0.3em;
+}
+#doc section:first-child {
+	margin-top: 0em;
+}
+#doc section:last-child {
+	border-bottom: 1px solid #f3f3f3;
+}
+#doc section + section, #doc hr + section {
+	border-top: 0;
+	margin-top: 0;
+}
+#doc section + p {
+	border-top: 1px solid #f3f3f3;
+	padding-top: 0.3em;
+}
+/* delay display until load */
+#doc[ready] section:not(.open) > article {
+	display: none;
+}</style>
+<style type="text/css" id="lang_gml">/* GameMakerLanguage */
+pre.gmlmd .md { color: #7A81A9 } /* #define */
+pre.gmlmd .kw { color: #008; font-weight: bold } /* keyword */
+pre.gmlmd .co { color: #080 } /* comment */
+pre.gmlmd .nu { color: #F03232 } /* number */
+pre.gmlmd .nx { color: #00f } /* hex */
+pre.gmlmd .st { color: #00f } /* string */
+pre.gmlmd .ts { color: #00f } /* template string */
+pre.gmlmd .op { color: #000 } /* operator */
+pre.gmlmd .cb { color: #008; font-weight: bold } /* curly brace */
+pre.gmlmd .sv { color: #800 } /* std func */
+pre.gmlmd .sf { color: #800 } /* std var */
+pre.gmlmd .ri { color: #0078aa } /* assets */
+pre.gmlmd .uf { color: #808 } /* user func */
+pre.gmlmd .uv { color: #000 } /* user var */
+pre.gmlmd .lv { color: #648 } /* local var */
+pre.gmlmd .fd { color: #804 } /* field */
+
+pre.gmlmd a.uf {
+	background-color: #f7f0ff;
+}
+pre.gmlmd a.kw {
+	background-color: #f0f7ff;
+}
+pre.gmlmd a.sf, #doc pre a.sv {
+	background-color: #fff3f0;
+}
+
+#night:checked + .main pre.gmlmd .op { color: #CCCCCC }
+#night:checked + .main pre.gmlmd .co { color: #5B995B }
+#night:checked + .main pre.gmlmd .kw { color: #FFB871 }
+#night:checked + .main pre.gmlmd .md { color: #FFB871 }
+#night:checked + .main pre.gmlmd .cb { color: #FFB871 }
+#night:checked + .main pre.gmlmd .sf { color: #FFB871 }
+#night:checked + .main pre.gmlmd .uf { color: #FFB871 }
+#night:checked + .main pre.gmlmd .nu { color: #FF8080 }
+#night:checked + .main pre.gmlmd .st { color: #FCF320 }
+#night:checked + .main pre.gmlmd .ts { color: #FF8080 }
+#night:checked + .main pre.gmlmd .sv { color: #FF8080 }
+#night:checked + .main pre.gmlmd .gv { color: #FF80FF }
+#night:checked + .main pre.gmlmd .ri { color: #FF8080 }
+#night:checked + .main pre.gmlmd .lv { color: #FFF899 }
+#night:checked + .main pre.gmlmd .uv { color: #B2B1FF }
+#night:checked + .main pre.gmlmd .fd { color: #B2B1FF }
+
+#night:checked + .main pre.gmlmd a.uf,
+#night:checked + .main pre.gmlmd a.kw,
+#night:checked + .main pre.gmlmd a.sf {
+	background-color: #431;
+}
+#night:checked + .main pre.gmlmd a.sv {
+	background-color: #422;
+}</style>
+<style type="text/css" id="night_css">.main label[for="night"] {
+	cursor: pointer;
+}
+#night { display: none }
+#night:checked + .main {
+	background-color: #424242;
+}
+#night:checked + .main .page,
+#night:checked + .main .navmenu {
+	background-color: #1c1c1c;
+	border-color: #1c1c1c;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	color: white;
+}
+#night:checked + .main a,
+#night:checked + .main a:visited,
+#night:checked + .main #doc header,
+#night:checked + .main label[for="night"] {
+	color: #9DEC76;
+}
+#night:checked + .main #doc header:before,
+#night:checked + .main #doc h3 {
+	border-color: #9DEC76
+}
+#night:checked + .main #doc header,
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc .sticky-side:hover,
+#night:checked + .main #doc article,
+#night:checked + .main #doc section,
+#night:checked + .main #doc section + p,
+#night:checked + .main #doc hr,
+#night:checked + .main #doc ul,
+#night:checked + .main #doc ol,
+#night:checked + .main #doc table,
+#night:checked + .main #doc table td,
+#night:checked + .main #doc table th
+{
+	border-color: rgba(205,225,255,0.1);
+}
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc .sticky-side:hover,
+#night:checked + .main #doc .asset:hover {
+	background: rgba(205,225,255,0.1);
+}
+#night:checked + .main article ul li {
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px" fill="white"/></svg>'); 
+}
+#night:checked + .main pre {
+	color: #cccccc;
+	background: #000000;
+	border: 1px solid #3E4757;
+}
+#night:checked + .main #doc code {
+	background-color: #000;
+	border-color: #5b7c9f;
+	color: white;
+}
+#night:checked + .main #doc .sticky-side,
+#night:checked + .main #doc .sticky-side:visited {
+	color: rgba(255, 255, 255, 0.3);
+}</style>
+<style type="text/css" id="print_css">@media print {
+	.main { background-color: transparent }
+	.display-controls { display: none; }
+	.page { width: 100%; box-shadow: none; }
+	#doc header::before,
+	#doc section.open header::before	{
+		content: "~";
+	}
+	#doc { display: inherit }
+	#doc section:not(.open) > article,
+	#doc[ready] section:not(.open) > article {
+		display: inherit;
+	}
+}</style>
+<noscript><style>#doc header::before {
+	content: "~";
+}
+#doc header:hover {
+	border-left-color: #f3f3f3;
+	background: inherit;
+}
+#doc { display: inherit }
+#doc section:not(.open) > article {
+	display: inherit;
+}</style></noscript>
+</head><body>
+<input type="checkbox" id="night" checked/>
+<div class="main ">
+<script type="text/javascript">(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+<main class="page">
+<section class="intro">
+<p>This is a "cheat sheet" for the scripting language in Nuclear Throne Together mod.
+</p><p>
+The mod can be downloaded <a href="https://yellowafterlife.itch.io/nuclear-throne-together">from itch.io</a>
+or from the <a href="https://discord.gg/nt">official Discord server</a>.&lt;br&gt;
+An up-to-date version of this document can always be found &lt;a href="https://yal.cc/r/17/ntt/gml"&gt;online&lt;/a&gt;.</p>
+</section>
+<section class="display-controls">
+Click on sections to expand/collapse them.<br>Quick display controls:
+<a href="javascript:void(0)" onclick="opt_none(); return false">Categories</a>
+&middot; <a href="javascript:void(0)" onclick="opt_list(); return false">Sections</a>
+&middot; <a href="javascript:void(0)" onclick="opt_all(); return false">Everything</a>
+&middot; <a href="javascript:void(0)"><label for="night">Toggle night mode</label></a><br/>
+</section><section id="doc">
+<!--<doc--><p><p>
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+
+
+
+</p><section><header id="gml"><a href="#gml" title="(permalink)">GameMaker Language in NTT</a></header><article><a class="sticky-side" href="#gml" title="GameMaker Language in NTT"><span>GameMaker Language in NTT</span></a><p>
+	NTT uses a custom scripting language that largely resembles that of GameMaker.
+	</p><p>
+	As result, the <a href="https://manual.yoyogames.com">GameMaker manual</a> and related tutorials can be handy for learning the language.
+	</p><p>
+	NTT has two language versions, chosen based on file extension (or <a href="#pragma">#pragma</a>): </p><ul>
+	<li>	<code>.gml</code>: Classic version, inspired by GMS1 GML<br/>
+		Despite this, it has many GMS2 features like ternary operators and macros.
+	</li><li>	<code>.ntgml</code>: Modern version, inspired by GM2022 GML
+	</li></ul><p>
+	The following are extensions, notes, and differences from vanilla GML:
+	</p><section><header id="gml-define"><a href="#gml-define" title="(permalink)">Script/function declarations</a></header><article><p>
+		GameMaker itself has you create scripts via UI and displays separate (or tabbed) code editors for each of them.
+		</p><p>
+		NTT uses one source file per mod, and thus uses a slightly different scheme - you can define an arbitrary amount of scripts per file using the <code>#define</code> directive:
+		</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">scr_1</span>
+<span class="co">// scr_1' code here</span>
+<span class="md">#define</span> <span class="uf">scr_2</span>
+<span class="co">// scr_2' code here</span>
+<span class="md">#define</span> <span class="uf">scr_3</span>
+<span class="co">// and so on</span>
+</pre><p>
+		You can also name the script' arguments by specifying them on <code>#define</code>-line:
+		</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">scr_add</span><span class="op">(</span><span class="lv">a</span><span class="op">,</span> <span class="lv">b</span><span class="op">)</span>
+<span class="kw">return</span> <span class="lv">a</span> <span class="op">+</span> <span class="lv">b</span><span class="op">;</span>
+</pre><p>
+		Which is equivalent to having
+		</p><pre class="gmlmd">
+<span class="co">/// scr_add(a, b)</span>
+<span class="kw">return</span> <span class="uv">argument0</span> <span class="op">+</span> <span class="uv">argument1</span><span class="op">;</span>
+</pre><p>
+		in regular GML.
+	</p></article></section><section><header id="gml-array-alloc"><a href="#gml-array-alloc" title="(permalink)">Array creation</a></header><article><p>
+		Same as regular GML, doing
+		</p><pre class="gmlmd">
+<span class="uv">something</span><span class="op">[</span><span class="nu">1</span><span class="op">]</span> <span class="op">=</span> <span class="nu">4</span><span class="op">;</span>
+</pre><p>
+		would replace <code>something</code> by a new 2-element array (containing values <code>0</code> and <code>4</code>) if it wasn't an array before.
+		</p><p>
+		Legacy "copy on write" behaviour does not exist in NTT-GML.
+		</p><p>
+		If you need to clone an array, you can do so explicitly via <a href="#array_clone">array_clone</a> or other functions.
+		</p><p>
+		Using <code>[@index]</code> for write-access remains preferable for all cases where you are sure that a value is an array, as it saves from runtime checks for whether it is.
+	</p></article></section><section><header id="gml-in"><a href="#gml-in" title="(permalink)">"in" operator</a></header><article><p>
+		Like with current versions of GM, <code>variable_instance_</code> functions are supported:
+		</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"test"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 0</span>
+<span class="sf">variable_instance_set</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"test"</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"test"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 1</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sf">variable_instance_get</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"test"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 4</span>
+</pre><p>
+		However, the nature of scripting generally implies that often you'll find yourself setting variables on instances only if they aren't set yet, which prompts for a shorter syntax.
+		</p><p>
+		Therefore NTT's GML variant supports <code>&lt;variable name&gt; in &lt;instance id&gt;</code> syntax.
+		</p><p>
+		So, instead of having
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"count"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="uv">count</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+		You can have
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="st">"count"</span> <span class="kw">in</span> <span class="kw">self</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="uv">count</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+		Or even
+		</p><pre class="gmlmd">
+<span class="uv">count</span> <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="st">"count"</span> <span class="kw">in</span> <span class="kw">self</span><span class="op">)</span> <span class="op">?</span> <span class="uv">count</span> <span class="op">:</span> <span class="nu">0</span><span class="op">)</span> <span class="op">+</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+		For cases where you would use
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"marked"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">marked</span> <span class="op">=</span> <span class="uv">true</span><span class="op">;</span>
+    <span class="co">// do something</span>
+<span class="cb">}</span>
+</pre><p>
+		you can also do <code>not in</code>:
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="st">"marked"</span> <span class="kw">not</span> <span class="kw">in</span> <span class="kw">self</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">marked</span> <span class="op">=</span> <span class="uv">true</span><span class="op">;</span>
+    <span class="co">// do something</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="gml-lq"><a href="#gml-lq" title="(permalink)">Lightweight objects</a></header><article><p>
+		Sometimes you may want to group several values together in an easy-to-read way, but without the hassle of creating-managing-destroying instances or data structures. For such cases you can use lightweight objects instead.
+		</p><p>
+		To create one of these, use <code>{ key1: value1, key2: value2, ... }</code>:
+		</p><pre class="gmlmd">
+<span class="uv">myobj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">num</span><span class="op">:</span> <span class="nu">1</span><span class="op">,</span> <span class="uv">str</span><span class="op">:</span> <span class="st">"hi"</span> <span class="cb">}</span><span class="op">;</span>
+</pre><p>
+		you can then work with it exactly like you would with instances:
+		</p><pre class="gmlmd">
+<span class="uv">myobj</span><span class="op">.</span><span class="fd">num</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="uv">myobj</span><span class="op">.</span><span class="fd">num</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		when you are done using it, no further action is required - lightweight are freed as soon as there are no more variables referencing them, just like with arrays.
+		</p><p>
+		Also see <a href="#api-lq">lightweight object API</a>.
+	</p></article></section><section><header id="gml-template"><a href="#gml-template" title="(permalink)">Template strings</a></header><article><p>
+		Another quality-of-life feature of the mod's scripting language is template strings (sometimes also called template literals or string interpolation).
+		</p><p>
+		Say, you want to display "HP: &lt;current&gt;/&lt;max&gt;" in UI.
+		</p><p>
+		Normally you would need to do it like
+		</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">draw_text</span><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"HP: "</span> <span class="op">+</span> <span class="sf">string</span><span class="op">(</span><span class="uv">my_health</span><span class="op">)</span> <span class="op">+</span> <span class="st">"/"</span> <span class="op">+</span> <span class="sf">string</span><span class="op">(</span><span class="uv">maxhealth</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		which is... a little inconvenient.
+		</p><p>
+		With template strings (denoted via <code>``</code> quotes), however, you can use <code>${expression}</code> right inside the string to have values converted to strings and appended:
+		</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">draw_text</span><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> `<span class="uv">HP</span><span class="op">:</span> <span class="nu">$</span><span class="cb">{</span><span class="uv">my_health</span><span class="cb">}</span><span class="op">/</span><span class="nu">$</span><span class="cb">{</span><span class="uv">maxhealth</span><span class="cb">}</span>`<span class="op">)</span><span class="op">;</span>
+    <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="wait"><a href="#wait" title="(permalink)">Wait-instruction</a></header><article><p>
+		One of the scripting language's most notable features is the wait-instruction.
+</p><p>
+		To put it shortly, when executed, the program will pause for the given number of frames while the rest of the game continues executing. So,
+		</p><pre class="gmlmd">
+<span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;=</span> <span class="nu">5</span><span class="op">;</span> <span class="lv">i</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">i</span><span class="op">)</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">30</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		will count up to 5 while waiting 30 frames (one second) between each step.
+</p><p>
+		This allows to do lots of interesting things. For example, to make an explosive bullet for a custom weapon, you could simply <code>wait</code> for projectile to be destroyed while tracking it's position:
+		</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_fire">weapon_fire</a>
+<span class="sf">motion_add</span><span class="op">(</span><span class="uv">gunangle</span><span class="op">,</span> <span class="op">-</span><span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">weapon_post</span><span class="op">(</span><span class="nu">6</span><span class="op">,</span> <span class="op">-</span><span class="nu">7</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">;</span>
+<span class="co">// create and configure a projectile:</span>
+<span class="kw">var</span> <span class="lv">qx</span> <span class="op">=</span> <span class="uv">x</span><span class="op">,</span> <span class="uv">qy</span> <span class="op">=</span> <span class="uv">y</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">q</span> <span class="op">=</span> <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">with</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
+    <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="sf">random_range</span><span class="op">(</span><span class="op">-</span><span class="nu">5</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
+    <span class="uv">friction</span> <span class="op">=</span> <span class="op">-</span><span class="nu">0.8</span><span class="op">;</span> <span class="co">// gradual acceleration</span>
+    <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="co">// track projectile' position while it exists:</span>
+<span class="kw">while</span> <span class="op">(</span><span class="sf">instance_exists</span><span class="op">(</span><span class="lv">q</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="lv">qx</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">x</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">hspeed</span><span class="op">;</span>
+    <span class="uv">qy</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">y</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">vspeed</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="co">// create an explosion at it's last position once it's gone:</span>
+<span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">SmallExplosion</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		Overall, <code>wait</code> is extremely useful for writing sequentially executing code without hassle.
+	</p></article></section><section><header id="fork"><a href="#fork" title="(permalink)">Fork-instruction</a></header><article><p>
+		Another notable language feature is the <code>fork</code> instruction.
+</p><p>
+		<code>fork()</code> acts like a function that, when called, will create a copy of the currently running script. The copy will have it's own (copied) local variables, but will share global variables, arrays, and game context with the original; The copy will execute it's script and finish while the original will continue it's own way; The function returns <code>true</code> to the copy and <code>false</code> to the original. For a more visual example,
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"fork"</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"orig"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"post"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		This would output
+		</p><pre>
+fork
+post
+orig
+post
+</pre><p>
+		since the copy executes before the original script resumes. If you were to add a <code>wait</code> call into the copy however, the original would resume as soon as the copy pauses:
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"fork"</span><span class="op">)</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"orig"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"post"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		which would output
+		</p><pre>
+fork
+orig
+post [from orig]
+[1 frame pause]
+post [from fork]
+</pre><p>
+		The most common use case scenario for <code>fork</code> is executing something involving <code>wait</code> without interrupting the original program. For that you would insert an <code>exit</code> statement in the end of <code>fork</code>'s branch to prevent it from executing the rest of the script. For example,
+		</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">10</span><span class="op">;</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"fork"</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">exit</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"orig"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"post"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		which would output
+		</p><pre>
+orig
+post &lt;from orig&gt;
+&lt;10 frame pause&gt;
+fork
+</pre><p>
+		So, if you wanted to give the earlier shown explosive bullet weapon to also have triple-shot (each projectile being tracked and exploding, obviously), you could do that like so:
+		</p><pre class="gmlmd">
+<span class="sf">motion_add</span><span class="op">(</span><span class="uv">gunangle</span><span class="op">,</span> <span class="op">-</span><span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">weapon_post</span><span class="op">(</span><span class="nu">6</span><span class="op">,</span> <span class="op">-</span><span class="nu">7</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="op">-</span><span class="nu">15</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;=</span> <span class="nu">15</span><span class="op">;</span> <span class="lv">i</span> <span class="op">+=</span> <span class="nu">15</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">var</span> <span class="lv">qx</span> <span class="op">=</span> <span class="uv">x</span><span class="op">,</span> <span class="uv">qy</span> <span class="op">=</span> <span class="uv">y</span><span class="op">;</span>
+    <span class="kw">var</span> <span class="lv">q</span> <span class="op">=</span> <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">with</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
+        <span class="sf">motion_add</span><span class="op">(</span><span class="lv">i</span> <span class="op">+</span> <span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="sf">random_range</span><span class="op">(</span><span class="op">-</span><span class="nu">5</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
+        <span class="uv">friction</span> <span class="op">=</span> <span class="op">-</span><span class="nu">0.8</span><span class="op">;</span>
+        <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+    <span class="cb">}</span>
+    <span class="kw">while</span> <span class="op">(</span><span class="sf">instance_exists</span><span class="op">(</span><span class="lv">q</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="lv">qx</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">x</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">hspeed</span><span class="op">;</span>
+        <span class="uv">qy</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">y</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">vspeed</span><span class="op">;</span>
+        <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+    <span class="cb">}</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">SmallExplosion</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">exit</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		To summarize, <code>fork</code> compliments <code>wait</code> and even further extends what you can do with it.
+	</p></article></section></article></section><section><header id="api"><a href="#api" title="(permalink)">General reference</a></header><article><a class="sticky-side" href="#api" title="General reference"><span>General reference</span></a><section><header id="api-general"><a href="#api-general" title="(permalink)">General notes</a></header><article><p>
+		First things first, Doing <code>/gmlapi</code> in chat produces a <code>api</code> subdirectory in game's save directory (<code>%LOCALAPPDATA%/nuclearthrone</code> on Windows), which contains a <code>api.gml</code> file. The file contains an auto-generated list of all supported functions, including ones not covered here.
+	</p></article></section><section><header id="api-debug"><a href="#api-debug" title="(permalink)">Output functions</a></header><article><a class="sticky-side" href="#api-debug" title="Output functions"><span>Output functions</span></a><section><header id="trace"><a href="#trace" title="(permalink)">trace(...values)</a></header><article><p>
+			Displays the given value(s) in chat.
+			</p><p>
+			Values are separated by a single space.
+			</p><p>
+			Non-string values are converted to string prior.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">)</span><span class="op">;</span> <span class="co">// "1 2"</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sv">room_speed</span><span class="op">,</span> <span class="st">"FPS"</span><span class="op">)</span><span class="op">;</span> <span class="co">// "30 FPS"</span>
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span><span class="nu">2</span><span class="op">,</span><span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// "[1, 2, 3]"</span>
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span><span class="uv">a</span><span class="op">:</span><span class="nu">1</span><span class="op">,</span><span class="lv">b</span><span class="op">:</span><span class="nu">2</span><span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">obj</span><span class="op">)</span><span class="op">;</span> <span class="co">// "{ a: 1, b: 2 }"</span>
+</pre><p>
+			Advanced users can also enable this function to log to stdout via <code>/stdout</code> chat command - that allows to use it to debug code even if it crashes the game.
+		</p></article></section><section><header id="trace_time"><a href="#trace_time" title="(permalink)">trace_time(?caption)</a></header><article><p>
+			Measures time (in nanoseconds) since the last call to this function, and displays it in chat if <code>caption</code> argument was specified.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace_time">trace_time</a><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="co">// do something</span>
+<a class="sf" href="#trace_time">trace_time</a><span class="op">(</span><span class="st">"Time spent on something"</span><span class="op">)</span><span class="op">;</span> <span class="co">// "Time spent on something: #ns"</span>
+</pre></article></section><section><header id="trace_color"><a href="#trace_color" title="(permalink)">trace_color(text, color)</a></header><article><p>
+			Displays a message in chat with a colored line like those sent by players have.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Red!"</span><span class="op">,</span> <span class="sv">c_red</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Green!"</span><span class="op">,</span> <span class="sv">c_lime</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Fancy!"</span><span class="op">,</span> <span class="sf">make_color_rgb</span><span class="op">(</span><span class="nu">250</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="nu">200</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section></article></section><section><header id="api-string"><a href="#api-string" title="(permalink)">String functions</a></header><article><a class="sticky-side" href="#api-string" title="String functions"><span>String functions</span></a><p>
+		Most of these functions are exactly the same as <a href="http://docs.yoyogames.com/source/dadiospice/002_reference/strings/index.html">GM ones</a>, so only the non-standard ones are described here.
+		</p><section><header id="string_lpad"><a href="#string_lpad" title="(permalink)">string_lpad(str, padstr, length)</a></header><article><p>
+			Prepends <code>padstr</code> to <code>str</code> until it reaches specified length.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_lpad">string_lpad</a><span class="op">(</span><span class="sf">string</span><span class="op">(</span><span class="nu">42</span><span class="op">)</span><span class="op">,</span> <span class="st">"0"</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0042"</span>
+</pre></article></section><section><header id="string_rpad"><a href="#string_rpad" title="(permalink)">string_rpad(str, padstr, length)</a></header><article><p>
+			Appends <code>padstr</code> to <code>str</code> until it reaches specified length.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_rpad">string_rpad</a><span class="op">(</span><span class="sf">string</span><span class="op">(</span><span class="nu">42</span><span class="op">)</span><span class="op">,</span> <span class="st">"0"</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "4200"</span>
+</pre></article></section><section><header id="string_auto"><a href="#string_auto" title="(permalink)">string_auto(number)</a></header><article><p>
+			Converts a number to a string with automatic precision (unlike <code>string_format</code>, which requires specifying the number of decimal places).
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_auto">string_auto</a><span class="op">(</span><span class="nu">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0.4"</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_auto">string_auto</a><span class="op">(</span><span class="nu">0.4040</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0.404"</span>
+</pre></article></section><section><header id="string_trim"><a href="#string_trim" title="(permalink)">string_trim(string)</a></header><article><p>
+			Removes leading and trailing spaces from a string.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi"</span>
+</pre></article></section><section><header id="string_ltrim"><a href="#string_ltrim" title="(permalink)">string_ltrim(string)</a></header><article><p>
+			Removes leading spaces from a string.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi "</span>
+</pre></article></section><section><header id="string_rtrim"><a href="#string_rtrim" title="(permalink)">string_rtrim(string)</a></header><article><p>
+			Removes trailing spaces from a string.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// " hi"</span>
+</pre></article></section><section><header id="string_split"><a href="#string_split" title="(permalink)">string_split(string, delimiter)</a></header><article><p>
+			Splits a string on delimiter into an array of strings.
+			The general opposite of <a href="#array_join">array_join</a>.
+			</p><p>
+			If the string does no contain the delimiter, returns a 1-element array with the entire string.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_split">string_split</a><span class="op">(</span><span class="st">"1|2|3"</span><span class="op">,</span> <span class="st">"|"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 2, 3]</span>
+</pre></article></section><section><header id="string_sha1"><a href="#string_sha1" title="(permalink)">string_sha1(string)</a></header><article><p>
+			Returns a SHA-1 hash of a string, assuming Unicode encoding.
+		</p></article></section><section><header id="string_sha1_utf8"><a href="#string_sha1_utf8" title="(permalink)">string_sha1_utf8(string)</a></header><article><p>
+			Returns a SHA-1 hash of a string, assuming UTF-8 encoding.
+		</p></article></section><section><header id="string_md5"><a href="#string_md5" title="(permalink)">string_md5(string)</a></header><article><p>
+			Returns a MD5 hash of a string, assuming Unicode encoding.
+		</p></article></section><section><header id="string_md5_utf8"><a href="#string_md5_utf8" title="(permalink)">string_md5_utf8(string)</a></header><article><p>
+			Returns a MD5 hash of a string, assuming UTF-8 encoding.
+		</p></article></section><p>
+		Also see: <a href="#string_load">string_load</a>, <a href="#string_save">string_save</a>.
+	</p></article></section><section><header id="api-array"><a href="#api-array" title="(permalink)">Array functions</a></header><article><a class="sticky-side" href="#api-array" title="Array functions"><span>Array functions</span></a><p>
+		Array functions in NTT's API include a set of additional helper functions.
+		</p><section><header id="array_create"><a href="#array_create" title="(permalink)">array_create(size, value = 0)</a></header><article><p>
+			Creates an array of given size. Size of 0 is allowed.
+			</p><p>
+			If <code>value</code> argument is specified, the array is filled with the given value.
+			</p><p>
+			Otherwise it is filled with zeroes.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <a class="sf" href="#array_create">array_create</a><span class="op">(</span><span class="nu">3</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// [0, 0, 0]</span>
+<span class="lv">arr</span> <span class="op">=</span> <a class="sf" href="#array_create">array_create</a><span class="op">(</span><span class="nu">2</span><span class="op">,</span> <span class="st">"hi"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// ["hi", "hi"]</span>
+</pre></article></section><section><header id="array_length"><a href="#array_length" title="(permalink)">array_length(array)</a></header><article><p>
+			Returns the length of the provided array.
+			</p><p>
+			Returns 0 for non-array values.
+			</p><p>
+			You can also use the standard <code>array_length_1d</code> alias for this function.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_length">array_length</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 3</span>
+</pre></article></section><section><header id="array_push"><a href="#array_push" title="(permalink)">array_push(array, value)</a></header><article><p>
+			Inserts a value to the end of the array, expanding it.
+			</p><p>
+			Creates a 1-element array if the value isn't an array yet.
+			</p><p>
+			Returns the array (either the same if the value was an array or a newly made one).
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1]</span>
+<a class="sf" href="#array_push">array_push</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="nu">2</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 2]</span>
+</pre></article></section><section><header id="array_find_index"><a href="#array_find_index" title="(permalink)">array_find_index(array, value)</a></header><article><p>
+			Returns the index of first occurrence of a value in the array.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="st">"a"</span><span class="op">,</span> <span class="st">"b"</span><span class="op">,</span> <span class="st">"c"</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_find_index">array_find_index</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="st">"b"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 1</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_find_index">array_find_index</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="st">"c"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 2</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_find_index">array_find_index</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="st">"d"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// -1</span>
+</pre></article></section><section><header id="array_clear"><a href="#array_clear" title="(permalink)">array_clear(array, value)</a></header><article><p>
+			Replaces the contents of an array with given value.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#array_clear">array_clear</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// [4, 4, 4]</span>
+</pre></article></section><section><header id="array_clone"><a href="#array_clone" title="(permalink)">array_clone(array)</a></header><article><p>
+			Returns a shallow copy of the given array.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">a</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">b</span> <span class="op">=</span> <a class="sf" href="#array_clone">array_clone</a><span class="op">(</span><span class="lv">a</span><span class="op">)</span><span class="op">;</span>
+<span class="lv">a</span><span class="op">[</span><span class="nu">1</span><span class="op">]</span> <span class="op">=</span> <span class="nu">4</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">a</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 4, 3]</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">b</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 2, 3]</span>
+</pre></article></section><section><header id="array_copy"><a href="#array_copy" title="(permalink)">array_copy(dest_array, dest_index, source_array, source_index, length)</a></header><article><p>
+			Copies values between arrays.
+			</p><p>
+			Destination-array is expanded to fit new size if needed.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">a</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">,</span> <span class="nu">4</span><span class="op">]</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">b</span> <span class="op">=</span> <span class="op">[</span><span class="nu">4</span><span class="op">,</span> <span class="nu">5</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#array_copy">array_copy</a><span class="op">(</span><span class="lv">a</span><span class="op">,</span> <span class="nu">3</span><span class="op">,</span> <span class="lv">b</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">2</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">a</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 2, 3, 4, 5]</span>
+</pre></article></section><section><header id="array_slice"><a href="#array_slice" title="(permalink)">array_slice(array, start, length)</a></header><article><p>
+			Returns a new array with values representing a section of an array.
+			</p><p>
+			This is more or less a shortcut for <a href="#array_create">array_create</a> + <a href="#array_copy">array_copy</a>.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">,</span> <span class="nu">4</span><span class="op">,</span> <span class="nu">5</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_slice">array_slice</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="nu">1</span><span class="op">,</span> <span class="nu">3</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// [1, 2, 3]</span>
+</pre></article></section><section><header id="array_join"><a href="#array_join" title="(permalink)">array_join(array, delimiter:string)</a></header><article><p>
+			Joins the contents of an array into a string, separating them as specified.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">,</span> <span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#array_join">array_join</a><span class="op">(</span><span class="lv">arr</span><span class="op">,</span> <span class="st">"|"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "1|2|3"</span>
+</pre><p>
+			<a href="#string_split">string_split</a> can be considered a counterpart of this function.
+		</p></article></section></article></section><section><header id="api-lq"><a href="#api-lq" title="(permalink)">Lightweight object functions</a></header><article><a class="sticky-side" href="#api-lq" title="Lightweight object functions"><span>Lightweight object functions</span></a><p>
+		The following functions deal with <a href="#gml-lq">lightweight objects</a>:
+		</p><section><header id="lq_get"><a href="#lq_get" title="(permalink)">lq_get(obj, field)</a></header><article><p>
+			Retrieves a field' value from a lightweight object by name.
+			</p><p>
+			Returns <code>undefined</code> if the field is amiss or the value is not a lightweight object.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">str</span><span class="op">:</span> <span class="st">"hi"</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_get">lq_get</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="st">"str"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi"</span>
+</pre></article></section><section><header id="lq_defget"><a href="#lq_defget" title="(permalink)">lq_defget(obj, field, defvalue)</a></header><article><p>
+			Retrieves a field' value from a lightweight object by name.
+			</p><p>
+			Returns <code>defvalue</code> if the field is amiss or the value is not a lightweight object.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">str</span><span class="op">:</span> <span class="st">"hi"</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_defget">lq_defget</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="st">"some"</span><span class="op">,</span> <span class="st">"oh no"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "oh no"</span>
+</pre></article></section><section><header id="lq_set"><a href="#lq_set" title="(permalink)">lq_set(obj, field, value)</a></header><article><p>
+			Modifies a field' value in a lightweight object by name.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">num</span><span class="op">:</span> <span class="nu">1</span> <span class="cb">}</span><span class="op">;</span>
+<a class="uf" href="#lq_set">lq_set</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="st">"num"</span><span class="op">,</span> <span class="nu">2</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">obj</span><span class="op">.</span><span class="fd">num</span><span class="op">)</span><span class="op">;</span> <span class="co">// 2</span>
+</pre></article></section><section><header id="lq_exists"><a href="#lq_exists" title="(permalink)">lq_exists(obj, field)</a></header><article><p>
+			Returns whether a field is present in the given object.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="uf" href="#lq_exists">lq_exists</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 1</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="uf" href="#lq_exists">lq_exists</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="st">"b"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 0</span>
+</pre></article></section><section><header id="lq_size"><a href="#lq_size" title="(permalink)">lq_size(obj)</a></header><article><p>
+			Returns the number of fields on the given object.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span><span class="op">,</span> <span class="lv">b</span><span class="op">:</span> <span class="st">"?"</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_size">lq_size</a><span class="op">(</span><span class="lv">obj</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 2</span>
+</pre></article></section><section><header id="lq_get_key"><a href="#lq_get_key" title="(permalink)">lq_get_key(obj, index)</a></header><article><p>
+			Retrieves a field' name by index.
+			</p><p>
+			Fields are numbered by order of their definiion.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span><span class="op">,</span> <span class="lv">b</span><span class="op">:</span> <span class="st">"?"</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_get_key">lq_get_key</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="nu">0</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "a"</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_get_key">lq_get_key</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "b"</span>
+</pre></article></section><section><header id="lq_get_value"><a href="#lq_get_value" title="(permalink)">lq_get_value(obj, index)</a></header><article><p>
+			Retrieves a field' value by index.
+			</p><p>
+			Fields are numbered by order of their definiion.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span><span class="op">,</span> <span class="lv">b</span><span class="op">:</span> <span class="st">"?"</span> <span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_get_value">lq_get_value</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="nu">0</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 4</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#lq_get_value">lq_get_value</a><span class="op">(</span><span class="lv">obj</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "?"</span>
+</pre></article></section><section><header id="lq_clone"><a href="#lq_clone" title="(permalink)">lq_clone(obj)</a></header><article><p>
+			Produces a shallow copy of an object.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span><span class="op">,</span> <span class="lv">b</span><span class="op">:</span> <span class="st">"?"</span> <span class="cb">}</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">copy</span> <span class="op">=</span> <a class="sf" href="#lq_clone">lq_clone</a><span class="op">(</span><span class="lv">obj</span><span class="op">)</span><span class="op">;</span>
+<span class="lv">copy</span><span class="op">.</span><span class="fd">a</span> <span class="op">+=</span> <span class="nu">4</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">obj</span><span class="op">)</span><span class="op">;</span> <span class="co">// { a: 4, b: "?" }</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">copy</span><span class="op">)</span><span class="op">;</span> <span class="co">// { a: 8, b: "?" }</span>
+</pre></article></section></article></section><section><header id="api-file"><a href="#api-file" title="(permalink)">File functions</a></header><article><a class="sticky-side" href="#api-file" title="File functions"><span>File functions</span></a><section><header id="api-file-intro"><a href="#api-file-intro" title="(permalink)">Introduction</a></header><article><p>
+			Things aren't quite as they seem with file functions in modding.
+			</p><p>
+			The general concept is that files on disk have to be explicitly loaded by the mod before you can do anything with them. In local modes, it's just a 1 frame delay.
+			</p><p>
+			In online multiplayer, the file(s) also have to be transmitted to the co-player(s) so that the performed actions are the same, which means more delay before loading. Modified files are kept on the machine of player that loaded the mod.
+			</p><p>
+			Modified files are saved into a special "data" directory created per-mod.
+			When loading, the priority of picking files is as following (from first tried to last tried):
+			</p><ul>
+			<li>	Mod's data directory (previously createdmodified files)
+			</li><li>	Directory in which mod's .gml file is located.
+			</li><li>	Game's appdata directory.
+			</li><li>	Game's installation directory.
+			</li></ul><p>
+			Files created at runtime (i.e. saved by mod) are considered to be loaded instantly, obviously.
+		</p></article></section><section><header id="file_load"><a href="#file_load" title="(permalink)">file_load(...paths)</a></header><article><p>
+			Start loading the given path(s).
+			</p><p>
+			Paths can be either actual paths (strings) or arrays of paths.
+			</p><p>
+			Returns the number of frames until files will be ready.
+			</p><p>
+			If the file doesn't exist, it is still to be "loaded", which in online multiplayer simply informs the other player(s) that the file is amiss.
+			</p><p>
+			The following would preload a text file <code>test.txt</code> and display it's contents once done:
+			</p><pre class="gmlmd">
+<a class="kw" href="#wait">wait</a> <a class="sf" href="#file_load">file_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span> <span class="co">// pause the script's execution until file's loaded.</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"test.txt:"</span><span class="op">,</span> <a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// display the contents</span>
+</pre></article></section><section><header id="file_unload"><a href="#file_unload" title="(permalink)">file_unload(...paths)</a></header><article><p>
+			Unloads the given files from memory.
+			</p><p>
+			This is instantaneous and returns nothing.
+		</p></article></section><section><header id="file_loaded"><a href="#file_loaded" title="(permalink)">file_loaded(path)</a></header><article><p>
+			Returns whether the file by given path is loaded (regardless of whether it exists).
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">t</span> <span class="op">=</span> <a class="sf" href="#file_load">file_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#file_loaded">file_loaded</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 0 - not yet</span>
+<a class="kw" href="#wait">wait</a> <span class="lv">t</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#file_loaded">file_loaded</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 1 - now it is</span>
+</pre></article></section><section><header id="file_exists"><a href="#file_exists" title="(permalink)">file_exists(path)</a></header><article><p>
+			Returns whether the file by given path is loaded and exists.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#file_exists">file_exists</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 0 </span>
+<a class="sf" href="#string_save">string_save</a><span class="op">(</span><span class="st">"hi"</span><span class="op">,</span> <span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#file_exists">file_exists</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// 1</span>
+</pre></article></section><section><header id="file_delete"><a href="#file_delete" title="(permalink)">file_delete(path)</a></header><article><p>
+			Unloads a file from memory and removes it from disk (on machine of player that loaded the mod).
+		</p></article></section><section><header id="file_size"><a href="#file_size" title="(permalink)">file_size(path)</a></header><article><p>
+			Returns the size (in bytes) of file at given path, or -1 if it isn't loaded / does not exist.
+		</p></article></section><section><header id="file_sha1"><a href="#file_sha1" title="(permalink)">file_sha1(path)</a></header><article><p>
+			Returns a SHA-1 hash of the file at given path, or <code>undefined</code> if it does not exist / is not loaded.
+		</p></article></section><section><header id="file_md5"><a href="#file_md5" title="(permalink)">file_md5(path)</a></header><article><p>
+			Returns a MD5 hash of the file at given path, or <code>undefined</code> if it does not exist / is not loaded.
+		</p></article></section><section><header id="file_download"><a href="#file_download" title="(permalink)">file_download(url, path)</a></header><article><p>
+			Initiates downloading of a file from the internet to the given location.
+			</p><p>
+			The function returns nothing and makes no promises as to when and whether operation will complete - use <a href="#file_loaded">file_loaded</a> to find when it loads.
+			</p><p>
+			The file is downloaded from original URL by the player that loaded the mod - in online multiplayer, the other player will be sent the mod-loading-player's copy of it once it loads.
+			</p><p>
+			The following would download a file and display it's contents:
+			</p><pre class="gmlmd">
+<a class="sf" href="#file_download">file_download</a><span class="op">(</span><span class="st">"http://yal.cc/ping"</span><span class="op">,</span> <span class="st">"ping.txt"</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">while</span> <span class="op">(</span><span class="op">!</span><a class="sf" href="#file_loaded">file_loaded</a><span class="op">(</span><span class="st">"ping.txt"</span><span class="op">)</span><span class="op">)</span> <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"Unix time at Yellow's website:"</span><span class="op">,</span> <a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"ping.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="file_upload"><a href="#file_upload" title="(permalink)">file_upload(upload_path, upload_url, ?response_path)</a></header><article><p>
+			Submits a file via HTTP POST to an URL.
+			</p><p>
+			If <code>response_path</code> argument is specified, response will be saved into a file.
+			</p><p>
+			As it's based on <code>http_post_string</code>, can only upload "texty" files.
+			</p><pre class="gmlmd">
+<a class="sf" href="#string_save">string_save</a><span class="op">(</span><span class="st">"hello!"</span><span class="op">,</span> <span class="st">"post.txt"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#file_upload">file_upload</a><span class="op">(</span><span class="st">"http://httpbin.org/post"</span><span class="op">,</span> <span class="st">"post.txt"</span><span class="op">,</span> <span class="st">"out.txt"</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">while</span> <span class="op">(</span><span class="op">!</span><a class="sf" href="#file_loaded">file_loaded</a><span class="op">(</span><span class="st">"out.txt"</span><span class="op">)</span><span class="op">)</span> <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"Response: "</span><span class="op">,</span> <a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"out.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="file_find_all"><a href="#file_find_all" title="(permalink)">file_find_all(path, array, depth = 0)</a></header><article><p>
+			Finds all files in the given directory and populates the provided array.
+			</p><p>
+			The function looks relative to mod's data directory first and then directory where the mod itself is located, first of two taking priority for "overlapping" files.
+			</p><p>
+			If <code>array</code> already contains items, any extras are replaced with <code>undefined</code> (to avoid clashing between multiple searches).
+			</p><p>
+			If <code>depth</code> is above 0, recursively searches in subdirectories as well, up to specified depth.
+			</p><p>
+			Returns the number of frames until data will be ready.
+			</p><p>
+			The array is filled with <a href="#gml-lq">lightweight objects</a> with the following fields: </p><ul>
+				<li>	<code>name</code>: name and extension of the item (e.g. <code>"some.png"</code>)
+				</li><li>	<code>path</code>: full path to the item (e.g. <code>"sprites/some.png"</code>)
+				</li><li>	<code>ext</code>: the extension of the file, including dot (e.g. <code>".png"</code>)
+					This is a blank string <code>""</code> for directories and files without extension.
+				</li><li>	<code>is_dir</code>: whether it is a directory (true or false).
+				</li><li>	<code>is_data</code>: whether the entry resides inside the mod's <code>data</code> directory.
+			</li></ul><p>
+			For example, the following would display paths to all files inside the "sprites" directory next to the mod.
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span><span class="op">;</span>
+<a class="kw" href="#wait">wait</a> <a class="sf" href="#file_find_all">file_find_all</a><span class="op">(</span><span class="st">"sprites"</span><span class="op">,</span> <span class="lv">arr</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">n</span> <span class="op">=</span> <a class="sf" href="#array_length">array_length</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;</span> <span class="lv">n</span><span class="op">;</span> <span class="lv">i</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">[</span><span class="lv">i</span><span class="op">]</span><span class="op">.</span><span class="fd">path</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+			If you want to look in mod's directory specifically, you can use <code>"."</code> as path, but note that you should usually only do this if your mod comes with it's own directory (as otherwise you would be picking up files form other mods in search).
+		</p></article></section><section><header id="string_load"><a href="#string_load" title="(permalink)">string_load(path)</a></header><article><p>
+			Loads and returns the contents of given file as a string.
+			</p><p>
+			Returns <code>undefined</code> if the file does not exist or is not loaded.
+			</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi" or undefined</span>
+<a class="sf" href="#string_save">string_save</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">,</span> <span class="st">"hi"</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi"</span>
+</pre></article></section><section><header id="string_save"><a href="#string_save" title="(permalink)">string_save(string, path)</a></header><article><p>
+			Saves the contents of a string to the given file.
+			</p><p>
+			The following example would add one "hi" to "test.txt" upon each execution:
+			</p><pre class="gmlmd">
+<a class="kw" href="#wait">wait</a> <a class="sf" href="#file_load">file_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">s</span> <span class="op">=</span> <a class="sf" href="#string_load">string_load</a><span class="op">(</span><span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">if</span> <span class="op">(</span><span class="lv">s</span> <span class="op">==</span> <span class="uv">undefined</span><span class="op">)</span> <span class="lv">s</span> <span class="op">=</span> <span class="st">"hi"</span><span class="op">;</span> <span class="kw">else</span> <span class="lv">s</span> <span class="op">+=</span> <span class="st">"hi"</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"text: "</span> <span class="op">+</span> <span class="lv">s</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#string_save">string_save</a><span class="op">(</span><span class="lv">s</span><span class="op">,</span> <span class="st">"test.txt"</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section></article></section><section><header id="api-sprite"><a href="#api-sprite" title="(permalink)">Sprite functions</a></header><article><a class="sticky-side" href="#api-sprite" title="Sprite functions"><span>Sprite functions</span></a><p>
+		Most of the sprite functions map exactly to <a href="http://docs.yoyogames.com/source/dadiospice/002_reference/game%20assets/sprites/index.html">GameMaker ones</a>, so only the NTT-specific ones and those differing in behaviour are described here.
+		</p><section><header id="api-sprite-notes"><a href="#api-sprite-notes" title="(permalink)">General notes</a></header><article><ul>
+			<li><p> Same as with built-in GameMaker functions, for ones that allow to load files with multiples frames (subimages), they should be arranged in a horizontal strip:
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHASURBVGhD7ZXNccQgDIV9SAk5pY20kK7SQrpIEykhHaSHNOEggVgBMsZI8uTAm3ljlp/vgfB4t6WlpaWlpY72ZBBvL0W512f/+XhG8O/3CwVYBnGWJZfkzneuTwz4fIsB/AljcYpKxQEY14INcn+BPOuzv74/7dtXACUDnAJwTB9yywU78Yv6QA6wia+tT1N8bgiBpzJEzLA6QFDDNyyQuHfKwAsObU1GAT0KQ88FFExvfm2DF6hhchMfPccvFuNGJdN48hXdw09GFvtd+DobVDAs+bSggPDvm2QYT+vO5M0nRXbK4pfKTePJI3rM9+GXxaACQRu+a0fGuWMh7vzsxAYbXrC4f0M+Kh/cKcCTX7CID23KlIxzFfu35IsHOPWFzTvzQfngtN77gg35OAmN37AU0PUgOMmdLxXo1OMZNHd8/+Bxftbjj6SCUX8em4AHiWywkk/zD/mNr/FJ5R57nuOXBzgKwv7/eYBDPvXnMQW/ZtZ87JvjozIQ24IVAXGtcABuK35msd+5b44PqhmNlfywEDYqA9TwIO8D3MLHZ8uoc6fUW6wCJxFD4vTGRtVj9MZG1VuvZS8tLS35atv+ACRn5lw8z+YoAAAAAElFTkSuQmCC" alt="sprMutant1Idle"/>
+			</p></li><li><p> For functions dealing with loading from files, behaviour depends on file status: </p><ul>
+			<li> If the file is already loaded (see <a href="#file_load">file_load</a>), the function performs it's action (addition/replacement) immediately, also returning the result (e.g. -1 for <a href="#sprite_add">sprite_add</a> if a sprite cannot be loaded).
+			</li><li>	If the file is not yet loaded, it will be loaded asynchronously.
+				Functions that return new sprites will return an initially empty sprite and update it once the image becomes available.
+				Functions that replace existing sprites will not carry out the operation until the image is loaded.
+				If an error occurs, error text will be shown in chat.
+			</li></ul></li><li><p> Many functions allow to specify origin (x, y). Origin defines rotation point for the sprite. General rules are as following: </p><ul>
+				<li>	Level tiles have origin at top-left (0, 0).
+				</li><li>	Various entities and projectiles have origin at center of mass.
+				</li><li>	Weapons have origin at "handle" point.
+				</li><li>	When replacing sprites/subimages, origin can be omitted to not change it.
+			</li></ul></li><li> Sprites loaded by the mod are automatically unloaded when the mod is - no need to do that manually.
+			</li></ul></article></section><section><header id="sprite_add"><a href="#sprite_add" title="(permalink)">sprite_add(path, subimages, x, y)</a></header><article><p>
+			Loads a sprite from a file and returns resulting sprite index.
+			</p><p>
+			If the file is loaded but image loading fails, returns <code>-1</code>.
+			</p><p>
+			So, if you wanted to load and draw the sprite shown in <a href="#api-sprite-notes">notes</a> section, you could save that as <code>test.png</code> next to a <code>test.mod.gml</code>, with code as following:
+			</p><pre class="gmlmd">
+<span class="kw">global</span><span class="op">.</span><span class="gv">spr_test</span> <span class="op">=</span> <a class="sf" href="#sprite_add">sprite_add</a><span class="op">(</span><span class="st">"test.png"</span><span class="op">,</span> <span class="nu">4</span><span class="op">,</span> <span class="nu">12</span><span class="op">,</span> <span class="nu">12</span><span class="op">)</span><span class="op">;</span>
+<span class="md">#define</span> <span class="uf">draw</span>
+<span class="sf">draw_sprite</span><span class="op">(</span><span class="kw">global</span><span class="op">.</span><span class="gv">spr_test</span><span class="op">,</span> <span class="sv">current_frame</span> <span class="op">*</span> <span class="nu">0.4</span><span class="op">,</span> <span class="sv">mouse_x</span><span class="op">,</span> <span class="sv">mouse_y</span> <span class="op">-</span> <span class="nu">32</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="sprite_add_base64"><a href="#sprite_add_base64" title="(permalink)">sprite_add_base64(base64, subimages, x, y)</a></header><article><p>
+			Loads a sprite from a base64-encoded string.
+			</p><p>
+			This can be convenient for smaller mods, where embedding images into code allows to distribute them as a single .gml file.
+			</p><p>
+			You can find both online tools (search for "image to base64") for the purpose and plugins for popular image editors.
+			</p><p>
+			The following loads a 18x24 <abbr title="sprite by blaac">image</abbr> from a base64-encoded string and draws it spinning at mouse cursor.
+			</p><pre class="gmlmd">
+<span class="kw">global</span><span class="op">.</span><span class="gv">spr_test</span> <span class="op">=</span> <a class="sf" href="#sprite_add">sprite_add</a><span class="op">(</span><span class="st">"iVBORw0KGgoAAAANSUhEUgAAABIAAAAYCAYAAAD3Va0xAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADFSURBVDhPnZKLDcMwCES9/z6ZogN0nFbHxx8MBudJKDa+O+EkLeHn1BVksjyfbzmQRDCcmAJd0gALPGwdyNEd8LGdkfaOeSdRdboJ6B5g7VRIF80UpgmRiBxo2eKzfTXsbUHHciIMlIjxfoATZGuDjPY5g54TvCFyxu4VM5kLiQDWETgj9YE+8onTlRSR5kDLloE2qaqIfqFfJ7vSDHxsHyxB1TD4pBaugmYdvBwxoKYXhJ6eB+Ui9tqPd0Ji/LFveDFFa38MVTOUat2nfgAAAABJRU5ErkJggg=="</span><span class="op">,</span> <span class="nu">1</span><span class="op">,</span> <span class="nu">9</span><span class="op">,</span> <span class="nu">12</span><span class="op">)</span><span class="op">;</span>
+<span class="md">#define</span> <span class="uf">draw</span>
+<span class="sf">draw_sprite_ext</span><span class="op">(</span><span class="kw">global</span><span class="op">.</span><span class="gv">spr_test</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="sv">mouse_x</span><span class="op">,</span> <span class="sv">mouse_y</span> <span class="op">-</span> <span class="nu">32</span><span class="op">,</span> <span class="nu">1</span><span class="op">,</span> <span class="nu">1</span><span class="op">,</span> <span class="sv">current_frame</span> <span class="op">*</span> <span class="nu">15</span><span class="op">,</span> <span class="sv">c_white</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="sprite_add_weapon"><a href="#sprite_add_weapon" title="(permalink)">sprite_add_weapon(path, x, y)</a></header><article><p>
+			Loads a single-frame weapon sprite from a file and automatically generates "shine" frames required for such:
+			</p><p>
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAAKCAYAAAAZ+KQKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHXSURBVFhH7ZExTgQxDEX3DlRcgBaJjgYuQE2HuA8HoOSqS77zHTxeJ5PdSRYJ5klfKI7jN14OOzv/iWOQFr7HvrP1BccAXoWwpfTwWGA5Qr/DpoXvse9sfQE/o6uX+B77ztY9cm/J5Sp+np593eP7Wr2/+v+xsLZAHjzf3hzf7+/k78vrmw6pJur5+PyS8LyA/uFwvEX8v7HPDE9C6nafHkZ4evZZI/V45N25nto+SjoX5FIFGpzxAIP0h/DRO7y3NScX6J0GNUC8s/dJ0Bwz0oPU9ukB77d69Juj6F2LrBA2e/De1hDUnCdLIhEePDw+rQYz7FmlqIshIdaJUAOusk9CZrawM6Jghj23PK19ehjhWQtm1MgKYYjHniv7/Ih80AxZKzpQz1bOCNxvGtSAcBdk5D6JMreFnW1zicfH7tPDCE8tdp+IrBBCB3KuB2nsUxfhIe5biXpUyrPA/aZBDQh3QUbuk1jMboFen0s9Nn5GD+jb6omy9i2ppoQO5BKP1ky9sBiOc5AWvse+K3Xu14StIWypzmNZ6tfYJ3Hi8eS2KifzXJQTT5Aq/BTbU3u7yZPwPTRnWAPDPS6F6sVIuF+B5eFw/PR9Etaxe/q5lmdn5y9xOHwD0/DG3iXYjxoAAAAASUVORK5CYII=" alt="sprMinigun"/>
+			</p><p>
+			As outlined above, for weapon sprites the origin should be somewhere at the handle, as it is pivoted to player sprite using that.
+		</p></article></section><section><header id="sprite_add_weapon_base64"><a href="#sprite_add_weapon_base64" title="(permalink)">sprite_add_weapon_base64(base64, x, y)</a></header><article><p>
+			Same as <a href="#sprite_add_weapon">sprite_add_weapon</a>, but loads from a base64-encoded string like <a href="#sprite_add_base64">sprite_add_base64</a> does.
+		</p></article></section><section><header id="sprite_replace"><a href="#sprite_replace" title="(permalink)">sprite_replace(sprite, path, subimages, ?x, ?y)</a></header><article><p>
+			Replaces an existing sprite with one from the image.
+			</p><p>
+			If loading fails, the sprite is left untouched.
+			</p><p>
+			If origin is not specified, the existing one is used. 
+		</p></article></section><section><header id="sprite_replace_base64"><a href="#sprite_replace_base64" title="(permalink)">sprite_replace_base64(sprite, path, subimages, ?x, ?y)</a></header><article><p>
+			Same as <a href="#sprite_replace">sprite_replace</a>, but loads a base64-encoded string like <a href="#sprite_add_base64">sprite_add_base64</a> does.
+		</p></article></section><section><header id="sprite_restore"><a href="#sprite_restore" title="(permalink)">sprite_restore(sprite)</a></header><article><p>
+			Restores a "built-in" (non-mod-created) sprite to it's original state.
+		</p></article></section><section><header id="sprite_delete"><a href="#sprite_delete" title="(permalink)">sprite_delete(sprite)</a></header><article><p>
+			Deletes a previously created sprite.
+			</p><p>
+			Mods can only delete sprites created by them.
+		</p></article></section></article></section><section><header id="api-draw"><a href="#api-draw" title="(permalink)">Drawing functions</a></header><article><a class="sticky-side" href="#api-draw" title="Drawing functions"><span>Drawing functions</span></a><p>
+		Drawing functions are largely the same as <a href="http://docs.yoyogames.com/source/dadiospice/002_reference/drawing/index.html">GameMaker ones</a>, but include a few additions to make things easier:
+		</p><section><header id="x, y, string"><a href="#x, y, string" title="(permalink)">draw_text_shadow</a></header><article><p>
+			Draws a string with a simple "drop shadow" type effect - that is, by drawing it 3 more times in black color at (+1, +0), (+0, +1) and (+1, +1) offsets.
+		</p></article></section><section><header id="draw_text_nt"><a href="#draw_text_nt" title="(permalink)">draw_text_nt(x, y, string)</a></header><article><p>
+			Draws a string with "tags" for multiple colors, images, and more.
+			</p><p>
+			Supported tags are as following: </p><ul>
+				<li> <code>@w</code>: Changes color to white.
+				</li><li> <code>@s</code>: Changes color to silver.
+				</li><li> <code>@d</code>: Changes color to dark gray.
+				</li><li> <code>@r</code>: Changes color to red.
+				</li><li> <code>@g</code>: Changes color to green.
+				</li><li> <code>@b</code>: Changes color to blue.
+				</li><li> <code>@p</code>: Changes color to purple.
+				</li><li> <code>@y</code>: Changes color to yellow.
+				</li><li><p> <code>@q</code>: Randomly offsets the subsequent offsets.
+				</p><p>
+				Is used for cursed weapon' tips in base game.
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"@qh @qe @ql @ql @qo"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@(color:&lt;decimal color&gt;)</code>
+				Allows to use arbitrary colors. Best used with <a href="#gml-template">template strings</a>:
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> `<span class="op">@</span><span class="op">(</span><span class="uv">color</span><span class="op">:</span><span class="nu">$</span><span class="cb">{</span><span class="sv">c_yellow</span><span class="cb">}</span><span class="op">)</span><span class="uv">hi</span>`<span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">70</span><span class="op">,</span> `<span class="op">@</span><span class="op">(</span><span class="uv">color</span><span class="op">:</span><span class="nu">$</span><span class="cb">{</span><span class="sf">make_color_hsv</span><span class="op">(</span><span class="sv">current_frame</span><span class="op">,</span> <span class="nu">200</span><span class="op">,</span> <span class="nu">255</span><span class="op">)</span><span class="cb">}</span><span class="op">)</span><span class="uv">hi</span>`<span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@(&lt;sprite&gt;)</code>
+				Inserts a sprite into text. Can be either name of built-in sprite or a decimal sprite index for custom sprites.
+				The sprite will be shown animated at 12fps (game's standard).
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"@(sprMutant1Idle) can roll"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@(&lt;sprite&gt;:&lt;frame&gt;)</code>
+				Shows a specific frame of the given sprite.
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"@(sprRevolver:0) s that make breakfast"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@(&lt;sprite&gt;:&lt;-speed&gt;)</code>
+				Shows the given sprite animated at given speed, measured in multiplier relative to 30fps.
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"@(sprGammaGuts:-0.5) blast"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@(sprButSmall:&lt;button&gt;)</code>, <code>@(sprButBig:&lt;button&gt;)</code>
+				Displays a controller button as per player's settings (controls + gamepad type).
+				</p><p>
+				Button can be one of following:
+				</p><ul>
+					<li> <code>fire</code>
+					</li><li> <code>spec</code>
+					</li><li> <code>pick</code>
+					</li><li> <code>swap</code>
+					</li><li> <code>move</code>: Movement stick
+					</li><li> <code>aim</code>: Aiming stick
+				</li></ul><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"Move with @1(sprButSmall:move)"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>(sprButBug:&lt;button&gt;)</code>
+				Same as sprButSmall, but, well, larger sprites. Used for menus.
+				</p></li><li><p> <code>(sprKeySmall:&lt;button&gt;)</code>
+				Displays a keyboard button as per player's settings (controls).
+				</p><p>
+				Button can be one of following:
+				</p><ul>
+					<li> <code>fire</code>
+					</li><li> <code>spec</code>
+					</li><li> <code>pick</code>
+					</li><li> <code>swap</code>
+					</li><li> <code>nort</code>
+					</li><li> <code>sout</code>
+					</li><li> <code>east</code>
+					</li><li> <code>west</code>
+					</li><li> (custom): as per <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731%28v=vs.85%29.aspx">MSDN</a>
+				</li></ul><p>
+				Key images are 3 characters wide at most.
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"Fire with @1(keysmall:0) or @1(keysmall:fire)"</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li><p> <code>@1(...)</code> ... <code>@9(...)</code>
+				Same as <code>@(...)</code> tags, but aligns the image to be in the middle of X symbols.
+				</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#draw_gui">draw_gui</a>
+<a class="sf" href="#draw_text_nt">draw_text_nt</a><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="st">"@2(sprMapIcon:10)x3"</span><span class="op">)</span><span class="op">;</span>
+</pre></li></ul></article></section></article></section></article></section><section><header id="api-mod"><a href="#api-mod" title="(permalink)">NTT mod types</a></header><article><a class="sticky-side" href="#api-mod" title="NTT mod types"><span>NTT mod types</span></a><section><header id="any.gml"><a href="#any.gml" title="(permalink)">Introduction</a></header><article><a class="sticky-side" href="#any.gml" title="Introduction"><span>Introduction</span></a><p>
+		NTT mods are presented as .gml files, with a (fake) extension indicating the mod' type.
+		</p><p>
+		So, for instance, a <a href="#mod.gml">global mod</a> could be named <code>some.mod.gml</code>, while a <a href="#wep.gml">custom weapon</a> could be named <code>some.wep.gml</code>, and so on.
+		</p><p>
+		Every mod has it's own scripts, macros, data structures, and global variables.
+		Game' objects, functions, and variables are shared between all mods.
+		</p><p>
+		The primary method of communication between game and mods is through scripts - if the mod defines certain script(s), the game will call them at certain times.
+		</p><p>
+		The following scripts can be defined on any mod:
+		</p><section><header id="init"><a href="#init" title="(permalink)">init()</a></header><article><p>
+			Executed once when the mod finishes loading.
+			</p><p>
+			This is where you would usually load sprites, set global variables, and so on.
+			</p><p>
+			You do not have to declare an <code>init</code> script explicitly - if the mod file contains code before the start of the first script, it'll be automatically considered to be the <code>init</code> code.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#init">init</a>
+<span class="kw">global</span><span class="op">.</span><span class="gv">map</span> <span class="op">=</span> <span class="sf">ds_map_create</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="cleanup"><a href="#cleanup" title="(permalink)">cleanup()</a></header><article><p>
+			Executed just before a mod is unloaded.
+			</p><p>
+			This is where you clean up after your mod if you intend it to be loaded-unloaded freely.
+			</p><p>
+			Assets and data structures created by the mod will be destroyed automatically, but instances won't, so consider taking care of those, particularly if they behave unusually when left unsupervised.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#cleanup">cleanup</a>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"See you later!"</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section></article></section><section><header id="mod.gml"><a href="#mod.gml" title="(permalink)">Global mods</a></header><article><a class="sticky-side" href="#mod.gml" title="Global mods"><span>Global mods</span></a><p>
+		These are the most general mod type, running at majority of times.
+		Global mods are denoted by <code>.mod.gml</code> extension.
+		</p><p>
+		They may define the following special scripts:
+		</p><section><header id="mod.gml:game_start"><a href="#mod.gml:game_start" title="(permalink)">game_start()</a></header><article><p>
+			Executed whenever a run is [re-]started.
+		</p></article></section><section><header id="mod.gml:step"><a href="#mod.gml:step" title="(permalink)">step()</a></header><article><p>
+			Executed every frame.
+			</p><p>
+			An important distinction is that this is executed before <i>anything else</i>, making it perfect for quickly responding to game' events before anything else might.
+		</p></article></section><section><header id="mod.gml:draw"><a href="#mod.gml:draw" title="(permalink)">draw()</a></header><article><p>
+			Executed from draw event - after most other things are drawn, but before any HUD elements are drawn.
+			</p><p>
+			Draws relative to level by default.
+		</p></article></section><section><header id="draw_shadows"><a href="#draw_shadows" title="(permalink)">draw_shadows()</a></header><article><p>
+			Can be used to draw non-standard shadows beneath select objects.
+			</p><p>
+			Anything drawn here will be displayed in black semi-transparent color like shadows are.
+			</p><p>
+			For simpler cases, you can change <code>spr_shadow</code>, <code>spr_shadow_x</code>, and <code>spr_shadow_y</code> on entities.
+		</p></article></section><section><header id="draw_bloom"><a href="#draw_bloom" title="(permalink)">draw_bloom()</a></header><article><p>
+			Can be used to draw custom bloom, such as on projectiles.
+		</p></article></section><section><header id="draw_dark"><a href="#draw_dark" title="(permalink)">draw_dark(), draw_dark_begin(), draw_dark_end()</a></header><article><p>
+			The game's lighting system (for dark levels) is an interesting one - it clears a surface with white color, then "punches out" black and gray holes in the surface, then draws it with subtractive blending mode over the game, having it that white areas of surface become black on screen, gray areas darken the image, and black areas leave the image unaffected.
+			</p><p>
+			<code>draw_dark_begin</code> executes after the surface is cleared. You can use it to re-clear it with a different color to have completely dark areas still visible.
+			</p><p>
+			<code>draw_dark</code> executes after the game finishes drawing it's gray circles, and is where you draw your own gray circles.
+			</p><p>
+			<code>draw_dark_end</code> executes after the game finishes drawing it's black circles, and is where you draw your own black circles. You can also use this to <i>hide</i> something by drawing white circles.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">step</span>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">TopCont</span><span class="op">)</span> <span class="uv">darkness</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span> <span class="co">// force all levels to be dark</span>
+
+<span class="md">#define</span> <span class="uf">draw_dark_begin</span>
+<span class="sf">draw_clear</span><span class="op">(</span><span class="nu">$dddddd</span><span class="op">)</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#draw_dark">draw_dark</a>
+<span class="sf">draw_set_color</span><span class="op">(</span><span class="nu">$808080</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">draw_circle</span><span class="op">(</span><span class="sv">mouse_x</span><span class="op">,</span> <span class="sv">mouse_y</span><span class="op">,</span> <span class="nu">30</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span><span class="op">,</span> <span class="uv">false</span><span class="op">)</span><span class="op">;</span>
+
+<span class="md">#define</span> <span class="uf">draw_dark_end</span>
+<span class="sf">draw_set_color</span><span class="op">(</span><span class="nu">$000000</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">draw_circle</span><span class="op">(</span><span class="sv">mouse_x</span><span class="op">,</span> <span class="sv">mouse_y</span><span class="op">,</span> <span class="nu">20</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span><span class="op">,</span> <span class="uv">false</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="draw_gui"><a href="#draw_gui" title="(permalink)">draw_gui()</a></header><article><p>
+			Allows to draw things on top of HUD - for custom UI and such.
+			</p><p>
+			Draws relative to screen by default.
+		</p></article></section><section><header id="draw_gui_end"><a href="#draw_gui_end" title="(permalink)">draw_gui_end()</a></header><article><p>
+			Allows to draw things on top of literally everything - you can even draw on top of sideart by specifying X coordinate below 0 or above <a href="#game_width">game_width</a>.
+			</p><p>
+			Draws relative to screen by default.
+		</p></article></section><section><header id="draw_pause"><a href="#draw_pause" title="(permalink)">draw_pause()</a></header><article><p>
+			Executes while the game is paused (can be used for custom UI).
+		</p></article></section></article></section><section><header id="race.gml"><a href="#race.gml" title="(permalink)">Custom characters</a></header><article><a class="sticky-side" href="#race.gml" title="Custom characters"><span>Custom characters</span></a><p>
+		Custom race mods allow to introduce additional characters into the game.
+		Denoted by <code>.race.gml</code> extension.
+		</p><p>
+		They may define the following special scripts:
+		</p><section><header id="race.gml:game_start"><a href="#race.gml:game_start" title="(permalink)">game_start()</a></header><article><p>
+			Executed on run [re-]start if any player(s) use the character.
+			</p><p>
+			This is where you would reset any run-related global variables.
+		</p></article></section><p>
+		<strong>UI-related:</strong>
+		</p><section><header id="race_name"><a href="#race_name" title="(permalink)">race_name()</a></header><article><p>
+			Should return the custom character' name.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_name">race_name</a>
+<span class="kw">return</span> <span class="st">"SOME"</span><span class="op">;</span>
+</pre></article></section><section><header id="race_text"><a href="#race_text" title="(permalink)">race_text()</a></header><article><p>
+			Should return the character' description for character select.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_text">race_text</a>
+<span class="kw">return</span> <span class="st">"PASSIVE TEXT#@rACTIVE@w TEXT"</span><span class="op">;</span>
+</pre></article></section><section><header id="race_swep"><a href="#race_swep" title="(permalink)">race_swep()</a></header><article><p>
+			May return the starting weapon for the character. Defaults to revolver.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_swep">race_swep</a>
+<span class="kw">return</span> <span class="sv">wep_pop_rifle</span><span class="op">;</span>
+</pre></article></section><section><header id="race_mapicon"><a href="#race_mapicon" title="(permalink)">race_mapicon(player_index, skin)</a></header><article><p>
+			May return a sprite for use as map (shown in pause / on gameover) icon.
+			</p><p>
+			<code>player_index</code> is a 0-based index.
+			</p><p>
+			<code>skin</code> is the skin as per <code>Player.skin</code>.
+		</p></article></section><section><header id="race_portrait"><a href="#race_portrait" title="(permalink)">race_portrait(player_index, skin)</a></header><article><p>
+			May return a sprite for use as portrait art (on character select and in pause menu).
+			</p><p>
+			<code>player_index</code> is a 0-based index.
+			</p><p>
+			<code>skin</code> is the skin as per <code>Player.skin</code>.
+		</p></article></section><section><header id="race_ttip"><a href="#race_ttip" title="(permalink)">race_ttip()</a></header><article><p>
+			Can return one or more tips for display on loading screens.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_ttip">race_ttip</a>
+<span class="kw">return</span> <span class="sf">choose</span><span class="op">(</span><span class="st">"Tip 1"</span><span class="op">,</span> <span class="st">"Tip 2"</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section><section><header id="race_menu_button"><a href="#race_menu_button" title="(permalink)">race_menu_button()</a></header><article><p>
+			Executed for character' button on character selection screen. This is where you would set it's <code>sprite_index</code> and anything else that you require.
+		</p></article></section><p>
+		<strong>Audio-related:</strong>
+		</p><section><header id="race_soundbank"><a href="#race_soundbank" title="(permalink)">race_soundbank()</a></header><article><p>
+			May return the race ID for use as default sounds for the character.
+			</p><p>
+			Can be overriden in <a href="race.gml:create">create</a> script.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_soundbank">race_soundbank</a>
+<span class="kw">return</span> <span class="sv">char_fish</span><span class="op">;</span>
+</pre></article></section><section><header id="race_menu_select"><a href="#race_menu_select" title="(permalink)">race_menu_select()</a></header><article><p>
+			May return the sound to be played when when selecting (but not yet starting with) the character on the character select menu.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_menu_confirm">race_menu_confirm</a>
+<span class="kw">return</span> <span class="ri">sndMutant1Slct</span><span class="op">;</span>
+</pre></article></section><section><header id="race_menu_confirm"><a href="#race_menu_confirm" title="(permalink)">race_menu_confirm()</a></header><article><p>
+			May return the sound to be played when when starting a run with the character.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_menu_confirm">race_menu_confirm</a>
+<span class="kw">return</span> <span class="ri">sndMutant1Cnfm</span><span class="op">;</span>
+</pre></article></section><p>
+		<strong>Instance-related</strong>:
+		</p><section><header id="race.gml:create"><a href="#race.gml:create" title="(permalink)">create()</a></header><article><p>
+			Executes when: </p><ul>
+				<li> The character is spawned (on <a href="race.gml:game_start">game start</a>).
+				</li><li> The character is revived.
+				</li><li> Character' race/skin is changed via assigning Player.race/skin.
+			</li></ul><p>
+			You should use this to: </p><ul>
+				<li> Set character' sprites and sounds.
+				</li><li> Change character-specific stats.
+				</li><li> Initialize any variables for later use in <a href="race.gml:step">step</a>/<a href="race.gml:draw">draw</a>.
+			</li></ul><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">create</span>
+<span class="ri">spr_idle</span> <span class="op">=</span> <span class="ri">sprMolesargeIdle</span><span class="op">;</span>
+<span class="ri">spr_walk</span> <span class="op">=</span> <span class="ri">sprMolesargeWalk</span><span class="op">;</span>
+<span class="ri">spr_hurt</span> <span class="op">=</span> <span class="ri">sprMolesargeHurt</span><span class="op">;</span>
+<span class="ri">spr_dead</span> <span class="op">=</span> <span class="ri">sprMolesargeDead</span><span class="op">;</span>
+</pre></article></section><section><header id="race.gml:step"><a href="#race.gml:step" title="(permalink)">step()</a></header><article><p>
+			Executes from character's step event after all standard-issue logic and before the final check for death. This is where you usually handle passive/active abilities.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">step</span>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">button_pressed</span><span class="op">(</span><span class="uv">index</span><span class="op">,</span> <span class="st">"spec"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="st">"&lt;active ability&gt;"</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="race.gml:draw_begin"><a href="#race.gml:draw_begin" title="(permalink)">draw_begin()</a></header><article><p>
+			Executes from character's draw event before most things are drawn.
+			</p><p>
+			Can be used to draw anything (e.g. additional weapon(s)) behind the character, as well as temporarily overriding any variables.
+		</p></article></section><section><header id="race.gml:draw"><a href="#race.gml:draw" title="(permalink)">draw()</a></header><article><p>
+			Executes from character's draw event just after the character sprite is drawn.
+			</p><p>
+			If the situation requires you to draw something in front of the character but behind the front-facing weapon, this is where you do that.
+		</p></article></section><section><header id="race.gml:draw_end"><a href="#race.gml:draw_end" title="(permalink)">draw_end()</a></header><article><p>
+			Executes from character's draw event after most things are drawn.
+			</p><p>
+			Can be used to draw anything (e.g. additional weapon(s)) in front of the character and front-facing weapon.
+		</p></article></section><p>
+		<strong>Unlock-related:</strong>
+		</p><section><header id="race_avail"><a href="#race_avail" title="(permalink)">race_avail()</a></header><article><p>
+			May return whether the character is unlocked. Defaults to true.
+		</p></article></section><section><header id="race_lock"><a href="#race_lock" title="(permalink)">race_lock()</a></header><article><p>
+			May return the unlock hint text when the character is locked. Defaults to <code>"???"</code>.
+		</p></article></section><p>
+		<strong>Skin-related:</strong>
+		</p><section><header id="race_skins"><a href="#race_skins" title="(permalink)">race_skins()</a></header><article><p>
+			May return the number of skins available for the character. Defaults to 1.
+			</p><p>
+			You would then set sprites/sounds/etc. based on <code>skin</code> variable in <a href="race.gml:create">create</a>.
+			Default skins would have incremental indexes (0, 1, 2, ..) while <a href="#skin.gml">custom skins</a> have string indexes and execute after race-mod's create script.
+		</p></article></section><section><header id="race_skin_avail"><a href="#race_skin_avail" title="(permalink)">race_skin_avail(skin)</a></header><article><p>
+			May return whether the specified character' skin is unlocked. Defaults to true.
+		</p></article></section><section><header id="race_skin_name"><a href="#race_skin_name" title="(permalink)">race_skin_name(skin)</a></header><article><p>
+			May return the custom label for character' skin. Defaults to <code>"Skin &lt;A, B, ..&gt;"</code>.
+		</p></article></section><section><header id="race_skin_button"><a href="#race_skin_button" title="(permalink)">race_skin_button(skin)</a></header><article><p>
+			Executed for character' skin' button. This is where you would set it's <code>sprite_index</code> and anything else that you require.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_skin_button">race_skin_button</a><span class="op">(</span><span class="lv">skin</span><span class="op">)</span>
+<span class="kw">switch</span> <span class="op">(</span><span class="lv">skin</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">case</span> <span class="nu">0</span><span class="op">:</span> <span class="uv">sprite_index</span> <span class="op">=</span> <span class="ri">sprMolesargeIdle</span><span class="op">;</span> <span class="kw">break</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="nu">1</span><span class="op">:</span> <span class="uv">sprite_index</span> <span class="op">=</span> <span class="ri">sprMolefishIdle</span><span class="op">;</span> <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><p>
+		<strong>Throne Butt related:</strong>
+		</p><section><header id="race_tb_text"><a href="#race_tb_text" title="(permalink)">race_tb_text()</a></header><article><p>
+			Should return character-specific Throne Butt (mutation) text.
+			</p><p>
+			This shouldn't be <i>too</i> long, since in coop multiple of these can be appended together to form the combined description.
+		</p></article></section><section><header id="race_tb_take"><a href="#race_tb_take" title="(permalink)">race_tb_take(value)</a></header><article><p>
+			Called when Throne Butt is taken or lost.
+			</p><p>
+			You are not <i>required</i> to make TB "cancelable" since it can only be removed via <a href="#skill_set">skill_set</a> call.
+		</p></article></section><p>
+		<strong>Ultra mutation related:</strong>
+		</p><section><header id="race_ultra_name"><a href="#race_ultra_name" title="(permalink)">race_ultra_name(index)</a></header><article><p>
+			Should return the ultra mutation' name per it's number (1-based).
+			</p><p>
+			Number of available ultra mutations is deducted based on number of valid strings returned from this function.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#race_ultra_name">race_ultra_name</a><span class="op">(</span><span class="lv">i</span><span class="op">)</span>
+<span class="kw">switch</span> <span class="op">(</span><span class="lv">i</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">case</span> <span class="nu">1</span><span class="op">:</span> <span class="kw">return</span> <span class="st">"Ultra A"</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="nu">2</span><span class="op">:</span> <span class="kw">return</span> <span class="st">"Ultra B"</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="race_ultra_text"><a href="#race_ultra_text" title="(permalink)">race_ultra_text(index)</a></header><article><p>
+			Should return the ultra mutation' description per it's number (1-based).
+		</p></article></section><section><header id="race_ultra_button"><a href="#race_ultra_button" title="(permalink)">race_ultra_button(index)</a></header><article><p>
+			Called for ultra mutation' button to set it's <code>sprite_index</code> (and anything else).
+		</p></article></section><section><header id="race_ultra_icon"><a href="#race_ultra_icon" title="(permalink)">race_ultra_icon(index)</a></header><article><p>
+			Should return the ultra mutation' sprite for use in HUD per it's number (1-based).
+		</p></article></section><section><header id="race_ultra_take"><a href="#race_ultra_take" title="(permalink)">race_ultra_take(index, value)</a></header><article><p>
+			Called when an ultra mutation is picked.
+			</p><p>
+			If <a href="#race_ultra_lose">race_ultra_lose</a> is defined, it is called only when ultra mutation is taken and with one argument. Otherwise it's called both when it is taken or lost with additional <code>value</code> argument (for consistency with <a href="#race_tb_take">race_tb_take</a>).
+		</p></article></section><section><header id="race_ultra_lose"><a href="#race_ultra_lose" title="(permalink)">race_ultra_lose(index)</a></header><article><p>
+			Legacy script. If defined, <a href="#race_ultra_take">race_ultra_take</a> will receive only one argument (index) and will not be called when ultra mutation is removed.
+			</p><p>
+			It is not <i>required</i> to make ultras "cancelable" since they can only be lost via <a href="#ultra_set">ultra_set</a> call.
+		</p></article></section></article></section><section><header id="skin.gml"><a href="#skin.gml" title="(permalink)">Custom skins</a></header><article><a class="sticky-side" href="#skin.gml" title="Custom skins"><span>Custom skins</span></a><p>
+		Custom skin mods can introduce additional skins for game's characters - be that built-in ones or custom characters.
+		Denoted by <code>.race.gml</code> extension.
+		</p><p>
+		They may define the following special scripts:
+		</p><section><header id="skin_race"><a href="#skin_race" title="(permalink)">skin_race</a></header><article><p>
+			Must return the race ID to apply to - can be either decimal for adding skins to default characters, or a string for adding skins to custom characters.
+		</p></article></section><section><header id="skin.gml:game_start"><a href="#skin.gml:game_start" title="(permalink)">game_start</a></header><article><p>
+			Much like <a href="race.gml:game_start">game_start</a> in custom character mods, executes on run [re-]start if the skin is in use by any player(s).
+		</p></article></section><p>
+		<strong>UI-related:</strong>
+		</p><section><header id="skin_avail"><a href="#skin_avail" title="(permalink)">skin_avail()</a></header><article><p>
+			May return whether the skin is unlocked. Defaults to true.
+		</p></article></section><section><header id="skin_name"><a href="#skin_name" title="(permalink)">skin_name(locked)</a></header><article><p>
+			May return text to display on skin button' mouseover.
+			</p><p>
+			Argument contains result from <a href="#skin_avail">skin_avail</a> for easier reuse.
+		</p></article></section><section><header id="skin_button"><a href="#skin_button" title="(permalink)">skin_button()</a></header><article><p>
+			Much like <a href="#race_skin_button">race_skin_button</a>, applies to skin select button in loadout UI.
+		</p></article></section><section><header id="skin_portrait"><a href="#skin_portrait" title="(permalink)">skin_portrait(player_index)</a></header><article><p>
+			May return a sprite for use as portrait art (on character select and in pause menu).
+		</p></article></section><section><header id="skin_mapicon"><a href="#skin_mapicon" title="(permalink)">skin_mapicon(player_index)</a></header><article><p>
+			May return a sprite for use as map (shown in pause / on gameover) icon.
+		</p></article></section><p>
+		<strong>Overrides:</strong>
+		</p><section><header id="skin_race_name"><a href="#skin_race_name" title="(permalink)">skin_race_name()</a></header><article><p>
+			If defined, overrides <a href="#race_name">race_name</a>.
+		</p></article></section><section><header id="skin_race_text"><a href="#skin_race_text" title="(permalink)">skin_race_text()</a></header><article><p>
+			If defined, overrides <a href="#race_text">race_text</a>.
+		</p></article></section><section><header id="skin_race_tb_text"><a href="#skin_race_tb_text" title="(permalink)">skin_race_tb_text()</a></header><article><p>
+			If defined, overrides <a href="#race_tb_text">race_tb_text</a>.
+		</p></article></section><p>
+		<strong>Instance-related:</strong>
+		</p><section><header id="skin.gml:create"><a href="#skin.gml:create" title="(permalink)">create</a></header><article><p>
+			Much like <a href="race.gml:create">create</a> in custom character mods, executes in Player' create event.
+		</p></article></section><section><header id="skin.gml:step"><a href="#skin.gml:step" title="(permalink)">step</a></header><article><p>
+			Much like <a href="race.gml:step">step</a> in custom character mods, executes in Player' step event.
+		</p></article></section><section><header id="skin.gml:draw_begin"><a href="#skin.gml:draw_begin" title="(permalink)">draw_begin</a></header><article><p>
+			Much like <a href="race.gml:draw_begin">draw_begin</a> in custom character mods, executes in Player' draw event before most things are drawn.
+		</p></article></section><section><header id="skin.gml:draw"><a href="#skin.gml:draw" title="(permalink)">draw_begin</a></header><article><p>
+			Much like <a href="race.gml:draw">draw</a> in custom character mods, executes in Player' draw event just after the actual player sprite is drawn
+		</p></article></section><section><header id="skin.gml:draw_end"><a href="#skin.gml:draw_end" title="(permalink)">draw_begin</a></header><article><p>
+			Much like <a href="race.gml:draw_begin">draw_end</a> in custom character mods, executes in Player' draw event after most things are drawn.
+		</p></article></section></article></section><section><header id="wep.gml"><a href="#wep.gml" title="(permalink)">Custom weapons</a></header><article><a class="sticky-side" href="#wep.gml" title="Custom weapons"><span>Custom weapons</span></a><p>
+		Custom weapon mods allow to introduce additional weapons into the game.
+		Denoted by <code>.wep.gml</code> or <code>.weapon.gml</code> extension.
+		</p><p>
+		They may define the following special scripts:
+		</p><section><header id="wep.gml:step"><a href="#wep.gml:step" title="(permalink)">step(primary)</a></header><article><p>
+			Executed every step while the player is carrying the weapon.
+			</p><p>
+			First passed argument indicates whether the weapon is in primary (1) or secondary (0) slot.
+		</p></article></section><section><header id="weapon_reloaded"><a href="#weapon_reloaded" title="(permalink)">weapon_reloaded(primary)</a></header><article><p>
+			Executed whenever the weapon is reloaded.
+			</p><p>
+			This is where you play custom sounds, create shells, etc.
+			</p><p>
+			If this is not defined, behaviour is as following: </p><ul>
+				<li>	For melee weapons, <code>sndMeleeFlip</code> is played.
+				</li><li>	For shell-type weapons, <code>sndShotReload</code> is played and the number of shells equal to <a href="#weapon_cost">weapon_cost</a> is created.
+				</li><li>	For bolt-type weapons, <code>sndCrossReload</code> is played.
+				</li><li>	For weapons with name starting with "PLASMA", either <code>sndPlasmaReload</code> or <code>sndPlasmaReloadUpg</code> are played, depending on whether player has Laser Brain.
+				</li><li>	For weapons with name starting with "LIGHTNING", either <code>sndLightningReload</code> or <code>sndLightningReloadUpg</code> are played, depending on whether player has Laser Brain.
+				</li><li>	For other modded weapons no action occurs by default.
+			</li></ul></article></section><p>
+		The following scripts all receive the weapon-value as first argument (more on what to do with it later):
+		</p><section><header id="weapon_name"><a href="#weapon_name" title="(permalink)">weapon_name(wep)</a></header><article><p>
+			Should return weapon' name.
+			</p><p>
+			Defaults to file name.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_name">weapon_name</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="st">"SMG"</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_text"><a href="#weapon_text" title="(permalink)">weapon_text(wep)</a></header><article><p>
+			May return weapon' loading screen tip, if any.
+			</p><p>
+			Defaults to "" (no weapon-specific tip).
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_text">weapon_text</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="st">"quickly"</span>
+</pre></article></section><section><header id="weapon_type"><a href="#weapon_type" title="(permalink)">weapon_type(wep)</a></header><article><p>
+			Should return weapon' ammo type. Possible values:
+			</p><ul>
+				<li> <code>0</code>: Melee
+				</li><li> <code>1</code>: Bullet
+				</li><li> <code>2</code>: Shell
+				</li><li> <code>3</code>: Bolt
+				</li><li> <code>4</code>: Explosive
+				</li><li> <code>5</code>: Energy
+			</li></ul><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_type">weapon_type</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="nu">1</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_auto"><a href="#weapon_auto" title="(permalink)">weapon_auto(wep)</a></header><article><p>
+			Should return whether the weapon is automatic. Possible values are:
+			</p><ul>
+				<li> <code>1</code>/<code>true</code>: Automatic
+				</li><li> <code>0</code>/<code>false</code>: Non-automatic, except for Steroids
+				</li><li> <code>-1</code>: Non-automatic even for Steroids
+			</li></ul><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_auto">weapon_auto</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="uv">true</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_load"><a href="#weapon_load" title="(permalink)">weapon_load(wep)</a></header><article><p>
+			Should return the cooldown between weapon' shots, in frames.
+			</p><p>
+			Defaults to 1.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_load">weapon_load</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="nu">3</span><span class="op">;</span> <span class="co">// 1/10 sec.</span>
+</pre></article></section><section><header id="weapon_cost"><a href="#weapon_cost" title="(permalink)">weapon_cost(wep)</a></header><article><p>
+			Should return the weapon' ammo cost per shot.
+			</p><p>
+			Defaults to 0 for melee-type weapons and to 1 for the rest.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_cost">weapon_cost</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="nu">1</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_rads"><a href="#weapon_rads" title="(permalink)">weapon_rads(wep)</a></header><article><p>
+			Should return the number of rads spent per shot, for "ultra" weapons.
+			</p><p>
+			Defaults to 0.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_rads">weapon_rads</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="nu">0</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_swap"><a href="#weapon_swap" title="(permalink)">weapon_swap(wep)</a></header><article><p>
+			Should return the sound played when swapping to the weapon.
+			</p><p>
+			Defaults to <code>sndSwapPistol</code>.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_swap">weapon_swap</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="ri">sndSwapPistol</span>
+</pre></article></section><section><header id="weapon_melee"><a href="#weapon_melee" title="(permalink)">weapon_melee(wep)</a></header><article><p>
+			May return whether the weapon is melee (held and swung accordingly).
+			</p><p>
+			Defaults to 1 for melee-type weapons and to 0 for the rest.
+		</p></article></section><section><header id="weapon_area"><a href="#weapon_area" title="(permalink)">weapon_area(wep)</a></header><article><p>
+			Should return the weapon' "difficulty tier", which determines when it'll drop.
+			</p><p>
+			You can check built-in weapon' tiering via <a href="#weapon_get_area">weapon_get_area</a> for reference.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_area">weapon_area</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> <span class="nu">1</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_sprt"><a href="#weapon_sprt" title="(permalink)">weapon_sprt(wep)</a></header><article><p>
+			Should return the weapon' sprite. Also see <a href="#sprite_add_weapon">sprite_add_weapon</a>.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#init">init</a>
+<span class="kw">global</span><span class="op">.</span><span class="gv">spr_smg</span> <span class="op">=</span> <a class="sf" href="#sprite_add_weapon_base64">sprite_add_weapon_base64</a><span class="op">(</span><span class="st">"iVBORw0KGgoAAAANSUhEUgAAABIAAAANCAYAAACkTj4ZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB5SURBVDhPYwACRhBBTfAfigkBvOrAkrraZjBFODGSGqwArACG/bxjMTCyPEg9GoYDFIWEsJS4GpwN0gsxAgHACkAYm4tgciAMUouGMQCKBlwYpA6iHD9A14CCcXkHG8BmM5ymxCBkTRS7CAZgYkQZBAIka6ASYGAAANr1jVDoeE7cAAAAAElFTkSuQmCCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="</span><span class="op">,</span> <span class="nu">3</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#weapon_sprt">weapon_sprt</a>
+<span class="kw">return</span> <span class="kw">global</span><span class="op">.</span><span class="gv">spr_smg</span><span class="op">;</span>
+</pre></article></section><section><header id="weapon_sprt_hud"><a href="#weapon_sprt_hud" title="(permalink)">weapon_sprt_hud(wep)</a></header><article><p>
+			May return a different sprite from weapon's normal sprite for use in HUD.
+			</p><p>
+			This is useful for cases where the weapon is too big to have a meaningful outline in HUD when cropped automatically.
+			</p><p>
+			Defaults to what is returned from <a href="#weapon_sprt">weapon_sprt</a>.
+		</p></article></section><section><header id="weapon_loadout"><a href="#weapon_loadout" title="(permalink)">weapon_loadout(wep)</a></header><article><p>
+			May return a weapon sprite for display in Loadout.
+			</p><p>
+			If not defined, a tilted 2x version of <a href="#weapon_sprt">weapon_sprt</a> will be shown.
+			</p><p>
+			You would usually only care about this for custom golden weapons and those used as start weapons for custom races.
+		</p></article></section><section><header id="weapon_laser_sight"><a href="#weapon_laser_sight" title="(permalink)">weapon_laser_sight(wep)</a></header><article><p>
+			May return whether and which laser sight sprite the weapon should use.
+			</p><p>
+			Allowed values are as following: </p><ul>
+				<li> <code>1</code>/<code>true</code>: show laser sight
+				</li><li> <code>0</code>/<code>false</code>: hide laser sight
+				</li><li> <code>(sprite index)</code>: use custom laser sight sprite
+			</li></ul><p>
+			Defaults to <code>true</code> for bolt-type weapons and to <code>false</code> for the rest.
+		</p></article></section><section><header id="weapon_gold"><a href="#weapon_gold" title="(permalink)">weapon_gold(wep)</a></header><article><p>
+			May return whether the weapon is golden and can occur in Mansion.
+			</p><p>
+			Possible values are as following: </p><ul>
+				<li> <code>1</code>: Golden; can drop from Mansion' chest.
+				</li><li> <code>0</code>: Not golden
+				</li><li> <code>-1</code>: Golden, but does not drop in Mansion (like loop-specific golden weapons).
+			</li></ul><p>
+			Custom golden weapons can be locked on characters, but will only function when the according weapon mod is loaded, obviously.
+		</p></article></section><section><header id="weapon_fire"><a href="#weapon_fire" title="(permalink)">weapon_fire(wep)</a></header><article><p>
+			Called when the weapon should be fired.
+			</p><p>
+			You are only obliged to create the actual projectile(s), play sound(s), and spawn any additional effects (if needed) - cooldown and ammo are deducted automatically.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#weapon_fire">weapon_fire</a><span class="op">(</span><span class="lv">wep</span><span class="op">)</span>
+<span class="sf">sound_play</span><span class="op">(</span><span class="ri">sndPistol</span><span class="op">)</span><span class="op">;</span>
+<span class="co">// create a shell (cosmetic):</span>
+<span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Shell</span><span class="op">)</span><span class="op">)</span> <span class="sf">motion_add</span><span class="op">(</span>
+    <span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="kw">other</span><span class="op">.</span><span class="fd">right</span> <span class="op">*</span> <span class="nu">100</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">60</span><span class="op">)</span> <span class="op">-</span> <span class="nu">30</span><span class="op">,</span>
+    <span class="nu">2</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">2</span><span class="op">)</span>
+<span class="op">)</span><span class="op">;</span>
+<span class="co">// create the bullet:</span>
+<span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Bullet1</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">32</span><span class="op">)</span> <span class="op">-</span> <span class="nu">16</span><span class="op">)</span> <span class="op">*</span> <span class="kw">other</span><span class="op">.</span><span class="fd">accuracy</span><span class="op">,</span> <span class="nu">16</span><span class="op">)</span><span class="op">;</span>
+    <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+    <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
+    <span class="uv">creator</span> <span class="op">=</span> <span class="kw">other</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="sf">weapon_post</span><span class="op">(</span><span class="nu">2</span><span class="op">,</span> <span class="op">-</span><span class="nu">6</span><span class="op">,</span> <span class="nu">3</span><span class="op">)</span><span class="op">;</span> <span class="co">// weapon shift, camera shift, camera shake</span>
+</pre></article></section><p>
+		Advanced topics:
+		</p><section><header id="wep.gml:lq"><a href="#wep.gml:lq" title="(permalink)">Lightweight object weapons</a></header><article><p>
+			Sometimes you may want to store some additional information with the weapon - say, have the weapon be far more powerful that it's tier counterparts, but only last for a limited number of shots.
+			</p><p>
+			For such occasions you can have the weapon-value presented as a <a href="#gml-lq">lightweight object</a> - if you set the weapon-value (<code>wep</code> / <code>bwep</code> on Player, <code>wep</code> on WepPickup, etc.) to a lightweight object with the field <code>wep</code> equal to your mod' ID (see <code>mod_current</code>), the game will call your mod on all occasions, passing the weapon-value to <code>weapon_</code> scripts as first argument.
+			</p><p>
+			A simple limited-ammo super-heavy revolver mod would be as following:
+			</p><pre class="gmlmd">
+<span class="md">#macro</span> <span class="uf">defammo</span> <span class="nu">50</span>
+<span class="md">#define</span> <a class="uf" href="#weapon_name">weapon_name</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">return</span> `<span class="uv">LIMTIED</span> <span class="uf">REVOLVER</span> <span class="op">(</span><span class="nu">$</span><span class="cb">{</span><span class="sf">is_object</span><span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="op">?</span> <span class="lv">q</span><span class="op">.</span><span class="fd">ammo</span> <span class="op">:</span> <span class="uf">defammo</span><span class="cb">}</span><span class="op">)</span>`<span class="op">;</span>
+<span class="md">#define</span> <a class="uf" href="#weapon_type">weapon_type</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="kw">return</span> <span class="nu">1</span><span class="op">;</span>
+<span class="md">#define</span> <a class="uf" href="#weapon_cost">weapon_cost</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="kw">return</span> <span class="nu">1</span><span class="op">;</span>
+<span class="md">#define</span> <a class="uf" href="#weapon_sprt">weapon_sprt</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="kw">return</span> <span class="ri">sprHeavyRevolver</span><span class="op">;</span>
+<span class="md">#define</span> <a class="uf" href="#weapon_fire">weapon_fire</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="co">// pack the weapon into an object if it isn't yet:</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="sf">is_object</span><span class="op">(</span><span class="uv">wep</span><span class="op">)</span><span class="op">)</span> <span class="uv">wep</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">wep</span><span class="op">:</span> <span class="sv">mod_current</span><span class="op">,</span> <span class="uv">ammo</span><span class="op">:</span> <span class="uf">defammo</span> <span class="cb">}</span><span class="op">;</span>
+<span class="co">// check ammo:</span>
+<span class="kw">if</span> <span class="op">(</span><span class="uv">wep</span><span class="op">.</span><span class="fd">ammo</span> <span class="op">&lt;=</span> <span class="nu">0</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="uv">infammo</span> <span class="op">==</span> <span class="nu">0</span><span class="op">)</span> <span class="uv">ammo</span><span class="op">[</span><span class="sf">weapon_get_type</span><span class="op">(</span><span class="uv">wep</span><span class="op">)</span><span class="op">]</span> <span class="op">+=</span> <span class="sf">weapon_get_cost</span><span class="op">(</span><span class="uv">wep</span><span class="op">)</span><span class="op">;</span>
+    <span class="sf">sound_play</span><span class="op">(</span><span class="ri">sndEmpty</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">PopupText</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="uv">target</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">index</span><span class="op">;</span>
+        <span class="uv">mytext</span> <span class="op">=</span> <span class="st">"EMPTY"</span><span class="op">;</span>
+    <span class="cb">}</span>
+    <span class="kw">exit</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="uv">wep</span><span class="op">.</span><span class="fd">ammo</span> <span class="op">-=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="co">// actual firing:</span>
+<span class="sf">sound_play_gun</span><span class="op">(</span><span class="ri">sndHeavyRevoler</span><span class="op">,</span> <span class="nu">0.2</span><span class="op">,</span> <span class="op">-</span><span class="nu">0.5</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Shell</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">sprite_index</span> <span class="op">=</span> <span class="ri">sprHeavyShell</span><span class="op">;</span>
+    <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="kw">other</span><span class="op">.</span><span class="fd">right</span> <span class="op">*</span> <span class="nu">100</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">50</span><span class="op">)</span> <span class="op">-</span> <span class="nu">25</span><span class="op">,</span> <span class="nu">2</span> <span class="op">+</span> <span class="sf">random</span><span class="op">(</span><span class="nu">2</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="sf">random_range</span><span class="op">(</span><span class="op">-</span><span class="nu">1</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span> <span class="op">*</span> <span class="kw">other</span><span class="op">.</span><span class="fd">accuracy</span><span class="op">,</span> <span class="nu">16</span><span class="op">)</span><span class="op">;</span>
+    <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+    <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
+    <span class="uv">creator</span> <span class="op">=</span> <span class="kw">other</span><span class="op">;</span>
+    <span class="uv">damage</span> <span class="op">*=</span> <span class="nu">2</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="sf">weapon_post</span><span class="op">(</span><span class="nu">6</span><span class="op">,</span> <span class="op">-</span><span class="nu">7</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+			If saving it as <code>limited-revolver.wep.gml</code>, you could then do <code>/loadwep limited-revolver</code> to load the mod and <code>/gml Player.bwep = "limited-revolver"</code> to assign it to player's secondary weapon slot for testing.
+		</p></article></section></article></section><section><header id="skill.gml"><a href="#skill.gml" title="(permalink)">Custom mutations</a></header><article><p>
+		WIP
+	</p></article></section><section><header id="crown.gml"><a href="#crown.gml" title="(permalink)">Custom crowns</a></header><article><p>
+		WIP
+	</p></article></section><section><header id="area.gml"><a href="#area.gml" title="(permalink)">Custom areas</a></header><article><a class="sticky-side" href="#area.gml" title="Custom areas"><span>Custom areas</span></a><p>
+		Custom area mods allow to introduce additional locations into the game. 
+		Denoted by .area.gml extension.
+		They may define the following special scripts:
+		<strong>Visual:</strong>
+		</p><section><header id="area_name"><a href="#area_name" title="(permalink)">area_name(subarea, loops)</a></header><article><p>
+			Should return area code for display on map/loading screens (e.g. "6-?").
+			" L#"/" H#" are appended automatically.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_name">area_name</a>
+<span class="kw">return</span> <span class="st">"ZZZ"</span><span class="op">;</span>
+</pre></article></section><section><header id="area_secret"><a href="#area_secret" title="(permalink)">area_secret()</a></header><article><p>
+			May return "true" if the area is in fact a secret area.
+		</p></article></section><section><header id="area_sprite"><a href="#area_sprite" title="(permalink)">area_sprite(sprite)</a></header><article><p>
+			Is called with a number of area #1 sprites and should return the new sprite for them.
+			Used to determine sprites for floors, walls, and debris.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_sprite">area_sprite</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">switch</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1B</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1Explo</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0Explo</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Trans</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Trans</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Bot</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Bot</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Out</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Out</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Top</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Top</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprDebris1</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprDebris0</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="area_mapdata"><a href="#area_mapdata" title="(permalink)">area_mapdata(lastx, lasty, lastarea, lastsubarea, subarea, loops)</a></header><article><p>
+			Can return <code>[x, y]</code> or <code>[x, y, showdot]</code> or <code>[x, y, showdot, showline]</code> for use on map.
+			</p><p>
+			For secret areas you'll usually want to just return <code>[argument0, 9]</code>.
+		</p></article></section><p>
+		<strong>Generation:</strong>
+		</p><section><header id="area_setup"><a href="#area_setup" title="(permalink)">area_setup()</a></header><article><p>
+			Is executed prior to anything being generated. A good time to set seed/etc.
+		</p></article></section><section><header id="area_make_floor"><a href="#area_make_floor" title="(permalink)">area_make_floor()</a></header><article><p>
+			Is called by FloorMaker instances as they advance around. Should create floor(s) relative to current position (x, y) as well as adjusting the instance' <code>direction</code>. For example,
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_make_floor">area_make_floor</a>
+<span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">turn</span> <span class="op">=</span> <span class="sf">choose</span><span class="op">(</span><span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">90</span><span class="op">,</span> <span class="op">-</span><span class="nu">90</span><span class="op">,</span> <span class="nu">90</span><span class="op">,</span> <span class="op">-</span><span class="nu">90</span><span class="op">,</span> <span class="nu">180</span><span class="op">)</span><span class="op">;</span>
+<span class="uv">direction</span> <span class="op">+=</span> <span class="lv">turn</span><span class="op">;</span>
+<span class="kw">if</span> <span class="op">(</span><span class="lv">turn</span> <span class="op">==</span> <span class="nu">180</span> <span class="op">&amp;&amp;</span> <span class="sf">point_distance</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="nu">10016</span><span class="op">,</span> <span class="nu">10016</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">48</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// turnarounds - weapon chests spawn in such</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">WeaponChest</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">19</span> <span class="op">+</span> <span class="sf">instance_number</span><span class="op">(</span><span class="ri">FloorMaker</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">22</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// dead ends - ammo chests spawn in such</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="sf">point_distance</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="nu">10016</span><span class="op">,</span> <span class="nu">10016</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">48</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">AmmoChest</span><span class="op">)</span><span class="op">;</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+    <span class="cb">}</span>
+    <span class="uf">instance_destroy</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// branching</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">FloorMaker</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="area_pop_enemies"><a href="#area_pop_enemies" title="(permalink)">area_pop_enemies()</a></header><article><p>
+			Is called for floors when they may spawn an enemy. Usually are to be spawned at (x + 16, y + 16).
+		</p></article></section><section><header id="area_pop_props"><a href="#area_pop_props" title="(permalink)">area_pop_props()</a></header><article><p>
+			Is called for floor tiles when it's time to spawn props. Example:
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_pop_props">area_pop_props</a>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">5</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span>
+    <span class="op">&amp;&amp;</span> <span class="sf">point_distance</span><span class="op">(</span><span class="nu">10016</span><span class="op">,</span> <span class="nu">10016</span><span class="op">,</span> <span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">100</span>
+    <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="sf">place_meeting</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">NOWALLSHEREPLEASE</span><span class="op">)</span>
+<span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// quarter-walls (optional)</span>
+    <span class="kw">var</span> <span class="lv">myx</span> <span class="op">=</span> <span class="uv">x</span> <span class="op">+</span> <span class="uf">choose_w</span><span class="op">(</span><span class="nu">0</span><span class="op">,</span> <span class="nu">16</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">var</span> <span class="lv">myy</span> <span class="op">=</span> <span class="uv">y</span> <span class="op">+</span> <span class="uf">choose_w</span><span class="op">(</span><span class="nu">0</span><span class="op">,</span> <span class="nu">16</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="sf">place_meeting</span><span class="op">(</span><span class="lv">myx</span><span class="op">,</span> <span class="lv">myy</span><span class="op">,</span> <span class="ri">hitme</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="lv">myx</span><span class="op">,</span> <span class="lv">myy</span><span class="op">,</span> <span class="ri">Wall</span><span class="op">)</span><span class="op">;</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">NOWALLSHEREPLEASE</span><span class="op">)</span><span class="op">;</span>
+    <span class="cb">}</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="uf">random_w</span><span class="op">(</span><span class="nu">12</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Cactus</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="area_pop_chests"><a href="#area_pop_chests" title="(permalink)">area_pop_chests()</a></header><article><p>
+			Called after numerous chests have been plucked onto the level and before the extras are cleaned up. Can modify a number of variables: </p><ul>
+				<li>	<code>gol</code>: Base quantity of any chest.
+				</li><li>	<code>wgol</code>: Extra weapon chests
+				</li><li>	<code>agol</code>: Extra ammo chests
+				</li><li>	<code>rgol</code>: Extra radiation canisters / Rogue canisters
+			</li></ul></article></section><section><header id="area_pop_extras"><a href="#area_pop_extras" title="(permalink)">area_pop_extras()</a></header><article><p>
+			Used for spawning extra things such as wall decals or doing area-specific postfixes, e.g.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_pop_extras">area_pop_extras</a>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Floor</span><span class="op">)</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="sf">place_free</span><span class="op">(</span><span class="uv">x</span> <span class="op">-</span> <span class="nu">32</span><span class="op">,</span> <span class="uv">y</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="sf">place_free</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">32</span><span class="op">,</span> <span class="uv">y</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="sf">place_free</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="op">-</span><span class="nu">1</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;=</span> <span class="nu">1</span><span class="op">;</span> <span class="lv">i</span> <span class="op">+=</span> <span class="nu">2</span><span class="op">)</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">k</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">k</span> <span class="op">&lt;=</span> <span class="nu">1</span><span class="op">;</span> <span class="lv">k</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="kw">with</span> <span class="op">(</span><span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="op">(</span><span class="nu">1</span> <span class="op">-</span> <span class="lv">i</span><span class="op">)</span> <span class="op">*</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="lv">k</span> <span class="op">*</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">Bones</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+            <span class="uv">image_xscale</span> <span class="op">=</span> <span class="lv">i</span><span class="op">;</span>
+            <span class="uv">sprite_index</span> <span class="op">=</span> <span class="ri">sprBones</span><span class="op">;</span>
+        <span class="cb">}</span>
+    <span class="cb">}</span>
+<span class="cb">}</span>
+</pre></article></section><p>
+		<strong>Flow:</strong>
+		</p><section><header id="area_start"><a href="#area_start" title="(permalink)">area_start()</a></header><article><p>
+			Executed when everything finishes generating in the custom area.
+		</p></article></section><section><header id="area_finish"><a href="#area_finish" title="(permalink)">area_finish()</a></header><article><p>
+			Is called by GameCont on room end of the area. Should change area/subarea accordingly. For example, if you wanted to have the game go to 2-1 after your area, you could do
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_finish">area_finish</a>
+<span class="uv">area</span> <span class="op">=</span> <span class="nu">2</span><span class="op">;</span>
+<span class="uv">subarea</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+</pre></article></section><section><header id="area_transit"><a href="#area_transit" title="(permalink)">area_transit()</a></header><article><p>
+			Called by GameCont just after calculating the next area in a normal way. Can be used to insert areas by deciding whether to change area to yours based on <code>lastarea</code>, <code>lastsubarea</code>, <code>area</code>, <code>subarea</code>. For example, if you wanted to insert your area before 2-1, you could do
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_transit">area_transit</a>
+<span class="kw">if</span> <span class="op">(</span><span class="uv">lastarea</span> <span class="op">!=</span> <span class="st">"test"</span> <span class="op">&amp;&amp;</span> <span class="uv">area</span> <span class="op">==</span> <span class="nu">2</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">area</span> <span class="op">=</span> <span class="st">"test"</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><p>
+		<strong>Examples:</strong>
+		</p><section><header>test.area.gml</header><article><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#area_name">area_name</a>
+<span class="kw">return</span> <span class="st">"ZZZ"</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_sprite">area_sprite</a><span class="op">(</span><span class="lv">q</span><span class="op">)</span>
+<span class="kw">switch</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1B</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprFloor1Explo</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprFloor0Explo</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Trans</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Trans</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Bot</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Bot</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Out</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Out</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprWall1Top</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprWall0Top</span><span class="op">;</span>
+    <span class="kw">case</span> <span class="ri">sprDebris1</span><span class="op">:</span> <span class="kw">return</span> <span class="ri">sprDebris0</span><span class="op">;</span>
+<span class="cb">}</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_transit">area_transit</a>
+<span class="kw">if</span> <span class="op">(</span><span class="uv">lastarea</span> <span class="op">!=</span> <span class="st">"test"</span> <span class="op">&amp;&amp;</span> <span class="uv">area</span> <span class="op">==</span> <span class="nu">2</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">area</span> <span class="op">=</span> <span class="st">"test"</span><span class="op">;</span>
+<span class="cb">}</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_finish">area_finish</a>
+<span class="uv">area</span> <span class="op">=</span> <span class="nu">2</span><span class="op">;</span>
+<span class="uv">subarea</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_setup">area_setup</a>
+<span class="uv">goal</span> <span class="op">=</span> <span class="nu">40</span><span class="op">;</span>
+<span class="sv">background_color</span> <span class="op">=</span> <span class="sf">make_color_rgb</span><span class="op">(</span><span class="nu">106</span><span class="op">,</span> <span class="nu">122</span><span class="op">,</span> <span class="nu">175</span><span class="op">)</span><span class="op">;</span>
+<span class="ri">BackCont</span><span class="op">.</span><span class="fd">shadcol</span> <span class="op">=</span> <span class="sv">c_black</span><span class="op">;</span>
+<span class="ri">TopCont</span><span class="op">.</span><span class="fd">fog</span> <span class="op">=</span> <span class="ri">sprFog2</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_make_floor">area_make_floor</a>
+<span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">turn</span> <span class="op">=</span> <span class="sf">choose</span><span class="op">(</span><span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">0</span><span class="op">,</span> <span class="nu">90</span><span class="op">,</span> <span class="op">-</span><span class="nu">90</span><span class="op">,</span> <span class="nu">90</span><span class="op">,</span> <span class="op">-</span><span class="nu">90</span><span class="op">,</span> <span class="nu">180</span><span class="op">)</span><span class="op">;</span>
+<span class="uv">direction</span> <span class="op">+=</span> <span class="lv">turn</span><span class="op">;</span>
+<span class="kw">if</span> <span class="op">(</span><span class="lv">turn</span> <span class="op">==</span> <span class="nu">180</span> <span class="op">&amp;&amp;</span> <span class="sf">point_distance</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="nu">10016</span><span class="op">,</span> <span class="nu">10016</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">48</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// turnarounds - weapon chests spawn in such</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">WeaponChest</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">19</span> <span class="op">+</span> <span class="sf">instance_number</span><span class="op">(</span><span class="ri">FloorMaker</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">22</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// dead ends - ammo chests spawn in such</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="sf">point_distance</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="nu">10016</span><span class="op">,</span> <span class="nu">10016</span><span class="op">)</span> <span class="op">&gt;</span> <span class="nu">48</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">AmmoChest</span><span class="op">)</span><span class="op">;</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">Floor</span><span class="op">)</span><span class="op">;</span>
+    <span class="cb">}</span>
+    <span class="uf">instance_destroy</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// branching</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span><span class="op">,</span> <span class="uv">y</span><span class="op">,</span> <span class="ri">FloorMaker</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_pop_enemies">area_pop_enemies</a>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span><span class="op">)</span> <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">Bandit</span><span class="op">)</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_pop_props">area_pop_props</a>
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">4</span><span class="op">)</span> <span class="op">&lt;</span> <span class="nu">1</span><span class="op">)</span> <span class="sf">instance_create</span><span class="op">(</span><span class="uv">x</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="uv">y</span> <span class="op">+</span> <span class="nu">16</span><span class="op">,</span> <span class="ri">NightCactus</span><span class="op">)</span><span class="op">;</span>
+
+<span class="md">#define</span> <a class="uf" href="#area_mapdata">area_mapdata</a><span class="op">(</span><span class="lv">lx</span><span class="op">,</span> <span class="lv">ly</span><span class="op">,</span> <span class="lv">lp</span><span class="op">,</span> <span class="lv">ls</span><span class="op">,</span> <span class="lv">ws</span><span class="op">,</span> <span class="lv">ll</span><span class="op">)</span>
+<span class="kw">return</span> <span class="op">[</span><span class="lv">lx</span><span class="op">,</span> <span class="nu">9</span><span class="op">]</span><span class="op">;</span>
+</pre></article></section></article></section></article></section><section><header id="api-ntt"><a href="#api-ntt" title="(permalink)">NTT-specific reference</a></header><article><a class="sticky-side" href="#api-ntt" title="NTT-specific reference"><span>NTT-specific reference</span></a><section><header id="skill"><a href="#skill" title="(permalink)">Mutation API</a></header><article><a class="sticky-side" href="#skill" title="Mutation API"><span>Mutation API</span></a><section><header id="skill_get"><a href="#skill_get" title="(permalink)">skill_get(skill)</a></header><article><p>
+			Returns whether the mutation is currently acquired.
+			</p><p>
+			<code>skill</code> can be either a numeric value (see <a href="#mut">constants</a>) or a mod name.
+		</p></article></section><section><header id="skill_set"><a href="#skill_set" title="(permalink)">skill_set(skill, value)</a></header><article><p>
+			Acquires or unacquires the given mutation.
+			</p><p>
+			<code>skill</code> can be either a numeric value (see <a href="#mut">constants</a>) or a mod name.
+		</p></article></section><section><header id="skill_clear"><a href="#skill_clear" title="(permalink)">skill_clear()</a></header><article><p>
+			Removes all currently acquired mutations with their effects.
+			</p><p>
+			Used for Melting&lt;-&gt;Skeleton transformations, for example.
+		</p></article></section><section><header id="skill_get_at"><a href="#skill_get_at" title="(permalink)">skill_get_at(index)</a></header><article><p>
+			Returns the mutation identifier (<a href="#mut">constants</a> for built-in mutations, strings for mods) for the mutation at given position (0-based).
+			</p><p>
+			Returns <code>undefined</code> if out of range.
+			</p><p>
+			For example, if you wanted to show names of all currently acquired mutations, you could do
+			</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span>
+<span class="kw">while</span> <span class="op">(</span><span class="uv">true</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">var</span> <span class="lv">mut</span> <span class="op">=</span> <a class="sf" href="#skill_get_at">skill_get_at</a><span class="op">(</span><span class="lv">i</span><span class="op">++</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="lv">mut</span> <span class="op">==</span> <span class="uv">undefined</span><span class="op">)</span> <span class="kw">break</span><span class="op">;</span>
+    <a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sf">skill_get_name</span><span class="op">(</span><span class="lv">mut</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="skill_get_active"><a href="#skill_get_active" title="(permalink)">skill_get_active(skill)</a></header><article><p>
+			Returns whether the given mutation is currently enabled and can appear in mutation pool.
+			</p><p>
+			<code>skill</code> can be either a numeric value (see <a href="#mut">constants</a>) or a mod name.
+		</p></article></section><section><header id="skill_set_active"><a href="#skill_set_active" title="(permalink)">skill_set_active(skill, active)</a></header><article><p>
+			Changes whether the given mutation is enabled and can appear in mutation pool.
+			</p><p>
+			<code>skill</code> can be either a numeric value (see <a href="#mut">constants</a>) or a mod name.
+		</p></article></section><section><header id="mut"><a href="#mut" title="(permalink)">Mutation constants</a></header><article><pre class="gmlmd">
+<span class="sv">mut_none</span> <span class="op">=</span> <span class="nu">0</span>
+<span class="sv">mut_rhino_skin</span> <span class="op">=</span> <span class="nu">1</span>
+<span class="sv">mut_extra_feet</span> <span class="op">=</span> <span class="nu">2</span>
+<span class="sv">mut_plutonium_hunger</span> <span class="op">=</span> <span class="nu">3</span>
+<span class="sv">mut_rabbit_paw</span> <span class="op">=</span> <span class="nu">4</span>
+<span class="sv">mut_throne_butt</span> <span class="op">=</span> <span class="nu">5</span>
+<span class="sv">mut_lucky_shot</span> <span class="op">=</span> <span class="nu">6</span>
+<span class="sv">mut_bloodlust</span> <span class="op">=</span> <span class="nu">7</span>
+<span class="sv">mut_gamma_guts</span> <span class="op">=</span> <span class="nu">8</span>
+<span class="sv">mut_second_stomach</span> <span class="op">=</span> <span class="nu">9</span>
+<span class="sv">mut_back_muscle</span> <span class="op">=</span> <span class="nu">10</span>
+<span class="sv">mut_scarier_face</span> <span class="op">=</span> <span class="nu">11</span>
+<span class="sv">mut_euphoria</span> <span class="op">=</span> <span class="nu">12</span>
+<span class="sv">mut_long_arms</span> <span class="op">=</span> <span class="nu">13</span>
+<span class="sv">mut_boiling_veins</span> <span class="op">=</span> <span class="nu">14</span>
+<span class="sv">mut_shotgun_shoulders</span> <span class="op">=</span> <span class="nu">15</span>
+<span class="sv">mut_recycle_gland</span> <span class="op">=</span> <span class="nu">16</span>
+<span class="sv">mut_laser_brain</span> <span class="op">=</span> <span class="nu">17</span>
+<span class="sv">mut_last_wish</span> <span class="op">=</span> <span class="nu">18</span>
+<span class="sv">mut_eagle_eyes</span> <span class="op">=</span> <span class="nu">19</span>
+<span class="sv">mut_impact_wrists</span> <span class="op">=</span> <span class="nu">20</span>
+<span class="sv">mut_bolt_marrow</span> <span class="op">=</span> <span class="nu">21</span>
+<span class="sv">mut_stress</span> <span class="op">=</span> <span class="nu">22</span>
+<span class="sv">mut_trigger_fingers</span> <span class="op">=</span> <span class="nu">23</span>
+<span class="sv">mut_sharp_teeth</span> <span class="op">=</span> <span class="nu">24</span>
+<span class="sv">mut_patience</span> <span class="op">=</span> <span class="nu">25</span>
+<span class="sv">mut_hammerhead</span> <span class="op">=</span> <span class="nu">26</span>
+<span class="sv">mut_strong_spirit</span> <span class="op">=</span> <span class="nu">27</span>
+<span class="sv">mut_open_mind</span> <span class="op">=</span> <span class="nu">28</span>
+<span class="sv">mut_heavy_heart</span> <span class="op">=</span> <span class="nu">29</span>
+</pre></article></section></article></section><section><header id="api-mod"><a href="#api-mod" title="(permalink)">Mod API</a></header><article><a class="sticky-side" href="#api-mod" title="Mod API"><span>Mod API</span></a><p>
+		- WIP -
+		<strong>Sideloading</strong>:
+		</p><section><header id="mod_sideload"><a href="#mod_sideload" title="(permalink)">mod_sideload()</a></header><article><p>
+			Returns whether the mod is allowed to sideload other mods.
+			</p><p>
+			This shows a prompt to the player that loaded the mod on first call and the player needs to accept via <code>/allowmod</code>.
+			</p><p>
+			Once the player had confirmed permission, the mod can use the additional functions shown below.
+		</p></article></section><section><header id="mod_load"><a href="#mod_load" title="(permalink)">mod_load(path)</a></header><article><p>
+			If sideloading (<a href="#mod_sideload">mod_sideload</a>) is on for the mod, attempts to load the given mod much like <code>/loadmod</code> command would. You'll usually need to specify the path or at least the mod-type extension in this.
+			</p><p>
+			Returns 1 if sideloading is enabled and 0 if sideloading is disabled.
+			</p><pre class="gmlmd">
+<span class="md">#define</span> <a class="uf" href="#init">init</a>
+<span class="kw">while</span> <span class="op">(</span><span class="op">!</span><a class="sf" href="#mod_sideload">mod_sideload</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<a class="sf" href="#mod_load">mod_load</a><span class="op">(</span><span class="st">"test.mod"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+			would load <code>test.mod.gml</code> from the same directory that the executing mod is in.
+		</p></article></section><section><header id="mod_loadlive"><a href="#mod_loadlive" title="(permalink)">mod_loadlive(path)</a></header><article><p>
+			Same as <a href="#mod_load">mod_load</a>, but as with <code>/loadlive</code> command.
+		</p></article></section><section><header id="mod_loadtext"><a href="#mod_loadtext" title="(permalink)">mod_loadtext(path)</a></header><article><p>
+			Same as <a href="#mod_load">mod_load</a>, but as with <code>/loadtext</code> command.
+		</p></article></section><section><header id="mod_unload"><a href="#mod_unload" title="(permalink)">mod_unload(path)</a></header><article><p>
+			If sideloading (<a href="#mod_sideload">mod_sideload</a>) is on for the mod, attempts to unload the given mod much like <code>/unloadmod</code> command would. You'll usually need to specify the path or at least the mod-type extension in this.
+			</p><p>
+			Returns 1 if sideloading is enabled and 0 if sideloading is disabled.
+		</p></article></section></article></section><p>
+	<s> WIP </s>
+</p></article></section></p><!--doc>-->
+</section>
+</main></div>
+<script type="text/javascript">(function() {
+	var doc, headers;
+	//
+	var path = "NTT Scripting cheat sheet";
+	var state = null;
+	if (window.localStorage && JSON.parse) {
+		state = window.localStorage.getItem(path);
+		state = state ? JSON.parse(state) : { };
+		if (state == null) state = { };
+	}
+	var isLocal = (location.host.indexOf("localhost") == 0);
+	//
+	function h3bind(h3) {
+		var node = h3.parentNode;
+		var snip = node.children[1];
+		var id = h3.id || h3.textContent;
+		h3.snip = snip;
+		h3.doc_set = function(z) {
+			if (z) node.classList.add("open"); else node.classList.remove("open");
+			if (state) {
+				state[id] = z;
+				window.localStorage.setItem(path, JSON.stringify(state));
+			}
+		}
+		h3.doc_hide = function() {
+			this.doc_set(false);
+		}
+		h3.doc_show = function() {
+			this.doc_set(true);
+		}
+		h3.onclick = function(_) {
+			var seen = !node.classList.contains("open");
+			h3.doc_set(seen);
+			return false;
+		};
+	}
+	function getHashFunc(id) {
+		var node = document.getElementById(id);
+		if (node == null) return null;
+		return function(e) {
+			while (node && node != doc) {
+				if (node.classList.contains("item")) {
+					node.classList.add("open");
+				}
+				node = node.parentElement;
+			}
+		};
+	}
+	// Display helpers:
+	window.opt_none = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_hide();
+	};
+	window.opt_list = function() {
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			if (h3.parentNode.parentNode != doc) {
+				h3.doc_hide();
+			} else h3.doc_show();
+		}
+	};
+	window.opt_all = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_show();
+	};
+	window.live_post = function() {
+		doc = document.getElementById("doc");
+		headers = doc.getElementsByTagName("header");
+		//
+		for (var i = 0; i < headers.length; i++) h3bind(headers[i]);
+		// Clicks in document expand the related section:
+		var anchors = doc.getElementsByTagName("a");
+		for (var i = 0; i < anchors.length; i++) {
+			var anchor = anchors[i];
+			if (anchor.classList.contains("header")) continue;
+			var href = anchor.getAttribute("href");
+			if (href[0] == "#") {
+				var fn = getHashFunc(href.substr(1));
+				if (!fn) {
+					anchor.classList.add("broken");
+					anchor.title = "(section missing)";
+				} else anchor.addEventListener("click", fn);
+			}
+		}
+		//
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			var val = state ? state[h3.id || h3.textContent] : null;
+			if (val == null) val = isLocal || h3.parentNode.parentNode == doc;
+			if (val) h3.doc_show(); else h3.doc_hide();
+		}
+	};
+	window.live_post();
+	//
+	(function() {
+		var hash = document.location.hash;
+		if (hash) {
+			var _hash = hash.substr(1);
+			getHashFunc(_hash)();
+			setTimeout(function() {
+				document.location.hash = hash + " ";
+				setTimeout(function() {
+					document.location.hash = hash;
+				}, 100);
+			}, 100);
+		}
+	})();
+	//
+	doc.setAttribute("ready", "");
+	})();</script>
+</body></html>

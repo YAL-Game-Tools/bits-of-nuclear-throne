@@ -1,0 +1,16 @@
+body {
+	font: 15px 'Open Sans', sans-serif;
+	line-height: 1.35;
+}
+details summary::marker {
+	margin-right: 0;
+}
+details > a,
+details > details {
+	margin-left: 0.4em;
+	padding-left: 0.3em;
+	border-left: 0.2em solid #eee;
+}
+details > a, a[target] {
+	display: block;
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Player</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Player</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./hitme.html">hitme</a> ➜ <a href="./__PlayerParent.html">__PlayerParent</a> ➜ <a href="./Player.html">Player</a>
+</p><p>
+This is the player! When making these yourself, you'll want to specify the index, like so:
+</p><pre class="gmlmd">
+<span class="sf">instance_create</span><span class="op">(</span><span class="sv">mouse_x</span><span class="op">,</span> <span class="sv">mouse_y</span><span class="op">,</span> <span class="ri">Player</span><span class="op">,</span> <span class="cb">{</span> <a class="uv" href="#index">index</a><span class="op">:</span> <span class="nu">0</span> <span class="cb">}</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+If you don't, the game will get the index from <code>KeyCont.playid++</code> and may violently implode
+if the index gets beyond the expected numbers.
+</p><p>
+Variables:
+</p><section><header id="hitme"><a href="#hitme" title="(permalink)">from hitme</a></header><article><a class="sticky-side" href="#hitme" title="from hitme"><span>from hitme</span></a><p>
+	Object: <a href="./hitme.html">hitme</a>
+	</p><section class="empty"><header id="nexthurt"><a href="#nexthurt" title="(permalink)">nexthurt: number</a></header></section><section><header id="team"><a href="#team" title="(permalink)">team: number</a></header><article><p>
+		Default team for players is 2
+	</p></article></section><section><header id="size"><a href="#size" title="(permalink)">size: number</a></header><article><p>
+		"bigger" entities are harder to push around
+		Unclear whether used for players at all
+	</p></article></section><section><header id="maxhealth"><a href="#maxhealth" title="(permalink)">maxhealth: number</a></header><article><p>
+		Maximum health
+		Current maximum health (as in UI)
+	</p></article></section><section><header id="spr_shadow"><a href="#spr_shadow" title="(permalink)">spr_shadow: sprite</a></header><article><p>
+		Shadow sprite (if any)
+	</p></article></section><section><header id="spr_shadow_x"><a href="#spr_shadow_x" title="(permalink)">spr_shadow_x: number</a></header><article><p>
+		Shadow X offset
+	</p></article></section><section><header id="spr_shadow_y"><a href="#spr_shadow_y" title="(permalink)">spr_shadow_y: number</a></header><article><p>
+		Shadow Y offset
+	</p></article></section><section><header id="my_health"><a href="#my_health" title="(permalink)">my_health</a></header><article><p>
+		Current health
+		Current health
+	</p></article></section><section><header id="spr_idle"><a href="#spr_idle" title="(permalink)">spr_idle: sprite</a></header><article><p>
+		Played if (speed == 0)
+	</p></article></section><section><header id="spr_walk"><a href="#spr_walk" title="(permalink)">spr_walk: sprite</a></header><article><p>
+		Played if (speed != 0)
+	</p></article></section><section><header id="spr_hurt"><a href="#spr_hurt" title="(permalink)">spr_hurt: sprite</a></header><article><p>
+		3-frame sprite for taking damage
+	</p></article></section><section><header id="spr_dead"><a href="#spr_dead" title="(permalink)">spr_dead: sprite</a></header><article><p>
+		Death+corpse sprite
+	</p></article></section><section><header id="snd_hurt"><a href="#snd_hurt" title="(permalink)">snd_hurt: sound</a></header><article><p>
+		Played upon hit
+	</p></article></section><section><header id="snd_dead"><a href="#snd_dead" title="(permalink)">snd_dead: sound</a></header><article><p>
+		Played upon death
+	</p></article></section></article></section><section><header id="Player"><a href="#Player" title="(permalink)">from Player</a></header><article><a class="sticky-side" href="#Player" title="from Player"><span>from Player</span></a><section><header id="index"><a href="#index" title="(permalink)">index: int</a></header><article><p>
+		variable definition
+		Player index (P1 is 0, P2 is 1, etc.)
+	</p></article></section><section><header id="raddrop"><a href="#raddrop" title="(permalink)">raddrop: number</a></header><article><p>
+		Used only if you're getting hit by a Horror bullet
+	</p></article></section><section><header id="gunangle"><a href="#gunangle" title="(permalink)">gunangle: number</a></header><article><p>
+		Current aiming direction (degrees)
+	</p></article></section><section><header id="aimDirection"><a href="#aimDirection" title="(permalink)">aimDirection: number</a></header><article><p>
+		Deprecated, use <a href="#gunangle">gunangle</a>
+	</p></article></section><section><header id="aotDirection"><a href="#aotDirection" title="(permalink)">aotDirection: number</a></header><article><p>
+		Non-sync aiming direction! Only for use in drawing
+	</p></article></section><section><header id="joyx"><a href="#joyx" title="(permalink)">joyx: number</a></header><article><p>
+		Raw gamepad X aim axis value (-1..1)
+	</p></article></section><section class="empty"><header id="joyy"><a href="#joyy" title="(permalink)">joyy: number</a></header></section><section><header id="joyaimx"><a href="#joyaimx" title="(permalink)">joyaimx: number</a></header><article><p>
+		Actual gamepad X aim axis value (with autoaim/smoothing in mind)
+	</p></article></section><section class="empty"><header id="joyaimy"><a href="#joyaimy" title="(permalink)">joyaimy: number</a></header></section><section><header id="race_id"><a href="#race_id" title="(permalink)">race_id: int</a></header><article><p>
+		Race index (1..16 for built-in, 17 for modded)
+	</p></article></section><section><header id="race"><a href="#race" title="(permalink)">race: string</a></header><article><p>
+		Race code (e.g. "fish" or "myrace")
+	</p></article></section><section><header id="wep"><a href="#wep" title="(permalink)">wep</a></header><article><p>
+		Current primary weapon
+	</p></article></section><section><header id="bwep"><a href="#bwep" title="(permalink)">bwep</a></header><article><p>
+		Current secondary weapon<br/>
+		From hereafter, anything with <code>b</code> prefix means that it's same as unprefixed but for the secondary weapon.
+	</p></article></section><section><header id="calc_reload_speed"><a href="#calc_reload_speed" title="(permalink)">calc_reload_speed()</a></header><article><p>
+		Called to calculate reload speed (with race/skill modifiers but without timescale)
+	</p></article></section><section class="empty"><header id="calc_pickup_attract_distance"><a href="#calc_pickup_attract_distance" title="(permalink)">calc_pickup_attract_distance()</a></header></section><section class="empty"><header id="calc_rad_attract_distance"><a href="#calc_rad_attract_distance" title="(permalink)">calc_rad_attract_distance()</a></header></section><section class="empty"><header id="grant_ammo"><a href="#grant_ammo" title="(permalink)">grant_ammo(type, amount, slot, source)</a></header></section><section class="empty"><header id="grant_health"><a href="#grant_health" title="(permalink)">grant_health(amount, source)</a></header></section><section><header id="ammo"><a href="#ammo" title="(permalink)">ammo: array&lt;number&gt;</a></header><article><p>
+		An array with ammo per weapon type.
+		Order is: melee (unused), bullets, shells, bolts, explosives, energy.
+	</p></article></section><section><header id="nearwep"><a href="#nearwep" title="(permalink)">nearwep</a></header><article><p>
+		Nearest weapon (that would get picked up when pressing the button)
+	</p></article></section><section><header id="curse"><a href="#curse" title="(permalink)">curse: number</a></header><article><p>
+		Curse level for primary weapon (0 for no curse, un-cursing subtracts 1)
+	</p></article></section><section class="empty"><header id="bcurse"><a href="#bcurse" title="(permalink)">bcurse: number</a></header></section><section><header id="reload"><a href="#reload" title="(permalink)">reload: number</a></header><article><p>
+		Cooldown for primary weapon
+	</p></article></section><section class="empty"><header id="breload"><a href="#breload" title="(permalink)">breload: number</a></header></section><section><header id="reloadspeed"><a href="#reloadspeed" title="(permalink)">reloadspeed: number</a></header><article><p>
+		Weapon reload speed multiplier (default is 1)
+	</p></article></section><section class="empty"><header id="clicked"><a href="#clicked" title="(permalink)">clicked: number</a></header></section><section><header id="angle"><a href="#angle" title="(permalink)">angle: number</a></header><article><p>
+		Fish's roll angle
+	</p></article></section><section><header id="sprite_angle"><a href="#sprite_angle" title="(permalink)">sprite_angle: number</a></header><article><p>
+		Can be set to rotate the sprite without rotating the hitbox
+	</p></article></section><section><header id="wepangle"><a href="#wepangle" title="(permalink)">wepangle: number</a></header><article><p>
+		Flips on weapon swing, generally -120, 120, or 0
+	</p></article></section><section class="empty"><header id="bwepangle"><a href="#bwepangle" title="(permalink)">bwepangle: number</a></header></section><section><header id="wepflip"><a href="#wepflip" title="(permalink)">wepflip: number</a></header><article><p>
+		Melee weapons flip this after a swing (when <code>reload</code> reaches 0)
+	</p></article></section><section class="empty"><header id="bwepflip"><a href="#bwepflip" title="(permalink)">bwepflip: number</a></header></section><section><header id="wkick"><a href="#wkick" title="(permalink)">wkick: number</a></header><article><p>
+		Displayed weapon offset <br/>
+		For ranged weapons, is just how far weapon moves backwards/forwards. <br/>
+		For melee weapons, also affects weapon angle.
+	</p></article></section><section class="empty"><header id="bwkick"><a href="#bwkick" title="(permalink)">bwkick: number</a></header></section><section><header id="can_shoot"><a href="#can_shoot" title="(permalink)">can_shoot: number</a></header><article><p>
+		Indicates whether a player could shoot something. <br/>
+		Is set to 0 upon firing a weapon and 1 when the weapon is reloaded. <br/>
+		Used very occasionally (e.g. for IDPD logic).
+	</p></article></section><section class="empty"><header id="bcan_shoot"><a href="#bcan_shoot" title="(permalink)">bcan_shoot: number</a></header></section><section><header id="specfiring"><a href="#specfiring" title="(permalink)">specfiring: bool</a></header><article><p>
+		Is set to true when firing via active ability (Y.V., Skeleton) <br/>
+		Can only be used inside weapon mod's <code>weapon_fire</code> script.
+	</p></article></section><section><header id="lasthit"><a href="#lasthit" title="(permalink)">lasthit: number</a></header><article><p>
+		Last damage source (to be shown on Game Over screen).
+		Allowed values are as following: </p><ul>
+		<li> -1: Unknown cause
+		</li><li> 0..105: Built-in death causes
+		</li><li> 106+: Sprite index (sprite name is used as mouseover text)
+		</li><li> [&lt;sprite&gt;, &lt;text&gt;]: Custom death cause (a 2-element array)
+		</li></ul><p>
+		So, for example, you could do
+		
+		</p><pre class="gmlmd">
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="cb">{</span>
+    <a class="uv" href="#lasthit">lasthit</a> <span class="op">=</span> <span class="op">[</span><span class="ri">spr_idle</span><span class="op">,</span> <span class="st">"Incompetence"</span><span class="op">]</span><span class="op">;</span>
+    <a class="uv" href="#my_health">my_health</a> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="hammerhead"><a href="#hammerhead" title="(permalink)">hammerhead: number</a></header><article><p>
+		Remaining HammerHead charges (measured in wall blocks)
+	</p></article></section><section><header id="hammering"><a href="#hammering" title="(permalink)">hammering: number</a></header><article><p>
+		Hammerhead timer variable (walls are broken at &gt;=12)
+	</p></article></section><section><header id="canspirit"><a href="#canspirit" title="(permalink)">canspirit: number</a></header><article><p>
+		Whether the player has Strong Spirit
+	</p></article></section><section><header id="spiriteffect"><a href="#spiriteffect" title="(permalink)">spiriteffect: number</a></header><article><p>
+		Strong Spirit timer, prevents the player from falling under 1 health
+	</p></article></section><section><header id="footstep"><a href="#footstep" title="(permalink)">footstep: number</a></header><article><p>
+		Counter for playing footstep sounds at correct animation frames
+	</p></article></section><section><header id="footkind"><a href="#footkind" title="(permalink)">footkind: number</a></header><article><p>
+		What kind of footstep noises do we make? <br/>
+		0: None (floating like Y.V. B or custom logic) <br/>
+		1: Organic (like the most characters) <br/>
+		2: Leafy (like Plant) <br/>
+		3: Shoes (like Y.V. A, Rebel) <br/>
+		4: Metal (like Robot)
+	</p></article></section><section><header id="footextra"><a href="#footextra" title="(permalink)">footextra: number</a></header><article><p>
+		Counter for Extra Feet's dust particles
+	</p></article></section><section><header id="bleed"><a href="#bleed" title="(permalink)">bleed: number</a></header><article><p>
+		Chicken's bleed timer. Death comes when it reaches 120
+	</p></article></section><section><header id="safeheadloss"><a href="#safeheadloss" title="(permalink)">safeheadloss: number</a></header><article><p>
+		Is set to 2 when reviving players to prevent max health loss
+	</p></article></section><section><header id="chickendeaths"><a href="#chickendeaths" title="(permalink)">chickendeaths: number</a></header><article><p>
+		How many points are missing off max health
+	</p></article></section><section><header id="chickencorpse"><a href="#chickencorpse" title="(permalink)">chickencorpse: Corpse</a></header><article><p>
+		Chicken head to remove when getting health back
+	</p></article></section><section><header id="horrorcharge"><a href="#horrorcharge" title="(permalink)">horrorcharge: number</a></header><article><p>
+		Horror's beam charge (grows during use)
+	</p></article></section><section><header id="horrornorad"><a href="#horrornorad" title="(permalink)">horrornorad: number</a></header><article><p>
+		Frames until radiation can be attracted to player again
+	</p></article></section><section><header id="horrorstopsnd"><a href="#horrorstopsnd" title="(permalink)">horrorstopsnd: number</a></header><article><p>
+		Frames until Horror's beam sounds should be stopped
+	</p></article></section><section><header id="rogueammo"><a href="#rogueammo" title="(permalink)">rogueammo: number</a></header><article><p>
+		Currently available portal strikes for Rogue
+	</p></article></section><section><header id="canrogue"><a href="#canrogue" title="(permalink)">canrogue: number</a></header><article><p>
+		Whether Rogue's passive can trigger
+	</p></article></section><section><header id="swapmove"><a href="#swapmove" title="(permalink)">swapmove: number</a></header><article><p>
+		Does a 1-frame UI "bump" when changing weapons
+	</p></article></section><section><header id="back"><a href="#back" title="(permalink)">back: number</a></header><article><p>
+		Whether currently aiming upwards (for weapon display)
+	</p></article></section><section><header id="right"><a href="#right" title="(permalink)">right: number</a></header><article><p>
+		Whether currently facing right
+	</p></article></section><section><header id="wepright"><a href="#wepright" title="(permalink)">wepright: number</a></header><article><p>
+		Recalculated on draw to flip weapons when facing left
+	</p></article></section><section><header id="frogcharge"><a href="#frogcharge" title="(permalink)">frogcharge: number</a></header><article><p>
+		Grows while holding Frog's active
+	</p></article></section><section><header id="wave"><a href="#wave" title="(permalink)">wave: number</a></header><article><p>
+		Used for a variety of subtle visual effects
+	</p></article></section><section><header id="smoke"><a href="#smoke" title="(permalink)">smoke: number</a></header><article><p>
+		Counter for emitting smoke after touch an explosion with Boiling Veins
+	</p></article></section><section><header id="interfacepop"><a href="#interfacepop" title="(permalink)">interfacepop: number</a></header><article><p>
+		Is set to 2/4/6 when using Y.V.'s active to pop out more shells upon reloading
+	</p></article></section><section class="empty"><header id="binterfacepop"><a href="#binterfacepop" title="(permalink)">binterfacepop: number</a></header></section><section><header id="usespec"><a href="#usespec" title="(permalink)">usespec: bool</a></header><article><p>
+		If set, assumes that ability button is held down
+	</p></article></section><section><header id="candie"><a href="#candie" title="(permalink)">candie: bool</a></header><article><p>
+		Whether the player can die
+	</p></article></section><section><header id="canfire"><a href="#canfire" title="(permalink)">canfire: bool</a></header><article><p>
+		Whether the player can fire normally
+	</p></article></section><section><header id="canspec"><a href="#canspec" title="(permalink)">canspec: bool</a></header><article><p>
+		Whether the player can use their ability
+	</p></article></section><section><header id="canwalk"><a href="#canwalk" title="(permalink)">canwalk: bool</a></header><article><p>
+		Whether the player can move normally
+	</p></article></section><section><header id="canpick"><a href="#canpick" title="(permalink)">canpick: bool</a></header><article><p>
+		Whether the player can pick up weapons
+	</p></article></section><section><header id="canswap"><a href="#canswap" title="(permalink)">canswap: bool</a></header><article><p>
+		Whether the player can swap weapons
+	</p></article></section><section><header id="canscope"><a href="#canscope" title="(permalink)">canscope: bool</a></header><article><p>
+		Whether the aiming laser should be shown
+	</p></article></section><section><header id="canfeet"><a href="#canfeet" title="(permalink)">canfeet: bool</a></header><article><p>
+		Whether the player is affected by Extra Feet
+	</p></article></section><section><header id="canaim"><a href="#canaim" title="(permalink)">canaim: bool</a></header><article><p>
+		Whether the player can aim normally (otherwise gunangle is used)
+	</p></article></section><section><header id="notoxic"><a href="#notoxic" title="(permalink)">notoxic: bool</a></header><article><p>
+		Whether the player is immune to toxic gas
+	</p></article></section><section><header id="drawempty"><a href="#drawempty" title="(permalink)">drawempty: number</a></header><article><p>
+		Timer for "low ammo" / "empty" warning
+	</p></article></section><section class="empty"><header id="drawemptyb"><a href="#drawemptyb" title="(permalink)">drawemptyb: number</a></header></section><section><header id="drawlowhp"><a href="#drawlowhp" title="(permalink)">drawlowhp: number</a></header><article><p>
+		Timer for "low health" warning
+	</p></article></section><section><header id="showhp"><a href="#showhp" title="(permalink)">showhp: number</a></header><article><p>
+		Legacy debug - shows HP+rads above enemies
+	</p></article></section><section><header id="roll"><a href="#roll" title="(permalink)">roll: number</a></header><article><p>
+		Whether currently rolling (as Fish)
+	</p></article></section><section><header id="infammo"><a href="#infammo" title="(permalink)">infammo: number</a></header><article><p>
+		If set to non-zero, ammo is not spent when shooting.<br/>
+		Values above 0 act as countdown in frames and display the effect.<br/>
+		Values below 0 are non-expiring infinite ammo and don't show the effect.
+	</p></article></section><section><header id="gunshine"><a href="#gunshine" title="(permalink)">gunshine: number</a></header><article><p>
+		Determines the gun's "shine" frame. Trigger Fingers sets this to 7.<br/>
+		Setting it to <code>1 + current_time_scale</code> would lock the gun in the "flash" frame.
+	</p></article></section><section><header id="bskin"><a href="#bskin" title="(permalink)">bskin</a></header><article><p>
+		0 for A-skin, 1 for B-skin, string for custom
+	</p></article></section><section><header id="dogammo"><a href="#dogammo" title="(permalink)">dogammo: number</a></header><article><p>
+		Remaining shots for Big Dog's spin attack
+	</p></article></section><section><header id="turn"><a href="#turn" title="(permalink)">turn</a></header><article><p>
+		Turn direction for Big Dog's spin attack
+	</p></article></section><section><header id="maxspeed"><a href="#maxspeed" title="(permalink)">maxspeed: number</a></header><article><p>
+		Peak movement speed
+	</p></article></section><section><header id="accuracy"><a href="#accuracy" title="(permalink)">accuracy: number</a></header><article><p>
+		Affects spread on various weapons.
+	</p></article></section><section><header id="boilcap"><a href="#boilcap" title="(permalink)">boilcap: number</a></header><article><p>
+		Boiling Veins minimum health
+	</p></article></section><section><header id="spr_fire"><a href="#spr_fire" title="(permalink)">spr_fire: sprite</a></header><article><p>
+		Only used for Big Dog
+	</p></article></section><section><header id="lsthealth"><a href="#lsthealth" title="(permalink)">lsthealth</a></header><article><p>
+		Previously reported health<br/>
+		This is what determines the width of the "ghostly" healthbar.<br/>
+		Some effects (Rogue's passive, Sharp Teeth) check this to detect taking damage.<br/>
+		Once the player finishes playing the "hurt" animation, approaches health at rate of 0.5/frame.
+	</p></article></section><section><header id="prepareScoreGet"><a href="#prepareScoreGet" title="(permalink)">prepareScoreGet: number</a></header><article><p>
+		Unused in NTT
+	</p></article></section><section><header id="stream_submit"><a href="#stream_submit" title="(permalink)">stream_submit: number</a></header><article><p>
+		Stores stream key request ID
+	</p></article></section><section class="empty"><header id="stuckfor"><a href="#stuckfor" title="(permalink)">stuckfor: number</a></header></section></article></section><section><header id="scrRaces"><a href="#scrRaces" title="(permalink)">from scrRaces</a></header><article><a class="sticky-side" href="#scrRaces" title="from scrRaces"><span>from scrRaces</span></a><p>
+	Once upon a time this script used to fill out all sorts of character information,
+	but all of that is in global variables now.
+	</p><section class="empty"><header id="racemax"><a href="#racemax" title="(permalink)">racemax</a></header></section></article></section><section><header id="scrWeapons"><a href="#scrWeapons" title="(permalink)">from scrWeapons</a></header><article><a class="sticky-side" href="#scrWeapons" title="from scrWeapons"><span>from scrWeapons</span></a><p>
+	ScrWeapons
+	</p><section class="empty"><header id="maxwep"><a href="#maxwep" title="(permalink)">maxwep: number</a></header></section><section class="empty"><header id="typ_ammo"><a href="#typ_ammo" title="(permalink)">typ_ammo: int[]</a></header></section><section class="empty"><header id="typ_amax"><a href="#typ_amax" title="(permalink)">typ_amax: int[]</a></header></section><section class="empty"><header id="typ_name"><a href="#typ_name" title="(permalink)">typ_name: string[]</a></header></section></article></section><section><header id="scrPlayerSetRace"><a href="#scrPlayerSetRace" title="(permalink)">from scrPlayerSetRace</a></header><article><a class="sticky-side" href="#scrPlayerSetRace" title="from scrPlayerSetRace"><span>from scrPlayerSetRace</span></a><p>
+	ScrPlayerSetRace()
+	</p><section><header id="spr_sit1"><a href="#spr_sit1" title="(permalink)">spr_sit1: sprite</a></header><article><p>
+		Sitting down
+	</p></article></section><section><header id="spr_sit2"><a href="#spr_sit2" title="(permalink)">spr_sit2: sprite</a></header><article><p>
+		Sitting idle
+	</p></article></section><section><header id="snd_lowa"><a href="#snd_lowa" title="(permalink)">snd_lowa: sound</a></header><article><p>
+		Low ammo
+	</p></article></section><section><header id="snd_lowh"><a href="#snd_lowh" title="(permalink)">snd_lowh: sound</a></header><article><p>
+		Low health
+	</p></article></section><section><header id="snd_crwn"><a href="#snd_crwn" title="(permalink)">snd_crwn: sound</a></header><article><p>
+		Crown
+	</p></article></section><section><header id="snd_chst"><a href="#snd_chst" title="(permalink)">snd_chst: sound</a></header><article><p>
+		Big chest
+	</p></article></section><section><header id="snd_wrld"><a href="#snd_wrld" title="(permalink)">snd_wrld: sound</a></header><article><p>
+		Can play on subarea == 1
+	</p></article></section><section><header id="snd_thrn"><a href="#snd_thrn" title="(permalink)">snd_thrn: sound</a></header><article><p>
+		Unused
+	</p></article></section><section><header id="snd_valt"><a href="#snd_valt" title="(permalink)">snd_valt: sound</a></header><article><p>
+		Vault
+	</p></article></section><section><header id="snd_spch"><a href="#snd_spch" title="(permalink)">snd_spch: sound</a></header><article><p>
+		Throne victory
+	</p></article></section><section><header id="snd_idpd"><a href="#snd_idpd" title="(permalink)">snd_idpd: sound</a></header><article><p>
+		HQ
+	</p></article></section><section><header id="snd_cptn"><a href="#snd_cptn" title="(permalink)">snd_cptn: sound</a></header><article><p>
+		HQ victory
+	</p></article></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[2]</code>: Big Dog spin attack
+	</li><li> <code>alarm[3]</code>: Frog gas release
+	</li><li> <code>alarm[8]</code>: Stream key related
+	</li><li> <code>alarm[9]</code>: Stops Horror beam sound
+	</li><li> <code>alarm[10]</code>: Kills off-level enemies unless they have sfmt("canfly") set to true.
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

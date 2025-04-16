@@ -1,0 +1,12 @@
+```set title Nuclear Throne Together Objects```
+```set template default.html```
+```set tag:defcode gml```
+```set intro
+This document outlines existing variables in various Nuclear Throne \[Together\] objects.
+
+It may not always be 100% accurate and some variables may not be accessible, but it does cover documentation where available.
+
+Instances may also contain variables not described in this document that are assigned elsewhere or accidentally leaked into them.
+
+If something is prefixed with `__`, you probably shouldn't be touching it.
+```

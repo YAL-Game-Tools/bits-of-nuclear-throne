@@ -1,0 +1,57 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>GameObject</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>GameObject</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a>
+</p><p>
+Parent to all things that mods can create, destroy, or assign custom variables to.
+</p><p>
+Children: <a href="./becomenemy.html">becomenemy</a>, <a href="./BecomeNothing.html">BecomeNothing</a>, <a href="./BECOMETARGET.html">BECOMETARGET</a>, <a href="./BigDogExplo.html">BigDogExplo</a>, <a href="./Bones.html">Bones</a>, <a href="./Burst.html">Burst</a>, <a href="./CampChar.html">CampChar</a>, <a href="./Carpet.html">Carpet</a>, <a href="./CharredGround.html">CharredGround</a>, <a href="./chestprop.html">chestprop</a>, <a href="./Corpse.html">Corpse</a>, <a href="./Crown.html">Crown</a>, <a href="./CrownPed.html">CrownPed</a>, <a href="./CrownPickup.html">CrownPickup</a>, <a href="./CrystalShield.html">CrystalShield</a>, <a href="./CrystalShieldDisappear.html">CrystalShieldDisappear</a>, <a href="./CustomObject.html">CustomObject</a>, <a href="./CustomScript.html">CustomScript</a>, <a href="./Detail.html">Detail</a>, <a href="./DragonBurst.html">DragonBurst</a>, <a href="./DragonSound.html">DragonSound</a>, <a href="./DramaCamera.html">DramaCamera</a>, <a href="./Effect.html">Effect</a>, <a href="./EmoteIndicator.html">EmoteIndicator</a>, <a href="./Explosion.html">Explosion</a>, <a href="./FlameBurst.html">FlameBurst</a>, <a href="./FlameSound.html">FlameSound</a>, <a href="./Floor.html">Floor</a>, <a href="./FloorMaker.html">FloorMaker</a>, <a href="./FloorMiddle.html">FloorMiddle</a>, <a href="./FrogQueenDie.html">FrogQueenDie</a>, <a href="./GammaBlast.html">GammaBlast</a>, <a href="./GenCont.html">GenCont</a>, <a href="./GoldBurst.html">GoldBurst</a>, <a href="./HeavyBurst.html">HeavyBurst</a>, <a href="./hitme.html">hitme</a>, <a href="./HyperBurst.html">HyperBurst</a>, <a href="./IDPDSpawn.html">IDPDSpawn</a>, <a href="./InvisiWall.html">InvisiWall</a>, <a href="./IonBurst.html">IonBurst</a>, <a href="./LaserCannon.html">LaserCannon</a>, <a href="./LastDie.html">LastDie</a>, <a href="./LastFire.html">LastFire</a>, <a href="./LevCont.html">LevCont</a>, <a href="./LightBeam.html">LightBeam</a>, <a href="./LilHunterDie.html">LilHunterDie</a>, <a href="./MeatExplosion.html">MeatExplosion</a>, <a href="./Messenger.html">Messenger</a>, <a href="./Menu.html">Menu</a>, <a href="./MenuGen.html">MenuGen</a>, <a href="./Mine.html">Mine</a>, <a href="./MineExplosion.html">MineExplosion</a>, <a href="./NadeBurst.html">NadeBurst</a>, <a href="./NecroReviveArea.html">NecroReviveArea</a>, <a href="./Nothing2Death.html">Nothing2Death</a>, <a href="./NothingBeam.html">NothingBeam</a>, <a href="./NothingDeath.html">NothingDeath</a>, <a href="./NothingSpiral.html">NothingSpiral</a>, <a href="./NOWALLSHEREPLEASE.html">NOWALLSHEREPLEASE</a>, <a href="./Pickup.html">Pickup</a>, <a href="./PizzaEntrance.html">PizzaEntrance</a>, <a href="./PlasmaImpact.html">PlasmaImpact</a>, <a href="./PlayerSit.html">PlayerSit</a>, <a href="./PopBurst.html">PopBurst</a>, <a href="./PopoShield.html">PopoShield</a>, <a href="./Portal.html">Portal</a>, <a href="./PortalClear.html">PortalClear</a>, <a href="./PortalShock.html">PortalShock</a>, <a href="./PotentialYeti.html">PotentialYeti</a>, <a href="./projectile.html">projectile</a>, <a href="./Revive.html">Revive</a>, <a href="./ReviveArea.html">ReviveArea</a>, <a href="./RevivePopoFreak.html">RevivePopoFreak</a>, <a href="./RogueBurst.html">RogueBurst</a>, <a href="./RogueBomb.html">RogueBomb</a>, <a href="./RogueStrike.html">RogueStrike</a>, <a href="./SawBurst.html">SawBurst</a>, <a href="./Scorch.html">Scorch</a>, <a href="./ScorchGreen.html">ScorchGreen</a>, <a href="./ScorchTop.html">ScorchTop</a>, <a href="./SharpTeeth.html">SharpTeeth</a>, <a href="./SitDown.html">SitDown</a>, <a href="./SlugBurst.html">SlugBurst</a>, <a href="./SnowFloor.html">SnowFloor</a>, <a href="./SnowTankExplode.html">SnowTankExplode</a>, <a href="./SpawnWall.html">SpawnWall</a>, <a href="./Spiral.html">Spiral</a>, <a href="./SpiralCont.html">SpiralCont</a>, <a href="./SpiralDebris.html">SpiralDebris</a>, <a href="./SpiralStar.html">SpiralStar</a>, <a href="./SplinterBurst.html">SplinterBurst</a>, <a href="./Tangle.html">Tangle</a>, <a href="./Top.html">Top</a>, <a href="./TopCont.html">TopCont</a>, <a href="./TopPot.html">TopPot</a>, <a href="./TopSmall.html">TopSmall</a>, <a href="./ToxicBurst.html">ToxicBurst</a>, <a href="./Trap.html">Trap</a>, <a href="./ToxicDelay.html">ToxicDelay</a>, <a href="./VanSpawn.html">VanSpawn</a>, <a href="./VenuzAmmoSpawn.html">VenuzAmmoSpawn</a>, <a href="./VenuzCarpet.html">VenuzCarpet</a>, <a href="./VenuzWeaponSpawn.html">VenuzWeaponSpawn</a>, <a href="./Wall.html">Wall</a>, <a href="./WantRevivePopoFreak.html">WantRevivePopoFreak</a>, <a href="./WaveBurst.html">WaveBurst</a>, <a href="./YungCuz.html">YungCuz</a></p></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

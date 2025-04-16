@@ -1,0 +1,83 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>ConfettiBall</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>ConfettiBall</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameObject.html">GameObject</a> ➜ <a href="./projectile.html">projectile</a> ➜ <a href="./Grenade.html">Grenade</a> ➜ <a href="./ConfettiBall.html">ConfettiBall</a>
+</p><p>
+Variables:
+</p><section><header id="projectile"><a href="#projectile" title="(permalink)">from projectile</a></header><article><a class="sticky-side" href="#projectile" title="from projectile"><span>from projectile</span></a><p>
+	Object: <a href="./projectile.html">projectile</a>
+	</p><section><header id="hitid"><a href="#hitid" title="(permalink)">hitid: number</a></header><article><p>
+		See lasthit on <a href="./Player.html">Player</a>
+	</p></article></section><section class="empty"><header id="team"><a href="#team" title="(permalink)">team: number</a></header></section><section><header id="creator"><a href="#creator" title="(permalink)">creator</a></header><article><p>
+		<a href="./hitme.html">hitme</a> that created this projectile (if any)
+	</p></article></section><section><header id="creator_projectile"><a href="#creator_projectile" title="(permalink)">creator_projectile</a></header><article><p>
+		<a href="./projectile.html">projectile</a> that created this projectile (if any, used for flak/etc.)
+	</p></article></section><section class="empty"><header id="deflected"><a href="#deflected" title="(permalink)">deflected: number</a></header></section><section><header id="nopopo"><a href="#nopopo" title="(permalink)">nopopo: number</a></header><article><p>
+		IDPD explosion treatment: </p><ul>
+		<li>  <code>0</code>: Can be exploded
+		</li><li>  <code>1</code>: Cannot be exploded by Blast Armor
+		</li><li>  <code>2</code>: Cannot be exploded by any IDPD explosions (vans, freaks, Rogue Strike)
+		</li></ul></article></section><section><header id="portal_immunity"><a href="#portal_immunity" title="(permalink)">portal_immunity: bool</a></header><article><p>
+		If enabled, doesn't get cleared by <a href="./PortalShock.html">PortalShock</a>.
+	</p></article></section><section><header id="typ"><a href="#typ" title="(permalink)">typ: number</a></header><article><p>
+		Projectile type, </p><ul>
+			<li> <code>1</code>: Can be deflected by shields/melee (e.g. bullets)
+			</li><li> <code>2</code>: Is destroyed by shields/melee (e.g. rockets)
+			</li><li> other: Cannot be deflected (e.g. lightning).
+		</li></ul></article></section><section class="empty"><header id="damage"><a href="#damage" title="(permalink)">damage: number</a></header></section><section><header id="force"><a href="#force" title="(permalink)">force: number</a></header><article><p>
+		Determines applied velocity on impact
+	</p></article></section></article></section><section><header id="Grenade"><a href="#Grenade" title="(permalink)">from Grenade</a></header><article><a class="sticky-side" href="#Grenade" title="from Grenade"><span>from Grenade</span></a><p>
+	Object: <a href="./Grenade.html">Grenade</a>
+	</p><section class="empty"><header id="sticky"><a href="#sticky" title="(permalink)">sticky: number</a></header></section><section class="empty"><header id="offx"><a href="#offx" title="(permalink)">offx</a></header></section><section class="empty"><header id="offy"><a href="#offy" title="(permalink)">offy</a></header></section></article></section><section><header id="ConfettiBall"><a href="#ConfettiBall" title="(permalink)">from ConfettiBall</a></header><article><a class="sticky-side" href="#ConfettiBall" title="from ConfettiBall"><span>from ConfettiBall</span></a><section class="empty"><header id="mycol"><a href="#mycol" title="(permalink)">mycol</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[1]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

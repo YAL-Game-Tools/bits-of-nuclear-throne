@@ -21,7 +21,7 @@ Changes:
 
 - To make the game work closer to how it did before,
   I changed all of the step events to be user events that the game runs from a script.  
-  Functionally everything should be the same as before, but let me know.
+  Functionally everything should be working as normal, but let me know if you spot any entities not doing their job.
 - Mouse lock now only applies mid-game, not in menus.
 - I tried to make the audio work like it did before, but it's still kind of weird,
   so you can now add the following section to NuclearThrone.ini
@@ -37,7 +37,7 @@ Fixes:
 
 - NTT-specific documentation no longer ends up in NT builds.
 - Clicking during heavy lag should now be buffered.
-- "Fish digging" should now be harder to pull off
+- "Fish digging" should now be harder to pull off  
   (but the logic stays in case you _really_ get stuck in a wall)
 
 # 99r2b18 / 100.020 (December 2024)
