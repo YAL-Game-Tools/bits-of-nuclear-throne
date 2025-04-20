@@ -14,3 +14,6 @@ details > details {
 details > a, a[target] {
 	display: block;
 }
+body > p {
+	display: none;
+}

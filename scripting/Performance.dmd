@@ -1,0 +1,78 @@
+```set title
+Performance in NTGML
+```
+#[Default VM](def-vm) {
+	By default, NTGML compiles instructions for a stack-based virtual machine
+	
+	So, for example, the following
+	```
+	function scr_test() {
+	    var i = 1;
+	    i += 2;
+	    return i;
+	}
+	```
+	would output instructions along the lines of
+	```
+	push(1)
+	local.i = pop()
+	
+	push(local.i)
+	push(2)
+	add()
+	local.i = pop()
+	
+	push(local.i)
+	return
+	```
+	The good thing about this approach is that the VM can do just about anything that "real" GML can do and a few other tricks too (like the [wait operator](./Syntax-Ext.html#wait)).
+	
+	The bad thing about this approach is that GML is a dynamically typed language so doing high-performance tasks like this in it isn't The Best.
+	
+	As the first line of defense, the recent versions of NTGML will merge common sequences of instructions into one larger instructions, so if you do `/debugbc` and run the above program, a `.gmlbc` file next to the mod will spot something like the following:
+	```
+	#define scr_test
+	// locals: { 0: "i" }
+	0    L2    c6    { tag : "local = const", val : 1, ind : 0, name : "i" }
+	1    L3    c4    { tag : "local += number", ind : 0, name : "i", num : 2, op : 16 }
+	2    L4    c9    local_hx(i: 0, name: "i")
+	3    L4    c2    return_hx
+	```
+	As you can see here, both `i = 1` and `i += 2` were merged into specialized instructions, which helps a bit with computationally intense code.
+	
+	But still that's not enough, which brings us to...
+}
+#[Fast VM](fast-vm) {
+	Sometime mid-2022 I decided to distract myself from the war a little by writing another compiler. Instead of building instructions, this builds a method tree, so that
+	```
+	argument0 + 1;
+	```
+	becomes an equivalent of
+	```
+	var a = method({
+	    ind: 0
+	}, function() {
+	    return global.gml_fastvm_args[self.ind];
+	});
+	var b = method({
+	    value: 1
+	}, function() {
+	    return self.value;
+	});
+	var r = method({
+	    left: a,
+	    right: b,
+	}, function() {
+	    return self.left() + self.right();
+	})
+	```
+	So each node of a syntax tree becomes a `method` containing values, arguments, or other nodes.
+	
+	The good thing about this approach is that it's around 2x faster than the stack-based VM approach.
+	
+	The bad thing about this approach is that it cannot support the `wait` operator and some syntax bits are harder to implement than others.
+	
+	Similarly, when you load a mod with `/debugbc` enabled, you'll get a printout of the method tree in its mostly-unreadable glory.
+	
+	It too combines common operations into quicker specialized ones.
+}

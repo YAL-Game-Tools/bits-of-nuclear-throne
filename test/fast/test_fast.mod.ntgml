@@ -1,0 +1,21 @@
+function scr_normal() {
+	for (var i = 0; i < 5; i++) trace(i);
+}
+function scr_fast() {
+	#pragma fast
+	for (var i = 0; i < 5; i++) trace(i);
+}
+scr_normal();
+scr_fast();
+
+function scr_a() {
+	var i = 1;
+	i += 2;
+	return i;
+}
+function scr_b() {
+	#pragma fast
+	var i = 1;
+	i += 2;
+	return i;
+}

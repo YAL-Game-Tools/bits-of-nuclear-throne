@@ -1,0 +1,279 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>NTGML's syntax extensions</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>NTGML's syntax extensions</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+The following are notes on shared syntax:
+</p><section><header id="scriptfunction-declarations"><a href="#scriptfunction-declarations" title="(permalink)">script/function declarations</a></header><article><p>
+	You can define functions in NTGML mods like you define them in GML scripts:
+	</p><pre class="gmlmd">
+<span class="kw">function</span> <span class="uf">step</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// ...</span>
+<span class="cb">}</span>
+<span class="sf">trace</span><span class="op">(</span><span class="st">"hi!"</span><span class="op">)</span>
+<span class="kw">function</span> <span class="uf">add</span><span class="op">(</span><span class="lv">a</span><span class="op">,</span> <span class="lv">b</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">return</span> <span class="lv">a</span> <span class="op">+</span> <span class="lv">b</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+	Any code outside of functions will be automatically added to the <code>init</code> function
+	that runs when your mod is loaded.
+	</p><hr/><p>
+	You may also define functions similar to how it's done in GM extensions:
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><span class="st">"hi!"</span><span class="op">)</span><span class="op">;</span>
+<span class="md">#define</span> <span class="uf">step</span>
+<span class="co">// ...</span>
+<span class="md">#define</span> <span class="uf">add</span><span class="op">(</span><span class="lv">a</span><span class="op">,</span> <span class="lv">b</span><span class="op">)</span>
+<span class="kw">return</span> <span class="lv">a</span> <span class="op">+</span> <span class="lv">b</span><span class="op">;</span>
+</pre><p>
+	Any code before the first function will be added to the <code>init</code> function.
+	</p><p>
+	A small convenience is added support for named arguments, which GM extensions do not have.
+	</p><hr/><p>
+	You may use either of formats, but not both at once;<br/>
+	Legacy format can only use <code>#define</code>-based declarations.
+</p></article></section><p>
+The following are specific to NTGML:
+</p><section><header id="in"><a href="#in" title="(permalink)">in operator</a></header><article><p>
+	This is a convenience operator that can be used in place of <code>variable_instance_exists</code> / <code>struct_exists</code>.
+	</p><p>
+	Used like so:
+	</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="kw">self</span><span class="op">,</span> <span class="st">"count"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="uv">count</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="co">// ↕ same as</span>
+<span class="kw">if</span> <span class="op">(</span><span class="st">"count"</span> <a class="kw" href="#in">in</a> <span class="kw">self</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="uv">count</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+	Or even:
+	</p><pre class="gmlmd">
+<span class="uv">count</span> <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="st">"count"</span> <a class="kw" href="#in">in</a> <span class="kw">self</span><span class="op">)</span> <span class="op">?</span> <span class="uv">count</span> <span class="op">:</span> <span class="nu">0</span><span class="op">)</span> <span class="op">+</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+	Also supports negation:
+	</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="sf">variable_instance_exists</span><span class="op">(</span><span class="uv">inst</span><span class="op">,</span> <span class="st">"my_mod_mark"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span> <span class="co">/* ... */</span> <span class="cb">}</span>
+<span class="co">// ↕ same as</span>
+<span class="kw">if</span> <span class="op">(</span><span class="st">"my_mod_mark"</span> <span class="kw">not</span> <a class="kw" href="#in">in</a> <span class="uv">inst</span><span class="op">)</span> <span class="cb">{</span> <span class="co">/* ... */</span> <span class="cb">}</span>
+</pre></article></section><section><header id="template-strings"><a href="#template-strings" title="(permalink)">Template strings</a></header><article><p>
+	NTGML supports C#/GM2023+ style <code>$""</code> template strings, so you can do this:
+	</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">draw_gui</span>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">draw_text</span><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="ts">$"HP: {</span><span class="uv">my_health</span><span class="ts">}/{</span><span class="uv">maxhealth</span><span class="ts">}"</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+	but JS-style template strings are also supported:
+	</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">draw_gui</span>
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">draw_text</span><span class="op">(</span><span class="nu">10</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="ts">`HP: ${</span><span class="uv">my_health</span><span class="ts">}/${</span><span class="uv">maxhealth</span><span class="ts">}`</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+	In legacy format, only JS-style template strings are supported.
+</p></article></section><section><header id="wait"><a href="#wait" title="(permalink)">wait instruction</a></header><article><p>
+	You can suspend scripts mid-execution. For example,
+	</p><pre class="gmlmd">
+<span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;=</span> <span class="nu">5</span><span class="op">;</span> <span class="lv">i</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">trace</span><span class="op">(</span><span class="lv">i</span><span class="op">)</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">30</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+	would count up to 5 while waiting 30 frames / 1s between each iteration.
+	</p><p>
+	This allows for some interesting things. For example, to make an explosive bullet for a custom weapon, you could <code>wait</code> for projectile to be destroyed while tracking it's position:
+	</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">weapon_fire</span>
+<span class="sf">motion_add</span><span class="op">(</span><span class="uv">gunangle</span><span class="op">,</span> <span class="op">-</span><span class="nu">4</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">weapon_post</span><span class="op">(</span><span class="nu">6</span><span class="op">,</span> <span class="op">-</span><span class="nu">7</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">;</span>
+<span class="co">// create and configure a projectile:</span>
+<span class="kw">var</span> <span class="lv">qx</span> <span class="op">=</span> <span class="uv">x</span><span class="op">,</span> <span class="uv">qy</span> <span class="op">=</span> <span class="uv">y</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">q</span> <span class="op">=</span> <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">with</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
+    <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="sf">random_range</span><span class="op">(</span><span class="op">-</span><span class="nu">5</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
+    <span class="uv">friction</span> <span class="op">=</span> <span class="op">-</span><span class="nu">0.8</span><span class="op">;</span> <span class="co">// gradual acceleration</span>
+    <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="co">// track projectile' position while it exists:</span>
+<span class="kw">while</span> <span class="op">(</span><span class="sf">instance_exists</span><span class="op">(</span><span class="lv">q</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="lv">qx</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">x</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">hspeed</span><span class="op">;</span>
+    <span class="uv">qy</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">y</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">vspeed</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span>
+<span class="co">// create an explosion at it's last position once it's gone:</span>
+<span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">SmallExplosion</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+	Note that if you <code>wait</code> in a script that should return something to the game immediately (like character/weapon names), the game will assume that you didn't return anything.
+</p></article></section><section><header id="fork"><a href="#fork" title="(permalink)">fork instruction</a></header><article><p>
+	<code>fork()</code> is a "function" that creates a copy of the currently running script state.
+	</p><p>
+	The copy will have its own (re-assigned) local variables but will share the rest of the state.
+	</p><p>
+	The copy will execute the current script and finish while the original will continue executing as normal.
+	</p><p>
+	The "function" returns <code>true</code> to the copy and <code>false</code> to the original.
+	</p><p>
+	Thus,
+	</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">trace</span><span class="op">(</span><span class="st">"fork"</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="sf">trace</span><span class="op">(</span><span class="st">"orig"</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">trace</span><span class="op">(</span><span class="st">"post"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+	would output
+	</p><pre>
+fork
+post
+orig
+post
+</pre><p>
+	as the copy executes before the original resumes.
+	</p><p>
+	If you were to add a <code>wait</code> call into the copy,
+	</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><a class="sf" href="#fork">fork</a><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">trace</span><span class="op">(</span><span class="st">"fork"</span><span class="op">)</span><span class="op">;</span>
+    <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
+<span class="cb">}</span> <span class="kw">else</span> <span class="sf">trace</span><span class="op">(</span><span class="st">"orig"</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">trace</span><span class="op">(</span><span class="st">"post"</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+	the original would resume as soon as the copy suspends:
+	</p><pre>
+fork
+orig
+post [from orig]
+[1 frame passes]
+post [from fork]
+</pre><p>
+	A common use case for <code>fork</code> is executing something involving <code>wait</code>
+</p></article></section><section><header id="pragma"><a href="#pragma" title="(permalink)">#pragma</a></header><article><a class="sticky-side" href="#pragma" title="#pragma"><span>#pragma</span></a><p>
+	<a href="#pragma">#pragma</a>
+	</p><p>
+	These are preprocessor directives.
+	</p><section><header id="include"><a href="#include" title="(permalink)">#pragma include &lt;path&gt;</a></header><article><p>
+		Adds a NTGML file to the current program. Path is relative.
+		</p><p>
+		Functionally this is almost the same as if you added the code from the referenced to the current file and is intended keeping large mods easier to read.
+		</p><p>
+		For example, if you have <code>tools.ntgml</code> with
+		</p><pre class="gmlmd">
+<span class="kw">global</span><span class="op">.</span><span class="gv">count</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span>
+<span class="kw">function</span> <span class="uf">next</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">global</span><span class="op">.</span><span class="gv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+    <span class="kw">return</span> <span class="kw">global</span><span class="op">.</span><span class="gv">count</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		and a <code>test.mod.ntgml</code> in the same directory with
+		</p><pre class="gmlmd">
+<span class="md">#pragma include tools.gml</span>
+<span class="sf">trace</span><span class="op">(</span><span class="kw">global</span><span class="op">.</span><span class="gv">count</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">trace</span><span class="op">(</span><span class="uf">next</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+		this would display <code>0</code> and <code>1</code> when doing <code>/loadmod test</code>
+	</p></article></section><section><header id="using"><a href="#using" title="(permalink)">#pragma using &lt;rel. path&gt;</a></header><article><p>
+		Makes <code>globalvar</code>-s and scripts from the specified mod available in the current mod.
+		</p><p>
+		Path is relative (no directory).
+		</p><p>
+		The "used" mod must be loaded before the current mod.
+		</p><p>
+		The difference between this and <a href="#include">#pragma include</a> is that the used mod's state will be shared between all "users", so if you have <code>tools.mod.ntgml</code> with
+		</p><pre class="gmlmd">
+<span class="kw">global</span><span class="op">.</span><span class="gv">count</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span>
+<span class="kw">function</span> <span class="uf">next</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">global</span><span class="op">.</span><span class="gv">count</span> <span class="op">+=</span> <span class="nu">1</span><span class="op">;</span>
+    <span class="kw">return</span> <span class="kw">global</span><span class="op">.</span><span class="gv">count</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		and then <code>a.mod.ntgml</code> and <code>b.mod.ntgml</code>, both of which do
+		</p><pre class="gmlmd">
+<span class="md">#pragma using tools.mod.ntgml</span>
+</pre><p>
+		calling <code>next()</code> in <code>a</code> will return <code>1</code> and then calling <code>next()</code> in <code>b</code> will return <code>2</code> because they're both calling the function from <code>tools</code>.
+		</p><p>
+		This is intended as an alternative to using <a href="./Interop.html">cross-mod API</a> to share some parts of the logic between multiple weapons/characters/enemies in large mods.
+	</p></article></section><section><header id="no_using"><a href="#no_using" title="(permalink)">#pragma no_using</a></header><article><p>
+		Prevents the current function from being exported to other mods via <a href="#using">#pragma using</a>.
+		</p><p>
+		Used like so:
+		</p><pre class="gmlmd">
+<span class="kw">function</span> <span class="uf">my_func</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="co">// ...</span>
+<span class="cb">}</span>
+<span class="kw">function</span> <span class="uf">my_func_helper</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="md">#pragma no_using</span>
+    <span class="co">// ...</span>
+<span class="cb">}</span>
+</pre><p>
+		This way <code>my_func</code> will be available when <code>using</code> the mod, but <code>my_func_helper</code> will remain for internal use and not clash with function names in "user" mods.
+	</p></article></section><section><header id="fast"><a href="#fast" title="(permalink)">#pragma fast</a></header><article><p>
+		Marks the current function to use the alternate fast(er) compiler.
+		</p><p>
+		Used like so:
+		</p><pre class="gmlmd">
+<span class="kw">function</span> <span class="uf">my_func</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="md">#pragma fast</span>
+<span class="cb">}</span>
+</pre><p>
+		Usually around 2x faster, but some syntax bits (most notably <code>wait</code>/<code>fork</code>) are not supported. It should tell you if it can't do something.
+		</p><p>
+		See <a href="./Performance.html">Performance</a> for a technical explanation.
+	</p></article></section><section><header id="fast_file"><a href="#fast_file" title="(permalink)">#pragma fast_file</a></header><article><p>
+		Marks all functions in the containing file to use <code>#pragma fast</code>.
+	</p></article></section><section><header id="not_fast"><a href="#not_fast" title="(permalink)">#pragma not_fast</a></header><article><p>
+		The opposite of <code>#pragma fast</code> when using <code>#pragma fast_file</code> - marks a function to use the normal compiler.
+	</p></article></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

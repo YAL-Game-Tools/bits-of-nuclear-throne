@@ -1,0 +1,80 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>NTGML API: Data structures</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>NTGML API: Data structures</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+For everyone's sanity, data structures in NTT are wrapped in small structs
+so that it is easier to tell what is what and so that mod's data structures
+can be unloaded when the mod is unloaded.
+</p><p>
+Each DS type gains a new <code>_valid</code> function that returns if the given value is a data structure
+of that kind.
+</p><section><header id="ds_list"><a href="#ds_list" title="(permalink)">Lists</a></header><article><a class="sticky-side" href="#ds_list" title="Lists"><span>Lists</span></a><p>
+	The following are extra:
+	</p><section><header id="ds_list_add_array"><a href="#ds_list_add_array" title="(permalink)">ds_list_add_array(list, array)</a></header><article><p>
+		Adds contents of an array to the end of a list.
+	</p></article></section><section><header id="ds_list_remove"><a href="#ds_list_remove" title="(permalink)">ds_list_remove(list, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Removes a single value from a list, returns whether it was found-removed.
+	</p></article></section><section><header id="ds_list_join"><a href="#ds_list_join" title="(permalink)">ds_list_join(list, separator)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Joins the contents of a list to a string with <code>separator</code> string added between them.
+		</p></article></section><section><header id="ds_list_to_array"><a href="#ds_list_to_array" title="(permalink)">ds_list_to_array(list)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Creates a new array and copies the contents of the list to it.
+	</p></article></section></article></section><section><header id="ds_map"><a href="#ds_map" title="(permalink)">Maps</a></header><article><p>
+	No new functions except for <code>ds_map_valid</code>.
+</p></article></section><section><header id="ds_grid"><a href="#ds_grid" title="(permalink)">Grids</a></header><article><a class="sticky-side" href="#ds_grid" title="Grids"><span>Grids</span></a><p>
+	The following are extra:
+	</p><section><header id="ds_grid_join"><a href="#ds_grid_join" title="(permalink)">ds_grid_join(grid, row_sep, col_sep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Joins the contents of a grid to a string with row/column separators.
+	</p></article></section></article></section><section><header id="ds_other"><a href="#ds_other" title="(permalink)">Queues and stacks</a></header><article><p>
+	Currently not implemented due to being easy to replace with lists/arrays.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

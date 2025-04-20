@@ -1,0 +1,37 @@
+```set title
+NTT-Objects navigation
+```
+```set template dmd-templates/scripting-nav.html```
+```exec
+function open(name) {
+	return '<details open><summary>' + StringTools.htmlEscape(name) + '</summary>';
+}
+function page(name) {
+	var pos = name.indexOf("@");
+	var href;
+	if (pos >= 0) {
+		href = StringTools.ltrim(name.substring(pos + 1));
+		name = StringTools.rtrim(name.substring(0, pos));
+	} else {
+		href = name;
+	}
+	return '<a'
+		+ ' href="' + StringTools.htmlEscape(href) + '.html"'
+		+ ' target="page"'
+	+ '>' + StringTools.htmlEscape(name) + "</a>";
+}
+function close() {
+	return '</details>';
+}
+"</p>";
+```
+$[page](Introduction @ Intro)
+$[page](NTGML Syntax @ Syntax)
+$[open](General functions)
+	$[page](Output @ API-Debug)
+	$[page](Numbers & strings @ API-Basics)
+	$[page](Arrays @ API-Arrays)
+	$[page](Structs @ API-Structs)
+	$[page](Data structures @ API-DS)
+$[close]
+$[page](Performance)

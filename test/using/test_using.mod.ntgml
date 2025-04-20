@@ -1,0 +1,10 @@
+#pragma using test_using_tools.mod.ntgml
+trace(u_global_var);
+trace(u_func_1());
+var _caught = false;
+try {
+	trace(u_func_2());
+} catch (e) {
+	_caught = true;
+}
+if (!_caught) trace("_u_func_2 shouldn't be there, but it was")

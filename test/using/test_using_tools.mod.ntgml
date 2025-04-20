@@ -1,0 +1,8 @@
+globalvar u_global_var; u_global_var = 1;
+function u_func_1() {
+	return 1;
+}
+function u_func_2() {
+	#pragma no_using
+	return 2;
+}

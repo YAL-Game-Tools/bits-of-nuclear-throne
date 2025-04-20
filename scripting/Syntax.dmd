@@ -1,0 +1,238 @@
+```set title
+NTGML's syntax extensions
+```
+The following are notes on shared syntax:
+#[script/function declarations]() {
+	You can define functions in NTGML mods like you define them in GML scripts:
+	```
+	function step() {
+		// ...
+	}
+	trace("hi!")
+	function add(a, b) {
+		return a + b;
+	}
+	```
+	Any code outside of functions will be automatically added to the `init` function
+	that runs when your mod is loaded.
+	---
+	You may also define functions similar to how it's done in GM extensions:
+	```
+	trace("hi!");
+	#define step
+	// ...
+	#define add(a, b)
+	return a + b;
+	```
+	Any code before the first function will be added to the `init` function.
+	
+	A small convenience is added support for named arguments, which GM extensions do not have.
+	---
+	You may use either of formats, but not both at once;\
+	Legacy format can only use `#define`-based declarations.
+}
+The following are specific to NTGML:
+#[in operator](in) {
+	This is a convenience operator that can be used in place of `variable_instance_exists` / `struct_exists`.
+	
+	Used like so:
+	```
+	if (variable_instance_exists(self, "count")) {
+	    count += 1;
+	} else count = 1;
+	// ↕ same as
+	if ("count" in self) {
+	    count += 1;
+	} else count = 1;
+	```
+	Or even:
+	```
+	count = (("count" in self) ? count : 0) + 1;
+	```
+	Also supports negation:
+	```
+	if (!variable_instance_exists(inst, "my_mod_mark")) { /* ... */ }
+	// ↕ same as
+	if ("my_mod_mark" not in inst) { /* ... */ }
+	```
+}
+#[Template strings](template-strings) {
+	NTGML supports C#/GM2023+ style `$""` template strings, so you can do this:
+	```
+	#define draw_gui
+	with (Player) {
+	    draw_text(10, 50, $"HP: {my_health}/{maxhealth}");
+	    break;
+	}
+	```
+	but JS-style template strings are also supported:
+	```
+	#define draw_gui
+	with (Player) {
+	    draw_text(10, 50, `HP: ${my_health}/${maxhealth}`);
+	    break;
+	}
+	```
+	In legacy format, only JS-style template strings are supported.
+}
+#[wait instruction](wait) {
+	You can suspend scripts mid-execution. For example,
+	```
+	for (var i = 1; i <= 5; i++) {
+	    trace(i);
+	    wait 30;
+	}
+	```
+	would count up to 5 while waiting 30 frames / 1s between each iteration.
+	
+	This allows for some interesting things. For example, to make an explosive bullet for a custom weapon, you could `wait` for projectile to be destroyed while tracking it's position:
+	```
+	#define weapon_fire
+	motion_add(gunangle, -4);
+	weapon_post(6, -7, 5);
+	// create and configure a projectile:
+	var qx = x, qy = y;
+	var q = instance_create(qx, qy, HeavyBullet);
+	with (q) {
+	    team = other.team;
+	    motion_add(other.gunangle + random_range(-5, 5), 1);
+	    friction = -0.8; // gradual acceleration
+	    image_angle = direction;
+	}
+	// track projectile' position while it exists:
+	while (instance_exists(q)) {
+	    qx = q.x + q.hspeed;
+	    qy = q.y + q.vspeed;
+	    wait 1;
+	}
+	// create an explosion at it's last position once it's gone:
+	instance_create(qx, qy, SmallExplosion);
+	```
+	Note that if you `wait` in a script that should return something to the game immediately (like character/weapon names), the game will assume that you didn't return anything.
+}
+#[fork instruction](fork) {
+	`fork()` is a "function" that creates a copy of the currently running script state.
+	
+	The copy will have its own (re-assigned) local variables but will share the rest of the state.
+	
+	The copy will execute the current script and finish while the original will continue executing as normal.
+	
+	The "function" returns `true` to the copy and `false` to the original.
+	
+	Thus,
+	```
+	if (fork()) {
+	    trace("fork");
+	} else trace("orig");
+	trace("post");
+	```
+	would output
+	```text
+	fork
+	post
+	orig
+	post
+	```
+	as the copy executes before the original resumes.
+	
+	If you were to add a `wait` call into the copy,
+	```
+	if (fork()) {
+	    trace("fork");
+	    wait 1;
+	} else trace("orig");
+	trace("post");
+	```
+	the original would resume as soon as the copy suspends:
+	```text
+	fork
+	orig
+	post [from orig]
+	[1 frame passes]
+	post [from fork]
+	```
+	A common use case for `fork` is executing something involving `wait`
+}
+#[#pragma](pragma) {
+	[#pragma](pragma)
+	
+	These are preprocessor directives.
+	#[#pragma include <path>](include) {
+		Adds a NTGML file to the current program. Path is relative.
+		
+		Functionally this is almost the same as if you added the code from the referenced to the current file and is intended keeping large mods easier to read.
+		
+		For example, if you have `tools.ntgml` with
+		```
+		global.count = 0;
+		function next() {
+		    global.count += 1;
+		    return global.count;
+		}
+		```
+		and a `test.mod.ntgml` in the same directory with
+		```
+		#pragma include tools.gml
+		trace(global.count);
+		trace(next());
+		```
+		this would display `0` and `1` when doing `/loadmod test`
+	}
+	#[#pragma using <rel. path>](using) {
+		Makes `globalvar`-s and scripts from the specified mod available in the current mod.
+		
+		Path is relative (no directory).
+		
+		The "used" mod must be loaded before the current mod.
+		
+		The difference between this and [#pragma include](include) is that the used mod's state will be shared between all "users", so if you have `tools.mod.ntgml` with
+		```
+		global.count = 0;
+		function next() {
+		    global.count += 1;
+		    return global.count;
+		}
+		```
+		and then `a.mod.ntgml` and `b.mod.ntgml`, both of which do
+		```
+		#pragma using tools.mod.ntgml
+		```
+		calling `next()` in `a` will return `1` and then calling `next()` in `b` will return `2` because they're both calling the function from `tools`.
+		
+		This is intended as an alternative to using [cross-mod API](./Interop.html) to share some parts of the logic between multiple weapons/characters/enemies in large mods.
+	}
+	#[#pragma no_using](no_using) {
+		Prevents the current function from being exported to other mods via [#pragma using](using).
+		
+		Used like so:
+		```
+		function my_func() {
+		    // ...
+		}
+		function my_func_helper() {
+		    #pragma no_using
+		    // ...
+		}
+		```
+		This way `my_func` will be available when `using` the mod, but `my_func_helper` will remain for internal use and not clash with function names in "user" mods.
+	}
+	#[#pragma fast](fast) {
+		Marks the current function to use the alternate fast(er) compiler.
+		
+		Used like so:
+		```
+		function my_func() {
+		    #pragma fast
+		}
+		```
+		Usually around 2x faster, but some syntax bits (most notably `wait`/`fork`) are not supported. It should tell you if it can't do something.
+		
+		See [Performance](./Performance.html) for a technical explanation.
+	}
+	#[#pragma fast_file](fast_file) {
+		Marks all functions in the containing file to use `#pragma fast`.
+	}
+	#[#pragma not_fast](not_fast) {
+		The opposite of `#pragma fast` when using `#pragma fast_file` - marks a function to use the normal compiler.
+	}
+}

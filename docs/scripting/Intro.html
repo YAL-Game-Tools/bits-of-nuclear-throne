@@ -1,0 +1,94 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>An introduction to NTGML</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>An introduction to NTGML</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+NTT uses a custom scripting language that largely resembles that of GameMaker.
+I'll be calling it "NTGML" in this document for simplicity.
+</p><p>
+As result, <a href="https://manual.gamemaker.io/">GameMaker manual</a>, tutorials,
+and most concepts can also come handy when making Nuclear Throne mods.
+</p><section><header id="anatomy"><a href="#anatomy" title="(permalink)">Anatomy of a mod</a></header><article><p>
+	A mod is usually a directory containing one or more code files, any asset files (like images or sounds), and a <code>main.txt</code> file that tells the game which files to load and how.
+	</p><p>
+	The user can then use <code>/load moddirectory</code> to execute chat commands from <code>main.txt</code> to load the mod.
+	</p><p>
+	In GameMaker terms,
+	</p><ol>
+	<li><p>	Code files use a <code>.ntgml</code> file extension if they are using "modern" NTGML, or a <code>.gml</code> extension if they are using "legacy" NTGML.
+		</p><p>
+		"Modern" NTGML usually matches features of latest GML at the time of release.
+		</p><p>
+		"Legacy" NTGML is what NTT has originally used and largely resembles GML from GameMaker: Studio with some added conveniences.
+		</p><p>
+		Using "legacy" NTGML will also use backwards-compatible versions of certain functions so new mods should stick to "modern" NTGML.
+	</p></li><li><p>	Each loaded code file represents a program with its own scripts and global variables.
+		</p><p>
+		To combine multiple files into a single program, see <a href="./Syntax-Ext.html#include">#pragma include</a>.
+		</p><p>
+		To have a program call scripts or access variables from another program, see <a href="./Syntax-Ext.html#using">#pragma using</a> or <a href="./Interop.html">cross-mod API</a>.
+	</p></li><li>	Instances and assets are shared between all mods.
+	</li><li><p>	The game will call mod scripts on various occasions, depending on mod type.
+		</p><p>
+		For example, <code>weapon_name</code> is called for weapon mods whenever the game needs to fetch the name of a weapon for display.
+	</p></li><li>	Assets are loaded through code (<code>sprite_add</code>, <code>sound_add</code>, etc.)
+	</li><li><p>	You can't create objects at runtime in GameMaker
+		so instead there's a handful of "scriptable" objects like
+		<a href="./CustomObject.html">CustomObject</a>, <a href="./CustomEnemy.html">CustomEnemy</a>, etc.
+		</p><p>
+		There are also <a href="./script_bind.html">functions</a> to bind a script to run at a specific event/depth.
+	</p></li></ol></article></section><section><header id="editing"><a href="#editing" title="(permalink)">Editing mods</a></header><article><p>
+	<a href="https://github.com/YAL-Game-Tools/bits-of-nuclear-throne/tree/main/GMEdit">GMEdit</a> is recommended for making NTT mods as it can display function arguments and syntax-check the code with NTGML rules in mind.
+	</p><p>
+	You may also use other editors - running the <code>/gmlapi</code> command in chat will generate a handful of files that can be used to set up syntax highlighting and auto-completion.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

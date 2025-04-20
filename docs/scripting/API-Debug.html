@@ -1,0 +1,87 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>NTGML API: Output</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>NTGML API: Output</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="debug"><a href="#debug" title="(permalink)">Debug functions</a></header><article><a class="sticky-side" href="#debug" title="Debug functions"><span>Debug functions</span></a><section><header id="trace"><a href="#trace" title="(permalink)">trace(...values)</a></header><article><p>
+		Displays the given value(s) in chat.
+		</p><p>
+		A local alternative to GM's <code>show_debug_message</code>.
+			</p><p>
+		Values are separated by a single space.
+		</p><p>
+		Non-string values are converted to string prior.
+		</p><pre class="gmlmd">
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="nu">1</span><span class="op">,</span> <span class="nu">2</span><span class="op">)</span><span class="op">;</span> <span class="co">// "1 2"</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="sv">room_speed</span><span class="op">,</span> <span class="st">"FPS"</span><span class="op">)</span><span class="op">;</span> <span class="co">// "60 FPS"</span>
+<span class="kw">var</span> <span class="lv">arr</span> <span class="op">=</span> <span class="op">[</span><span class="nu">1</span><span class="op">,</span><span class="nu">2</span><span class="op">,</span><span class="nu">3</span><span class="op">]</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">arr</span><span class="op">)</span><span class="op">;</span> <span class="co">// "[1, 2, 3]"</span>
+<span class="kw">var</span> <span class="lv">obj</span> <span class="op">=</span> <span class="cb">{</span><span class="uv">a</span><span class="op">:</span><span class="nu">1</span><span class="op">,</span><span class="lv">b</span><span class="op">:</span><span class="nu">2</span><span class="cb">}</span><span class="op">;</span>
+<a class="sf" href="#trace">trace</a><span class="op">(</span><span class="lv">obj</span><span class="op">)</span><span class="op">;</span> <span class="co">// "{ a: 1, b: 2 }"</span>
+</pre><p>
+		Advanced users can also enable this function to log to standard output
+		using the <code>/stdout</code> chat command - this allows to get back values even if the game does
+		not survive until the next screen redraw.
+	</p></article></section><section><header id="trace_time"><a href="#trace_time" title="(permalink)">trace_time(?caption)</a></header><article><p>
+		Measures time (in nanoseconds) since the last call to this function, and displays it in chat if <code>caption</code> argument was specified.
+		</p><pre class="gmlmd">
+<a class="sf" href="#trace_time">trace_time</a><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="co">// do something</span>
+<a class="sf" href="#trace_time">trace_time</a><span class="op">(</span><span class="st">"Time spent on something"</span><span class="op">)</span><span class="op">;</span> <span class="co">// "Time spent on something: #ns"</span>
+</pre></article></section><section><header id="trace_color"><a href="#trace_color" title="(permalink)">trace_color(text, color)</a></header><article><p>
+		Displays a message in chat with a colored line like those sent by players have.
+		</p><pre class="gmlmd">
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Red!"</span><span class="op">,</span> <span class="sv">c_red</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Green!"</span><span class="op">,</span> <span class="sv">c_lime</span><span class="op">)</span><span class="op">;</span>
+<a class="sf" href="#trace_color">trace_color</a><span class="op">(</span><span class="st">"Fancy!"</span><span class="op">,</span> <span class="sf">make_color_rgb</span><span class="op">(</span><span class="nu">250</span><span class="op">,</span> <span class="nu">50</span><span class="op">,</span> <span class="nu">200</span><span class="op">)</span><span class="op">)</span><span class="op">;</span>
+</pre></article></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

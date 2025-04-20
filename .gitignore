@@ -1,3 +1,5 @@
 *.gmlbc
 *.n
 auto-objects/*.dmd
+temp/*
+!temp/.gitkeep

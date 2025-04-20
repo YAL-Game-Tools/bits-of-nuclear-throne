@@ -1,0 +1,92 @@
+```set title
+NTGML API: Strings, numbers, arrays
+```
+Majority of GM's built-in
+[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)
+and
+[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)
+functions are supported, with a few notes:
+#[real(value)->]() {
+	`real` in NTT works like it did in older versions of GameMaker -
+	it returns `0` if a string cannot be converted to a number.
+	
+	If you'd like new behaviour, use `double(value)` instead.
+}
+#[is_real(value)->]() {
+	`is_real` in NTT is an alias for `is_number` for compatibility purposes.
+	
+	If you need to check if a value is a floating-point number (and not an `int64`, for example),
+	use `is_double(value)` instead.
+}
+---
+Just about all
+[built-in string functions](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)
+are supported, but also:
+#[string_lpad(str, padstr, length)]() {
+	Prepends `padstr` to `str` until it reaches specified length.
+	```
+	trace(string_lpad(string(42), "0", 4)); // "0042"
+	```
+}
+#[string_rpad(str, padstr, length)]() {
+	Appends `padstr` to `str` until it reaches specified length.
+	```
+	trace(string_rpad(string(42), "0", 4)); // "4200"
+	```
+}
+#[string_auto(number)]() {
+	Converts a number to a string with automatic precision
+	(unlike `string_format`, which requires specifying the number of decimal places).
+	```
+	trace(string_auto(0.4)); // "0.4"
+	trace(string_auto(0.4040)); // "0.404"
+	```
+}
+#[string_trim(string)]() {
+	Removes leading and trailing spaces from a string.
+	```
+	trace(string_trim(" hi ")); // "hi"
+	```
+	Same as now-built-in `string_trim`.
+}
+#[string_ltrim(string)]() {
+	Removes leading spaces from a string.
+	```
+	trace(string_trim(" hi ")); // "hi "
+	```
+	Same as now-built-in `string_trim_start`.
+}
+#[string_rtrim(string)]() {
+	Removes trailing spaces from a string.
+	```
+	trace(string_trim(" hi ")); // " hi"
+	```
+	Same as now-built-in `string_trim_end`.
+}
+#[string_split_list(string, delimiter, ?list)->]() {
+	Splits a string on delimiter into an list of strings.
+	
+	If `list` is provided, clears it and adds items to it, otherwise makes a new list.
+	
+	Returns the list.
+	
+	If the string does not contain the delimiter, returns a 1-element array with the entire string.
+	```
+	var list = string_split_list("A|B|C", "|");
+	trace(list[|1]); // "B"
+	```
+}
+#[string_sha1(string)->]() {
+	Returns a SHA-1 hash of a string, assuming Unicode encoding.
+}
+#[string_sha1_utf8(string)->]() {
+	Returns a SHA-1 hash of a string, assuming UTF-8 encoding.
+}
+#[string_md5(string)->]() {
+	Returns a MD5 hash of a string, assuming Unicode encoding.
+}
+#[string_md5_utf8(string)->]() {
+	Returns a MD5 hash of a string, assuming UTF-8 encoding.
+}
+Also see: [string_load], [string_save].
+

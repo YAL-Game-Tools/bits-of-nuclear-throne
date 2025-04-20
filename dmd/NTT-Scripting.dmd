@@ -1,6 +1,8 @@
 ```set template default.html```
 ```set title NTT Scripting cheat sheet```
+```set autoapi ext```
 ```set tag:defcode gml```
+```set navmenu1 1```
 ```setmd intro
 This is a "cheat sheet" for the scripting language in Nuclear Throne Together mod.
 

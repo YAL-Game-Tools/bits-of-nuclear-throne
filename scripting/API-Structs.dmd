@@ -1,0 +1,16 @@
+```set title
+NTGML API: Structs
+```
+You can use GameMaker's built-in `variable_instance_`,
+`variable_struct_` and `struct_` functions to access these,
+but there are also some shorthands:
+#[lq_clone(struct)->]() {
+	Makes a shallow copy of the given struct.
+	```
+	var orig = { a: 4, b: "?" };
+	var copy = lq_clone(orig);
+	copy.a += 4;
+	trace(orig); // { a: 4, b: "?" }
+	trace(copy); // { a: 8, b: "?" }
+	```
+}

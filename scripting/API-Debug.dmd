@@ -1,0 +1,41 @@
+```set title
+NTGML API: Output
+```
+#[Debug functions](debug) {
+	#[trace(...values)]() {
+		Displays the given value(s) in chat.
+		
+		A local alternative to GM's `show_debug_message`.
+			
+		Values are separated by a single space.
+		
+		Non-string values are converted to string prior.
+		```
+		trace(1, 2); // "1 2"
+		trace(room_speed, "FPS"); // "60 FPS"
+		var arr = [1,2,3];
+		trace(arr); // "[1, 2, 3]"
+		var obj = {a:1,b:2};
+		trace(obj); // "{ a: 1, b: 2 }"
+		```
+		Advanced users can also enable this function to log to standard output
+		using the `/stdout` chat command - this allows to get back values even if the game does
+		not survive until the next screen redraw.
+	}
+	#[trace_time(?caption)]() {
+		Measures time (in nanoseconds) since the last call to this function, and displays it in chat if `caption` argument was specified.
+		```
+		trace_time();
+		// do something
+		trace_time("Time spent on something"); // "Time spent on something: #ns"
+		```
+	}
+	#[trace_color(text, color)]() {
+		Displays a message in chat with a colored line like those sent by players have.
+		```
+		trace_color("Red!", c_red);
+		trace_color("Green!", c_lime);
+		trace_color("Fancy!", make_color_rgb(250, 50, 200));
+		```
+	}
+}

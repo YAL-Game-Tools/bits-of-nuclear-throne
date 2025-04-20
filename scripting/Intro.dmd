@@ -1,0 +1,44 @@
+```set title
+An introduction to NTGML
+```
+NTT uses a custom scripting language that largely resembles that of GameMaker.
+I'll be calling it "NTGML" in this document for simplicity.
+
+As result, [GameMaker manual](https://manual.gamemaker.io/), tutorials,
+and most concepts can also come handy when making Nuclear Throne mods.
+#[Anatomy of a mod](anatomy) {
+	A mod is usually a directory containing one or more code files, any asset files (like images or sounds), and a `main.txt` file that tells the game which files to load and how.
+	
+	The user can then use `/load moddirectory` to execute chat commands from `main.txt` to load the mod.
+	
+	In GameMaker terms,
+	##{
+	-	Code files use a `.ntgml` file extension if they are using "modern" NTGML, or a `.gml` extension if they are using "legacy" NTGML.
+		
+		"Modern" NTGML usually matches features of latest GML at the time of release.
+		
+		"Legacy" NTGML is what NTT has originally used and largely resembles GML from GameMaker: Studio with some added conveniences.
+		
+		Using "legacy" NTGML will also use backwards-compatible versions of certain functions so new mods should stick to "modern" NTGML.
+	-	Each loaded code file represents a program with its own scripts and global variables.
+		
+		To combine multiple files into a single program, see [#pragma include](./Syntax-Ext.html#include).
+		
+		To have a program call scripts or access variables from another program, see [#pragma using](./Syntax-Ext.html#using) or [cross-mod API](./Interop.html).
+	-	Instances and assets are shared between all mods.
+	-	The game will call mod scripts on various occasions, depending on mod type.
+		
+		For example, `weapon_name` is called for weapon mods whenever the game needs to fetch the name of a weapon for display.
+	-	Assets are loaded through code (`sprite_add`, `sound_add`, etc.)
+	-	You can't create objects at runtime in GameMaker
+		so instead there's a handful of "scriptable" objects like
+		[CustomObject](./CustomObject.html), [CustomEnemy](./CustomEnemy.html), etc.
+		
+		There are also [functions](./script_bind.html) to bind a script to run at a specific event/depth.
+	}
+}
+#[Editing mods](editing) {
+	[GMEdit](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne/tree/main/GMEdit) is recommended for making NTT mods as it can display function arguments and syntax-check the code with NTGML rules in mind.
+	
+	You may also use other editors - running the `/gmlapi` command in chat will generate a handful of files that can be used to set up syntax highlighting and auto-completion.
+}

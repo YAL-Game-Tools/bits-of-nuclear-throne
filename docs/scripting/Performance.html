@@ -1,0 +1,129 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Performance in NTGML</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Performance in NTGML</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="def-vm"><a href="#def-vm" title="(permalink)">Default VM</a></header><article><p>
+	By default, NTGML compiles instructions for a stack-based virtual machine
+	</p><p>
+	So, for example, the following
+	</p><pre class="gmlmd">
+<span class="kw">function</span> <span class="uf">scr_test</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">1</span><span class="op">;</span>
+    <span class="lv">i</span> <span class="op">+=</span> <span class="nu">2</span><span class="op">;</span>
+    <span class="kw">return</span> <span class="lv">i</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+	would output instructions along the lines of
+	</p><pre class="gmlmd">
+<span class="uf">push</span><span class="op">(</span><span class="nu">1</span><span class="op">)</span>
+<span class="kw">local</span><span class="op">.</span><span class="fd">i</span> <span class="op">=</span> <span class="uf">pop</span><span class="op">(</span><span class="op">)</span>
+
+<span class="uf">push</span><span class="op">(</span><span class="kw">local</span><span class="op">.</span><span class="fd">i</span><span class="op">)</span>
+<span class="uf">push</span><span class="op">(</span><span class="nu">2</span><span class="op">)</span>
+<span class="uf">add</span><span class="op">(</span><span class="op">)</span>
+<span class="kw">local</span><span class="op">.</span><span class="fd">i</span> <span class="op">=</span> <span class="uf">pop</span><span class="op">(</span><span class="op">)</span>
+
+<span class="uf">push</span><span class="op">(</span><span class="kw">local</span><span class="op">.</span><span class="fd">i</span><span class="op">)</span>
+<span class="kw">return</span>
+</pre><p>
+	The good thing about this approach is that the VM can do just about anything that "real" GML can do and a few other tricks too (like the <a href="./Syntax-Ext.html#wait">wait operator</a>).
+	</p><p>
+	The bad thing about this approach is that GML is a dynamically typed language so doing high-performance tasks like this in it isn't The Best.
+	</p><p>
+	As the first line of defense, the recent versions of NTGML will merge common sequences of instructions into one larger instructions, so if you do <code>/debugbc</code> and run the above program, a <code>.gmlbc</code> file next to the mod will spot something like the following:
+	</p><pre class="gmlmd">
+<span class="md">#define</span> <span class="uf">scr_test</span>
+<span class="co">// locals: { 0: "i" }</span>
+<span class="nu">0</span>    <span class="uv">L2</span>    <span class="uv">c6</span>    <span class="cb">{</span> <span class="uv">tag</span> <span class="op">:</span> <span class="st">"local = const"</span><span class="op">,</span> <span class="uv">val</span> <span class="op">:</span> <span class="nu">1</span><span class="op">,</span> <span class="uv">ind</span> <span class="op">:</span> <span class="nu">0</span><span class="op">,</span> <span class="uv">name</span> <span class="op">:</span> <span class="st">"i"</span> <span class="cb">}</span>
+<span class="nu">1</span>    <span class="uv">L3</span>    <span class="uv">c4</span>    <span class="cb">{</span> <span class="uv">tag</span> <span class="op">:</span> <span class="st">"local += number"</span><span class="op">,</span> <span class="uv">ind</span> <span class="op">:</span> <span class="nu">0</span><span class="op">,</span> <span class="uv">name</span> <span class="op">:</span> <span class="st">"i"</span><span class="op">,</span> <span class="uv">num</span> <span class="op">:</span> <span class="nu">2</span><span class="op">,</span> <span class="uv">op</span> <span class="op">:</span> <span class="nu">16</span> <span class="cb">}</span>
+<span class="nu">2</span>    <span class="uv">L4</span>    <span class="uv">c9</span>    <span class="uf">local_hx</span><span class="op">(</span><span class="uv">i</span><span class="op">:</span> <span class="nu">0</span><span class="op">,</span> <span class="uv">name</span><span class="op">:</span> <span class="st">"i"</span><span class="op">)</span>
+<span class="nu">3</span>    <span class="uv">L4</span>    <span class="uv">c2</span>    <span class="uv">return_hx</span>
+</pre><p>
+	As you can see here, both <code>i = 1</code> and <code>i += 2</code> were merged into specialized instructions, which helps a bit with computationally intense code.
+	</p><p>
+	But still that's not enough, which brings us to...
+</p></article></section><section><header id="fast-vm"><a href="#fast-vm" title="(permalink)">Fast VM</a></header><article><p>
+	Sometime mid-2022 I decided to distract myself from the war a little by writing another compiler. Instead of building instructions, this builds a method tree, so that
+	</p><pre class="gmlmd">
+<span class="sv">argument0</span> <span class="op">+</span> <span class="nu">1</span><span class="op">;</span>
+</pre><p>
+	becomes an equivalent of
+	</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">a</span> <span class="op">=</span> <span class="sf">method</span><span class="op">(</span><span class="cb">{</span>
+    <span class="uv">ind</span><span class="op">:</span> <span class="nu">0</span>
+<span class="cb">}</span><span class="op">,</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">return</span> <span class="kw">global</span><span class="op">.</span><span class="gv">gml_fastvm_args</span><span class="op">[</span><span class="kw">self</span><span class="op">.</span><span class="fd">ind</span><span class="op">]</span><span class="op">;</span>
+<span class="cb">}</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">b</span> <span class="op">=</span> <span class="sf">method</span><span class="op">(</span><span class="cb">{</span>
+    <span class="uv">value</span><span class="op">:</span> <span class="nu">1</span>
+<span class="cb">}</span><span class="op">,</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">return</span> <span class="kw">self</span><span class="op">.</span><span class="fd">value</span><span class="op">;</span>
+<span class="cb">}</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">r</span> <span class="op">=</span> <span class="sf">method</span><span class="op">(</span><span class="cb">{</span>
+    <span class="uv">left</span><span class="op">:</span> <span class="lv">a</span><span class="op">,</span>
+    <span class="uv">right</span><span class="op">:</span> <span class="lv">b</span><span class="op">,</span>
+<span class="cb">}</span><span class="op">,</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">return</span> <span class="kw">self</span><span class="op">.</span><span class="sf">left</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="kw">self</span><span class="op">.</span><span class="sf">right</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span><span class="op">)</span>
+</pre><p>
+	So each node of a syntax tree becomes a <code>method</code> containing values, arguments, or other nodes.
+	</p><p>
+	The good thing about this approach is that it's around 2x faster than the stack-based VM approach.
+	</p><p>
+	The bad thing about this approach is that it cannot support the <code>wait</code> operator and some syntax bits are harder to implement than others.
+	</p><p>
+	Similarly, when you load a mod with <code>/debugbc</code> enabled, you'll get a printout of the method tree in its mostly-unreadable glory.
+	</p><p>
+	It too combines common operations into quicker specialized ones.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

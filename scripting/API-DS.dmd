@@ -1,0 +1,38 @@
+```set title
+NTGML API: Data structures
+```
+For everyone's sanity, data structures in NTT are wrapped in small structs
+so that it is easier to tell what is what and so that mod's data structures
+can be unloaded when the mod is unloaded.
+
+Each DS type gains a new `_valid` function that returns if the given value is a data structure
+of that kind.
+
+#[Lists](ds_list) {
+	The following are extra:
+	#[ds_list_add_array(list, array)]() {
+		Adds contents of an array to the end of a list.
+	}
+	#[ds_list_remove(list, value)->]() {
+		Removes a single value from a list, returns whether it was found-removed.
+	}
+	#[ds_list_join(list, separator)->]() {
+		Joins the contents of a list to a string with `separator` string added between them.
+		
+	}
+	#[ds_list_to_array(list)->]() {
+		Creates a new array and copies the contents of the list to it.
+	}
+}
+#[Maps](ds_map) {
+	No new functions except for `ds_map_valid`.
+}
+#[Grids](ds_grid) {
+	The following are extra:
+	#[ds_grid_join(grid, row_sep, col_sep)->]() {
+		Joins the contents of a grid to a string with row/column separators.
+	}
+}
+#[Queues and stacks](ds_other) {
+	Currently not implemented due to being easy to replace with lists/arrays.
+}

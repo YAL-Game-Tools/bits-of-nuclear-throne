@@ -5,11 +5,11 @@ using StringTools;
 
 class BuildDocs {
 	static function docMd(args:Array<String>) {
-		if (Sys.systemName() == "Windows") {
+		/*if (Sys.systemName() == "Windows") {
 			Sys.command('cmd', ['/C', 'docmd'].concat(args));
-		} else {
-			Sys.command('docmd', args);
-		}
+			return;
+		}*/
+		Sys.command('docmd', args);
 	}
 	static inline function push(args:Array<String>, rest:Array<String>) {
 		for (arg in rest) args.push(arg);
@@ -49,7 +49,57 @@ class BuildDocs {
 		docMd(args);
 	}
 	public static function main() {
-		//procObjects();
+		var args = Sys.args();
+		var i = 0;
+		var serverAt = null;
+		var watch = false;
+		var dir = null;
+		while (i < args.length) {
+			var del = switch (args[i]) {
+				case "--server": serverAt = args[i + 1]; 2;
+				case "--watch": watch = true; 1;
+				case "--dir": dir = args[i + 1]; 2;
+				default: 0;
+			}
+			if (del > 0) {
+				args.splice(i, del);
+			} else i += 1;
+		}
+		if (dir != null) {
+			var args = ["--dmd-dir", dir, 'docs/' + Path.withoutDirectory(dir)];
+			if (dir == "scripting") {
+				push(args, ['--include', 'dmd-templates/scripting.dmd']);
+			}
+			if (watch) args.push("--watch");
+			tagGML(args);
+			trace(args);
+			docMd(args);
+			return;
+		}
+		if (args.length > 0) {
+			var src = args.shift();
+			if (src == null) throw "expected a .dmd file";
+			var srcRel = Path.withoutDirectory(src);
+			var dstRel = Path.withExtension(srcRel, "html");
+			var dst;
+			var args = [];
+			if (Path.directory(src) == "scripting") {
+				dst = 'docs/scripting/$dstRel';
+				push(args, ['--include', 'dmd-templates/scripting.dmd']);
+			} else if (Path.directory(src) == "dmd") {
+				dst = 'docs/$dstRel';
+			} else {
+				dst = 'temp/$dstRel';
+			}
+			push(args, [src, dst]);
+			tagGML(args);
+			if (serverAt != null) {
+				push(args, ["--server", serverAt]);
+			} else if (watch) args.push("--watch");
+			docMd(args);
+			return;
+		}
+		procObjects();
 		for (file in [
 			"index.dmd",
 			"NTT-Scripting.dmd",

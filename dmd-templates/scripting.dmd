@@ -1,0 +1,12 @@
+```set template dmd-templates/scripting.html```
+```set tag:defcode gml```
+```set tag:gml:live 1```
+```set autoapi ext```
+```gmlapi
+argument
+argument0
+argument1
+argument2
+argument3
+```
+```set navmenu1 1```
