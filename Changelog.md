@@ -410,3 +410,158 @@ Modding:
 - The game has been migrated to a current GameMaker version (first GM2022, then GM2023).
 - The scripting language was more or less rewritten from scratch to be more performant and have more features.
 - Hopefully we're back to having functioning online multiplayer in NTT?
+
+---
+
+The below only list the base game changes.
+Some are merged as many versions consist largely of GMS2 migration and/or Xbox fixes.
+
+# 99r2b12
+
+Generation/seeding:
+- Fixed BackCont effects influencing level generation
+
+Visual/Audio
+- Fixed "double campfire" (drawing in both directions)
+- Portals no longer rapidly flip back and forth as they pull in the player
+- Crown followers now face in their walk direction
+
+# 99r2b9
+
+Mechanics:
+- Fixed it being possible to multi-hit any enemy by pausing mid-swing
+- Fixed it not being possible to destroy Enemy Horror projectiles with Horror projectiles
+
+Generation/seeding:
+- Allow Skeleton to pick from the same pool as Melting for balance purposes
+- Fixed Big Dog weapon drop not being seeded
+- Fixed van returning you to the wrong place when exiting HQ
+
+Visual/Audio:
+- Fixed ambience starting to play when Menu Theme B starts to play on main menu
+- Swapping weapons in credits/cutscenes no longer plays audio
+
+UI:
+- Implemented the forgotten loadout close splat animation
+- Frog/Skeleton now show on the stats screen if you have played them before
+
+## 99r2b8
+
+Mechanics:
+- Fixed Throne 2 occasionally ceasing violence in GMS2 versions of NT (aka the Switch bug)
+- Fixed cursed crystals occasionally being able to telefrag the player
+- Also fixed HC's crystals being able to exist in two places at once
+- The player will no longer shoot when the next level starts if you clicked while entering the portal
+- Lasers now pass through allies
+- Fixed Blood Hammer hurting you if you hit an enemy during iframes
+- Fixed non-grunts spawning if you kill LH before the IDPD portal opens up
+- Big Dog is now playable again on April 1st
+- Saplings can no longer be hit by corpse of an enemy that they spawned from
+- Plant can no longer push enemies out of the level
+- Fixed FlameShell not applying bonus damage
+- You can now spec-fire as Skeleton with no rads
+- Fixed ultra bolts not hitting enemies on iframes even though that's a range weapon
+- Fixed some enemy projectiles not being affected by Euphoria
+
+Generation/seeding:
+- Fixed Crib being able to skip transitional areas
+- Fixed mystery pickups from discarded gators/technomancers
+
+Visual/Audio:
+- Fixed walls looking weird is pausing mid-explosions
+- Fixed level-top bones sometimes drawing out of order
+- Fixed audio overlapping when deleting data.
+- Fixed Rogue Strike aiming to the right for a frame when using gamepad.
+- Fixed Steroids secondary weapon shaking when shooting the primary one.
+- Fixed invisible holes on 0-1
+- Boss music no longer gets stuck if you kill the boss in 1 frame
+- Fixed Juggernaut shield legs always facing right
+- Fixed Melting's blood streaks always moving right
+- Fixed Throne flame end animation not playing
+- Fixed pillar shadows being off
+- Fixed TV sometimes drawing weird or being broken at character select
+- Fixed it sometimes being possible to see in darkness by pausing-unpausing quickly
+- Aligned END1 cutscene to show character amid the throne correctly
+- Fixed crown followers disappearing after one of the players dies in coop
+
+UI:
+- Game version is now shown on pause menu / game over screen
+- Healthbar no longer flashes during ending cutscenes
+- Fixed 0-kill enemies still counting towards total in stats
+- Fixed some issues with speedrun timer drawing on top of other UI
+- Fixed L6+ path colors being stuck on red
+- Fixed loops drawing as H# on daily/weekly if you quit hardmode and get in there right after
+- There are now more warnings when you delete your save file
+
+# 99r2b1s
+
+Mechanics
+- Added another safeguard for ravens to not get stuck in landing phase.
+- Fixed ultra revolver only getting 1 bullet ammo from Recycle gland.
+- Assassins no longer wake up one by one if there are no other enemies left.
+- Fixed portals removing thrown weapons sometimes.
+- Fixed Blood Cannon giving fewer bullets than it takes to fire when out of ammo.
+- Fixed boss' frogs being farmable for kills with some work.
+- Fixed duplicated spiders counting as kills even if their "parent" spider didn't.
+- Fixed Guardian orbs not dropping anything when a portal opens
+- Fixed it not being possible to revive a player on the same stage if they died within 1s of portal opening.
+- Melting can now become Skeleton in coop when being the last player alive and dying.
+- Fixed Golden Disc Gun / Golden Nuke Launcher not dropping unless you have Crown of Guns.
+- Fixed Confiscate effect appearing even if non-chest pickup spawns.
+- Fixed the game skipping an entire loop if entering a van on the same frame as Big Bandit spawns.
+- And added more safeguards to 1-? transitions.
+- Fixed Stress working slower (80%) for Steroids secondary weapon (forgotten change from u94).
+- Added safeguards for Lil Hunter to not be able to just fly out of the level if hit with heavy weapons during liftoff.
+- Fixed Crown of Death not affecting health of fainted players.
+- Fixed some oddities with using Crystal TB on 0-1
+- Fixed it being possible to get two ultras from Melting->Skeleton->Melting changes.
+- Fixed Throne not waking up if shooting it too early, and, very rarely, after multiple shots.
+- Don't let explofreaks explode right on level start (sometimes killing you instantly)
+- Frog is now less likely to get stuck on wall corners
+- Wall destruction is now more optimized
+- Corpses are now more optimized
+- Fixed turret having mask during appearance animation (leading to accidents with explosive weapons)
+- Fixed EnemyHorror shooting somewhere off-screen after killing the player
+- Per community request, Stalker proc and Blast Armor no longer set off IDPD grenades
+- Fixed DogGuardian corpses being lighter than expected (size=0 instead of 3)
+
+Generation/seeding:
+- Fixed random weapons/drops at 2-? due to impostor turtles being spawned and then killed by the game.
+- Fixed additional weapon drops from certain enemies being duplicates on daily/weekly/seeded.
+- Fixed 2-? special prop being invisible if spawned on a glowing tile.
+- Fixed Destiny offering a mutation from the last set
+- Fixed 2-?/5-? weapon drops vaguely mimicking 2-1/5-1 drops.
+- Fixed some seeding issues with giant weapon chests
+- CoD/Patience/Jungle seeding is now more consistent
+- Chest/cluster/flower/etc. seeding is now more consistent.
+- Fixed props being too close to the spawn point sometimes.
+- IDPD can no longer spawn before level generation finishes.
+- Fixed hostile horror being able to spawn-despawn at HQ3.
+- Fixed rad chests (and thus Horror) being able to spawn too close to player
+
+Audio/Visual:
+- Fixed deactivated generators facing the wrong directions when killing T1.
+- Fixed character sometimes sliding instead of walking towards throne seat.
+- If boss victory music gets stuck, it is now stopped when the level ends.
+- Fixed sticky and IDPD grenades making loud noises if spawned inside a wall.
+- Fixed Chicken B sometimes missing a head sprite in coop.
+- Fixed Dog Guardian shadow being offset
+- Fixed 2-1 L# boss healing effects showing under the boss sometimes
+- Fixed some IDPD projectiles using a red hit effect sprite
+- Fixed snow tank corpses consistently briefly moving to the right.
+- Fixed T2 background being possible to blow up by Melting.
+- Fixed Laser Brain effect showing even if you didn't have LB.
+- Fixed T1 beam sound cutting abruptly if if fires before the last one finished
+- Fixed bones drawing under walls sometimes
+- Fixed player rotating when feeding the ice flower
+- Fixed Sapling playing the spawn animation more than once.
+
+UI:
+- Fixed the animation on END1 being a pixel short (clipping the bottom of the tablet)
+- Fixed hardmode best run showing "L#" in Stats.
+- Fixed golden frog pistol getting unselected upon loading the game.
+- Fixed controls menu not confirming key binds until mouse is over the button.
+- Fixed Stats screen showing the worst time across characters as the best overall.
+- Low Ammo text no longer draws over the daily/weekly icon
+- Fixed unlock screens sometimes showing in wrong order
+- Fixed Loadout animation not resetting on close
