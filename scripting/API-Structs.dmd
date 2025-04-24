@@ -1,9 +1,48 @@
 ```set title
 NTGML API: Structs
 ```
-You can use GameMaker's built-in `variable_instance_`,
-`variable_struct_` and `struct_` functions to access these,
-but there are also some shorthands:
+Did you know? `struct_`, `variable_struct_`, and `variable_instance_` functions in GameMaker
+are all the same thing.
+
+One exception here:
+#[variable_instance_get(instance, varname, default_value = undefined)->]() {
+	Same as original, but you can provide the default value
+	if the variable isn't in the instance.
+}
+And these are original shorthand functions from before GameMaker had any reflection:
+#[lq_get(struct, field)->]() {
+	Like `struct_get`, but returns `undefined` if value is not a struct.
+}
+#[lq_defget(struct, field, default_value)->]() {
+	Like above, but with default value
+	if the variable is missing.
+}
+#[lq_set(struct, field, value)]() {
+	Equivalent to `struct_set`.
+}
+#[lq_exists(struct, field)->]() {
+	Equivalent to `struct_exists`.
+}
+#[lq_delete(struct, field)->]() {
+	Equivalent to `struct_delete`.
+}
+---
+#[lq_size(struct)->]() {
+	Equivalent to `array_length` if argument is an array (backwards compatibility),
+	otherwise equivalent to `struct_names_count`.
+}
+#[lq_get_key(struct, field_index)->]() {
+	Returns n-th field from a struct.
+	
+	This used to not allocate anything, but now it's just a wrapper for
+	`variable_struct_get_names` (that'll get new fields when a struct changes).
+}
+#[lq_get_value(struct, field_index)->]() {
+	Returns n-th value from a struct.
+	
+	Pair of above.
+}
+---
 #[lq_clone(struct)->]() {
 	Makes a shallow copy of the given struct.
 	```

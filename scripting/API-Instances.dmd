@@ -1,0 +1,107 @@
+```set title
+NTGML API: Instances
+```
+#[instance_create(x, y, obj, ?var_struct)->]() {
+	GMS1-style, picks depth based on `object_get_depth` with depths set in project.
+}
+#[instance_create_depth(x, y, depth, obj, ?var_struct)->]() {
+	GMS2-style.
+}
+#[instance_create_layer(x, y, layer, obj, ?var_struct)->]() {
+	GMS2-style. Note that the game only creates a few named layers.
+}
+#[instance_destroy(?inst, ?perform_destroy)]() {
+	
+}
+#[instance_change(_:object, performevents:bool)->]() {
+	Be careful!
+}
+#[instance_copy(performevents:bool)->]() {
+	Makes a shallow copy of this instance.
+}
+
+#[place_free(x:number, y:number)->]() {
+	
+}
+#[place_empty(x:number, y:number)->]() {
+	
+}
+#[place_meeting(x:number, y:number, obj:index)->]() {
+	
+}
+#[position_empty(x:number, y:number)->]() {
+	
+}
+#[position_meeting(x:number, y:number, obj:index)->]() {
+	
+}
+---
+#[collision_point(x, y, obj_or_array, prec, notme)->]() {
+	
+}
+#[collision_point_list(x, y, obj_or_array, prec, notme, list, ordered)->]() {
+	
+}
+#[collision_circle(x, y, rad, obj_or_array, prec, notme)->]() {
+	
+}
+#[collision_circle_list(x, y, rad, obj_or_array, prec, notme, list, ordered)->]() {
+	
+}
+#[collision_line(x1, y1, x2, y2, obj_or_array, prec, notme)->]() {
+	
+}
+#[collision_line_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)->]() {
+	
+}
+#[collision_rectangle(x1, y1, x2, y2, obj_or_array, prec, notme)->]() {
+	
+}
+#[collision_rectangle_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)->]() {
+	
+}
+#[collision_ellipse(x1, y1, x2, y2, obj_or_array, prec, notme)->]() {
+	
+}
+#[collision_ellipse_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)->]() {
+	
+}
+Utilities:
+#[instance_is(instance:id, object:object)->]() {
+	Returns whether an instance belongs to the given object type
+}
+Filtering:
+#[instances_matching(object_or_array, varname:string, ...values)->]() {
+	Returns an array of instances that have varname equal to any of values.
+}
+#[instances_matching_ne(object_or_array, varname:string, ...values)->]() {
+	Returns an array of instances that have varname not equal to any of values
+}
+#[instances_matching_lt(object_or_array, varname:string, value:number)->]() {
+	Returns an array of instances that have varname numeric and < the set threshold
+}
+#[instances_matching_gt(object_or_array, varname:string, value:number)->]() {
+	Returns an array of instances that have varname numeric and > the set threshold
+}
+#[instances_matching_le(object_or_array, varname:string, value:number)->]() {
+	Returns an array of instances that have varname numeric and <= the set threshold
+}
+#[instances_matching_ge(object_or_array, varname:string, value:number)->]() {
+	Returns an array of instances that have varname numeric and >= the set threshold
+}
+#[instances_matching_range(object_or_array, varname, minValue, maxValue, minValueIsInclusive, maxValueIsInclusive)->]() {
+	Returns an array of instances that have varname numeric and within the range
+}
+---
+#[instances_in_rectangle(object_or_array, x1, y1, x2, y2)->]() {
+	Returns an array of instances with their XY within rectangle
+}
+#[instances_in_circle(object_or_array, x, y, rad)->]() {
+	Returns an array of instances with their XY within circle
+}
+#[instance_nearest_from(x, y, array_of_instances)->]() {
+	Like instance_nearest, but takes an array of instances
+}
+#[instance_nearest_bbox(x, y, obj_or_array)->]() {
+	
+}

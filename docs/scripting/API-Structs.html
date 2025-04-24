@@ -48,10 +48,39 @@
 </style>
 
 
-You can use GameMaker's built-in <code>variable_instance_</code>,
-<code>variable_struct_</code> and <code>struct_</code> functions to access these,
-but there are also some shorthands:
-</p><section><header id="lq_clone"><a href="#lq_clone" title="(permalink)">lq_clone(struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+Did you know? <code>struct_</code>, <code>variable_struct_</code>, and <code>variable_instance_</code> functions in GameMaker
+are all the same thing.
+</p><p>
+One exception here:
+</p><section><header id="variable_instance_get"><a href="#variable_instance_get" title="(permalink)">variable_instance_get(instance, varname, default_value = undefined)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Same as original, but you can provide the default value
+	if the variable isn't in the instance.
+</p></article></section><p>
+And these are original shorthand functions from before GameMaker had any reflection:
+</p><section><header id="lq_get"><a href="#lq_get" title="(permalink)">lq_get(struct, field)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Like <code>struct_get</code>, but returns <code>undefined</code> if value is not a struct.
+</p></article></section><section><header id="lq_defget"><a href="#lq_defget" title="(permalink)">lq_defget(struct, field, default_value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Like above, but with default value
+	if the variable is missing.
+</p></article></section><section><header id="lq_set"><a href="#lq_set" title="(permalink)">lq_set(struct, field, value)</a></header><article><p>
+	Equivalent to <code>struct_set</code>.
+</p></article></section><section><header id="lq_exists"><a href="#lq_exists" title="(permalink)">lq_exists(struct, field)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Equivalent to <code>struct_exists</code>.
+</p></article></section><section><header id="lq_delete"><a href="#lq_delete" title="(permalink)">lq_delete(struct, field)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Equivalent to <code>struct_delete</code>.
+</p></article></section><hr/><section><header id="lq_size"><a href="#lq_size" title="(permalink)">lq_size(struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Equivalent to <code>array_length</code> if argument is an array (backwards compatibility),
+	otherwise equivalent to <code>struct_names_count</code>.
+</p></article></section><section><header id="lq_get_key"><a href="#lq_get_key" title="(permalink)">lq_get_key(struct, field_index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns n-th field from a struct.
+	</p><p>
+	This used to not allocate anything, but now it's just a wrapper for
+	<code>variable_struct_get_names</code> (that'll get new fields when a struct changes).
+</p></article></section><section><header id="lq_get_value"><a href="#lq_get_value" title="(permalink)">lq_get_value(struct, field_index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns n-th value from a struct.
+	</p><p>
+	Pair of above.
+</p></article></section><hr/><section><header id="lq_clone"><a href="#lq_clone" title="(permalink)">lq_clone(struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 	Makes a shallow copy of the given struct.
 	</p><pre class="gmlmd">
 <span class="kw">var</span> <span class="lv">orig</span> <span class="op">=</span> <span class="cb">{</span> <span class="uv">a</span><span class="op">:</span> <span class="nu">4</span><span class="op">,</span> <span class="lv">b</span><span class="op">:</span> <span class="st">"?"</span> <span class="cb">}</span><span class="op">;</span>

@@ -33,5 +33,6 @@ $[open](General functions)
 	$[page](Arrays @ API-Arrays)
 	$[page](Structs @ API-Structs)
 	$[page](Data structures @ API-DS)
+	$[page](Instances @ API-Instances)
 $[close]
 $[page](Performance)
