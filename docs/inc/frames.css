@@ -5,6 +5,41 @@
 	background: #899FC6;
 }
 
+html, body {
+	margin: 0;
+	padding: 0;
+}
+body {
+	display: flex;
+	position: absolute;
+	inset: 0;
+}
+body > #nav {
+	width: 200px;
+	resize: horizontal;
+}
+body > #page {
+	flex-grow: 1;
+}
+body > iframe {
+	border: 0;
+}
+
+#separator {
+    cursor: col-resize;
+    background-color: #F1F1F1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='20'><path d='M2 0 v20 M5 0 v20 M8 0 v20' fill='none' stroke='%23505050'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10px;
+    height: 100%;
+
+    /* Prevent the browser's built-in drag from interfering */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 /*main {
 	display: flex;
 	position: absolute;

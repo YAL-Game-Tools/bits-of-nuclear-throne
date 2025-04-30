@@ -49,7 +49,6 @@ body {
 	padding-left: 4px;
 	padding-top: 1px;
 	padding-bottom: 1px;
-	cursor: pointer;
 	display: flex;
 	align-items: center;
 }
@@ -78,6 +77,9 @@ body {
 }
 #doc section.empty > header::before {
 	content: " "; /*"·"*/
+}
+#doc section.link > header::before {
+	content: "→";
 }
 
 #doc header:hover,

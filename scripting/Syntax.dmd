@@ -31,6 +31,11 @@ The following are notes on shared syntax:
 	You may use either of formats, but not both at once;\
 	Legacy format can only use `#define`-based declarations.
 }
+#[with loops]() {
+	You can do a `with` on an array of structs/instances in NTT.
+	
+	I slightly regret not making this a separate keyword as it can be a source of occasional sabotage.
+}
 The following are specific to NTGML:
 #[in operator](in) {
 	This is a convenience operator that can be used in place of `variable_instance_exists` / `struct_exists`.

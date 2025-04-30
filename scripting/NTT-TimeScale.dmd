@@ -1,0 +1,63 @@
+```set title
+Time scaling in NTT
+```
+NT/NTT support time scaling and custom framerates to adjust the speed of the game
+and allow for occasional "bullet time" effects if mods desire them.
+
+This means that you can do
+```
+/gml s = 60; room_speed = s; current_time_scale = 30/s;
+```
+and that will make the game run at 60 fps instead of the default 30.
+
+The following variables and functions concern time and time scale:
+#[current_time: number]() {
+	This measures time in milliseconds since session start and obeys time scaling.
+	
+	$[manual] (sans time scale)
+}
+#[current_frame: number]() {
+	This measures frames since session start and obeys time scaling.
+	
+	This means that at 60fps you can be on frame 35.5, for example.
+}
+#[current_time_scale: number]() {
+	Time scale itself!
+	
+	Time scale of 1 is normal game speed at 30 fps.
+}
+#[current_time_scale_squared: number]() {
+	Convenience macro, returns squared time scale.
+}
+#[current_frame_is_active()->]() {
+	This is equivalent to
+	```
+	(current_frame % 1) < current_time_scale
+	```
+	and is good for effects that should happen roughly once per frame.
+}
+#[current_frame_get_repeat()->]() {
+	This is equivalent to
+	```
+	var _ft = current_time_scale;
+	if ((current_frame % 1) < (_ft % 1)) return ceil(_ft);
+	return floor(_ft);
+	```
+	And I don't remember writing this function.
+}
+
+NT\[T] automatically applies time scaling to the following:
+--{
+-	[Movement variables and common functions](./API-Movement.html)
+-	`image_speed` (`image_speed_raw` accesses "true" image speed)
+-	Alarms
+-	More or less all of the game logic
+}
+When making mods,
+you might want to deal with time scaling if you are moving instances
+or implementing timers yourself, like so:
+```
+inst.x += 5 * current_time_scale;
+```
+this would move the instance to the right at `30*5`➜150 pixels per second regardless
+of the game's framerate and/or time scaling effects.

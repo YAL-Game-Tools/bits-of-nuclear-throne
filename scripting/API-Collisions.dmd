@@ -1,0 +1,48 @@
+```set title
+Collision functions in NTT
+```
+#[Simple]() {
+	```gmblanks
+	:place_free(x, y):
+	:place_empty(x, y):
+	:place_meeting(x, y, obj):
+	:place_snapped(hsnap, vsnap):
+	:distance_to_point(x, y):
+	:distance_to_object(obj):
+	:position_empty(x, y):
+	:position_meeting(x, y, obj):
+	:instance_position(x:number, y:number, obj:index):
+	:instance_place(x:number, y:number, obj:index):
+	:distance_to_point(x:number, y:number):
+	:distance_to_object(obj:index):
+	```
+}
+#[Advanced]() {
+	```gmblanks
+	collision_point(x, y, obj_or_array, prec, notme):
+	collision_point_list(x, y, obj_or_array, prec, notme, list, ordered):
+	collision_circle(x, y, rad, obj_or_array, prec, notme):
+	collision_circle_list(x, y, rad, obj_or_array, prec, notme, list, ordered):
+	collision_line(x1, y1, x2, y2, obj_or_array, prec, notme):
+	collision_line_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered):
+	collision_rectangle(x1, y1, x2, y2, obj_or_array, prec, notme):
+	collision_rectangle_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered):
+	collision_ellipse(x1, y1, x2, y2, obj_or_array, prec, notme):
+	collision_ellipse_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered):
+	```
+	---
+	#[collision_line_point(x1, y1, x2, y2, obj, prec, notme, ?out_struct)->]() {
+		Finds the closest instance going from xy1 to xy2,
+		as per [blog post](https://yal.cc/gamemaker-collision-line-point/).
+		
+		However, this either populates or returns a new struct
+		with `x`, `y`, and `inst` variables.
+		
+		$[src]
+	}
+	#[collision_line_width_first(x1, y1, x2, y2, obj, width, ?out_struct)->]() {
+		Similar to above, but includes width.
+		
+		$[src]
+	}
+}

@@ -3,8 +3,11 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 	<link rel="stylesheet" href="./inc/frames.css">
 	<title>NTT-Scripting</title>
-<style type="text/css">.livejs-loading * { transition: all .3s ease-out; -webkit-transition: all .3s ease-out;-moz-transition: all .3s ease-out;-o-transition: all .3s ease-out;}</style></head><frameset cols="200,*">
-	<!-- you could make this not a frameset if you had nothing better to do -->
-	<frame id="nav" name="nav" src="./scripting/Table-of-Contents.html">
-	<frame id="page" name="page" src="./scripting/Intro.html">
-</frameset></html>
+</head>
+<body>
+	<iframe id="nav" name="nav" src="./scripting/Table-of-Contents.html"></iframe>
+	<div id="separator"></div>
+	<iframe id="page" name="page" src="./scripting/Intro.html"></iframe>
+	<script src="./inc/frames.js" id="scr-frames" data-page-directory="scripting"></script>
+</body>
+</html>

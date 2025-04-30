@@ -1,0 +1,110 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Time scaling in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Time scaling in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+NT/NTT support time scaling and custom framerates to adjust the speed of the game
+and allow for occasional "bullet time" effects if mods desire them.
+</p><p>
+This means that you can do
+</p><pre class="gmlmd">
+<span class="op">/</span><span class="uv">gml</span> <span class="uv">s</span> <span class="op">=</span> <span class="nu">60</span><span class="op">;</span> <span class="sv">room_speed</span> <span class="op">=</span> <span class="uv">s</span><span class="op">;</span> <a class="sv" href="#current_time_scale">current_time_scale</a> <span class="op">=</span> <span class="nu">30</span><span class="op">/</span><span class="uv">s</span><span class="op">;</span>
+</pre><p>
+and that will make the game run at 60 fps instead of the default 30.
+</p><p>
+The following variables and functions concern time and time scale:
+</p><section><header id="current_time"><a href="#current_time" title="(permalink)">current_time: number</a></header><article><p>
+	This measures time in milliseconds since session start and obeys time scaling.
+	</p><p>
+	<strong>GM help:</strong> <a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=current_time&ux=search">current_time</a> (sans time scale)
+</p></article></section><section><header id="current_frame"><a href="#current_frame" title="(permalink)">current_frame: number</a></header><article><p>
+	This measures frames since session start and obeys time scaling.
+	</p><p>
+	This means that at 60fps you can be on frame 35.5, for example.
+</p></article></section><section><header id="current_time_scale"><a href="#current_time_scale" title="(permalink)">current_time_scale: number</a></header><article><p>
+	Time scale itself!
+	</p><p>
+	Time scale of 1 is normal game speed at 30 fps.
+</p></article></section><section><header id="current_time_scale_squared"><a href="#current_time_scale_squared" title="(permalink)">current_time_scale_squared: number</a></header><article><p>
+	Convenience macro, returns squared time scale.
+</p></article></section><section><header id="current_frame_is_active"><a href="#current_frame_is_active" title="(permalink)">current_frame_is_active()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	This is equivalent to
+	</p><pre class="gmlmd">
+<span class="op">(</span><a class="sv" href="#current_frame">current_frame</a> <span class="op">%</span> <span class="nu">1</span><span class="op">)</span> <span class="op">&lt;</span> <a class="sv" href="#current_time_scale">current_time_scale</a>
+</pre><p>
+	and is good for effects that should happen roughly once per frame.
+</p></article></section><section><header id="current_frame_get_repeat"><a href="#current_frame_get_repeat" title="(permalink)">current_frame_get_repeat()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	This is equivalent to
+	</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">_ft</span> <span class="op">=</span> <a class="sv" href="#current_time_scale">current_time_scale</a><span class="op">;</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">(</span><a class="sv" href="#current_frame">current_frame</a> <span class="op">%</span> <span class="nu">1</span><span class="op">)</span> <span class="op">&lt;</span> <span class="op">(</span><span class="lv">_ft</span> <span class="op">%</span> <span class="nu">1</span><span class="op">)</span><span class="op">)</span> <span class="kw">return</span> <span class="sf">ceil</span><span class="op">(</span><span class="lv">_ft</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">return</span> <span class="sf">floor</span><span class="op">(</span><span class="lv">_ft</span><span class="op">)</span><span class="op">;</span>
+</pre><p>
+	And I don't remember writing this function.
+</p></article></section><p>
+NT[T] automatically applies time scaling to the following:
+</p><ul>
+<li>	<a href="./API-Movement.html">Movement variables and common functions</a>
+</li><li>	<code>image_speed</code> (<code>image_speed_raw</code> accesses "true" image speed)
+</li><li>	Alarms
+</li><li>	More or less all of the game logic
+</li></ul><p>
+When making mods,
+you might want to deal with time scaling if you are moving instances
+or implementing timers yourself, like so:
+</p><pre class="gmlmd">
+<span class="uv">inst</span><span class="op">.</span><span class="fd">x</span> <span class="op">+=</span> <span class="nu">5</span> <span class="op">*</span> <a class="sv" href="#current_time_scale">current_time_scale</a><span class="op">;</span>
+</pre><p>
+this would move the instance to the right at <code>30*5</code>➜150 pixels per second regardless
+of the game's framerate and/or time scaling effects.
+</p></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

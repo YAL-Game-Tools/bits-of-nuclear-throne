@@ -1,0 +1,61 @@
+```set title
+Movement in NTT
+```
+#[Variables]() {
+	The standard set assumes values at time scale of 1 (normal speed at 30fps).
+	```gmblanks
+	speed
+	direction
+	hspeed
+	vspeed
+	gravity
+	friction
+	```
+	If you need "real" values of these, they can be accessed using the following:
+	```ntblanks
+	speed_raw
+	direction_raw
+	hspeed_raw
+	vspeed_raw
+	gravity_raw
+	friction_raw
+	```
+	This is done to make older mods work relatively normally,
+	but also to spare modders of at least some of the horrors of
+	dealing with time scaling.
+}
+#[Functions]() {
+	#[motion_add(direction, speed)]() {
+		To make an average mod at work relatively correctly on different framerates,
+		this function will re-calculate speed based on time scale,
+		assuming an impulse (one-off applied motion).
+	}
+	#[motion_add_ct(direction, speed)]() {
+		Also adjusts speed based on time scale,
+		but assumes constant motion (like nudging a missile towards target).
+	}
+	#[motion_add_raw(direction, speed)]() {
+		This is the _real_ `motion_add`, without any re-calculations.
+	}
+	---
+	#[motion_set(direction, speed)]() {
+		Similar to above, speed will be adjusted based on current time scale
+		assuming an impulse.
+	}
+	#[motion_set_raw(direction, speed)]() {
+		Similarly, the _real_ `motion_set`.
+	}
+	And the following are left untouched:
+	```gmblanks
+	:move_snap(hsnap, vsnap)
+	:move_towards_point(x, y, sp)
+	:move_contact_solid(dir, maxdist)
+	:move_contact_all(dir, maxdist)
+	:move_outside_solid(dir, maxdist)
+	:move_outside_all(dir, maxdist)
+	:move_bounce_solid(advanced:bool)
+	:move_bounce_all(advanced:bool)
+	:move_wrap(hor:bool, vert:bool, margin)
+	move_and_collide(dx,dy,obj, ?num_iterations, ?xoff,?yoff, ?max_x_move,?max_y_move):
+	```
+}

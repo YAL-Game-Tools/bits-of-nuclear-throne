@@ -77,6 +77,10 @@ The following are notes on shared syntax:
 	</p><hr/><p>
 	You may use either of formats, but not both at once;<br/>
 	Legacy format can only use <code>#define</code>-based declarations.
+</p></article></section><section><header id="with-loops"><a href="#with-loops" title="(permalink)">with loops</a></header><article><p>
+	You can do a <code>with</code> on an array of structs/instances in NTT.
+	</p><p>
+	I slightly regret not making this a separate keyword as it can be a source of occasional sabotage.
 </p></article></section><p>
 The following are specific to NTGML:
 </p><section><header id="in"><a href="#in" title="(permalink)">in operator</a></header><article><p>
@@ -135,22 +139,22 @@ The following are specific to NTGML:
 <span class="sf">motion_add</span><span class="op">(</span><span class="uv">gunangle</span><span class="op">,</span> <span class="op">-</span><span class="nu">4</span><span class="op">)</span><span class="op">;</span>
 <span class="sf">weapon_post</span><span class="op">(</span><span class="nu">6</span><span class="op">,</span> <span class="op">-</span><span class="nu">7</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">;</span>
 <span class="co">// create and configure a projectile:</span>
-<span class="kw">var</span> <span class="lv">qx</span> <span class="op">=</span> <span class="uv">x</span><span class="op">,</span> <span class="uv">qy</span> <span class="op">=</span> <span class="uv">y</span><span class="op">;</span>
-<span class="kw">var</span> <span class="lv">q</span> <span class="op">=</span> <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">qx</span> <span class="op">=</span> <span class="sv">x</span><span class="op">,</span> <span class="lv">qy</span> <span class="op">=</span> <span class="sv">y</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">q</span> <span class="op">=</span> <span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="lv">qy</span><span class="op">,</span> <span class="ri">HeavyBullet</span><span class="op">)</span><span class="op">;</span>
 <span class="kw">with</span> <span class="op">(</span><span class="lv">q</span><span class="op">)</span> <span class="cb">{</span>
     <span class="uv">team</span> <span class="op">=</span> <span class="kw">other</span><span class="op">.</span><span class="fd">team</span><span class="op">;</span>
     <span class="sf">motion_add</span><span class="op">(</span><span class="kw">other</span><span class="op">.</span><span class="fd">gunangle</span> <span class="op">+</span> <span class="sf">random_range</span><span class="op">(</span><span class="op">-</span><span class="nu">5</span><span class="op">,</span> <span class="nu">5</span><span class="op">)</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
-    <span class="uv">friction</span> <span class="op">=</span> <span class="op">-</span><span class="nu">0.8</span><span class="op">;</span> <span class="co">// gradual acceleration</span>
-    <span class="uv">image_angle</span> <span class="op">=</span> <span class="uv">direction</span><span class="op">;</span>
+    <span class="sv">friction</span> <span class="op">=</span> <span class="op">-</span><span class="nu">0.8</span><span class="op">;</span> <span class="co">// gradual acceleration</span>
+    <span class="sv">image_angle</span> <span class="op">=</span> <span class="sv">direction</span><span class="op">;</span>
 <span class="cb">}</span>
 <span class="co">// track projectile' position while it exists:</span>
 <span class="kw">while</span> <span class="op">(</span><span class="sf">instance_exists</span><span class="op">(</span><span class="lv">q</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
     <span class="lv">qx</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">x</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">hspeed</span><span class="op">;</span>
-    <span class="uv">qy</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">y</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">vspeed</span><span class="op">;</span>
+    <span class="lv">qy</span> <span class="op">=</span> <span class="lv">q</span><span class="op">.</span><span class="fd">y</span> <span class="op">+</span> <span class="lv">q</span><span class="op">.</span><span class="fd">vspeed</span><span class="op">;</span>
     <a class="kw" href="#wait">wait</a> <span class="nu">1</span><span class="op">;</span>
 <span class="cb">}</span>
 <span class="co">// create an explosion at it's last position once it's gone:</span>
-<span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="uv">qy</span><span class="op">,</span> <span class="ri">SmallExplosion</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">instance_create</span><span class="op">(</span><span class="lv">qx</span><span class="op">,</span> <span class="lv">qy</span><span class="op">,</span> <span class="ri">SmallExplosion</span><span class="op">)</span><span class="op">;</span>
 </pre><p>
 	Note that if you <code>wait</code> in a script that should return something to the game immediately (like character/weapon names), the game will assume that you didn't return anything.
 </p></article></section><section><header id="fork"><a href="#fork" title="(permalink)">fork instruction</a></header><article><p>

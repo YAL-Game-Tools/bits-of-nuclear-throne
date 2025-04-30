@@ -1,0 +1,80 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Movement in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Movement in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="Variables"><a href="#Variables" title="(permalink)">Variables</a></header><article><p>
+	The standard set assumes values at time scale of 1 (normal speed at 30fps).
+	</p><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=speed&ux=search" target="_blank" title="(opens a new tab)">speed</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=direction&ux=search" target="_blank" title="(opens a new tab)">direction</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=hspeed&ux=search" target="_blank" title="(opens a new tab)">hspeed</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=vspeed&ux=search" target="_blank" title="(opens a new tab)">vspeed</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=gravity&ux=search" target="_blank" title="(opens a new tab)">gravity</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=friction&ux=search" target="_blank" title="(opens a new tab)">friction</a></header></section><p>
+	If you need "real" values of these, they can be accessed using the following:
+	</p><section class="empty"><header><span>speed_raw</span></header></section><section class="empty"><header><span>direction_raw</span></header></section><section class="empty"><header><span>hspeed_raw</span></header></section><section class="empty"><header><span>vspeed_raw</span></header></section><section class="empty"><header><span>gravity_raw</span></header></section><section class="empty"><header><span>friction_raw</span></header></section><p>
+	This is done to make older mods work relatively normally,
+	but also to spare modders of at least some of the horrors of
+	dealing with time scaling.
+</p></article></section><section><header id="Functions"><a href="#Functions" title="(permalink)">Functions</a></header><article><a class="sticky-side" href="#Functions" title="Functions"><span>Functions</span></a><section><header id="motion_add"><a href="#motion_add" title="(permalink)">motion_add(direction, speed)</a></header><article><p>
+		To make an average mod at work relatively correctly on different framerates,
+		this function will re-calculate speed based on time scale,
+		assuming an impulse (one-off applied motion).
+	</p></article></section><section><header id="motion_add_ct"><a href="#motion_add_ct" title="(permalink)">motion_add_ct(direction, speed)</a></header><article><p>
+		Also adjusts speed based on time scale,
+		but assumes constant motion (like nudging a missile towards target).
+	</p></article></section><section><header id="motion_add_raw"><a href="#motion_add_raw" title="(permalink)">motion_add_raw(direction, speed)</a></header><article><p>
+		This is the <i>real</i> <code>motion_add</code>, without any re-calculations.
+	</p></article></section><hr/><section><header id="motion_set"><a href="#motion_set" title="(permalink)">motion_set(direction, speed)</a></header><article><p>
+		Similar to above, speed will be adjusted based on current time scale
+		assuming an impulse.
+	</p></article></section><section><header id="motion_set_raw"><a href="#motion_set_raw" title="(permalink)">motion_set_raw(direction, speed)</a></header><article><p>
+		Similarly, the <i>real</i> <code>motion_set</code>.
+	</p></article></section><p>
+	And the following are left untouched:
+	</p><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_snap&ux=search" target="_blank" title="(opens a new tab)">move_snap(hsnap, vsnap)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_towards_point&ux=search" target="_blank" title="(opens a new tab)">move_towards_point(x, y, sp)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_contact_solid&ux=search" target="_blank" title="(opens a new tab)">move_contact_solid(dir, maxdist)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_contact_all&ux=search" target="_blank" title="(opens a new tab)">move_contact_all(dir, maxdist)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_outside_solid&ux=search" target="_blank" title="(opens a new tab)">move_outside_solid(dir, maxdist)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_outside_all&ux=search" target="_blank" title="(opens a new tab)">move_outside_all(dir, maxdist)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_bounce_solid&ux=search" target="_blank" title="(opens a new tab)">move_bounce_solid(advanced:bool)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_bounce_all&ux=search" target="_blank" title="(opens a new tab)">move_bounce_all(advanced:bool)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_wrap&ux=search" target="_blank" title="(opens a new tab)">move_wrap(hor:bool, vert:bool, margin)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=move_and_collide&ux=search" target="_blank" title="(opens a new tab)">move_and_collide(dx,dy,obj, ?num_iterations, ?xoff,?yoff, ?max_x_move,?max_y_move)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

@@ -2,8 +2,9 @@
 <html><head>
 	<link rel="stylesheet" href="inc/frames.css" />
 	<title>NTT-Objects</title>
-</head><frameset cols="200,*">
-	<!-- you could make this not a frameset if you had nothing better to do -->
-	<frame id="nav" name="nav" src="inc/object-nav.html"></frame>
-	<frame id="page" name="page" src="objects/index.html"></frame>
-</frameset></html>
+</head><body>
+	<iframe id="nav" name="nav" src="inc/object-nav.html"></iframe>
+	<div id="separator"></div>
+	<iframe id="page" name="page" src="objects/index.html"></iframe>
+	<script src="./inc/frames.js" id="scr-frames" data-page-directory="objects"></script>
+</body></html>

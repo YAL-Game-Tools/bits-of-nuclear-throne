@@ -1,6 +1,6 @@
 <!DOCTYPE HTML><html lang="en"><head>
 	<meta charset="UTF-8">
-	<title>NTGML API: Instances</title>
+	<title>Instance functions in NTT</title>
 	<meta name="viewport" content="width=device-width" />
 	<meta name="livenode" content="#doc" />
 	<meta property="theme-color" content="#FFF037" />
@@ -29,7 +29,7 @@
 		<main class="page">
 			<section>
 				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
-				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>NTGML API: Instances</h1>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Instance functions in NTT</h1>
 			</section>
 			<section id="doc">
 <!--<doc--><p><p>
@@ -48,43 +48,64 @@
 </style>
 
 
-</p><section><header id="instance_create"><a href="#instance_create" title="(permalink)">instance_create(x, y, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	GMS1-style, picks depth based on <code>object_get_depth</code> with depths set in project.
-</p></article></section><section><header id="instance_create_depth"><a href="#instance_create_depth" title="(permalink)">instance_create_depth(x, y, depth, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	GMS2-style.
-</p></article></section><section><header id="instance_create_layer"><a href="#instance_create_layer" title="(permalink)">instance_create_layer(x, y, layer, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	GMS2-style. Note that the game only creates a few named layers.
-</p></article></section><section><header id="instance_destroy"><a href="#instance_destroy" title="(permalink)">instance_destroy(?inst, ?perform_destroy)</a></header><article></article></section><section><header id="instance_change"><a href="#instance_change" title="(permalink)">instance_change(_:object, performevents:bool)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Be careful!
-</p></article></section><section><header id="instance_copy"><a href="#instance_copy" title="(permalink)">instance_copy(performevents:bool)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Makes a shallow copy of this instance.
-</p></article></section><section><header id="place_free"><a href="#place_free" title="(permalink)">place_free(x:number, y:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="place_empty"><a href="#place_empty" title="(permalink)">place_empty(x:number, y:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="place_meeting"><a href="#place_meeting" title="(permalink)">place_meeting(x:number, y:number, obj:index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="position_empty"><a href="#position_empty" title="(permalink)">position_empty(x:number, y:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="position_meeting"><a href="#position_meeting" title="(permalink)">position_meeting(x:number, y:number, obj:index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><hr/><section><header id="collision_point"><a href="#collision_point" title="(permalink)">collision_point(x, y, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_point_list"><a href="#collision_point_list" title="(permalink)">collision_point_list(x, y, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_circle"><a href="#collision_circle" title="(permalink)">collision_circle(x, y, rad, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_circle_list"><a href="#collision_circle_list" title="(permalink)">collision_circle_list(x, y, rad, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_line"><a href="#collision_line" title="(permalink)">collision_line(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_line_list"><a href="#collision_line_list" title="(permalink)">collision_line_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_rectangle"><a href="#collision_rectangle" title="(permalink)">collision_rectangle(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_rectangle_list"><a href="#collision_rectangle_list" title="(permalink)">collision_rectangle_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_ellipse"><a href="#collision_ellipse" title="(permalink)">collision_ellipse(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><section><header id="collision_ellipse_list"><a href="#collision_ellipse_list" title="(permalink)">collision_ellipse_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section><p>
-Utilities:
-</p><section><header id="instance_is"><a href="#instance_is" title="(permalink)">instance_is(instance:id, object:object)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns whether an instance belongs to the given object type
-</p></article></section><p>
-Filtering:
-</p><section><header id="instances_matching"><a href="#instances_matching" title="(permalink)">instances_matching(object_or_array, varname:string, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname equal to any of values.
-</p></article></section><section><header id="instances_matching_ne"><a href="#instances_matching_ne" title="(permalink)">instances_matching_ne(object_or_array, varname:string, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname not equal to any of values
-</p></article></section><section><header id="instances_matching_lt"><a href="#instances_matching_lt" title="(permalink)">instances_matching_lt(object_or_array, varname:string, value:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname numeric and &lt; the set threshold
-</p></article></section><section><header id="instances_matching_gt"><a href="#instances_matching_gt" title="(permalink)">instances_matching_gt(object_or_array, varname:string, value:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname numeric and &gt; the set threshold
-</p></article></section><section><header id="instances_matching_le"><a href="#instances_matching_le" title="(permalink)">instances_matching_le(object_or_array, varname:string, value:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname numeric and &lt;= the set threshold
-</p></article></section><section><header id="instances_matching_ge"><a href="#instances_matching_ge" title="(permalink)">instances_matching_ge(object_or_array, varname:string, value:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname numeric and &gt;= the set threshold
-</p></article></section><section><header id="instances_matching_range"><a href="#instances_matching_range" title="(permalink)">instances_matching_range(object_or_array, varname, minValue, maxValue, minValueIsInclusive, maxValueIsInclusive)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances that have varname numeric and within the range
-</p></article></section><hr/><section><header id="instances_in_rectangle"><a href="#instances_in_rectangle" title="(permalink)">instances_in_rectangle(object_or_array, x1, y1, x2, y2)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances with their XY within rectangle
-</p></article></section><section><header id="instances_in_circle"><a href="#instances_in_circle" title="(permalink)">instances_in_circle(object_or_array, x, y, rad)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Returns an array of instances with their XY within circle
-</p></article></section><section><header id="instance_nearest_from"><a href="#instance_nearest_from" title="(permalink)">instance_nearest_from(x, y, array_of_instances)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-	Like instance_nearest, but takes an array of instances
-</p></article></section><section><header id="instance_nearest_bbox"><a href="#instance_nearest_bbox" title="(permalink)">instance_nearest_bbox(x, y, obj_or_array)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article></article></section></p><!--doc>-->
+</p><section><header id="Management"><a href="#Management" title="(permalink)">Management</a></header><article><a class="sticky-side" href="#Management" title="Management"><span>Management</span></a><section><header id="instance_create"><a href="#instance_create" title="(permalink)">instance_create(x, y, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		GMS1-style, picks depth based on <a href="#object_get_depth">object_get_depth</a> with depths set in project.
+	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_create_depth&ux=search" target="_blank" title="(opens a new tab)">instance_create_depth(x, y, depth, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_create_layer&ux=search" target="_blank" title="(opens a new tab)">instance_create_layer(x, y, layer, obj, ?var_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_destroy&ux=search" target="_blank" title="(opens a new tab)">instance_destroy(?inst, ?perform_destroy)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_exists&ux=search" target="_blank" title="(opens a new tab)">instance_exists(obj)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section><header id="instance_is"><a href="#instance_is" title="(permalink)">instance_is(instance, object)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether an instance belongs to the given object type.
+		</p><p>
+		This is equivalent to
+		</p><pre class="gmlmd">
+<span class="sv">object_index</span> <span class="op">==</span> <span class="uv">obj</span> <span class="op">||</span> <span class="sf">object_is_ancestor</span><span class="op">(</span><span class="sv">object_index</span><span class="op">,</span> <span class="uv">obj</span><span class="op">)</span>
+</pre></article></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_change&ux=search" target="_blank" title="(opens a new tab)">instance_change(new_object_type, perform_events)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_copy&ux=search" target="_blank" title="(opens a new tab)">instance_copy(perform_events)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section></article></section><section><header id="Objects"><a href="#Objects" title="(permalink)">Objects</a></header><article><a class="sticky-side" href="#Objects" title="Objects"><span>Objects</span></a><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_exists&ux=search" target="_blank" title="(opens a new tab)">object_exists(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_name&ux=search" target="_blank" title="(opens a new tab)">object_get_name(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_sprite&ux=search" target="_blank" title="(opens a new tab)">object_get_sprite(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_solid&ux=search" target="_blank" title="(opens a new tab)">object_get_solid(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_visible&ux=search" target="_blank" title="(opens a new tab)">object_get_visible(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_persistent&ux=search" target="_blank" title="(opens a new tab)">object_get_persistent(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_mask&ux=search" target="_blank" title="(opens a new tab)">object_get_mask(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_get_parent&ux=search" target="_blank" title="(opens a new tab)">object_get_parent(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=object_is_ancestor&ux=search" target="_blank" title="(opens a new tab)">object_is_ancestor(child, parent)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><p>
+	Non-standard:
+	</p><section><header id="object_get_depth"><a href="#object_get_depth" title="(permalink)">object_get_depth(object)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the depth that <a href="#instance_create">instance_create</a> would put instances of the object on.
+	</p></article></section><section><header id="object_has_event"><a href="#object_has_event" title="(permalink)">object_has_event(object, event_type, event_number)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether an object has a specific event.
+	</p></article></section></article></section><section><header id="Searching"><a href="#Searching" title="(permalink)">Searching</a></header><article><a class="sticky-side" href="#Searching" title="Searching"><span>Searching</span></a><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_number&ux=search" target="_blank" title="(opens a new tab)">instance_number(obj)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_find&ux=search" target="_blank" title="(opens a new tab)">instance_find(obj, n)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_nearest&ux=search" target="_blank" title="(opens a new tab)">instance_nearest(x, y, object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_furthest&ux=search" target="_blank" title="(opens a new tab)">instance_furthest(x, y, object)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section><header id="instance_nearest_nonself"><a href="#instance_nearest_nonself" title="(permalink)">instance_nearest_nonself(x, y, object)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Like the regular <code>instance_nearest</code>,
+		but will not return the instance calling the function.
+	</p></article></section><section><header id="instance_nearest_from"><a href="#instance_nearest_from" title="(permalink)">instance_nearest_from(x, y, array_of_instances)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Like <code>instance_nearest</code>, but takes an array of instances
+	</p></article></section><section><header id="instance_nearest_bbox"><a href="#instance_nearest_bbox" title="(permalink)">instance_nearest_bbox(x, y, obj_or_array)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Like <code>instance_nearest</code>, but measures distance with <code>distance_to_point</code>.
+	</p></article></section></article></section><section><header id="Events"><a href="#Events" title="(permalink)">Events</a></header><article><a class="sticky-side" href="#Events" title="Events"><span>Events</span></a><p>
+	Alarms:
+	</p><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=alarm_get&ux=search" target="_blank" title="(opens a new tab)">alarm_get(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=alarm_set&ux=search" target="_blank" title="(opens a new tab)">alarm_set(index, value)</a></header></section><section><header id="alarm_run"><a href="#alarm_run" title="(permalink)">alarm_run(index)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Ticks down the specified alarm if it is set,
+		and returns whether it's time to trigger the effect.
+		</p><p>
+		<strong>Source:</strong> <a target="blank" rel="noreferrer noopener" href="https://github.com/YAL-Game-Tools/bits-of-nuclear-throne/blob/main/ref/alarm_run.gml">alarm_run</a>
+	</p></article></section><hr/><section><header id="event_perform"><a href="#event_perform" title="(permalink)">event_perform(etype, enumb)</a></header><article><p>
+		Be careful!
+		</p><p>
+		<strong>GM help:</strong> <a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform&ux=search">event_perform</a>
+	</p></article></section><section><header id="event_perform_object"><a href="#event_perform_object" title="(permalink)">event_perform_object(object, etype, enumb)</a></header><article><p>
+		Also be careful - executing other objects' events may leak
+		variables into the current instance.
+		</p><p>
+		<strong>GM help:</strong> <a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform_object&ux=search">event_perform_object</a>
+	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform&ux=search" target="_blank" title="(opens a new tab)">event_perform(etype, enumb)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform_object&ux=search" target="_blank" title="(opens a new tab)">event_perform_object(object, etype, enumb)</a></header></section></article></section><section><header id="Filtering"><a href="#Filtering" title="(permalink)">Filtering</a></header><article><a class="sticky-side" href="#Filtering" title="Filtering"><span>Filtering</span></a><p>
+	Intended for narrowing down instances to the one's you'd like.
+	</p><section><header id="instances_matching"><a href="#instances_matching" title="(permalink)">instances_matching(object_or_array, varname, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname equal to any of values.
+	</p></article></section><section><header id="instances_matching_ne"><a href="#instances_matching_ne" title="(permalink)">instances_matching_ne(object_or_array, varname, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname not equal to any of values
+	</p></article></section><section><header id="instances_matching_lt"><a href="#instances_matching_lt" title="(permalink)">instances_matching_lt(object_or_array, varname, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname numeric and &lt; the set threshold
+	</p></article></section><section><header id="instances_matching_gt"><a href="#instances_matching_gt" title="(permalink)">instances_matching_gt(object_or_array, varname, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname numeric and &gt; the set threshold
+	</p></article></section><section><header id="instances_matching_le"><a href="#instances_matching_le" title="(permalink)">instances_matching_le(object_or_array, varname, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname numeric and &lt;= the set threshold
+	</p></article></section><section><header id="instances_matching_ge"><a href="#instances_matching_ge" title="(permalink)">instances_matching_ge(object_or_array, varname, value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname numeric and &gt;= the set threshold
+	</p></article></section><section><header id="instances_matching_range"><a href="#instances_matching_range" title="(permalink)">instances_matching_range(object_or_array, varname, minValue, maxValue, minValueIsInclusive, maxValueIsInclusive)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances that have varname numeric and within the range
+	</p></article></section><hr/><section><header id="instances_in_rectangle"><a href="#instances_in_rectangle" title="(permalink)">instances_in_rectangle(object_or_array, x1, y1, x2, y2)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances with their XY within rectangle
+	</p></article></section><section><header id="instances_in_circle"><a href="#instances_in_circle" title="(permalink)">instances_in_circle(object_or_array, x, y, rad)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns an array of instances with their XY within circle
+	</p></article></section></article></section></p><!--doc>-->
 			</section>
 		</main>
 	</div>

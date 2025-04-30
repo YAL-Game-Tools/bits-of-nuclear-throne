@@ -2,11 +2,74 @@
 ```set tag:defcode gml```
 ```set tag:gml:live 1```
 ```set autoapi ext```
-```gmlapi
-argument
-argument0
-argument1
-argument2
-argument3
-```
+```gmlapi fnames2```
 ```set navmenu1 1```
+```exec
+function ref(name) {
+	var label, target;
+	var pos = name.indexOf("@");
+	if (pos >= 0) {
+		label = StringTools.trim(name.substring(0, pos));
+		target = StringTools.trim(name.substring(pos + 1));
+	} else {
+		target = label = name;
+	}
+	var repo = "https://github.com/YAL-Game-Tools/bits-of-nuclear-throne";
+	target = repo + "/blob/main/ref/" + target + ".gml";
+	return render("[" + label + "](+" + target + ")");
+}
+function src(?name) {
+	if (name == null || name == "") {
+		var st = DocMd.sectionStack;
+		name = st[st.length - 1].permalink;
+	}
+	return render("*Source:* ") + ref(name);
+}
+function gmHelpLink(name) {
+	return "https://manual.gamemaker.io/monthly/en/index.htm"
+		+ "#rhsearch=" + name + "&ux=search";
+}
+function manual(?name) {
+	if (name == null || name == "") {
+		var st = DocMd.sectionStack;
+		name = st[st.length - 1].permalink;
+		return render("*GM help:* ") + manual(name);
+	}
+	return render("[" + name + "](" + gmHelpLink(name) + ")");
+}
+function printBlanks(text, isGM) {
+	text = StringTools.trim(text);
+	var lines = text.split("\n");
+	var out = [];
+	var rxName = new EReg("^(\\w+)", "");
+	for (sig in lines) {
+		sig = StringTools.trim(sig);
+		if (sig == "") continue;
+		while (StringTools.startsWith(sig, ":")) {
+			sig = sig.substring(1);
+		}
+		if (StringTools.endsWith(sig, ":")) {
+			sig = sig.substring(0, sig.length - 1) + "->";
+		}
+		var md = "#[" + sig + "] {}";
+		if (isGM && rxName.match(sig)) {
+			var name = rxName.matched(1);
+			var url = gmHelpLink(name);
+			//md = "[" + md + "](" + url + ")";
+			md = "#[" + sig + "](" + url + ") {}";
+		}
+		out.push(md);
+		//out.push("#[" + sig + "] {}");
+	}
+	return render(out.join("\n"));
+}
+DocMd.addCodeTag("blanks", function(text) {
+	return printBlanks(text, false);
+});
+DocMd.addCodeTag("ntblanks", function(text) {
+	return printBlanks(text, false);
+});
+DocMd.addCodeTag("gmblanks", function(text) {
+	return printBlanks(text, true);
+});
+```

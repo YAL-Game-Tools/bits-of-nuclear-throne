@@ -1,5 +1,5 @@
 ```set title
-NTGML API: Data structures
+Data structures in NTT
 ```
 For everyone's sanity, data structures in NTT are wrapped in small structs
 so that it is easier to tell what is what and so that mod's data structures

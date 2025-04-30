@@ -1,0 +1,68 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Collision functions in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Collision functions in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="Simple"><a href="#Simple" title="(permalink)">Simple</a></header><article><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=place_free&ux=search" target="_blank" title="(opens a new tab)">place_free(x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=place_empty&ux=search" target="_blank" title="(opens a new tab)">place_empty(x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=place_meeting&ux=search" target="_blank" title="(opens a new tab)">place_meeting(x, y, obj)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=place_snapped&ux=search" target="_blank" title="(opens a new tab)">place_snapped(hsnap, vsnap)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=distance_to_point&ux=search" target="_blank" title="(opens a new tab)">distance_to_point(x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=distance_to_object&ux=search" target="_blank" title="(opens a new tab)">distance_to_object(obj)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=position_empty&ux=search" target="_blank" title="(opens a new tab)">position_empty(x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=position_meeting&ux=search" target="_blank" title="(opens a new tab)">position_meeting(x, y, obj)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_position&ux=search" target="_blank" title="(opens a new tab)">instance_position(x:number, y:number, obj:index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=instance_place&ux=search" target="_blank" title="(opens a new tab)">instance_place(x:number, y:number, obj:index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=distance_to_point&ux=search" target="_blank" title="(opens a new tab)">distance_to_point(x:number, y:number)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=distance_to_object&ux=search" target="_blank" title="(opens a new tab)">distance_to_object(obj:index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section></article></section><section><header id="Advanced"><a href="#Advanced" title="(permalink)">Advanced</a></header><article><a class="sticky-side" href="#Advanced" title="Advanced"><span>Advanced</span></a><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_point&ux=search" target="_blank" title="(opens a new tab)">collision_point(x, y, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_point_list&ux=search" target="_blank" title="(opens a new tab)">collision_point_list(x, y, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_circle&ux=search" target="_blank" title="(opens a new tab)">collision_circle(x, y, rad, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_circle_list&ux=search" target="_blank" title="(opens a new tab)">collision_circle_list(x, y, rad, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_line&ux=search" target="_blank" title="(opens a new tab)">collision_line(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_line_list&ux=search" target="_blank" title="(opens a new tab)">collision_line_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_rectangle&ux=search" target="_blank" title="(opens a new tab)">collision_rectangle(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_rectangle_list&ux=search" target="_blank" title="(opens a new tab)">collision_rectangle_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_ellipse&ux=search" target="_blank" title="(opens a new tab)">collision_ellipse(x1, y1, x2, y2, obj_or_array, prec, notme)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=collision_ellipse_list&ux=search" target="_blank" title="(opens a new tab)">collision_ellipse_list(x1, y1, x2, y2, obj_or_array, prec, notme, list, ordered)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><hr/><section><header id="collision_line_point"><a href="#collision_line_point" title="(permalink)">collision_line_point(x1, y1, x2, y2, obj, prec, notme, ?out_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Finds the closest instance going from xy1 to xy2,
+		as per <a href="https://yal.cc/gamemaker-collision-line-point/">blog post</a>.
+		</p><p>
+		However, this either populates or returns a new struct
+		with <code>x</code>, <code>y</code>, and <code>inst</code> variables.
+		</p><p>
+		<strong>Source:</strong> <a target="blank" rel="noreferrer noopener" href="https://github.com/YAL-Game-Tools/bits-of-nuclear-throne/blob/main/ref/collision_line_point.gml">collision_line_point</a>
+	</p></article></section><section><header id="collision_line_width_first"><a href="#collision_line_width_first" title="(permalink)">collision_line_width_first(x1, y1, x2, y2, obj, width, ?out_struct)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Similar to above, but includes width.
+		</p><p>
+		<strong>Source:</strong> <a target="blank" rel="noreferrer noopener" href="https://github.com/YAL-Game-Tools/bits-of-nuclear-throne/blob/main/ref/collision_line_width_first.gml">collision_line_width_first</a>
+	</p></article></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

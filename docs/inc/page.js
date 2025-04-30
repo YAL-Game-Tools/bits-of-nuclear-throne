@@ -12,11 +12,12 @@
 	//
 	function h3bind(h3) {
 		var node = h3.parentNode;
+		var isLink = node.classList.contains("link");
 		var snip = node.children[1];
 		var id = h3.id || h3.textContent;
 		h3.snip = snip;
 		h3.doc_set = function(z) {
-			if (z) node.classList.add("open"); else node.classList.remove("open");
+			if (isLink) {} else if (z) node.classList.add("open"); else node.classList.remove("open");
 			if (state) {
 				state[id] = z;
 				window.localStorage.setItem(path, JSON.stringify(state));

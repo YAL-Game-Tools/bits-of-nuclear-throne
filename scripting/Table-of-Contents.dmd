@@ -34,5 +34,11 @@ $[open](General functions)
 	$[page](Structs @ API-Structs)
 	$[page](Data structures @ API-DS)
 	$[page](Instances @ API-Instances)
+	$[page](Collisions @ API-Collisions)
+	$[page](Movement @ API-Movement)
+$[close]
+$[open](NTT-specific)
+	$[page](Players @ NTT-Players)
+	$[page](Time & scaling @ NTT-TimeScale)
 $[close]
 $[page](Performance)
