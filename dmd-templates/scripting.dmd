@@ -35,8 +35,34 @@ function manual(?name) {
 		name = st[st.length - 1].permalink;
 		return render("*GM help:* ") + manual(name);
 	}
-	return render("[" + name + "](" + gmHelpLink(name) + ")");
+	return render("[" + name + "](+" + gmHelpLink(name) + ")");
 }
+function nonSync(?kinds) {
+	if (kinds == null) kinds = "vf";
+	var funcs = kinds.indexOf("f") >= 0;
+	var vars = kinds.indexOf("v") >= 0;
+	var unique = kinds.indexOf("u") >= 0;
+	var what;
+	if (funcs && vars) {
+		what = "variables and functions";
+	} else if (funcs) {
+		what = "functions";
+	} else if (vars) {
+		what = "variables";
+	} else what = "";
+	var md = "The following " + what;
+	if (!unique) {
+		md += " are the same as their non-suffixed counterparts, but";
+	}
+	md += " aren't subject to synchronization/network latency,"
+		+ " thus should only be used for display,"
+		+ " else you may cause a desync.";
+	return render(md) + " " + seeSync();
+}
+function seeSync() {
+	return render("See [Sync](./NTT-Sync.html) for more information.");
+}
+var rxSigEsc = new EReg("([\\[\\]\\*])", "g");
 function printBlanks(text, isGM) {
 	text = StringTools.trim(text);
 	var lines = text.split("\n");
@@ -51,12 +77,13 @@ function printBlanks(text, isGM) {
 		if (StringTools.endsWith(sig, ":")) {
 			sig = sig.substring(0, sig.length - 1) + "->";
 		}
-		var md = "#[" + sig + "] {}";
+		var sigMd = rxSigEsc.replace(sig, "\\$1");
+		var md = "#[" + sigMd + "] {}";
 		if (isGM && rxName.match(sig)) {
 			var name = rxName.matched(1);
 			var url = gmHelpLink(name);
 			//md = "[" + md + "](" + url + ")";
-			md = "#[" + sig + "](" + url + ") {}";
+			md = "#[" + sigMd + "](" + url + ") {}";
 		}
 		out.push(md);
 		//out.push("#[" + sig + "] {}");

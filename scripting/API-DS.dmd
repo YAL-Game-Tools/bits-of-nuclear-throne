@@ -31,6 +31,22 @@ of that kind.
 	The following are extra:
 	#[ds_grid_join(grid, row_sep, col_sep)->]() {
 		Joins the contents of a grid to a string with row/column separators.
+		
+		Good for quickly displaying grids, but not necessarily a valid CSV/TSV.
+	}
+}
+#[JSON](json) {
+	#[json_decode(json:string)->]() {
+		This works closer to $[manual](json_parse)
+		as it returns structs and arrays, not data structures.
+	}
+	#[json_encode(value, ?indent:string)->]() {
+		This works closer to $[manual](json_stringify)
+		as it works with structs and arrays, not data structures.
+		
+		Also note that it accepts an indentation string
+		(or `undefined` / no argument to not pretty-print)
+		instead of a boolean flag like the built-in function does.
 	}
 }
 #[Queues and stacks](ds_other) {

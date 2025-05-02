@@ -48,7 +48,79 @@
 </style>
 
 
-</p></p><!--doc>-->
+NTT supports multiple players, gamepads, and remapping, so input handling is wrapped.
+</p><section><header id="Buttons"><a href="#Buttons" title="(permalink)">Buttons</a></header><article><p>
+	These three
+	</p><section class="empty"><header><span>button_check(player, button)</span></header></section><section class="empty"><header><span>button_pressed(player, button)</span></header></section><section class="empty"><header><span>button_released(player, button)</span></header></section><p>
+	accept the following strings for buttons:
+	</p><ul>
+	<li>	<code>nort</code>: North/Up
+	</li><li>	<code>sout</code>: South/Down
+	</li><li>	<code>west</code>: West/Left
+	</li><li>	<code>east</code>: East/Right
+	</li><li>	<code>fire</code>: Button used for shooting (default: left mouse button)
+	</li><li>	<code>spec</code>: Button used for active ability (default: right mouse button)
+	</li><li>	<code>swap</code>: Button used to swap weapons (default: space; mouse wheel)
+	</li><li>	<code>prev</code>: Mouse wheel up
+	</li><li>	<code>next</code>: Mouse wheel down
+	</li><li>	<code>pick</code>: Button used to pick up weapons (default: E)
+	</li><li>	<code>paus</code>: Button used to pause the game (default: P; Esc)
+	</li><li>	<code>okay</code>: Button used to confirm actions in menu (default: Enter)
+	</li><li>	<code>exit</code>: Button used to close menus (default: Esc)
+	</li><li>	<code>horn</code>: Button used for airhorn[.wav] (default: B)
+	</li><li>	<code>talk</code>: Not an actual button - returns whether the player has chat open.
+	</li><li>	<code>key1</code> .. <code>key9</code>, <code>key0</code>: Pick N-th mutation<br/>
+		The first 6 keys are also used for emotes in multiplayer.
+	</li></ul><p>
+	So, for example, if you wanted to display a chat message whenever any player
+	presses the airhorn button, you could do
+	</p><pre class="gmlmd">
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">button_pressed</span><span class="op">(</span><span class="uv">index</span><span class="op">,</span> <span class="st">"horn"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">trace</span><span class="op">(</span><span class="st">"P"</span> <span class="op">+</span> <span class="sf">string</span><span class="op">(</span><span class="uv">index</span> <span class="op">+</span> <span class="nu">1</span><span class="op">)</span> <span class="op">+</span> <span class="st">" pressed airhorn!"</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="Aiming"><a href="#Aiming" title="(permalink)">Aiming</a></header><article><p>
+	You have your <code>mouse_x</code> and <code>mouse_y</code> variables,
+	but these now accept a player index like <code>view_</code> variables do.
+	</p><p>
+	So <code>mouse_x[1]</code> is the world-space coordinate for the second player.
+	</p><p>
+	For example, if you wanted to create an explosion at mouse coordinates
+	whenever any player presses the airhorn button, you could do:
+	</p><pre class="gmlmd">
+<span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">button_pressed</span><span class="op">(</span><span class="uv">index</span><span class="op">,</span> <span class="st">"horn"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">instance_create</span><span class="op">(</span><span class="sv">mouse_x</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="sv">mouse_y</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="ri">Explosion</span><span class="op">)</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="Mouse-lock"><a href="#Mouse-lock" title="(permalink)">Mouse lock</a></header><article><a class="sticky-side" href="#Mouse-lock" title="Mouse lock"><span>Mouse lock</span></a><section><header id="mouse_lock"><a href="#mouse_lock" title="(permalink)">mouse_lock()</a></header><article><p>
+		Locks the mouse.
+	</p></article></section><section><header id="mouse_unlock"><a href="#mouse_unlock" title="(permalink)">mouse_unlock()</a></header><article><p>
+		Unlocks the mouse.
+	</p></article></section><section><header id="mouse_is_locked"><a href="#mouse_is_locked" title="(permalink)">mouse_is_locked()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the mouse is effectively locked
+		(e.g. the mouse is never locked on the pause menu)
+	</p></article></section><p>
+	While mouse is locked,
+	<code>mouse_delta_x[player]</code>
+	and <code>mouse_delta_y[player]</code>
+	indicate how much the mouse has moved since the previous frame.
+</p></article></section><section><header id="non-sync"><a href="#non-sync" title="(permalink)">Non-sync</a></header><article><p>
+	The following variables and functions are the same as their non-suffixed counterparts, but aren't subject to synchronization/network latency, thus should only be used for display, else you may cause a desync. See <a href="./NTT-Sync.html">Sync</a> for more information.
+	</p><section class="empty"><header><span>mouse_x_nonsync[player]*</span></header></section><section class="empty"><header><span>mouse_y_nonsync[player]*</span></header></section><section class="empty"><header><span>button_check_nonsync(player, button)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>button_pressed_nonsync(player, button)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>button_released_nonsync(player, button)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><p>
+	For example, you could show the affected area for the above
+	explosion snippet by doing something like the following
+	in a <code>explo.mod.ntgml</code>:
+	</p><pre class="gmlmd">
+<span class="kw">function</span> <span class="uf">step</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">button_pressed</span><span class="op">(</span><span class="uv">index</span><span class="op">,</span> <span class="st">"horn"</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="sf">instance_create</span><span class="op">(</span><span class="sv">mouse_x</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="sv">mouse_y</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="ri">Explosion</span><span class="op">)</span><span class="op">;</span>
+    <span class="cb">}</span>
+<span class="cb">}</span>
+<span class="kw">function</span> <span class="uf">draw</span><span class="op">(</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="sf">draw_set_color</span><span class="op">(</span><span class="sv">c_red</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">with</span> <span class="op">(</span><span class="ri">Player</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="sf">player_is_local_nonsync</span><span class="op">(</span><span class="uv">index</span><span class="op">)</span><span class="op">)</span> <span class="cb">{</span>
+        <span class="sf">draw_circle</span><span class="op">(</span><span class="sv">mouse_x_nonsync</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="sv">mouse_y_nonsync</span><span class="op">[</span><span class="uv">index</span><span class="op">]</span><span class="op">,</span> <span class="nu">16</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
+    <span class="cb">}</span>
+<span class="cb">}</span>
+</pre></article></section></p><!--doc>-->
 			</section>
 		</main>
 	</div>

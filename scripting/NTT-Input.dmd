@@ -1,3 +1,95 @@
 ```set title
 Input handling in NTT
 ```
+NTT supports multiple players, gamepads, and remapping, so input handling is wrapped.
+#[Buttons]() {
+	These three
+	```ntblanks
+	button_check(player, button)
+	button_pressed(player, button)
+	button_released(player, button)
+	```
+	accept the following strings for buttons:
+	--{
+	-	`nort`: North/Up
+	-	`sout`: South/Down
+	-	`west`: West/Left
+	-	`east`: East/Right
+	-	`fire`: Button used for shooting (default: left mouse button)
+	-	`spec`: Button used for active ability (default: right mouse button)
+	-	`swap`: Button used to swap weapons (default: space; mouse wheel)
+	-	`prev`: Mouse wheel up
+	-	`next`: Mouse wheel down
+	-	`pick`: Button used to pick up weapons (default: E)
+	-	`paus`: Button used to pause the game (default: P; Esc)
+	-	`okay`: Button used to confirm actions in menu (default: Enter)
+	-	`exit`: Button used to close menus (default: Esc)
+	-	`horn`: Button used for airhorn\[.wav] (default: B)
+	-	`talk`: Not an actual button - returns whether the player has chat open.
+	-	`key1` .. `key9`, `key0`: Pick N-th mutation\
+		The first 6 keys are also used for emotes in multiplayer.
+	}
+	So, for example, if you wanted to display a chat message whenever any player
+	presses the airhorn button, you could do
+	```
+	with (Player) if (button_pressed(index, "horn")) {
+		trace("P" + string(index + 1) + " pressed airhorn!");
+	}
+	```
+}
+#[Aiming]() {
+	You have your `mouse_x` and `mouse_y` variables,
+	but these now accept a player index like `view_` variables do.
+	
+	So `mouse_x[1]` is the world-space coordinate for the second player.
+	
+	For example, if you wanted to create an explosion at mouse coordinates
+	whenever any player presses the airhorn button, you could do:
+	```
+	with (Player) if (button_pressed(index, "horn")) {
+		instance_create(mouse_x[index], mouse_y[index], Explosion);
+	}
+	```
+}
+#[Mouse lock]() {
+	#[mouse_lock()]() {
+		Locks the mouse.
+	}
+	#[mouse_unlock()]() {
+		Unlocks the mouse.
+	}
+	#[mouse_is_locked()->]() {
+		Returns whether the mouse is effectively locked
+		(e.g. the mouse is never locked on the pause menu)
+	}
+	While mouse is locked,
+	`mouse_delta_x[player]`
+	and `mouse_delta_y[player]`
+	indicate how much the mouse has moved since the previous frame.
+}
+#[Non-sync](non-sync) {
+	$[nonSync](vf)
+	```ntblanks
+	mouse_x_nonsync[player]*
+	mouse_y_nonsync[player]*
+	button_check_nonsync(player, button):
+	button_pressed_nonsync(player, button):
+	button_released_nonsync(player, button):
+	```
+	For example, you could show the affected area for the above
+	explosion snippet by doing something like the following
+	in a `explo.mod.ntgml`:
+	```
+	function step() {
+		with (Player) if (button_pressed(index, "horn")) {
+			instance_create(mouse_x[index], mouse_y[index], Explosion);
+		}
+	}
+	function draw() {
+		draw_set_color(c_red);
+		with (Player) if (player_is_local_nonsync(index)) {
+			draw_circle(mouse_x_nonsync[index], mouse_y_nonsync[index], 16, 1);
+		}
+	}
+	```
+}

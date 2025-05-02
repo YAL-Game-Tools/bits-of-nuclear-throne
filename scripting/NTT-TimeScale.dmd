@@ -61,3 +61,13 @@ inst.x += 5 * current_time_scale;
 ```
 this would move the instance to the right at `30*5`➜150 pixels per second regardless
 of the game's framerate and/or time scaling effects.
+
+#[Non-sync](non-sync) {
+	$[nonSync](fu)
+	
+	#[get_timer_nonsync()->]() {
+		Returns the number of microseconds since the game has started.
+		
+		See $[manual](get_timer).
+	}
+}

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML><html lang="en"><head>
 	<meta charset="UTF-8">
-	<title>Players & input in NTT</title>
+	<title>Players in NTT</title>
 	<meta name="viewport" content="width=device-width" />
 	<meta name="livenode" content="#doc" />
 	<meta property="theme-color" content="#FFF037" />
@@ -29,7 +29,7 @@
 		<main class="page">
 			<section>
 				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
-				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Players &amp; input in NTT</h1>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Players in NTT</h1>
 			</section>
 			<section id="doc">
 <!--<doc--><p><p>
@@ -48,77 +48,104 @@
 </style>
 
 
-</p><section><header id="Player-slots"><a href="#Player-slots" title="(permalink)">Player slots</a></header><article><a class="sticky-side" href="#Player-slots" title="Player slots"><span>Player slots</span></a><p>
-	The following get/set various information on per-slot basis.
-	</p><section><header id="General"><a href="#General" title="(permalink)">General</a></header><article><a class="sticky-side" href="#General" title="General"><span>General</span></a><section><header id="maxp"><a href="#maxp" title="(permalink)">maxp</a></header><article><p>
-			This constant holds the maximum number of player slots in a session.
-			</p><p>
-			At the time of writing it's <code>4</code> and is somewhat unlikely to change,
-			but still you can do
-			</p><pre class="gmlmd">
+The following get/set various information on per-slot basis.
+</p><section><header id="General"><a href="#General" title="(permalink)">General</a></header><article><a class="sticky-side" href="#General" title="General"><span>General</span></a><section><header id="maxp"><a href="#maxp" title="(permalink)">maxp</a></header><article><p>
+		This constant holds the maximum number of player slots in a session.
+		</p><p>
+		At the time of writing it's <code>4</code> and is somewhat unlikely to change,
+		but still you can do
+		</p><pre class="gmlmd">
 <span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">p</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">p</span> <span class="op">&lt;</span> <a class="sv" href="#maxp">maxp</a><span class="op">;</span> <span class="lv">p</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
     <span class="co">// ...</span>
 <span class="cb">}</span>
 </pre></article></section><section><header id="player_is_active"><a href="#player_is_active" title="(permalink)">player_is_active(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns whether the given slot is occupied.
-			</p><p>
-			There can be "gaps" in the slot list if someone leaves mid-game.
-		</p></article></section><section><header id="player_get_uid"><a href="#player_get_uid" title="(permalink)">player_get_uid(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the numeric "unique ID" of a player controlling the slot.
-			</p><p>
-			If two slots have the same UID, they are being controlled from the same computer.
-			</p><p>
-			A player that joined the lobby earlier will have a lower UID
-			than a player that joined (or re-joined) the lobby later,
-			but otherwise no pattern is guaranteed for these,
-			and they can have "gaps".
-		</p></article></section></article></section><section><header id="Characters"><a href="#Characters" title="(permalink)">Characters</a></header><article><a class="sticky-side" href="#Characters" title="Characters"><span>Characters</span></a><section><header id="player_get_race"><a href="#player_get_race" title="(permalink)">player_get_race(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the current character for a player slot.
-			</p><p>
-			These are strings like <code>"fish"</code>, <code>"robot"</code>,
-			or mod names for custom characters.
-		</p></article></section><section><header id="player_get_race_id"><a href="#player_get_race_id" title="(permalink)">player_get_race_id(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the current character index for a player slot.
-			</p><p>
-			These are numbers like 1 (or <code>char_fish</code>) for Fish,
-			5 (or <code>char_robot</code>) for Robot,
-			or <code>char_custom</code> for mods.
-			</p><p>
-			All mods share the race index so you'll want to use <a href="#player_get_race">player_get_race</a>
-			to tell modded characters apart.
-		</p></article></section><section><header id="player_set_race"><a href="#player_set_race" title="(permalink)">player_set_race(slot, race)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Changes the current character for a player slot.
-			</p><p>
-			This accepts both numeric indexes and strings.
-			</p><p>
-			Returns whether the specified character exists and was applied.
-		</p></article></section><p>
-		These are like above, but for what the player has picked on character select screen:
-		</p><section class="empty"><header><span>player_get_race_pick(player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_get_race_pick_id(player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_race_pick(player:int, race)</span></header></section></article></section><section><header id="Skins"><a href="#Skins" title="(permalink)">Skins</a></header><article><a class="sticky-side" href="#Skins" title="Skins"><span>Skins</span></a><section><header id="player_get_skin"><a href="#player_get_skin" title="(permalink)">player_get_skin(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the current skin for a player slot.
-			</p><p>
-			This is numeric for base-game skins and strings for modded skins.
-		</p></article></section><section><header id="player_set_skin"><a href="#player_set_skin" title="(permalink)">player_set_skin(slot, skin)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Changes the current skin for a player slot.
-			</p><p>
-			Returns whether successful.
-		</p></article></section></article></section><section><header id="Visual"><a href="#Visual" title="(permalink)">Visual</a></header><article><a class="sticky-side" href="#Visual" title="Visual"><span>Visual</span></a><section><header id="player_get_color"><a href="#player_get_color" title="(permalink)">player_get_color(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the chosen color for a player slot,
-			as seen in chat, outlines, and player indicators.
-		</p></article></section><section><header id="player_get_alias"><a href="#player_get_alias" title="(permalink)">player_get_alias(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns the username (or locally set name for offline mode)
-			of the player controlling the given slot.
-			</p><p>
-			This is handy for displaying leaderboards or other UI that addresses the players.
-		</p></article></section><section><header id="player_get_outlines"><a href="#player_get_outlines" title="(permalink)">player_get_outlines(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
-			Returns whether the given player has character outlines enabled.
-		</p></article></section></article></section><section><header id="Coopversus"><a href="#Coopversus" title="(permalink)">Coop/versus</a></header><article><p>
-		These allow you to hide/show cursors,
-		markers (the ones placed with digit keys),
-		and certain UI elements of one player from other player(s).
+		Returns whether the given slot is occupied.
 		</p><p>
-		They are primarily handy for versus mods.
-		</p><section class="empty"><header><span>player_get_show_cursor(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_cursor(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_marker(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_marker(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_hud(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_hud(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_prompts(of_player:int, to_player:int)</span></header></section><section class="empty"><header><span>player_set_show_prompts(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_skills(to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_skills(to_player:int, show:bool)</span></header></section></article></section></article></section></p><!--doc>-->
+		There can be "gaps" in the slot list if someone leaves mid-game.
+	</p></article></section><section><header id="player_get_uid"><a href="#player_get_uid" title="(permalink)">player_get_uid(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the numeric "unique ID" of a player controlling the slot.
+		</p><p>
+		If two slots have the same UID, they are being controlled from the same computer.
+		</p><p>
+		A player that joined the lobby earlier will have a lower UID
+		than a player that joined (or re-joined) the lobby later,
+		but otherwise no pattern is guaranteed for these,
+		and they can have "gaps".
+	</p></article></section></article></section><section><header id="Characters"><a href="#Characters" title="(permalink)">Characters</a></header><article><a class="sticky-side" href="#Characters" title="Characters"><span>Characters</span></a><section><header id="player_get_race"><a href="#player_get_race" title="(permalink)">player_get_race(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the current character for a player slot.
+		</p><p>
+		These are strings like <code>"fish"</code>, <code>"robot"</code>,
+		or mod names for custom characters.
+	</p></article></section><section><header id="player_get_race_id"><a href="#player_get_race_id" title="(permalink)">player_get_race_id(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the current character index for a player slot.
+		</p><p>
+		These are numbers like 1 (or <code>char_fish</code>) for Fish,
+		5 (or <code>char_robot</code>) for Robot,
+		or <code>char_custom</code> for mods.
+		</p><p>
+		All mods share the race index so you'll want to use <a href="#player_get_race">player_get_race</a>
+		to tell modded characters apart.
+	</p></article></section><section><header id="player_set_race"><a href="#player_set_race" title="(permalink)">player_set_race(slot, race)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Changes the current character for a player slot.
+		</p><p>
+		This accepts both numeric indexes and strings.
+		</p><p>
+		Returns whether the specified character exists and was applied.
+	</p></article></section><p>
+	These are like above, but for what the player has picked on character select screen:
+	</p><section class="empty"><header><span>player_get_race_pick(player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_get_race_pick_id(player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_race_pick(player:int, race)</span></header></section></article></section><section><header id="Skins"><a href="#Skins" title="(permalink)">Skins</a></header><article><a class="sticky-side" href="#Skins" title="Skins"><span>Skins</span></a><section><header id="player_get_skin"><a href="#player_get_skin" title="(permalink)">player_get_skin(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the current skin for a player slot.
+		</p><p>
+		This is numeric for base-game skins and strings for modded skins.
+	</p></article></section><section><header id="player_set_skin"><a href="#player_set_skin" title="(permalink)">player_set_skin(slot, skin)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Changes the current skin for a player slot.
+		</p><p>
+		Returns whether successful.
+	</p></article></section></article></section><section><header id="Visual"><a href="#Visual" title="(permalink)">Visual</a></header><article><a class="sticky-side" href="#Visual" title="Visual"><span>Visual</span></a><section><header id="player_get_color"><a href="#player_get_color" title="(permalink)">player_get_color(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the chosen color for a player slot,
+		as seen in chat, outlines, and player indicators.
+	</p></article></section><section><header id="player_get_alias"><a href="#player_get_alias" title="(permalink)">player_get_alias(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the username (or locally set name for offline mode)
+		of the player controlling the given slot.
+		</p><p>
+		This is handy for displaying leaderboards or other UI that addresses the players.
+	</p></article></section><section><header id="player_get_outlines"><a href="#player_get_outlines" title="(permalink)">player_get_outlines(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the given player has character outlines enabled.
+	</p></article></section></article></section><section><header id="Coopversus"><a href="#Coopversus" title="(permalink)">Coop/versus</a></header><article><p>
+	These allow you to hide/show cursors,
+	markers (the ones placed with digit keys),
+	and certain UI elements of one player from other player(s).
+	</p><p>
+	They are primarily handy for versus mods.
+	</p><section class="empty"><header><span>player_get_show_cursor(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_cursor(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_marker(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_marker(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_hud(of_player:int, to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_hud(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_prompts(of_player:int, to_player:int)</span></header></section><section class="empty"><header><span>player_set_show_prompts(of_player:int, to_player:int, show:bool)</span></header></section><section class="empty"><header><span>player_get_show_skills(to_player:int)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>player_set_show_skills(to_player:int, show:bool)</span></header></section></article></section><section><header id="non-sync"><a href="#non-sync" title="(permalink)">Non-sync</a></header><article><a class="sticky-side" href="#non-sync" title="Non-sync"><span>Non-sync</span></a><p>
+	The following functions aren't subject to synchronization/network latency, thus should only be used for display, else you may cause a desync. See <a href="./NTT-Sync.html">Sync</a> for more information.
+	</p><section><header id="dp_player_is_viewed_nonsync"><a href="#dp_player_is_viewed_nonsync" title="(permalink)">dp_player_is_viewed_nonsync(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the given slot is being observed by the local computer.
+		</p><p>
+		This is true if the player is local
+		or if we're spectating the player (either in real-time or on a replay).
+	</p></article></section><section><header id="player_is_local_nonsync"><a href="#player_is_local_nonsync" title="(permalink)">player_is_local_nonsync(player:int)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the given slot is being controlled by the local computer.
+		</p><p>
+		Note that spectators have no local slots.
+	</p></article></section><section><header id="player_find_local_nonsync"><a href="#player_find_local_nonsync" title="(permalink)">player_find_local_nonsync(local_index = 0)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns n-th (0-based) local slot index,
+		or -1 if there are no more local players.
+		</p><p>
+		So, if you were occupying P2 and P4, the following
+		</p><pre class="gmlmd">
+<span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;</span> <a class="sv" href="#maxp">maxp</a><span class="op">;</span> <span class="lv">i</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
+    <span class="kw">var</span> <span class="lv">p</span> <span class="op">=</span> <a class="sf" href="#player_find_local_nonsync">player_find_local_nonsync</a><span class="op">(</span><span class="lv">i</span><span class="op">)</span><span class="op">;</span>
+    <span class="sf">trace</span><span class="op">(</span><span class="lv">i</span><span class="op">,</span> <span class="lv">p</span><span class="op">)</span><span class="op">;</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="lv">p</span> <span class="op">&lt;</span> <span class="nu">0</span><span class="op">)</span> <span class="kw">break</span><span class="op">;</span>
+<span class="cb">}</span>
+</pre><p>
+		would display
+		</p><pre>
+0 1 &lt;- P2
+1 3 &lt;- P4
+2 -1 &lt;- end
+</pre></article></section></article></section></p><!--doc>-->
 			</section>
 		</main>
 	</div>

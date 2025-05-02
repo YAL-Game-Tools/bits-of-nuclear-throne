@@ -7,7 +7,7 @@ function open(name) {
 	return '<details open><summary>' + StringTools.htmlEscape(name) + '</summary>';
 }
 function page(name) {
-	var pos = name.indexOf("@");
+	var pos = name.indexOf(":");
 	var href;
 	if (pos >= 0) {
 		href = StringTools.ltrim(name.substring(pos + 1));
@@ -25,20 +25,22 @@ function close() {
 }
 "</p>";
 ```
-$[page](Introduction @ Intro)
-$[page](NTGML Syntax @ Syntax)
+$[page](Introduction : Intro)
+$[page](NTGML Syntax : Syntax)
 $[open](General functions)
-	$[page](Output @ API-Debug)
-	$[page](Numbers & strings @ API-Basics)
-	$[page](Arrays @ API-Arrays)
-	$[page](Structs @ API-Structs)
-	$[page](Data structures @ API-DS)
-	$[page](Instances @ API-Instances)
-	$[page](Collisions @ API-Collisions)
-	$[page](Movement @ API-Movement)
+	$[page](Output : API-Debug)
+	$[page](Numbers & strings : API-Basics)
+	$[page](Arrays : API-Arrays)
+	$[page](Structs : API-Structs)
+	$[page](Data structures : API-DS)
+	$[page](Instances : API-Instances)
+	$[page](Collisions : API-Collisions)
+	$[page](Movement : API-Movement)
 $[close]
 $[open](NTT-specific)
-	$[page](Players @ NTT-Players)
-	$[page](Time & scaling @ NTT-TimeScale)
+	$[page](Players : NTT-Players)
+	$[page](Time & scaling : NTT-TimeScale)
+	$[page](Input : NTT-Input)
+	$[page](Synchronization : NTT-Sync)
 $[close]
 $[page](Performance)

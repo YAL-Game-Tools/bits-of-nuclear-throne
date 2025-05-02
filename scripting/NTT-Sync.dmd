@@ -1,0 +1,45 @@
+```set title
+Synchronization in NTT
+```
+NTT's networking uses
+[deterministic lockstep](https://yal.cc/preparing-your-game-for-deterministic-netcode/#Lockstep)
+model.
+This has a few implications: ##{
+-	Adding more instances does not increase bandwidth.\
+	This is sort of important given what Nuclear Throne is.
+-	There's input latency dependent on ping between players.
+-	Mods don't have to explicitly sync anything to work online.
+-	However, mods should avoid certain non-deterministic logic.
+}
+This page covers some things to be aware of.
+#[Non-sync functions and variables](non-sync) {
+	These specifically return local state without network latency
+	and can be used to locally display information/action previews.
+	
+	Some examples: --{
+	-	[Input](./NTT-Input.html#non-sync)
+	}
+	
+	You don't _have to_ use these in majority of cases.
+}
+#[Instance IDs](id) {
+	Instance IDs will not match between players,
+	but you can still use these to tell that instance A
+	has been created before instance B (because it has a lower ID).
+}
+#[Other IDs](ds-id) {
+	GameMaker re-uses IDs for data structures, surfaces, and so on.
+	
+	You should not rely on these being the same _or_
+	appearing in any particular order relative to each other -
+	only that if ID A is not the same as ID B, they're different things.
+}
+#[Pointers](ptr) {
+	Same as above, but you are incredibly unlikely
+	to see an address line up on two computers.
+}
+#[Sorting](sort) {
+	Sorting same-weight values is deterministic in GM so long as they appear in the same order,
+	though still you should strive to have a secondary criteria if you re-sort an array/grid often
+	to avoid any other potential oddities.
+}

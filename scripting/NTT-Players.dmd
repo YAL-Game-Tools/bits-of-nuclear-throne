@@ -1,111 +1,142 @@
 ```set title
-Players & input in NTT
+Players in NTT
 ```
-#[Player slots]() {
-	The following get/set various information on per-slot basis.
-	#[General]() {
-		#[maxp]() {
-			This constant holds the maximum number of player slots in a session.
-			
-			At the time of writing it's `4` and is somewhat unlikely to change,
-			but still you can do
-			```
-			for (var p = 0; p < maxp; p++) {
-				// ...
-			}
-			```
+The following get/set various information on per-slot basis.
+#[General]() {
+	#[maxp]() {
+		This constant holds the maximum number of player slots in a session.
+		
+		At the time of writing it's `4` and is somewhat unlikely to change,
+		but still you can do
+		```
+		for (var p = 0; p < maxp; p++) {
+			// ...
 		}
-		#[player_is_active(slot)->]() {
-			Returns whether the given slot is occupied.
-			
-			There can be "gaps" in the slot list if someone leaves mid-game.
-		}
-		#[player_get_uid(slot)->]() {
-			Returns the numeric "unique ID" of a player controlling the slot.
-			
-			If two slots have the same UID, they are being controlled from the same computer.
-			
-			A player that joined the lobby earlier will have a lower UID
-			than a player that joined (or re-joined) the lobby later,
-			but otherwise no pattern is guaranteed for these,
-			and they can have "gaps".
-		}
-	}
-	#[Characters]() {
-		#[player_get_race(slot)->]() {
-			Returns the current character for a player slot.
-			
-			These are strings like `"fish"`, `"robot"`,
-			or mod names for custom characters.
-		}
-		#[player_get_race_id(slot)->]() {
-			Returns the current character index for a player slot.
-			
-			These are numbers like 1 (or `char_fish`) for Fish,
-			5 (or `char_robot`) for Robot,
-			or `char_custom` for mods.
-			
-			All mods share the race index so you'll want to use [player_get_race]
-			to tell modded characters apart.
-		}
-		#[player_set_race(slot, race)->]() {
-			Changes the current character for a player slot.
-			
-			This accepts both numeric indexes and strings.
-			
-			Returns whether the specified character exists and was applied.
-		}
-		These are like above, but for what the player has picked on character select screen:
-		```blanks
-		player_get_race_pick(player:int):
-		player_get_race_pick_id(player:int):
-		player_set_race_pick(player:int, race)
 		```
 	}
-	#[Skins]() {
-		#[player_get_skin(slot)->]() {
-			Returns the current skin for a player slot.
-			
-			This is numeric for base-game skins and strings for modded skins.
-		}
-		#[player_set_skin(slot, skin)->]() {
-			Changes the current skin for a player slot.
-			
-			Returns whether successful.
-		}
-	}
-	#[Visual]() {
-		#[player_get_color(slot)->]() {
-			Returns the chosen color for a player slot,
-			as seen in chat, outlines, and player indicators.
-		}
-		#[player_get_alias(slot)->]() {
-			Returns the username (or locally set name for offline mode)
-			of the player controlling the given slot.
-			
-			This is handy for displaying leaderboards or other UI that addresses the players.
-		}
-		#[player_get_outlines(slot)->]() {
-			Returns whether the given player has character outlines enabled.
-		}
-	}
-	#[Coop/versus]() {
-		These allow you to hide/show cursors,
-		markers (the ones placed with digit keys),
-		and certain UI elements of one player from other player(s).
+	#[player_is_active(slot)->]() {
+		Returns whether the given slot is occupied.
 		
-		They are primarily handy for versus mods.
-		```blanks
-		player_get_show_cursor(of_player:int, to_player:int):
-		player_set_show_cursor(of_player:int, to_player:int, show:bool)
-		player_get_show_marker(of_player:int, to_player:int):
-		player_set_show_marker(of_player:int, to_player:int, show:bool)
-		player_get_show_hud(of_player:int, to_player:int):
-		player_set_show_hud(of_player:int, to_player:int, show:bool)
-		player_get_show_prompts(of_player:int, to_player:int)
-		player_set_show_prompts(of_player:int, to_player:int, show:bool)
-		player_get_show_skills(to_player:int):
-		player_set_show_skills(to_player:int, show:bool)
+		There can be "gaps" in the slot list if someone leaves mid-game.
+	}
+	#[player_get_uid(slot)->]() {
+		Returns the numeric "unique ID" of a player controlling the slot.
+		
+		If two slots have the same UID, they are being controlled from the same computer.
+		
+		A player that joined the lobby earlier will have a lower UID
+		than a player that joined (or re-joined) the lobby later,
+		but otherwise no pattern is guaranteed for these,
+		and they can have "gaps".
+	}
+}
+#[Characters]() {
+	#[player_get_race(slot)->]() {
+		Returns the current character for a player slot.
+		
+		These are strings like `"fish"`, `"robot"`,
+		or mod names for custom characters.
+	}
+	#[player_get_race_id(slot)->]() {
+		Returns the current character index for a player slot.
+		
+		These are numbers like 1 (or `char_fish`) for Fish,
+		5 (or `char_robot`) for Robot,
+		or `char_custom` for mods.
+		
+		All mods share the race index so you'll want to use [player_get_race]
+		to tell modded characters apart.
+	}
+	#[player_set_race(slot, race)->]() {
+		Changes the current character for a player slot.
+		
+		This accepts both numeric indexes and strings.
+		
+		Returns whether the specified character exists and was applied.
+	}
+	These are like above, but for what the player has picked on character select screen:
+	```blanks
+	player_get_race_pick(player:int):
+	player_get_race_pick_id(player:int):
+	player_set_race_pick(player:int, race)
+	```
+}
+#[Skins]() {
+	#[player_get_skin(slot)->]() {
+		Returns the current skin for a player slot.
+		
+		This is numeric for base-game skins and strings for modded skins.
+	}
+	#[player_set_skin(slot, skin)->]() {
+		Changes the current skin for a player slot.
+		
+		Returns whether successful.
+	}
+}
+#[Visual]() {
+	#[player_get_color(slot)->]() {
+		Returns the chosen color for a player slot,
+		as seen in chat, outlines, and player indicators.
+	}
+	#[player_get_alias(slot)->]() {
+		Returns the username (or locally set name for offline mode)
+		of the player controlling the given slot.
+		
+		This is handy for displaying leaderboards or other UI that addresses the players.
+	}
+	#[player_get_outlines(slot)->]() {
+		Returns whether the given player has character outlines enabled.
+	}
+}
+#[Coop/versus]() {
+	These allow you to hide/show cursors,
+	markers (the ones placed with digit keys),
+	and certain UI elements of one player from other player(s).
+	
+	They are primarily handy for versus mods.
+	```blanks
+	player_get_show_cursor(of_player:int, to_player:int):
+	player_set_show_cursor(of_player:int, to_player:int, show:bool)
+	player_get_show_marker(of_player:int, to_player:int):
+	player_set_show_marker(of_player:int, to_player:int, show:bool)
+	player_get_show_hud(of_player:int, to_player:int):
+	player_set_show_hud(of_player:int, to_player:int, show:bool)
+	player_get_show_prompts(of_player:int, to_player:int)
+	player_set_show_prompts(of_player:int, to_player:int, show:bool)
+	player_get_show_skills(to_player:int):
+	player_set_show_skills(to_player:int, show:bool)
+	```
+}
+#[Non-sync](non-sync) {
+	$[nonSync](fu)
+	#[dp_player_is_viewed_nonsync(slot)->]() {
+		Returns whether the given slot is being observed by the local computer.
+		
+		This is true if the player is local
+		or if we're spectating the player (either in real-time or on a replay).
+	}
+	#[player_is_local_nonsync(player:int)->]() {
+		Returns whether the given slot is being controlled by the local computer.
+		
+		Note that spectators have no local slots.
+	}
+	#[player_find_local_nonsync(local_index = 0)->]() {
+		Returns n-th (0-based) local slot index,
+		or -1 if there are no more local players.
+		
+		So, if you were occupying P2 and P4, the following
+		```
+		for (var i = 0; i < maxp; i++) {
+			var p = player_find_local_nonsync(i);
+			trace(i, p);
+			if (p < 0) break;
+		}
+		```
+		would display
+		```text
+		0 1 <- P2
+		1 3 <- P4
+		2 -1 <- end
 		```
 	}
 }

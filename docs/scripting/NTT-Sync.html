@@ -1,0 +1,92 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Synchronization in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Synchronization in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+NTT's networking uses
+<a href="https://yal.cc/preparing-your-game-for-deterministic-netcode/#Lockstep">deterministic lockstep</a>
+model.
+This has a few implications: </p><ol>
+<li>	Adding more instances does not increase bandwidth.<br/>
+	This is sort of important given what Nuclear Throne is.
+</li><li>	There's input latency dependent on ping between players.
+</li><li>	Mods don't have to explicitly sync anything to work online.
+</li><li>	However, mods should avoid certain non-deterministic logic.
+</li></ol><p>
+This page covers some things to be aware of.
+</p><section><header id="non-sync"><a href="#non-sync" title="(permalink)">Non-sync functions and variables</a></header><article><p>
+	These specifically return local state without network latency
+	and can be used to locally display information/action previews.
+	</p><p>
+	Some examples: </p><ul>
+	<li>	<a href="./NTT-Input.html#non-sync">Input</a>
+	</li></ul><p>
+	You don't <i>have to</i> use these in majority of cases.
+</p></article></section><section><header id="id"><a href="#id" title="(permalink)">Instance IDs</a></header><article><p>
+	Instance IDs will not match between players,
+	but you can still use these to tell that instance A
+	has been created before instance B (because it has a lower ID).
+</p></article></section><section><header id="ds-id"><a href="#ds-id" title="(permalink)">Other IDs</a></header><article><p>
+	GameMaker re-uses IDs for data structures, surfaces, and so on.
+	</p><p>
+	You should not rely on these being the same <i>or</i>
+	appearing in any particular order relative to each other -
+	only that if ID A is not the same as ID B, they're different things.
+</p></article></section><section><header id="ptr"><a href="#ptr" title="(permalink)">Pointers</a></header><article><p>
+	Same as above, but you are incredibly unlikely
+	to see an address line up on two computers.
+</p></article></section><section><header id="sort"><a href="#sort" title="(permalink)">Sorting</a></header><article><p>
+	Sorting same-weight values is deterministic in GM so long as they appear in the same order,
+	though still you should strive to have a secondary criteria if you re-sort an array/grid often
+	to avoid any other potential oddities.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

@@ -61,7 +61,7 @@ The following variables and functions concern time and time scale:
 </p><section><header id="current_time"><a href="#current_time" title="(permalink)">current_time: number</a></header><article><p>
 	This measures time in milliseconds since session start and obeys time scaling.
 	</p><p>
-	<strong>GM help:</strong> <a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=current_time&ux=search">current_time</a> (sans time scale)
+	<strong>GM help:</strong> <a target="blank" rel="noreferrer noopener" href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=current_time&ux=search">current_time</a> (sans time scale)
 </p></article></section><section><header id="current_frame"><a href="#current_frame" title="(permalink)">current_frame: number</a></header><article><p>
 	This measures frames since session start and obeys time scaling.
 	</p><p>
@@ -102,7 +102,13 @@ or implementing timers yourself, like so:
 </pre><p>
 this would move the instance to the right at <code>30*5</code>➜150 pixels per second regardless
 of the game's framerate and/or time scaling effects.
-</p></p><!--doc>-->
+</p><section><header id="non-sync"><a href="#non-sync" title="(permalink)">Non-sync</a></header><article><a class="sticky-side" href="#non-sync" title="Non-sync"><span>Non-sync</span></a><p>
+	The following functions aren't subject to synchronization/network latency, thus should only be used for display, else you may cause a desync. See <a href="./NTT-Sync.html">Sync</a> for more information.
+	</p><section><header id="get_timer_nonsync"><a href="#get_timer_nonsync" title="(permalink)">get_timer_nonsync()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the number of microseconds since the game has started.
+		</p><p>
+		See <a target="blank" rel="noreferrer noopener" href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=get_timer&ux=search">get_timer</a>.
+	</p></article></section></article></section></p><!--doc>-->
 			</section>
 		</main>
 	</div>
