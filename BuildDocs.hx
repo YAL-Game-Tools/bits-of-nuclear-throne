@@ -1,3 +1,4 @@
+import sys.io.File;
 import haxe.Rest;
 import haxe.io.Path;
 import sys.FileSystem;
@@ -54,6 +55,45 @@ class BuildDocs {
 		var serverAt = null;
 		var watch = false;
 		var dir = null;
+		if (args.contains("--check-coverage")) {
+			var documents = [];
+			for (rel in FileSystem.readDirectory("scripting")) {
+				if (Path.extension(rel).toLowerCase() != "dmd") continue;
+				documents.push({ name: rel, text: File.getContent('scripting/$rel') });
+			}
+			//
+			var api = File.getContent("GMEdit/api.gml").replace("\r", "");
+			var rxIdent = new EReg("^\\s*"
+				+ "(?:\\{.+?\\})*"
+				+ ":*"
+				+ "\\s*"
+				+ "(\\w+)",
+			"");
+			//
+			var missing = [];
+			var total = 0;
+			for (line in api.split("\n")) {
+				if (!rxIdent.match(line)) continue;
+				total += 1;
+				var name = rxIdent.matched(1);
+				var rx = new EReg("\\b" + name + "\\b", "");
+				var found = false;
+				for (doc in documents) {
+					if (rx.match(doc.text)) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) missing.push(line);
+			}
+			//
+			if (missing.length > 0) {
+				var percent = Math.floor(missing.length / total * 1000) / 10;
+				Sys.println('${missing.length} / $total entries are not in the docs ($percent%):');
+				for (i => name in missing) Sys.println(name);
+			}
+			return;
+		}
 		while (i < args.length) {
 			var del = switch (args[i]) {
 				case "--server": serverAt = args[i + 1]; 2;
