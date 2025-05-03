@@ -1,0 +1,124 @@
+```set title
+Buffer functions in NTT
+```
+```gmblanks
+buffer_create(size, kind, alignment)
+buffer_fixed#
+buffer_grow#
+buffer_wrap#
+buffer_fast#
+buffer_vbuffer#
+
+buffer_base64_decode(string)
+buffer_delete(buf)
+```
+#[buffer_destroy(buf)]() {
+	Why _is_ the default one called `_delete`?
+}
+#[buffer_valid(buf)]() {
+	Same as with `_valid` functions for data structures.
+}
+#[buffer_exists(buf)]() {
+	Alias for above, smarter than the default `buffer_exists`.
+}
+Built-in functions:
+```gmblanks
+buffer_write(buffer, data_type, value)
+buffer_read(buffer, data_type):
+
+buffer_tell(buffer):
+buffer_seek(buffer, base, offset)
+buffer_seek_start#
+buffer_seek_relative#
+buffer_seek_end#
+
+buffer_set_used_size(buffer,size)
+buffer_get_type(buffer):
+buffer_get_alignment(buffer):
+buffer_poke(buffer, offset, data_type, value)
+buffer_peek(buffer, offset, data_type):
+buffer_copy(src_buffer, src_offset, size, dest_buffer, dest_offset)
+buffer_fill(buffer, offset, data_type, value, size)
+buffer_get_size(buffer):
+buffer_resize(buffer, newsize)
+buffer_md5(buffer, offset, size):
+buffer_sha1(buffer, offset, size):
+buffer_crc32(buffer, offset, size):
+buffer_base64_encode(buffer, offset, size):
+buffer_base64_decode_ext(buffer, string, offset)
+buffer_get_address(buffer):
+buffer_compress(bufferid,offset,size):
+buffer_decompress(bufferId):
+buffer_load(path):
+buffer_load_ext(buffer, path, offset:int)
+buffer_save(buffer, path)
+buffer_save_ext(buffer, path, offset, size)
+buffer_get_surface(dst_buffer, src_surface, offset)
+buffer_set_surface(src_buffer, dst_surface, offset)
+buffer_sizeof(data_type):#
+```
+#[Data type constants](buffer_type) {
+	```gmblanks
+	buffer_u8#
+	buffer_s8#
+	buffer_u16#
+	buffer_s16#
+	buffer_u32#
+	buffer_s32#
+	buffer_u64#
+	buffer_f16#
+	buffer_f32#
+	buffer_f64#
+	buffer_bool#
+	buffer_text#
+	buffer_string#
+	```
+}
+#[Per-type functions]() {
+	These offer a minor performance benefit in NTT.
+	```ntblanks
+	buffer_read_u8(buf):
+	buffer_read_s8(buf):
+	buffer_read_u16(buf):
+	buffer_read_s16(buf):
+	buffer_read_u32(buf):
+	buffer_read_s32(buf):
+	buffer_read_u64(buf):
+	buffer_read_bool(buf):
+	buffer_read_string(buf):
+	buffer_read_text(buf):
+	
+	buffer_write_u8(buf, value):
+	buffer_write_s8(buf, value):
+	buffer_write_u16(buf, value):
+	buffer_write_s16(buf, value):
+	buffer_write_u32(buf, value):
+	buffer_write_s32(buf, value):
+	buffer_write_u64(buf, value):
+	buffer_write_bool(buf, value):
+	buffer_write_string(buf, value):
+	buffer_write_text(buf, value):
+	
+	buffer_peek_u8(buf, pos):
+	buffer_peek_s8(buf, pos):
+	buffer_peek_u16(buf, pos):
+	buffer_peek_s16(buf, pos):
+	buffer_peek_u32(buf, pos):
+	buffer_peek_s32(buf, pos):
+	buffer_peek_u64(buf, pos):
+	buffer_peek_bool(buf, pos):
+	buffer_peek_string(buf, pos):
+	buffer_peek_text(buf, pos):
+	
+	buffer_poke_u8(buf, pos, value):
+	buffer_poke_s8(buf, pos, value):
+	buffer_poke_u16(buf, pos, value):
+	buffer_poke_s16(buf, pos, value):
+	buffer_poke_u32(buf, pos, value):
+	buffer_poke_s32(buf, pos, value):
+	buffer_poke_u64(buf, pos, value):
+	buffer_poke_bool(buf, pos, value):
+	buffer_poke_string(buf, pos, value):
+	buffer_poke_text(buf, pos, value):
+	```
+}

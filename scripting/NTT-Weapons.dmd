@@ -1,0 +1,113 @@
+```set title
+Weapons in NTT
+```
+These functions allow you to get/set various weapon properties.
+
+Built-in weapons are referenced by their [numeric indexes or constants](./NTT-Weapon-Table.html).
+
+Modded weapons are referenced by their name (like `cool_gun` for `mods/cool_gun.weapon.gml`).
+
+Setter functions only work for built-in weapons.
+
+Visual:
+#[weapon_get_name(wep)->]() {
+	Returns display name of a weapon.
+}
+#[weapon_set_name(wep, str)]() {
+	Changes display name of a weapon.
+}
+#[weapon_get_text(wep)->]() {
+	Returns a weapon's loading screen tooltip.
+}
+#[weapon_set_text(wep, text)]() {
+	Changes a weapon's loading screen tooltip.
+}
+#[weapon_get_sprite(wep)->]() {
+	Returns the sprite for the given weapon.
+	
+	`weapon_get_sprt` is an alias for this function.
+}
+#[weapon_get_sprite_hud(wep)->]() {
+	Returns the HUD sprite of a weapon.
+	
+	`weapon_get_sprt_hud` is an alias for this function.
+	
+	There is no setter function for this one because only modded weapons
+	can have a separate HUD sprite.
+}
+#[weapon_get_swap(wep)->]() {
+	Returns the sound that plays when a weapon is swapped to.
+}
+#[weapon_set_swap(wep, sound)]() {
+	Changes the sound that plays when a weapon is swapped to.
+}
+Mixed:
+#[weapon_is_melee(wep)->]() {
+	Returns whether a weapon is a melee weapon.
+	
+	Melee weapons are held to a side and flip on swing.
+}
+#[weapon_get_gold(wep)->]() {
+	Returns whether a weapon is a gold weapon.
+}
+#[weapon_get_laser_sight(wep)->]() {
+	Returns whether a weapon should display a laser sight.
+	
+	By default, only bolt weapons (except for Disc Gun) do.
+}
+Functional:
+#[weapon_get_area(wep)->]() {
+	Returns the difficulty tier that determines when the weapon should start dropping.
+	
+	Tier of `-1` means that a weapon doesn't drop "naturally".
+}
+#[weapon_set_area(wep)]() {
+	Changes the difficulty tier of a weapon.
+	
+	If you are making a mod that replaces built-in weapon(s),
+	setting their tier to `-1` is a good way to prevent the original weapons from dropping.
+}
+#[weapon_get_auto(wep)->]() {
+	Returns whether a weapon is automatic.
+}
+#[weapon_set_auto(wep, auto)]() {
+	Changes whether a weapon is automatic.
+}
+#[weapon_get_load(wep)->]() {
+	Returns reload time of the given weapon (in frames at 30fps).
+}
+#[weapon_set_load(wep, time)->]() {
+	Changes reload time of a weapon (in frames at 30fps).
+	
+	If reload time is less than 1 frame at the current framerate,
+	multiple projectiles may be shot per frame.
+}
+#[weapon_get_type(wep)->]() {
+	Returns the ammo type of a weapon.
+	Types are as following:
+	
+	```table
+	Index | Type
+	0 | Melee / no ammo
+	1 | Bullet
+	2 | Shotgun
+	3 | Bolt
+	4 | Explosive
+	5 | Laser
+	```
+}
+#[weapon_set_type(wep, type)->]() {
+	Changes ammo type of a weapon.
+}
+#[weapon_get_cost(wep)->]() {
+	Returns the weapon's ammo cost per shot.
+}
+#[weapon_set_cost(wep, cost)]() {
+	Changes a weapon's ammo cost per shot.
+}
+#[weapon_get_rads(wep)->]() {
+	Returns the weapon's rad cost per shot.
+}
+#[weapon_set_rads(wep)->]() {
+	Changes a weapon's rad cost per shot.
+}

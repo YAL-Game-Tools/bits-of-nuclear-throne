@@ -1,0 +1,65 @@
+```set title
+Vertex buffer functions in NTT
+```
+All the usual stuff (with addition of `_valid`).
+```gmblanks
+vertex_create_buffer():
+vertex_create_buffer_ext(size:int):
+vertex_delete_buffer(vbuf)
+vertex_valid(vbuf):
+vertex_begin(vbuf, vfmt)
+vertex_end(vbuff)
+vertex_position(vbuff,x,y)
+vertex_position_3d(vbuff,x,y,z)
+vertex_colour(vbuff,colour,alpha)£
+vertex_color(vbuff,color,alpha)$
+vertex_argb(vbuff,argb)
+vertex_texcoord(vbuff,u,v)
+vertex_normal(vbuff,nx,ny,nz)
+vertex_float1(vbuff,f1)
+vertex_float2(vbuff,f1,f2)
+vertex_float3(vbuff,f1,f2,f3)
+vertex_float4(vbuff,f1,f2,f3,f4)
+vertex_ubyte4(vbuff,b1,b2,b3,b4)
+vertex_submit(vbuff,prim,texture)
+vertex_freeze(vbuff)
+vertex_get_number(vbuff)
+vertex_get_buffer_size(vbuff)
+vertex_create_buffer_from_buffer(buf, format):
+vertex_create_buffer_from_buffer_ext(buf, format, src_offset:int, num_vertices:int):
+buffer_create_from_vertex_buffer(vertex_buffer, kind, alignment:int):
+buffer_create_from_vertex_buffer_ext(vertex_buffer, kind, alignment:int, start_vertex:int, num_vertices:int):
+buffer_copy_from_vertex_buffer(vertex_buffer, kind, alignment:int, start_vertex:int, num_vertices:int, dest_buffer, dest_offset:int)
+vertex_format_begin()
+vertex_format_end():
+vertex_format_delete(vfmt)
+vertex_format_valid(vfmt):
+vertex_format_add_position()
+vertex_format_add_position_3d()
+vertex_format_add_colour()£
+vertex_format_add_color()$
+vertex_format_add_normal()
+vertex_format_add_texcoord()
+vertex_format_add_custom(type,usage)
+vertex_usage_position = 1
+vertex_usage_colour = 2
+vertex_usage_color = 2
+vertex_usage_normal = 3
+vertex_usage_texcoord = 4
+vertex_usage_textcoord = 4
+vertex_usage_blendweight = 5
+vertex_usage_blendindices = 6
+vertex_usage_psize = 7
+vertex_usage_tangent = 8
+vertex_usage_binormal = 9
+vertex_usage_fog = 12
+vertex_usage_depth = 13
+vertex_usage_sample = 14
+vertex_type_float1 = 1
+vertex_type_float2 = 2
+vertex_type_float3 = 3
+vertex_type_float4 = 4
+vertex_type_colour = 5
+vertex_type_color = 5
+vertex_type_ubyte4 = 6
+```

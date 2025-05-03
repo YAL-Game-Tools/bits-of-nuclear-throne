@@ -1,0 +1,113 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>NTGML API: Strings, numbers, arrays</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>NTGML API: Strings, numbers, arrays</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+The following are <a href="https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm">built-in</a>:
+</p><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=chr&ux=search" target="_blank" title="(opens a new tab)">chr(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=ansi_char&ux=search" target="_blank" title="(opens a new tab)">ansi_char(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=ord&ux=search" target="_blank" title="(opens a new tab)">ord(char)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_format&ux=search" target="_blank" title="(opens a new tab)">string_format(number, total, decimal)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_length&ux=search" target="_blank" title="(opens a new tab)">string_length(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_byte_length&ux=search" target="_blank" title="(opens a new tab)">string_byte_length(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_pos&ux=search" target="_blank" title="(opens a new tab)">string_pos(substr,str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_pos_ext&ux=search" target="_blank" title="(opens a new tab)">string_pos_ext(substr,str,startpos)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_last_pos&ux=search" target="_blank" title="(opens a new tab)">string_last_pos(substr,str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_last_pos_ext&ux=search" target="_blank" title="(opens a new tab)">string_last_pos_ext(substr,str,startpos)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_copy&ux=search" target="_blank" title="(opens a new tab)">string_copy(str,index,count)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_char_at&ux=search" target="_blank" title="(opens a new tab)">string_char_at(str,index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_ord_at&ux=search" target="_blank" title="(opens a new tab)">string_ord_at(str,index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_byte_at&ux=search" target="_blank" title="(opens a new tab)">string_byte_at(str,index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_set_byte_at&ux=search" target="_blank" title="(opens a new tab)">string_set_byte_at(str,index,val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_delete&ux=search" target="_blank" title="(opens a new tab)">string_delete(str,index,count)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_insert&ux=search" target="_blank" title="(opens a new tab)">string_insert(substr,str,index)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_lower&ux=search" target="_blank" title="(opens a new tab)">string_lower(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_upper&ux=search" target="_blank" title="(opens a new tab)">string_upper(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_repeat&ux=search" target="_blank" title="(opens a new tab)">string_repeat(str,count)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_letters&ux=search" target="_blank" title="(opens a new tab)">string_letters(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_digits&ux=search" target="_blank" title="(opens a new tab)">string_digits(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_lettersdigits&ux=search" target="_blank" title="(opens a new tab)">string_lettersdigits(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_replace&ux=search" target="_blank" title="(opens a new tab)">string_replace(str,substr,newstr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_replace_all&ux=search" target="_blank" title="(opens a new tab)">string_replace_all(str,substr,newstr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_count&ux=search" target="_blank" title="(opens a new tab)">string_count(substr,str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_hash_to_newline&ux=search" target="_blank" title="(opens a new tab)">string_hash_to_newline(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_ext&ux=search" target="_blank" title="(opens a new tab)">string_ext(format,arg_array)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_trim_start&ux=search" target="_blank" title="(opens a new tab)">string_trim_start(str, [substrs])&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_trim_end&ux=search" target="_blank" title="(opens a new tab)">string_trim_end(str, [substrs])&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_trim&ux=search" target="_blank" title="(opens a new tab)">string_trim(str, [substrs])&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_starts_with&ux=search" target="_blank" title="(opens a new tab)">string_starts_with(str,substr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_ends_with&ux=search" target="_blank" title="(opens a new tab)">string_ends_with(str,substr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_split&ux=search" target="_blank" title="(opens a new tab)">string_split(str,delim,[remove_empty],[max_splits])</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_split_ext&ux=search" target="_blank" title="(opens a new tab)">string_split_ext(str,delim_array,[remove_empty],[max_splits])</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_join&ux=search" target="_blank" title="(opens a new tab)">string_join(delim,arg0,arg1,...)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_join_ext&ux=search" target="_blank" title="(opens a new tab)">string_join_ext(delim,val_array)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_concat&ux=search" target="_blank" title="(opens a new tab)">string_concat(arg0,arg1,arg2,...)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_concat_ext&ux=search" target="_blank" title="(opens a new tab)">string_concat_ext(val_array)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string_foreach&ux=search" target="_blank" title="(opens a new tab)">string_foreach(str,func,[pos],[length])</a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=base64_encode&ux=search" target="_blank" title="(opens a new tab)">base64_encode(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=base64_decode&ux=search" target="_blank" title="(opens a new tab)">base64_decode(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><p>
+The following are NTT-specific additions:
+</p><section><header id="string_lpad"><a href="#string_lpad" title="(permalink)">string_lpad(str, padstr, length)</a></header><article><p>
+	Prepends <code>padstr</code> to <code>str</code> until it reaches specified length.
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_lpad">string_lpad</a><span class="op">(</span><span class="sf">string</span><span class="op">(</span><span class="nu">42</span><span class="op">)</span><span class="op">,</span> <span class="st">"0"</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0042"</span>
+</pre></article></section><section><header id="string_rpad"><a href="#string_rpad" title="(permalink)">string_rpad(str, padstr, length)</a></header><article><p>
+	Appends <code>padstr</code> to <code>str</code> until it reaches specified length.
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_rpad">string_rpad</a><span class="op">(</span><span class="sf">string</span><span class="op">(</span><span class="nu">42</span><span class="op">)</span><span class="op">,</span> <span class="st">"0"</span><span class="op">,</span> <span class="nu">4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "4200"</span>
+</pre></article></section><section><header id="string_auto"><a href="#string_auto" title="(permalink)">string_auto(number)</a></header><article><p>
+	Converts a number to a string with automatic precision
+	(unlike <code>string_format</code>, which requires specifying the number of decimal places).
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_auto">string_auto</a><span class="op">(</span><span class="nu">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0.4"</span>
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_auto">string_auto</a><span class="op">(</span><span class="nu">0.4040</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "0.404"</span>
+</pre></article></section><section><header id="string_trim"><a href="#string_trim" title="(permalink)">string_trim(string)</a></header><article><p>
+	Removes leading and trailing spaces from a string.
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi"</span>
+</pre><p>
+	Same as now-built-in <code>string_trim</code>.
+</p></article></section><section><header id="string_ltrim"><a href="#string_ltrim" title="(permalink)">string_ltrim(string)</a></header><article><p>
+	Removes leading spaces from a string.
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// "hi "</span>
+</pre><p>
+	Same as now-built-in <code>string_trim_start</code>.
+</p></article></section><section><header id="string_rtrim"><a href="#string_rtrim" title="(permalink)">string_rtrim(string)</a></header><article><p>
+	Removes trailing spaces from a string.
+	</p><pre class="gmlmd">
+<span class="sf">trace</span><span class="op">(</span><a class="sf" href="#string_trim">string_trim</a><span class="op">(</span><span class="st">" hi "</span><span class="op">)</span><span class="op">)</span><span class="op">;</span> <span class="co">// " hi"</span>
+</pre><p>
+	Same as now-built-in <code>string_trim_end</code>.
+</p></article></section><section><header id="string_split_list"><a href="#string_split_list" title="(permalink)">string_split_list(string, delimiter, ?list)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Splits a string on delimiter into an list of strings.
+	</p><p>
+	If <code>list</code> is provided, clears it and adds items to it, otherwise makes a new list.
+	</p><p>
+	Returns the list.
+	</p><p>
+	If the string does not contain the delimiter, returns a 1-element array with the entire string.
+	</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">list</span> <span class="op">=</span> <a class="sf" href="#string_split_list">string_split_list</a><span class="op">(</span><span class="st">"A|B|C"</span><span class="op">,</span> <span class="st">"|"</span><span class="op">)</span><span class="op">;</span>
+<span class="sf">trace</span><span class="op">(</span><span class="lv">list</span><span class="op">[</span><span class="op">|</span><span class="nu">1</span><span class="op">]</span><span class="op">)</span><span class="op">;</span> <span class="co">// "B"</span>
+</pre></article></section><section><header id="string_sha1"><a href="#string_sha1" title="(permalink)">string_sha1(string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns a SHA-1 hash of a string, assuming Unicode encoding.
+</p></article></section><section><header id="string_sha1_utf8"><a href="#string_sha1_utf8" title="(permalink)">string_sha1_utf8(string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns a SHA-1 hash of a string, assuming UTF-8 encoding.
+</p></article></section><section><header id="string_md5"><a href="#string_md5" title="(permalink)">string_md5(string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns a MD5 hash of a string, assuming Unicode encoding.
+</p></article></section><section><header id="string_md5_utf8"><a href="#string_md5_utf8" title="(permalink)">string_md5_utf8(string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns a MD5 hash of a string, assuming UTF-8 encoding.
+</p></article></section><p>
+Also see: <a href="#string_load">string_load</a>, <a href="#string_save">string_save</a>.
+</p></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Value functions in NTGML</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Value functions in NTGML</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="Checks"><a href="#Checks" title="(permalink)">Checks</a></header><article><a class="sticky-side" href="#Checks" title="Checks"><span>Checks</span></a><section><header id="typeof"><a href="#typeof" title="(permalink)">typeof(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the type of a value as a string.
+		</p><p>
+		This is slower than calling the respective <code>is_</code> function or two.
+	</p></article></section><section><header id="is_number"><a href="#is_number" title="(permalink)">is_number(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Same as <code>is_numeric</code>.
+	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_real&ux=search" target="_blank" title="(opens a new tab)">is_real(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_numeric&ux=search" target="_blank" title="(opens a new tab)">is_numeric(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_string&ux=search" target="_blank" title="(opens a new tab)">is_string(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_undefined&ux=search" target="_blank" title="(opens a new tab)">is_undefined(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_int32&ux=search" target="_blank" title="(opens a new tab)">is_int32(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_int64&ux=search" target="_blank" title="(opens a new tab)">is_int64(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_ptr&ux=search" target="_blank" title="(opens a new tab)">is_ptr(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_bool&ux=search" target="_blank" title="(opens a new tab)">is_bool(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_nan&ux=search" target="_blank" title="(opens a new tab)">is_nan(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_infinity&ux=search" target="_blank" title="(opens a new tab)">is_infinity(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_struct&ux=search" target="_blank" title="(opens a new tab)">is_struct(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_method&ux=search" target="_blank" title="(opens a new tab)">is_method(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_array&ux=search" target="_blank" title="(opens a new tab)">is_array(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_callable&ux=search" target="_blank" title="(opens a new tab)">is_callable(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=is_handle&ux=search" target="_blank" title="(opens a new tab)">is_handle(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><p>
+	And the following are extra:
+	</p><section><header id="is_object"><a href="#is_object" title="(permalink)">is_object(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether a value is a struct, but not a wrapper for a data structure/etc.
+	</p></article></section><section><header id="is_builtin"><a href="#is_builtin" title="(permalink)">is_builtin(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether a value is a wrapper for a data structure/etc. and not a struct.
+	</p></article></section><section><header id="is_double"><a href="#is_double" title="(permalink)">is_double(val)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		In "legacy" NTGML, <code>is_real</code> is an alias for <code>is_numeric</code> and this is the actual <code>is_real</code>.
+	</p></article></section></article></section><section><header id="Conversions"><a href="#Conversions" title="(permalink)">Conversions</a></header><article><a class="sticky-side" href="#Conversions" title="Conversions"><span>Conversions</span></a><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=real&ux=search" target="_blank" title="(opens a new tab)">real(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=bool&ux=search" target="_blank" title="(opens a new tab)">bool(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=string&ux=search" target="_blank" title="(opens a new tab)">string(value_or_template, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=int64&ux=search" target="_blank" title="(opens a new tab)">int64(value)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><p>
+	And the following are extra:
+	</p><section><header id="string_is_real"><a href="#string_is_real" title="(permalink)">string_is_real(str)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether a string contains a valid number
+		(signed, fractional, no exponents/infinities).
+	</p></article></section><section><header id="string_to_real"><a href="#string_to_real" title="(permalink)">string_to_real(str, default_value = 0)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Converts a string to a number if it's valid (rules per above)
+		or returns <code>default_value</code> if it isn't.
+		</p><p>
+		In "legacy" NTGML, <code>real(str)</code> is equivalent
+		to <code>string_to_real(str, 0)</code> for backwards compatibility.
+	</p></article></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

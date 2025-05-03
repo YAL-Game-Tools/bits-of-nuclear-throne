@@ -1,0 +1,144 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Weapons in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Weapons in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+These functions allow you to get/set various weapon properties.
+</p><p>
+Built-in weapons are referenced by their <a href="./NTT-Weapon-Table.html">numeric indexes or constants</a>.
+</p><p>
+Modded weapons are referenced by their name (like <code>cool_gun</code> for <code>mods/cool_gun.weapon.gml</code>).
+</p><p>
+Setter functions only work for built-in weapons.
+</p><p>
+Visual:
+</p><section><header id="weapon_get_name"><a href="#weapon_get_name" title="(permalink)">weapon_get_name(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns display name of a weapon.
+</p></article></section><section><header id="weapon_set_name"><a href="#weapon_set_name" title="(permalink)">weapon_set_name(wep, str)</a></header><article><p>
+	Changes display name of a weapon.
+</p></article></section><section><header id="weapon_get_text"><a href="#weapon_get_text" title="(permalink)">weapon_get_text(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns a weapon's loading screen tooltip.
+</p></article></section><section><header id="weapon_set_text"><a href="#weapon_set_text" title="(permalink)">weapon_set_text(wep, text)</a></header><article><p>
+	Changes a weapon's loading screen tooltip.
+</p></article></section><section><header id="weapon_get_sprite"><a href="#weapon_get_sprite" title="(permalink)">weapon_get_sprite(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the sprite for the given weapon.
+	</p><p>
+	<code>weapon_get_sprt</code> is an alias for this function.
+</p></article></section><section><header id="weapon_get_sprite_hud"><a href="#weapon_get_sprite_hud" title="(permalink)">weapon_get_sprite_hud(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the HUD sprite of a weapon.
+	</p><p>
+	<code>weapon_get_sprt_hud</code> is an alias for this function.
+	</p><p>
+	There is no setter function for this one because only modded weapons
+	can have a separate HUD sprite.
+</p></article></section><section><header id="weapon_get_swap"><a href="#weapon_get_swap" title="(permalink)">weapon_get_swap(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the sound that plays when a weapon is swapped to.
+</p></article></section><section><header id="weapon_set_swap"><a href="#weapon_set_swap" title="(permalink)">weapon_set_swap(wep, sound)</a></header><article><p>
+	Changes the sound that plays when a weapon is swapped to.
+</p></article></section><p>
+Mixed:
+</p><section><header id="weapon_is_melee"><a href="#weapon_is_melee" title="(permalink)">weapon_is_melee(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns whether a weapon is a melee weapon.
+	</p><p>
+	Melee weapons are held to a side and flip on swing.
+</p></article></section><section><header id="weapon_get_gold"><a href="#weapon_get_gold" title="(permalink)">weapon_get_gold(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns whether a weapon is a gold weapon.
+</p></article></section><section><header id="weapon_get_laser_sight"><a href="#weapon_get_laser_sight" title="(permalink)">weapon_get_laser_sight(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns whether a weapon should display a laser sight.
+	</p><p>
+	By default, only bolt weapons (except for Disc Gun) do.
+</p></article></section><p>
+Functional:
+</p><section><header id="weapon_get_area"><a href="#weapon_get_area" title="(permalink)">weapon_get_area(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the difficulty tier that determines when the weapon should start dropping.
+	</p><p>
+	Tier of <code>-1</code> means that a weapon doesn't drop "naturally".
+</p></article></section><section><header id="weapon_set_area"><a href="#weapon_set_area" title="(permalink)">weapon_set_area(wep)</a></header><article><p>
+	Changes the difficulty tier of a weapon.
+	</p><p>
+	If you are making a mod that replaces built-in weapon(s),
+	setting their tier to <code>-1</code> is a good way to prevent the original weapons from dropping.
+</p></article></section><section><header id="weapon_get_auto"><a href="#weapon_get_auto" title="(permalink)">weapon_get_auto(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns whether a weapon is automatic.
+</p></article></section><section><header id="weapon_set_auto"><a href="#weapon_set_auto" title="(permalink)">weapon_set_auto(wep, auto)</a></header><article><p>
+	Changes whether a weapon is automatic.
+</p></article></section><section><header id="weapon_get_load"><a href="#weapon_get_load" title="(permalink)">weapon_get_load(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns reload time of the given weapon (in frames at 30fps).
+</p></article></section><section><header id="weapon_set_load"><a href="#weapon_set_load" title="(permalink)">weapon_set_load(wep, time)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Changes reload time of a weapon (in frames at 30fps).
+	</p><p>
+	If reload time is less than 1 frame at the current framerate,
+	multiple projectiles may be shot per frame.
+</p></article></section><section><header id="weapon_get_type"><a href="#weapon_get_type" title="(permalink)">weapon_get_type(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the ammo type of a weapon.
+	Types are as following:
+	</p><p>
+	<table><tr><th>Index </th><th> Type</th></tr>
+<tr><td>	0 </td><td> Melee / no ammo</td></tr>
+<tr><td>	1 </td><td> Bullet</td></tr>
+<tr><td>	2 </td><td> Shotgun</td></tr>
+<tr><td>	3 </td><td> Bolt</td></tr>
+<tr><td>	4 </td><td> Explosive</td></tr>
+<tr><td>	5 </td><td> Laser</td></tr></table>
+</p></article></section><section><header id="weapon_set_type"><a href="#weapon_set_type" title="(permalink)">weapon_set_type(wep, type)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Changes ammo type of a weapon.
+</p></article></section><section><header id="weapon_get_cost"><a href="#weapon_get_cost" title="(permalink)">weapon_get_cost(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the weapon's ammo cost per shot.
+</p></article></section><section><header id="weapon_set_cost"><a href="#weapon_set_cost" title="(permalink)">weapon_set_cost(wep, cost)</a></header><article><p>
+	Changes a weapon's ammo cost per shot.
+</p></article></section><section><header id="weapon_get_rads"><a href="#weapon_get_rads" title="(permalink)">weapon_get_rads(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Returns the weapon's rad cost per shot.
+</p></article></section><section><header id="weapon_set_rads"><a href="#weapon_set_rads" title="(permalink)">weapon_set_rads(wep)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Changes a weapon's rad cost per shot.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

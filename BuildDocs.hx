@@ -71,6 +71,7 @@ class BuildDocs {
 			"");
 			//
 			var missing = [];
+			var missingMap = new Map();
 			var total = 0;
 			for (line in api.split("\n")) {
 				if (!rxIdent.match(line)) continue;
@@ -84,12 +85,17 @@ class BuildDocs {
 						break;
 					}
 				}
-				if (!found) missing.push(line);
+				if (!found && !missingMap.exists(name)) {
+					missingMap[name] = true;
+					missing.push(line);
+				}
 			}
 			//
 			if (missing.length > 0) {
-				var percent = Math.floor(missing.length / total * 1000) / 10;
-				Sys.println('${missing.length} / $total entries are not in the docs ($percent%):');
+				var foundNum = total - missing.length;
+				var percent = Math.floor(foundNum / total * 1000) / 10;
+				Sys.println('$foundNum / $total entries are in the docs ($percent%).');
+				Sys.println("Missing items:");
 				for (i => name in missing) Sys.println(name);
 			}
 			return;

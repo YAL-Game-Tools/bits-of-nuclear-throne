@@ -9,7 +9,30 @@ Each DS type gains a new `_valid` function that returns if the given value is a 
 of that kind.
 
 #[Lists](ds_list) {
+	The following are more or less unchanged:
+	```gmblanks
+	ds_list_create():
+	ds_list_destroy(list)
+	ds_list_clear(id)
+	ds_list_copy(id,source)
+	ds_list_size(id):
+	ds_list_empty(id):
+	ds_list_add(list, ...values)
+	ds_list_delete(list, index:int, count:int=1)
+	ds_list_insert(id,pos,value)
+	ds_list_replace(id,pos,value)
+	ds_list_find_index(id,value):
+	ds_list_find_value(id,pos):
+	ds_list_sort(id,ascending)
+	ds_list_write(id)
+	ds_list_read(id,str,...)
+	ds_list_set(id,pos,value)
+	ds_list_shuffle(list)
+	```
 	The following are extra:
+	```ntblanks
+	ds_list_valid(list):
+	```
 	#[ds_list_add_array(list, array)]() {
 		Adds contents of an array to the end of a list.
 	}
@@ -25,10 +48,82 @@ of that kind.
 	}
 }
 #[Maps](ds_map) {
-	No new functions except for `ds_map_valid`.
+	Nothing new over here.
+	```gmblanks
+	ds_map_create():
+	ds_map_destroy(map)
+	ds_map_clear(id)
+	ds_map_copy(id, source)
+	ds_map_size(id):
+	ds_map_empty(id):
+	ds_map_add(id, key, value)
+	ds_map_replace(id, key, value):
+	ds_map_set(id, key, value)
+	ds_map_delete(id, key):
+	ds_map_exists(id, key):
+	ds_map_find_value(id, key):
+	ds_map_find_previous(id, key):
+	ds_map_find_next(id, key):
+	ds_map_find_first(id):
+	ds_map_find_last(id):
+	ds_map_keys_to_array(map, ?array):
+	ds_map_values_to_array(map, ?array):
+	```
+	---
+	```ntblanks
+	ds_map_valid(map):
+	```
+	#[ds_map_keys(map, ?array)->]() {
+		Deprecated, use `ds_map_keys_to_array`.
+	}
+	#[ds_map_values(map, ?array)->]() {
+		Deprecated, use `ds_map_values_to_array`.
+	}
 }
 #[Grids](ds_grid) {
+	The following are unchanged:
+	```gmblanks
+	ds_grid_create(width:int, height:int):
+	ds_grid_destroy(grid)
+	ds_grid_copy(grid,source)
+	ds_grid_resize(grid,w,h)
+	ds_grid_width(grid):
+	ds_grid_height(grid):
+	ds_grid_clear(grid,val)
+	ds_grid_add(grid,x,y,val)
+	ds_grid_multiply(grid,x,y,val)
+	ds_grid_set_region(grid,x1,y1,x2,y2,val)
+	ds_grid_add_region(grid,x1,y1,x2,y2,val)
+	ds_grid_multiply_region(grid,x1,y1,x2,y2,val)
+	ds_grid_set_disk(grid,xm,ym,r,val)
+	ds_grid_add_disk(grid,xm,ym,r,val)
+	ds_grid_multiply_disk(grid,xm,ym,r,val)
+	ds_grid_set_grid_region(grid,source,x1,y1,x2,y2,xpos,ypos)
+	ds_grid_add_grid_region(grid,source,x1,y1,x2,y2,xpos,ypos)
+	ds_grid_multiply_grid_region(grid,source,x1,y1,x2,y2,xpos,ypos)
+	ds_grid_get_sum(grid,x1,y1,x2,y2):
+	ds_grid_get_max(grid,x1,y1,x2,y2):
+	ds_grid_get_min(grid,x1,y1,x2,y2):
+	ds_grid_get_mean(grid,x1,y1,x2,y2):
+	ds_grid_get_disk_sum(grid,xm,ym,r):
+	ds_grid_get_disk_min(grid,xm,ym,r):
+	ds_grid_get_disk_max(grid,xm,ym,r):
+	ds_grid_get_disk_mean(grid,xm,ym,r):
+	ds_grid_value_exists(grid,x1,y1,x2,y2,val):
+	ds_grid_value_x(grid,x1,y1,x2,y2,val):
+	ds_grid_value_y(grid,x1,y1,x2,y2,val):
+	ds_grid_value_disk_exists(grid,xm,ym,r,val):
+	ds_grid_value_disk_x(grid,xm,ym,r,val):
+	ds_grid_value_disk_y(grid,xm,ym,r,val):
+	ds_grid_shuffle(grid)
+	ds_grid_sort(grid,column,ascending)
+	ds_grid_set(grid,x,y,value)
+	ds_grid_get(grid,x,y):
+	```
 	The following are extra:
+	```ntblanks
+	ds_grid_valid(grid):
+	```
 	#[ds_grid_join(grid, row_sep, col_sep)->]() {
 		Joins the contents of a grid to a string with row/column separators.
 		

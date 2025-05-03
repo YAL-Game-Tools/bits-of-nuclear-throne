@@ -40,6 +40,7 @@
 
 
 
+
 <style>
 .main { background-color: #899FC6 }
 .page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
@@ -85,7 +86,85 @@
 		variables into the current instance.
 		</p><p>
 		<strong>GM help:</strong> <a target="blank" rel="noreferrer noopener" href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform_object&ux=search">event_perform_object</a>
-	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform&ux=search" target="_blank" title="(opens a new tab)">event_perform(etype, enumb)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform_object&ux=search" target="_blank" title="(opens a new tab)">event_perform_object(object, etype, enumb)</a></header></section></article></section><section><header id="Filtering"><a href="#Filtering" title="(permalink)">Filtering</a></header><article><a class="sticky-side" href="#Filtering" title="Filtering"><span>Filtering</span></a><p>
+	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform&ux=search" target="_blank" title="(opens a new tab)">event_perform(etype, enumb)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=event_perform_object&ux=search" target="_blank" title="(opens a new tab)">event_perform_object(object, etype, enumb)</a></header></section><p>
+	
+	<details><summary>Event constants</summary><pre class="dump">ev_create#
+ev_destroy#
+ev_alarm#
+ev_step#
+ev_collision#
+ev_keyboard#
+ev_mouse#
+ev_other#
+ev_draw#
+ev_keypress#
+ev_keyrelease#
+//
+ev_animation_end#
+ev_boundary#
+ev_close_button#
+ev_draw_begin#
+ev_draw_end#
+ev_draw_post#
+ev_draw_pre#
+ev_end_of_path#
+ev_game_end#
+ev_game_start#
+ev_global_left_button#
+ev_global_left_press#
+ev_global_left_release#
+ev_global_middle_button#
+ev_global_middle_press#
+ev_global_middle_release#
+ev_global_press#
+ev_global_release#
+ev_global_right_button#
+ev_global_right_press#
+ev_global_right_release#
+ev_gui#
+ev_gui_begin#
+ev_gui_end#
+ev_left_button#
+ev_left_press#
+ev_left_release#
+ev_middle_button#
+ev_middle_press#
+ev_middle_release#
+ev_mouse_enter#
+ev_mouse_leave#
+ev_mouse_wheel_down#
+ev_mouse_wheel_up#
+ev_no_button#
+ev_no_more_health#
+ev_no_more_lives#
+ev_outside#
+ev_right_button#
+ev_right_press#
+ev_right_release#
+ev_room_end#
+ev_room_start#
+ev_step_begin#
+ev_step_end#
+ev_step_normal#
+ev_trigger#
+ev_user0#
+ev_user1#
+ev_user10#
+ev_user11#
+ev_user12#
+ev_user13#
+ev_user14#
+ev_user15#
+ev_user2#
+ev_user3#
+ev_user4#
+ev_user5#
+ev_user6#
+ev_user7#
+ev_user8#
+ev_user9#</pre></details>
+	
+</p></article></section><section><header id="Filtering"><a href="#Filtering" title="(permalink)">Filtering</a></header><article><a class="sticky-side" href="#Filtering" title="Filtering"><span>Filtering</span></a><p>
 	Intended for narrowing down instances to the one's you'd like.
 	</p><section><header id="instances_matching"><a href="#instances_matching" title="(permalink)">instances_matching(object_or_array, varname, ...values)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		Returns an array of instances that have varname equal to any of values.

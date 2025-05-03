@@ -1,0 +1,324 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Weapon Table</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Weapon Table</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+<style>
+.page {
+	max-width: 100%;
+}
+table th {
+	text-align: left;
+}
+</style>
+See below the table for weapon constants.
+<table><tr><th>ID </th><th> Name </th><th> Type </th><th> Auto </th><th> Time </th><th> Cost </th><th> Area </th><th> Sprite</th></tr>
+<tr><td>0 </td><td> &lt;no weapon&gt; </td><td> -- </td><td> false </td><td> 1f </td><td> 1/use </td><td> -1 </td><td> mskNone</td></tr>
+<tr><td>1 </td><td> REVOLVER </td><td> 1:bullet </td><td> false </td><td> 6f </td><td> 1/use </td><td> -1 </td><td> sprRevolver</td></tr>
+<tr><td>2 </td><td> TRIPLE MACHINEGUN </td><td> 1:bullet </td><td> true </td><td> 4f </td><td> 3/use </td><td> 4 </td><td> sprTripleMachinegun</td></tr>
+<tr><td>3 </td><td> WRENCH </td><td> 0:melee </td><td> false </td><td> 22f </td><td> 0/use </td><td> 1 </td><td> sprWrench</td></tr>
+<tr><td>4 </td><td> MACHINEGUN </td><td> 1:bullet </td><td> true </td><td> 5f </td><td> 1/use </td><td> 0 </td><td> sprMachinegun</td></tr>
+<tr><td>5 </td><td> SHOTGUN </td><td> 2:shell </td><td> false </td><td> 17f </td><td> 1/use </td><td> 0 </td><td> sprShotgun</td></tr>
+<tr><td>6 </td><td> CROSSBOW </td><td> 3:bolt </td><td> false </td><td> 26f </td><td> 1/use </td><td> 1 </td><td> sprCrossbow</td></tr>
+<tr><td>7 </td><td> GRENADE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 20f </td><td> 1/use </td><td> 1 </td><td> sprNader</td></tr>
+<tr><td>8 </td><td> DOUBLE SHOTGUN </td><td> 2:shell </td><td> false </td><td> 28f </td><td> 2/use </td><td> 5 </td><td> sprSuperShotgun</td></tr>
+<tr><td>9 </td><td> MINIGUN </td><td> 1:bullet </td><td> true </td><td> 1f </td><td> 1/use </td><td> 6 </td><td> sprMinigun</td></tr>
+<tr><td>10 </td><td> AUTO SHOTGUN </td><td> 2:shell </td><td> true </td><td> 4f </td><td> 1/use </td><td> 6 </td><td> sprAutoShotgun</td></tr>
+<tr><td>11 </td><td> AUTO CROSSBOW </td><td> 3:bolt </td><td> true </td><td> 8f </td><td> 1/use </td><td> 7 </td><td> sprAutoCrossbow</td></tr>
+<tr><td>12 </td><td> SUPER CROSSBOW </td><td> 3:bolt </td><td> false </td><td> 30f </td><td> 5/use </td><td> 8 </td><td> sprSuperCrossbow</td></tr>
+<tr><td>13 </td><td> SHOVEL </td><td> 0:melee </td><td> false </td><td> 35f </td><td> 0/use </td><td> 4 </td><td> sprShovel</td></tr>
+<tr><td>14 </td><td> BAZOOKA </td><td> 4:expl. </td><td> false </td><td> 30f </td><td> 1/use </td><td> 5 </td><td> sprBazooka</td></tr>
+<tr><td>15 </td><td> STICKY LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 25f </td><td> 1/use </td><td> 7 </td><td> sprStickyNader</td></tr>
+<tr><td>16 </td><td> SMG </td><td> 1:bullet </td><td> true </td><td> 3f </td><td> 1/use </td><td> 3 </td><td> sprSmg</td></tr>
+<tr><td>17 </td><td> ASSAULT RIFLE </td><td> 1:bullet </td><td> false </td><td> 11f </td><td> 3/use </td><td> 2 </td><td> sprARifle</td></tr>
+<tr><td>18 </td><td> DISC GUN </td><td> 3:bolt </td><td> true </td><td> 8f </td><td> 1/use </td><td> 3 </td><td> sprDiscGun</td></tr>
+<tr><td>19 </td><td> LASER PISTOL </td><td> 5:energy </td><td> false </td><td> 9f </td><td> 1/use </td><td> 2 </td><td> sprLaserGun</td></tr>
+<tr><td>20 </td><td> LASER RIFLE </td><td> 5:energy </td><td> true </td><td> 7f </td><td> 1/use </td><td> 5 </td><td> sprLaserRifle</td></tr>
+<tr><td>21 </td><td> SLUGGER </td><td> 2:shell </td><td> false </td><td> 22f </td><td> 1/use </td><td> 2 </td><td> sprSlugger</td></tr>
+<tr><td>22 </td><td> GATLING SLUGGER </td><td> 2:shell </td><td> true </td><td> 7f </td><td> 1/use </td><td> 9 </td><td> sprGatlingSlugger</td></tr>
+<tr><td>23 </td><td> ASSAULT SLUGGER </td><td> 2:shell </td><td> false </td><td> 35f </td><td> 3/use </td><td> 5 </td><td> sprAssaultSlugger</td></tr>
+<tr><td>24 </td><td> ENERGY SWORD </td><td> 5:energy </td><td> false </td><td> 12f </td><td> 2/use </td><td> 10 </td><td> sprEnergySword</td></tr>
+<tr><td>25 </td><td> SUPER SLUGGER </td><td> 2:shell </td><td> false </td><td> 32f </td><td> 5/use </td><td> 10 </td><td> sprSuperSlugger</td></tr>
+<tr><td>26 </td><td> HYPER RIFLE </td><td> 1:bullet </td><td> false </td><td> 3f </td><td> 5/use </td><td> 8 </td><td> sprHyperRifle</td></tr>
+<tr><td>27 </td><td> SCREWDRIVER </td><td> 0:melee </td><td> false </td><td> 11f </td><td> 0/use </td><td> 2 </td><td> sprScrewDriver</td></tr>
+<tr><td>28 </td><td> LASER MINIGUN </td><td> 5:energy </td><td> true </td><td> 2f </td><td> 1/use </td><td> 9 </td><td> sprLaserMinigun</td></tr>
+<tr><td>29 </td><td> BLOOD LAUNCHER </td><td> 4:expl. </td><td> true </td><td> 12f </td><td> 1/use </td><td> 10 </td><td> sprBloodNader</td></tr>
+<tr><td>30 </td><td> SPLINTER GUN </td><td> 3:bolt </td><td> false </td><td> 19f </td><td> 1/use </td><td> 5 </td><td> sprSplinterGun</td></tr>
+<tr><td>31 </td><td> TOXIC BOW </td><td> 3:bolt </td><td> false </td><td> 29f </td><td> 1/use </td><td> 5 </td><td> sprToxicBow</td></tr>
+<tr><td>32 </td><td> SENTRY GUN </td><td> 1:bullet </td><td> true </td><td> 60f </td><td> 24/use </td><td> -1 </td><td> sprSentryGun</td></tr>
+<tr><td>33 </td><td> WAVE GUN </td><td> 2:shell </td><td> false </td><td> 17f </td><td> 2/use </td><td> 10 </td><td> sprWaveGun</td></tr>
+<tr><td>34 </td><td> PLASMA GUN </td><td> 5:energy </td><td> true </td><td> 16f </td><td> 2/use </td><td> 5 </td><td> sprPlasmaGun</td></tr>
+<tr><td>35 </td><td> PLASMA CANNON </td><td> 5:energy </td><td> false </td><td> 40f </td><td> 8/use </td><td> 11 </td><td> sprPlasmaCannon</td></tr>
+<tr><td>36 </td><td> ENERGY HAMMER </td><td> 5:energy </td><td> false </td><td> 20f </td><td> 5/use </td><td> 10 </td><td> sprEnergyHammer</td></tr>
+<tr><td>37 </td><td> JACKHAMMER </td><td> 4:expl. </td><td> true </td><td> 12f </td><td> 1/use </td><td> 5 </td><td> sprJackHammer</td></tr>
+<tr><td>38 </td><td> FLAK CANNON </td><td> 2:shell </td><td> false </td><td> 26f </td><td> 2/use </td><td> 6 </td><td> sprFlakCannon</td></tr>
+<tr><td>39 </td><td> GOLDEN REVOLVER </td><td> 1:bullet </td><td> false </td><td> 5f </td><td> 1/use </td><td> -1 </td><td> sprGoldRevolver</td></tr>
+<tr><td>40 </td><td> GOLDEN WRENCH </td><td> 0:melee </td><td> false </td><td> 18f </td><td> 0/use </td><td> 18 </td><td> sprGoldWrench</td></tr>
+<tr><td>41 </td><td> GOLDEN MACHINEGUN </td><td> 1:bullet </td><td> true </td><td> 5f </td><td> 1/use </td><td> 18 </td><td> sprGoldMachinegun</td></tr>
+<tr><td>42 </td><td> GOLDEN SHOTGUN </td><td> 2:shell </td><td> false </td><td> 17f </td><td> 1/use </td><td> 18 </td><td> sprGoldShotgun</td></tr>
+<tr><td>43 </td><td> GOLDEN CROSSBOW </td><td> 3:bolt </td><td> false </td><td> 23f </td><td> 1/use </td><td> 18 </td><td> sprGoldCrossbow</td></tr>
+<tr><td>44 </td><td> GOLDEN GRENADE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 20f </td><td> 1/use </td><td> 18 </td><td> sprGoldNader</td></tr>
+<tr><td>45 </td><td> GOLDEN LASER PISTOL </td><td> 5:energy </td><td> false </td><td> 8f </td><td> 1/use </td><td> 18 </td><td> sprGoldLaserGun</td></tr>
+<tr><td>46 </td><td> CHICKEN SWORD </td><td> 0:melee </td><td> false </td><td> 18f </td><td> 0/use </td><td> -1 </td><td> sprSword</td></tr>
+<tr><td>47 </td><td> NUKE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 50f </td><td> 3/use </td><td> 10 </td><td> sprNukeLauncher</td></tr>
+<tr><td>48 </td><td> ION CANNON </td><td> 5:energy </td><td> true </td><td> 10f </td><td> 6/use </td><td> -1 </td><td> sprIonCannon</td></tr>
+<tr><td>49 </td><td> QUADRUPLE MACHINEGUN </td><td> 1:bullet </td><td> true </td><td> 4f </td><td> 4/use </td><td> 12 </td><td> sprQuadrupleMachinegun</td></tr>
+<tr><td>50 </td><td> FLAMETHROWER </td><td> 4:expl. </td><td> true </td><td> 12f </td><td> 1/use </td><td> 5 </td><td> sprFlameThrower</td></tr>
+<tr><td>51 </td><td> DRAGON </td><td> 4:expl. </td><td> true </td><td> 7f </td><td> 1/use </td><td> 13 </td><td> sprDragon</td></tr>
+<tr><td>52 </td><td> FLARE GUN </td><td> 4:expl. </td><td> false </td><td> 25f </td><td> 1/use </td><td> 6 </td><td> sprFlareGun</td></tr>
+<tr><td>53 </td><td> ENERGY SCREWDRIVER </td><td> 5:energy </td><td> false </td><td> 4f </td><td> 1/use </td><td> 9 </td><td> sprEnergyScrewDriver</td></tr>
+<tr><td>54 </td><td> HYPER LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 7f </td><td> 2/use </td><td> 14 </td><td> sprHyperLauncher</td></tr>
+<tr><td>55 </td><td> LASER CANNON </td><td> 5:energy </td><td> true </td><td> 30f </td><td> 3/use </td><td> 7 </td><td> sprLaserCannon</td></tr>
+<tr><td>56 </td><td> RUSTY REVOLVER </td><td> 1:bullet </td><td> false </td><td> 7f </td><td> 1/use </td><td> -1 </td><td> sprRustyRevolver</td></tr>
+<tr><td>57 </td><td> LIGHTNING PISTOL </td><td> 5:energy </td><td> false </td><td> 11f </td><td> 1/use </td><td> 6 </td><td> sprLightningPistol</td></tr>
+<tr><td>58 </td><td> LIGHTNING RIFLE </td><td> 5:energy </td><td> false </td><td> 24f </td><td> 1/use </td><td> 8 </td><td> sprLightningRifle</td></tr>
+<tr><td>59 </td><td> LIGHTNING SHOTGUN </td><td> 5:energy </td><td> false </td><td> 20f </td><td> 2/use </td><td> 9 </td><td> sprLightningShotgun</td></tr>
+<tr><td>60 </td><td> SUPER FLAK CANNON </td><td> 2:shell </td><td> false </td><td> 64f </td><td> 8/use </td><td> 12 </td><td> sprSuperFlakCannon</td></tr>
+<tr><td>61 </td><td> SAWED-OFF SHOTGUN </td><td> 2:shell </td><td> false </td><td> 28f </td><td> 2/use </td><td> 6 </td><td> sprSawnOffShotgun</td></tr>
+<tr><td>62 </td><td> SPLINTER PISTOL </td><td> 3:bolt </td><td> false </td><td> 8f </td><td> 1/use </td><td> 6 </td><td> sprSplinterPistol</td></tr>
+<tr><td>63 </td><td> SUPER SPLINTER GUN </td><td> 3:bolt </td><td> false </td><td> 28f </td><td> 2/use </td><td> 8 </td><td> sprHeavySplinterGun</td></tr>
+<tr><td>64 </td><td> LIGHTNING SMG </td><td> 5:energy </td><td> true </td><td> 7f </td><td> 1/use </td><td> 13 </td><td> sprLightningSMG</td></tr>
+<tr><td>65 </td><td> SMART GUN </td><td> 1:bullet </td><td> true </td><td> 3f </td><td> 1/use </td><td> 10 </td><td> sprSmartGun</td></tr>
+<tr><td>66 </td><td> HEAVY CROSSBOW </td><td> 3:bolt </td><td> false </td><td> 40f </td><td> 2/use </td><td> 5 </td><td> sprHeavyCrossbow</td></tr>
+<tr><td>67 </td><td> BLOOD HAMMER </td><td> 0:melee </td><td> false </td><td> 21f </td><td> 0/use </td><td> 10 </td><td> sprBloodHammer</td></tr>
+<tr><td>68 </td><td> LIGHTNING CANNON </td><td> 5:energy </td><td> false </td><td> 34f </td><td> 8/use </td><td> 13 </td><td> sprLightningCannon</td></tr>
+<tr><td>69 </td><td> POP GUN </td><td> 1:bullet </td><td> true </td><td> 2f </td><td> 1/use </td><td> 3 </td><td> sprPopGun</td></tr>
+<tr><td>70 </td><td> PLASMA RIFLE </td><td> 5:energy </td><td> true </td><td> 10f </td><td> 2/use </td><td> 8 </td><td> sprPlasmaRifle</td></tr>
+<tr><td>71 </td><td> POP RIFLE </td><td> 1:bullet </td><td> true </td><td> 9f </td><td> 2/use </td><td> 4 </td><td> sprPopRifle</td></tr>
+<tr><td>72 </td><td> TOXIC LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 16f </td><td> 1/use </td><td> 5 </td><td> sprToxicNader</td></tr>
+<tr><td>73 </td><td> FLAME CANNON </td><td> 4:expl. </td><td> false </td><td> 44f </td><td> 4/use </td><td> 13 </td><td> sprFlameCannon</td></tr>
+<tr><td>74 </td><td> LIGHTNING HAMMER </td><td> 0:melee </td><td> false </td><td> 32f </td><td> 0/use </td><td> 11 </td><td> sprLightningHammer</td></tr>
+<tr><td>75 </td><td> FLAME SHOTGUN </td><td> 2:shell </td><td> false </td><td> 20f </td><td> 1/use </td><td> 5 </td><td> sprFlameShotgun</td></tr>
+<tr><td>76 </td><td> DOUBLE FLAME SHOTGUN </td><td> 2:shell </td><td> false </td><td> 28f </td><td> 2/use </td><td> 7 </td><td> sprDoubleFlameShotgun</td></tr>
+<tr><td>77 </td><td> AUTO FLAME SHOTGUN </td><td> 2:shell </td><td> true </td><td> 5f </td><td> 1/use </td><td> 10 </td><td> sprAutoFlameShotgun</td></tr>
+<tr><td>78 </td><td> CLUSTER LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 26f </td><td> 2/use </td><td> 7 </td><td> sprClusterNader</td></tr>
+<tr><td>79 </td><td> GRENADE SHOTGUN </td><td> 4:expl. </td><td> false </td><td> 16f </td><td> 1/use </td><td> 7 </td><td> sprNadeShotgun</td></tr>
+<tr><td>80 </td><td> GRENADE RIFLE </td><td> 4:expl. </td><td> false </td><td> 10f </td><td> 1/use </td><td> 9 </td><td> sprNadeRifle</td></tr>
+<tr><td>81 </td><td> ROGUE RIFLE </td><td> 1:bullet </td><td> false </td><td> 6f </td><td> 2/use </td><td> -1 </td><td> sprRogueRifle</td></tr>
+<tr><td>82 </td><td> PARTY GUN </td><td> 4:expl. </td><td> false </td><td> 20f </td><td> 0/use </td><td> -1 </td><td> sprPartyGun</td></tr>
+<tr><td>83 </td><td> DOUBLE MINIGUN </td><td> 1:bullet </td><td> true </td><td> 1f </td><td> 2/use </td><td> 14 </td><td> sprDoubleMinigun</td></tr>
+<tr><td>84 </td><td> GATLING BAZOOKA </td><td> 4:expl. </td><td> true </td><td> 10f </td><td> 1/use </td><td> 12 </td><td> sprGatlingBazooka</td></tr>
+<tr><td>85 </td><td> AUTO GRENADE SHOTGUN </td><td> 4:expl. </td><td> true </td><td> 8f </td><td> 1/use </td><td> 14 </td><td> sprAutoNadeShotgun</td></tr>
+<tr><td>86 </td><td> ULTRA REVOLVER </td><td> 1:bullet </td><td> true </td><td> 4f </td><td> 2/use </td><td> 21 </td><td> sprUltraRevolver</td></tr>
+<tr><td>87 </td><td> ULTRA LASER PISTOL </td><td> 5:energy </td><td> false </td><td> 8f </td><td> 3/use </td><td> 21 </td><td> sprUltraLaserGun</td></tr>
+<tr><td>88 </td><td> SLEDGEHAMMER </td><td> 0:melee </td><td> false </td><td> 35f </td><td> 0/use </td><td> 4 </td><td> sprHammer</td></tr>
+<tr><td>89 </td><td> HEAVY REVOLVER </td><td> 1:bullet </td><td> false </td><td> 5f </td><td> 2/use </td><td> 9 </td><td> sprHeavyRevolver</td></tr>
+<tr><td>90 </td><td> HEAVY MACHINEGUN </td><td> 1:bullet </td><td> true </td><td> 5f </td><td> 2/use </td><td> 10 </td><td> sprHeavyMachinegun</td></tr>
+<tr><td>91 </td><td> HEAVY SLUGGER </td><td> 2:shell </td><td> false </td><td> 13f </td><td> 2/use </td><td> 10 </td><td> sprHeavySlugger</td></tr>
+<tr><td>92 </td><td> ULTRA SHOVEL </td><td> 0:melee </td><td> false </td><td> 15f </td><td> 0/use </td><td> 21 </td><td> sprUltraShovel</td></tr>
+<tr><td>93 </td><td> ULTRA SHOTGUN </td><td> 2:shell </td><td> false </td><td> 12f </td><td> 3/use </td><td> 21 </td><td> sprUltraShotgun</td></tr>
+<tr><td>94 </td><td> ULTRA CROSSBOW </td><td> 3:bolt </td><td> false </td><td> 11f </td><td> 1/use </td><td> 21 </td><td> sprUltraCrossbow</td></tr>
+<tr><td>95 </td><td> ULTRA GRENADE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 16f </td><td> 1/use </td><td> 21 </td><td> sprUltraNader</td></tr>
+<tr><td>96 </td><td> PLASMA MINIGUN </td><td> 5:energy </td><td> true </td><td> 3f </td><td> 2/use </td><td> 15 </td><td> sprPlasmaMinigun</td></tr>
+<tr><td>97 </td><td> DEVASTATOR </td><td> 5:energy </td><td> false </td><td> 60f </td><td> 8/use </td><td> 16 </td><td> sprDevastator</td></tr>
+<tr><td>98 </td><td> GOLDEN PLASMA GUN </td><td> 5:energy </td><td> true </td><td> 16f </td><td> 2/use </td><td> 20 </td><td> sprGoldPlasmaGun</td></tr>
+<tr><td>99 </td><td> GOLDEN SLUGGER </td><td> 2:shell </td><td> false </td><td> 20f </td><td> 1/use </td><td> 20 </td><td> sprGoldSlugger</td></tr>
+<tr><td>100 </td><td> GOLDEN SPLINTER GUN </td><td> 3:bolt </td><td> false </td><td> 19f </td><td> 1/use </td><td> 20 </td><td> sprGoldSplinterGun</td></tr>
+<tr><td>101 </td><td> GOLDEN SCREWDRIVER </td><td> 0:melee </td><td> false </td><td> 9f </td><td> 0/use </td><td> 20 </td><td> sprGoldScrewdriver</td></tr>
+<tr><td>102 </td><td> GOLDEN BAZOOKA </td><td> 4:expl. </td><td> false </td><td> 28f </td><td> 1/use </td><td> 20 </td><td> sprGoldBazooka</td></tr>
+<tr><td>103 </td><td> GOLDEN ASSAULT RIFLE </td><td> 1:bullet </td><td> false </td><td> 9f </td><td> 3/use </td><td> 20 </td><td> sprGoldARifle</td></tr>
+<tr><td>104 </td><td> SUPER DISC GUN </td><td> 3:bolt </td><td> true </td><td> 12f </td><td> 5/use </td><td> 11 </td><td> sprSuperDiscGun</td></tr>
+<tr><td>105 </td><td> HEAVY AUTO CROSSBOW </td><td> 3:bolt </td><td> true </td><td> 13f </td><td> 2/use </td><td> 16 </td><td> sprHeavyAutoCrossbow</td></tr>
+<tr><td>106 </td><td> HEAVY ASSAULT RIFLE </td><td> 1:bullet </td><td> false </td><td> 9f </td><td> 6/use </td><td> 13 </td><td> sprHeavyARifle</td></tr>
+<tr><td>107 </td><td> BLOOD CANNON </td><td> 4:expl. </td><td> true </td><td> 19f </td><td> 4/use </td><td> 12 </td><td> sprBloodCannon</td></tr>
+<tr><td>108 </td><td> DOG SPIN ATTACK </td><td> 1:bullet </td><td> false </td><td> 120f </td><td> 15/use </td><td> -1 </td><td> sprDogBulletHUD</td></tr>
+<tr><td>109 </td><td> DOG MISSILE </td><td> 4:expl. </td><td> false </td><td> 1f </td><td> 1/use </td><td> -1 </td><td> sprDogMissileHUD</td></tr>
+<tr><td>110 </td><td> INCINERATOR </td><td> 1:bullet </td><td> true </td><td> 2f </td><td> 3/use </td><td> 16 </td><td> sprIncinerator</td></tr>
+<tr><td>111 </td><td> SUPER PLASMA CANNON </td><td> 5:energy </td><td> false </td><td> 260f </td><td> 24/use </td><td> 16 </td><td> sprSuperPlasmaCannon</td></tr>
+<tr><td>112 </td><td> SEEKER PISTOL </td><td> 3:bolt </td><td> false </td><td> 16f </td><td> 1/use </td><td> 7 </td><td> sprSeekerPistol</td></tr>
+<tr><td>113 </td><td> SEEKER SHOTGUN </td><td> 3:bolt </td><td> false </td><td> 28f </td><td> 3/use </td><td> 9 </td><td> sprSeekerShotgun</td></tr>
+<tr><td>114 </td><td> ERASER </td><td> 2:shell </td><td> false </td><td> 20f </td><td> 2/use </td><td> 8 </td><td> sprEraser</td></tr>
+<tr><td>115 </td><td> GUITAR </td><td> 0:melee </td><td> false </td><td> 21f </td><td> 0/use </td><td> -1 </td><td> sprGuitar</td></tr>
+<tr><td>116 </td><td> BOUNCER SMG </td><td> 1:bullet </td><td> true </td><td> 3f </td><td> 1/use </td><td> 6 </td><td> sprBouncerSMG</td></tr>
+<tr><td>117 </td><td> BOUNCER SHOTGUN </td><td> 1:bullet </td><td> true </td><td> 18f </td><td> 6/use </td><td> 6 </td><td> sprBouncerShotgun</td></tr>
+<tr><td>118 </td><td> HYPER SLUGGER </td><td> 2:shell </td><td> false </td><td> 10f </td><td> 1/use </td><td> 15 </td><td> sprHyperSlugger</td></tr>
+<tr><td>119 </td><td> SUPER BAZOOKA </td><td> 4:expl. </td><td> false </td><td> 40f </td><td> 5/use </td><td> 11 </td><td> sprSuperBazooka</td></tr>
+<tr><td>120 </td><td> FROG PISTOL </td><td> 1:bullet </td><td> false </td><td> 7f </td><td> 2/use </td><td> -1 </td><td> sprFrogBlaster</td></tr>
+<tr><td>121 </td><td> BLACK SWORD </td><td> 0:melee </td><td> false </td><td> 16f </td><td> 0/use </td><td> -1 </td><td> sprBlackSword</td></tr>
+<tr><td>122 </td><td> GOLDEN NUKE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 40f </td><td> 3/use </td><td> 12 </td><td> sprGoldNukeLauncher</td></tr>
+<tr><td>123 </td><td> GOLDEN DISC GUN </td><td> 3:bolt </td><td> true </td><td> 8f </td><td> 1/use </td><td> 12 </td><td> sprGoldDiscgun</td></tr>
+<tr><td>124 </td><td> HEAVY GRENADE LAUNCHER </td><td> 4:expl. </td><td> false </td><td> 26f </td><td> 2/use </td><td> 8 </td><td> sprHeavyNader</td></tr>
+<tr><td>125 </td><td> GUN GUN </td><td> 5:energy </td><td> false </td><td> 90f </td><td> 40/use </td><td> 19 </td><td> sprGunGun</td></tr>
+<tr><td>126 </td><td> EGGPLANT </td><td> 0:melee </td><td> false </td><td> 1f </td><td> 1/use </td><td> -1 </td><td> sprEggplant</td></tr>
+<tr><td>127 </td><td> GOLDEN FROG PISTOL </td><td> 1:bullet </td><td> false </td><td> 6f </td><td> 2/use </td><td> -1 </td><td> sprGoldFrogBlaster</td></tr></table>
+Weapon constants:
+<table><tr><th>ID </th><th> Constant</th></tr>
+<tr><td>0 </td><td> <code>wep_none</code></td></tr>
+<tr><td>1 </td><td> <code>wep_revolver</code></td></tr>
+<tr><td>2 </td><td> <code>wep_triple_machinegun</code></td></tr>
+<tr><td>3 </td><td> <code>wep_wrench</code></td></tr>
+<tr><td>4 </td><td> <code>wep_machinegun</code></td></tr>
+<tr><td>5 </td><td> <code>wep_shotgun</code></td></tr>
+<tr><td>6 </td><td> <code>wep_crossbow</code></td></tr>
+<tr><td>7 </td><td> <code>wep_grenade_launcher</code></td></tr>
+<tr><td>8 </td><td> <code>wep_double_shotgun</code></td></tr>
+<tr><td>9 </td><td> <code>wep_minigun</code></td></tr>
+<tr><td>10 </td><td> <code>wep_auto_shotgun</code></td></tr>
+<tr><td>11 </td><td> <code>wep_auto_crossbow</code></td></tr>
+<tr><td>12 </td><td> <code>wep_super_crossbow</code></td></tr>
+<tr><td>13 </td><td> <code>wep_shovel</code></td></tr>
+<tr><td>14 </td><td> <code>wep_bazooka</code></td></tr>
+<tr><td>15 </td><td> <code>wep_sticky_launcher</code></td></tr>
+<tr><td>16 </td><td> <code>wep_smg</code></td></tr>
+<tr><td>17 </td><td> <code>wep_assault_rifle</code></td></tr>
+<tr><td>18 </td><td> <code>wep_disc_gun</code></td></tr>
+<tr><td>19 </td><td> <code>wep_laser_pistol</code></td></tr>
+<tr><td>20 </td><td> <code>wep_laser_rifle</code></td></tr>
+<tr><td>21 </td><td> <code>wep_slugger</code></td></tr>
+<tr><td>22 </td><td> <code>wep_gatling_slugger</code></td></tr>
+<tr><td>23 </td><td> <code>wep_assault_slugger</code></td></tr>
+<tr><td>24 </td><td> <code>wep_energy_sword</code></td></tr>
+<tr><td>25 </td><td> <code>wep_super_slugger</code></td></tr>
+<tr><td>26 </td><td> <code>wep_hyper_rifle</code></td></tr>
+<tr><td>27 </td><td> <code>wep_screwdriver</code></td></tr>
+<tr><td>28 </td><td> <code>wep_laser_minigun</code></td></tr>
+<tr><td>29 </td><td> <code>wep_blood_launcher</code></td></tr>
+<tr><td>30 </td><td> <code>wep_splinter_gun</code></td></tr>
+<tr><td>31 </td><td> <code>wep_toxic_bow</code></td></tr>
+<tr><td>32 </td><td> <code>wep_sentry_gun</code></td></tr>
+<tr><td>33 </td><td> <code>wep_wave_gun</code></td></tr>
+<tr><td>34 </td><td> <code>wep_plasma_gun</code></td></tr>
+<tr><td>35 </td><td> <code>wep_plasma_cannon</code></td></tr>
+<tr><td>36 </td><td> <code>wep_energy_hammer</code></td></tr>
+<tr><td>37 </td><td> <code>wep_jackhammer</code></td></tr>
+<tr><td>38 </td><td> <code>wep_flak_cannon</code></td></tr>
+<tr><td>39 </td><td> <code>wep_golden_revolver</code></td></tr>
+<tr><td>40 </td><td> <code>wep_golden_wrench</code></td></tr>
+<tr><td>41 </td><td> <code>wep_golden_machinegun</code></td></tr>
+<tr><td>42 </td><td> <code>wep_golden_shotgun</code></td></tr>
+<tr><td>43 </td><td> <code>wep_golden_crossbow</code></td></tr>
+<tr><td>44 </td><td> <code>wep_golden_grenade_launcher</code></td></tr>
+<tr><td>45 </td><td> <code>wep_golden_laser_pistol</code></td></tr>
+<tr><td>46 </td><td> <code>wep_chicken_sword</code></td></tr>
+<tr><td>47 </td><td> <code>wep_nuke_launcher</code></td></tr>
+<tr><td>48 </td><td> <code>wep_ion_cannon</code></td></tr>
+<tr><td>49 </td><td> <code>wep_quadruple_machinegun</code></td></tr>
+<tr><td>50 </td><td> <code>wep_flamethrower</code></td></tr>
+<tr><td>51 </td><td> <code>wep_dragon</code></td></tr>
+<tr><td>52 </td><td> <code>wep_flare_gun</code></td></tr>
+<tr><td>53 </td><td> <code>wep_energy_screwdriver</code></td></tr>
+<tr><td>54 </td><td> <code>wep_hyper_launcher</code></td></tr>
+<tr><td>55 </td><td> <code>wep_laser_cannon</code></td></tr>
+<tr><td>56 </td><td> <code>wep_rusty_revolver</code></td></tr>
+<tr><td>57 </td><td> <code>wep_lightning_pistol</code></td></tr>
+<tr><td>58 </td><td> <code>wep_lightning_rifle</code></td></tr>
+<tr><td>59 </td><td> <code>wep_lightning_shotgun</code></td></tr>
+<tr><td>60 </td><td> <code>wep_super_flak_cannon</code></td></tr>
+<tr><td>61 </td><td> <code>wep_sawed_off_shotgun</code></td></tr>
+<tr><td>62 </td><td> <code>wep_splinter_pistol</code></td></tr>
+<tr><td>63 </td><td> <code>wep_super_splinter_gun</code></td></tr>
+<tr><td>64 </td><td> <code>wep_lightning_smg</code></td></tr>
+<tr><td>65 </td><td> <code>wep_smart_gun</code></td></tr>
+<tr><td>66 </td><td> <code>wep_heavy_crossbow</code></td></tr>
+<tr><td>67 </td><td> <code>wep_blood_hammer</code></td></tr>
+<tr><td>68 </td><td> <code>wep_lightning_cannon</code></td></tr>
+<tr><td>69 </td><td> <code>wep_pop_gun</code></td></tr>
+<tr><td>70 </td><td> <code>wep_plasma_rifle</code></td></tr>
+<tr><td>71 </td><td> <code>wep_pop_rifle</code></td></tr>
+<tr><td>72 </td><td> <code>wep_toxic_launcher</code></td></tr>
+<tr><td>73 </td><td> <code>wep_flame_cannon</code></td></tr>
+<tr><td>74 </td><td> <code>wep_lightning_hammer</code></td></tr>
+<tr><td>75 </td><td> <code>wep_flame_shotgun</code></td></tr>
+<tr><td>76 </td><td> <code>wep_double_flame_shotgun</code></td></tr>
+<tr><td>77 </td><td> <code>wep_auto_flame_shotgun</code></td></tr>
+<tr><td>78 </td><td> <code>wep_cluster_launcher</code></td></tr>
+<tr><td>79 </td><td> <code>wep_grenade_shotgun</code></td></tr>
+<tr><td>80 </td><td> <code>wep_grenade_rifle</code></td></tr>
+<tr><td>81 </td><td> <code>wep_rogue_rifle</code></td></tr>
+<tr><td>82 </td><td> <code>wep_party_gun</code></td></tr>
+<tr><td>83 </td><td> <code>wep_double_minigun</code></td></tr>
+<tr><td>84 </td><td> <code>wep_gatling_bazooka</code></td></tr>
+<tr><td>85 </td><td> <code>wep_auto_grenade_shotgun</code></td></tr>
+<tr><td>86 </td><td> <code>wep_ultra_revolver</code></td></tr>
+<tr><td>87 </td><td> <code>wep_ultra_laser_pistol</code></td></tr>
+<tr><td>88 </td><td> <code>wep_sledgehammer</code></td></tr>
+<tr><td>89 </td><td> <code>wep_heavy_revolver</code></td></tr>
+<tr><td>90 </td><td> <code>wep_heavy_machinegun</code></td></tr>
+<tr><td>91 </td><td> <code>wep_heavy_slugger</code></td></tr>
+<tr><td>92 </td><td> <code>wep_ultra_shovel</code></td></tr>
+<tr><td>93 </td><td> <code>wep_ultra_shotgun</code></td></tr>
+<tr><td>94 </td><td> <code>wep_ultra_crossbow</code></td></tr>
+<tr><td>95 </td><td> <code>wep_ultra_grenade_launcher</code></td></tr>
+<tr><td>96 </td><td> <code>wep_plasma_minigun</code></td></tr>
+<tr><td>97 </td><td> <code>wep_devastator</code></td></tr>
+<tr><td>98 </td><td> <code>wep_golden_plasma_gun</code></td></tr>
+<tr><td>99 </td><td> <code>wep_golden_slugger</code></td></tr>
+<tr><td>100 </td><td> <code>wep_golden_splinter_gun</code></td></tr>
+<tr><td>101 </td><td> <code>wep_golden_screwdriver</code></td></tr>
+<tr><td>102 </td><td> <code>wep_golden_bazooka</code></td></tr>
+<tr><td>103 </td><td> <code>wep_golden_assault_rifle</code></td></tr>
+<tr><td>104 </td><td> <code>wep_super_disc_gun</code></td></tr>
+<tr><td>105 </td><td> <code>wep_heavy_auto_crossbow</code></td></tr>
+<tr><td>106 </td><td> <code>wep_heavy_assault_rifle</code></td></tr>
+<tr><td>107 </td><td> <code>wep_blood_cannon</code></td></tr>
+<tr><td>108 </td><td> <code>wep_dog_spin_attack</code></td></tr>
+<tr><td>109 </td><td> <code>wep_dog_missile</code></td></tr>
+<tr><td>110 </td><td> <code>wep_incinerator</code></td></tr>
+<tr><td>111 </td><td> <code>wep_super_plasma_cannon</code></td></tr>
+<tr><td>112 </td><td> <code>wep_seeker_pistol</code></td></tr>
+<tr><td>113 </td><td> <code>wep_seeker_shotgun</code></td></tr>
+<tr><td>114 </td><td> <code>wep_eraser</code></td></tr>
+<tr><td>115 </td><td> <code>wep_guitar</code></td></tr>
+<tr><td>116 </td><td> <code>wep_bouncer_smg</code></td></tr>
+<tr><td>117 </td><td> <code>wep_bouncer_shotgun</code></td></tr>
+<tr><td>118 </td><td> <code>wep_hyper_slugger</code></td></tr>
+<tr><td>119 </td><td> <code>wep_super_bazooka</code></td></tr>
+<tr><td>120 </td><td> <code>wep_frog_pistol</code></td></tr>
+<tr><td>121 </td><td> <code>wep_black_sword</code></td></tr>
+<tr><td>122 </td><td> <code>wep_golden_nuke_launcher</code></td></tr>
+<tr><td>123 </td><td> <code>wep_golden_disc_gun</code></td></tr>
+<tr><td>124 </td><td> <code>wep_heavy_grenade_launcher</code></td></tr>
+<tr><td>125 </td><td> <code>wep_gun_gun</code></td></tr>
+<tr><td>126 </td><td> <code>wep_eggplant</code></td></tr>
+<tr><td>127 </td><td> <code>wep_golden_frog_pistol</code></td></tr></table></p></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

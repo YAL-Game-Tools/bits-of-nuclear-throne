@@ -1,0 +1,268 @@
+```set title
+Weapon Table
+```
+$[fullWidth]
+See below the table for weapon constants.
+```table
+ID | Name | Type | Auto | Time | Cost | Area | Sprite
+0 | <no weapon> | -- | false | 1f | 1/use | -1 | mskNone
+1 | REVOLVER | 1:bullet | false | 6f | 1/use | -1 | sprRevolver
+2 | TRIPLE MACHINEGUN | 1:bullet | true | 4f | 3/use | 4 | sprTripleMachinegun
+3 | WRENCH | 0:melee | false | 22f | 0/use | 1 | sprWrench
+4 | MACHINEGUN | 1:bullet | true | 5f | 1/use | 0 | sprMachinegun
+5 | SHOTGUN | 2:shell | false | 17f | 1/use | 0 | sprShotgun
+6 | CROSSBOW | 3:bolt | false | 26f | 1/use | 1 | sprCrossbow
+7 | GRENADE LAUNCHER | 4:expl. | false | 20f | 1/use | 1 | sprNader
+8 | DOUBLE SHOTGUN | 2:shell | false | 28f | 2/use | 5 | sprSuperShotgun
+9 | MINIGUN | 1:bullet | true | 1f | 1/use | 6 | sprMinigun
+10 | AUTO SHOTGUN | 2:shell | true | 4f | 1/use | 6 | sprAutoShotgun
+11 | AUTO CROSSBOW | 3:bolt | true | 8f | 1/use | 7 | sprAutoCrossbow
+12 | SUPER CROSSBOW | 3:bolt | false | 30f | 5/use | 8 | sprSuperCrossbow
+13 | SHOVEL | 0:melee | false | 35f | 0/use | 4 | sprShovel
+14 | BAZOOKA | 4:expl. | false | 30f | 1/use | 5 | sprBazooka
+15 | STICKY LAUNCHER | 4:expl. | false | 25f | 1/use | 7 | sprStickyNader
+16 | SMG | 1:bullet | true | 3f | 1/use | 3 | sprSmg
+17 | ASSAULT RIFLE | 1:bullet | false | 11f | 3/use | 2 | sprARifle
+18 | DISC GUN | 3:bolt | true | 8f | 1/use | 3 | sprDiscGun
+19 | LASER PISTOL | 5:energy | false | 9f | 1/use | 2 | sprLaserGun
+20 | LASER RIFLE | 5:energy | true | 7f | 1/use | 5 | sprLaserRifle
+21 | SLUGGER | 2:shell | false | 22f | 1/use | 2 | sprSlugger
+22 | GATLING SLUGGER | 2:shell | true | 7f | 1/use | 9 | sprGatlingSlugger
+23 | ASSAULT SLUGGER | 2:shell | false | 35f | 3/use | 5 | sprAssaultSlugger
+24 | ENERGY SWORD | 5:energy | false | 12f | 2/use | 10 | sprEnergySword
+25 | SUPER SLUGGER | 2:shell | false | 32f | 5/use | 10 | sprSuperSlugger
+26 | HYPER RIFLE | 1:bullet | false | 3f | 5/use | 8 | sprHyperRifle
+27 | SCREWDRIVER | 0:melee | false | 11f | 0/use | 2 | sprScrewDriver
+28 | LASER MINIGUN | 5:energy | true | 2f | 1/use | 9 | sprLaserMinigun
+29 | BLOOD LAUNCHER | 4:expl. | true | 12f | 1/use | 10 | sprBloodNader
+30 | SPLINTER GUN | 3:bolt | false | 19f | 1/use | 5 | sprSplinterGun
+31 | TOXIC BOW | 3:bolt | false | 29f | 1/use | 5 | sprToxicBow
+32 | SENTRY GUN | 1:bullet | true | 60f | 24/use | -1 | sprSentryGun
+33 | WAVE GUN | 2:shell | false | 17f | 2/use | 10 | sprWaveGun
+34 | PLASMA GUN | 5:energy | true | 16f | 2/use | 5 | sprPlasmaGun
+35 | PLASMA CANNON | 5:energy | false | 40f | 8/use | 11 | sprPlasmaCannon
+36 | ENERGY HAMMER | 5:energy | false | 20f | 5/use | 10 | sprEnergyHammer
+37 | JACKHAMMER | 4:expl. | true | 12f | 1/use | 5 | sprJackHammer
+38 | FLAK CANNON | 2:shell | false | 26f | 2/use | 6 | sprFlakCannon
+39 | GOLDEN REVOLVER | 1:bullet | false | 5f | 1/use | -1 | sprGoldRevolver
+40 | GOLDEN WRENCH | 0:melee | false | 18f | 0/use | 18 | sprGoldWrench
+41 | GOLDEN MACHINEGUN | 1:bullet | true | 5f | 1/use | 18 | sprGoldMachinegun
+42 | GOLDEN SHOTGUN | 2:shell | false | 17f | 1/use | 18 | sprGoldShotgun
+43 | GOLDEN CROSSBOW | 3:bolt | false | 23f | 1/use | 18 | sprGoldCrossbow
+44 | GOLDEN GRENADE LAUNCHER | 4:expl. | false | 20f | 1/use | 18 | sprGoldNader
+45 | GOLDEN LASER PISTOL | 5:energy | false | 8f | 1/use | 18 | sprGoldLaserGun
+46 | CHICKEN SWORD | 0:melee | false | 18f | 0/use | -1 | sprSword
+47 | NUKE LAUNCHER | 4:expl. | false | 50f | 3/use | 10 | sprNukeLauncher
+48 | ION CANNON | 5:energy | true | 10f | 6/use | -1 | sprIonCannon
+49 | QUADRUPLE MACHINEGUN | 1:bullet | true | 4f | 4/use | 12 | sprQuadrupleMachinegun
+50 | FLAMETHROWER | 4:expl. | true | 12f | 1/use | 5 | sprFlameThrower
+51 | DRAGON | 4:expl. | true | 7f | 1/use | 13 | sprDragon
+52 | FLARE GUN | 4:expl. | false | 25f | 1/use | 6 | sprFlareGun
+53 | ENERGY SCREWDRIVER | 5:energy | false | 4f | 1/use | 9 | sprEnergyScrewDriver
+54 | HYPER LAUNCHER | 4:expl. | false | 7f | 2/use | 14 | sprHyperLauncher
+55 | LASER CANNON | 5:energy | true | 30f | 3/use | 7 | sprLaserCannon
+56 | RUSTY REVOLVER | 1:bullet | false | 7f | 1/use | -1 | sprRustyRevolver
+57 | LIGHTNING PISTOL | 5:energy | false | 11f | 1/use | 6 | sprLightningPistol
+58 | LIGHTNING RIFLE | 5:energy | false | 24f | 1/use | 8 | sprLightningRifle
+59 | LIGHTNING SHOTGUN | 5:energy | false | 20f | 2/use | 9 | sprLightningShotgun
+60 | SUPER FLAK CANNON | 2:shell | false | 64f | 8/use | 12 | sprSuperFlakCannon
+61 | SAWED-OFF SHOTGUN | 2:shell | false | 28f | 2/use | 6 | sprSawnOffShotgun
+62 | SPLINTER PISTOL | 3:bolt | false | 8f | 1/use | 6 | sprSplinterPistol
+63 | SUPER SPLINTER GUN | 3:bolt | false | 28f | 2/use | 8 | sprHeavySplinterGun
+64 | LIGHTNING SMG | 5:energy | true | 7f | 1/use | 13 | sprLightningSMG
+65 | SMART GUN | 1:bullet | true | 3f | 1/use | 10 | sprSmartGun
+66 | HEAVY CROSSBOW | 3:bolt | false | 40f | 2/use | 5 | sprHeavyCrossbow
+67 | BLOOD HAMMER | 0:melee | false | 21f | 0/use | 10 | sprBloodHammer
+68 | LIGHTNING CANNON | 5:energy | false | 34f | 8/use | 13 | sprLightningCannon
+69 | POP GUN | 1:bullet | true | 2f | 1/use | 3 | sprPopGun
+70 | PLASMA RIFLE | 5:energy | true | 10f | 2/use | 8 | sprPlasmaRifle
+71 | POP RIFLE | 1:bullet | true | 9f | 2/use | 4 | sprPopRifle
+72 | TOXIC LAUNCHER | 4:expl. | false | 16f | 1/use | 5 | sprToxicNader
+73 | FLAME CANNON | 4:expl. | false | 44f | 4/use | 13 | sprFlameCannon
+74 | LIGHTNING HAMMER | 0:melee | false | 32f | 0/use | 11 | sprLightningHammer
+75 | FLAME SHOTGUN | 2:shell | false | 20f | 1/use | 5 | sprFlameShotgun
+76 | DOUBLE FLAME SHOTGUN | 2:shell | false | 28f | 2/use | 7 | sprDoubleFlameShotgun
+77 | AUTO FLAME SHOTGUN | 2:shell | true | 5f | 1/use | 10 | sprAutoFlameShotgun
+78 | CLUSTER LAUNCHER | 4:expl. | false | 26f | 2/use | 7 | sprClusterNader
+79 | GRENADE SHOTGUN | 4:expl. | false | 16f | 1/use | 7 | sprNadeShotgun
+80 | GRENADE RIFLE | 4:expl. | false | 10f | 1/use | 9 | sprNadeRifle
+81 | ROGUE RIFLE | 1:bullet | false | 6f | 2/use | -1 | sprRogueRifle
+82 | PARTY GUN | 4:expl. | false | 20f | 0/use | -1 | sprPartyGun
+83 | DOUBLE MINIGUN | 1:bullet | true | 1f | 2/use | 14 | sprDoubleMinigun
+84 | GATLING BAZOOKA | 4:expl. | true | 10f | 1/use | 12 | sprGatlingBazooka
+85 | AUTO GRENADE SHOTGUN | 4:expl. | true | 8f | 1/use | 14 | sprAutoNadeShotgun
+86 | ULTRA REVOLVER | 1:bullet | true | 4f | 2/use | 21 | sprUltraRevolver
+87 | ULTRA LASER PISTOL | 5:energy | false | 8f | 3/use | 21 | sprUltraLaserGun
+88 | SLEDGEHAMMER | 0:melee | false | 35f | 0/use | 4 | sprHammer
+89 | HEAVY REVOLVER | 1:bullet | false | 5f | 2/use | 9 | sprHeavyRevolver
+90 | HEAVY MACHINEGUN | 1:bullet | true | 5f | 2/use | 10 | sprHeavyMachinegun
+91 | HEAVY SLUGGER | 2:shell | false | 13f | 2/use | 10 | sprHeavySlugger
+92 | ULTRA SHOVEL | 0:melee | false | 15f | 0/use | 21 | sprUltraShovel
+93 | ULTRA SHOTGUN | 2:shell | false | 12f | 3/use | 21 | sprUltraShotgun
+94 | ULTRA CROSSBOW | 3:bolt | false | 11f | 1/use | 21 | sprUltraCrossbow
+95 | ULTRA GRENADE LAUNCHER | 4:expl. | false | 16f | 1/use | 21 | sprUltraNader
+96 | PLASMA MINIGUN | 5:energy | true | 3f | 2/use | 15 | sprPlasmaMinigun
+97 | DEVASTATOR | 5:energy | false | 60f | 8/use | 16 | sprDevastator
+98 | GOLDEN PLASMA GUN | 5:energy | true | 16f | 2/use | 20 | sprGoldPlasmaGun
+99 | GOLDEN SLUGGER | 2:shell | false | 20f | 1/use | 20 | sprGoldSlugger
+100 | GOLDEN SPLINTER GUN | 3:bolt | false | 19f | 1/use | 20 | sprGoldSplinterGun
+101 | GOLDEN SCREWDRIVER | 0:melee | false | 9f | 0/use | 20 | sprGoldScrewdriver
+102 | GOLDEN BAZOOKA | 4:expl. | false | 28f | 1/use | 20 | sprGoldBazooka
+103 | GOLDEN ASSAULT RIFLE | 1:bullet | false | 9f | 3/use | 20 | sprGoldARifle
+104 | SUPER DISC GUN | 3:bolt | true | 12f | 5/use | 11 | sprSuperDiscGun
+105 | HEAVY AUTO CROSSBOW | 3:bolt | true | 13f | 2/use | 16 | sprHeavyAutoCrossbow
+106 | HEAVY ASSAULT RIFLE | 1:bullet | false | 9f | 6/use | 13 | sprHeavyARifle
+107 | BLOOD CANNON | 4:expl. | true | 19f | 4/use | 12 | sprBloodCannon
+108 | DOG SPIN ATTACK | 1:bullet | false | 120f | 15/use | -1 | sprDogBulletHUD
+109 | DOG MISSILE | 4:expl. | false | 1f | 1/use | -1 | sprDogMissileHUD
+110 | INCINERATOR | 1:bullet | true | 2f | 3/use | 16 | sprIncinerator
+111 | SUPER PLASMA CANNON | 5:energy | false | 260f | 24/use | 16 | sprSuperPlasmaCannon
+112 | SEEKER PISTOL | 3:bolt | false | 16f | 1/use | 7 | sprSeekerPistol
+113 | SEEKER SHOTGUN | 3:bolt | false | 28f | 3/use | 9 | sprSeekerShotgun
+114 | ERASER | 2:shell | false | 20f | 2/use | 8 | sprEraser
+115 | GUITAR | 0:melee | false | 21f | 0/use | -1 | sprGuitar
+116 | BOUNCER SMG | 1:bullet | true | 3f | 1/use | 6 | sprBouncerSMG
+117 | BOUNCER SHOTGUN | 1:bullet | true | 18f | 6/use | 6 | sprBouncerShotgun
+118 | HYPER SLUGGER | 2:shell | false | 10f | 1/use | 15 | sprHyperSlugger
+119 | SUPER BAZOOKA | 4:expl. | false | 40f | 5/use | 11 | sprSuperBazooka
+120 | FROG PISTOL | 1:bullet | false | 7f | 2/use | -1 | sprFrogBlaster
+121 | BLACK SWORD | 0:melee | false | 16f | 0/use | -1 | sprBlackSword
+122 | GOLDEN NUKE LAUNCHER | 4:expl. | false | 40f | 3/use | 12 | sprGoldNukeLauncher
+123 | GOLDEN DISC GUN | 3:bolt | true | 8f | 1/use | 12 | sprGoldDiscgun
+124 | HEAVY GRENADE LAUNCHER | 4:expl. | false | 26f | 2/use | 8 | sprHeavyNader
+125 | GUN GUN | 5:energy | false | 90f | 40/use | 19 | sprGunGun
+126 | EGGPLANT | 0:melee | false | 1f | 1/use | -1 | sprEggplant
+127 | GOLDEN FROG PISTOL | 1:bullet | false | 6f | 2/use | -1 | sprGoldFrogBlaster
+```
+Weapon constants:
+```table
+ID | Constant
+0 | `wep_none`
+1 | `wep_revolver`
+2 | `wep_triple_machinegun`
+3 | `wep_wrench`
+4 | `wep_machinegun`
+5 | `wep_shotgun`
+6 | `wep_crossbow`
+7 | `wep_grenade_launcher`
+8 | `wep_double_shotgun`
+9 | `wep_minigun`
+10 | `wep_auto_shotgun`
+11 | `wep_auto_crossbow`
+12 | `wep_super_crossbow`
+13 | `wep_shovel`
+14 | `wep_bazooka`
+15 | `wep_sticky_launcher`
+16 | `wep_smg`
+17 | `wep_assault_rifle`
+18 | `wep_disc_gun`
+19 | `wep_laser_pistol`
+20 | `wep_laser_rifle`
+21 | `wep_slugger`
+22 | `wep_gatling_slugger`
+23 | `wep_assault_slugger`
+24 | `wep_energy_sword`
+25 | `wep_super_slugger`
+26 | `wep_hyper_rifle`
+27 | `wep_screwdriver`
+28 | `wep_laser_minigun`
+29 | `wep_blood_launcher`
+30 | `wep_splinter_gun`
+31 | `wep_toxic_bow`
+32 | `wep_sentry_gun`
+33 | `wep_wave_gun`
+34 | `wep_plasma_gun`
+35 | `wep_plasma_cannon`
+36 | `wep_energy_hammer`
+37 | `wep_jackhammer`
+38 | `wep_flak_cannon`
+39 | `wep_golden_revolver`
+40 | `wep_golden_wrench`
+41 | `wep_golden_machinegun`
+42 | `wep_golden_shotgun`
+43 | `wep_golden_crossbow`
+44 | `wep_golden_grenade_launcher`
+45 | `wep_golden_laser_pistol`
+46 | `wep_chicken_sword`
+47 | `wep_nuke_launcher`
+48 | `wep_ion_cannon`
+49 | `wep_quadruple_machinegun`
+50 | `wep_flamethrower`
+51 | `wep_dragon`
+52 | `wep_flare_gun`
+53 | `wep_energy_screwdriver`
+54 | `wep_hyper_launcher`
+55 | `wep_laser_cannon`
+56 | `wep_rusty_revolver`
+57 | `wep_lightning_pistol`
+58 | `wep_lightning_rifle`
+59 | `wep_lightning_shotgun`
+60 | `wep_super_flak_cannon`
+61 | `wep_sawed_off_shotgun`
+62 | `wep_splinter_pistol`
+63 | `wep_super_splinter_gun`
+64 | `wep_lightning_smg`
+65 | `wep_smart_gun`
+66 | `wep_heavy_crossbow`
+67 | `wep_blood_hammer`
+68 | `wep_lightning_cannon`
+69 | `wep_pop_gun`
+70 | `wep_plasma_rifle`
+71 | `wep_pop_rifle`
+72 | `wep_toxic_launcher`
+73 | `wep_flame_cannon`
+74 | `wep_lightning_hammer`
+75 | `wep_flame_shotgun`
+76 | `wep_double_flame_shotgun`
+77 | `wep_auto_flame_shotgun`
+78 | `wep_cluster_launcher`
+79 | `wep_grenade_shotgun`
+80 | `wep_grenade_rifle`
+81 | `wep_rogue_rifle`
+82 | `wep_party_gun`
+83 | `wep_double_minigun`
+84 | `wep_gatling_bazooka`
+85 | `wep_auto_grenade_shotgun`
+86 | `wep_ultra_revolver`
+87 | `wep_ultra_laser_pistol`
+88 | `wep_sledgehammer`
+89 | `wep_heavy_revolver`
+90 | `wep_heavy_machinegun`
+91 | `wep_heavy_slugger`
+92 | `wep_ultra_shovel`
+93 | `wep_ultra_shotgun`
+94 | `wep_ultra_crossbow`
+95 | `wep_ultra_grenade_launcher`
+96 | `wep_plasma_minigun`
+97 | `wep_devastator`
+98 | `wep_golden_plasma_gun`
+99 | `wep_golden_slugger`
+100 | `wep_golden_splinter_gun`
+101 | `wep_golden_screwdriver`
+102 | `wep_golden_bazooka`
+103 | `wep_golden_assault_rifle`
+104 | `wep_super_disc_gun`
+105 | `wep_heavy_auto_crossbow`
+106 | `wep_heavy_assault_rifle`
+107 | `wep_blood_cannon`
+108 | `wep_dog_spin_attack`
+109 | `wep_dog_missile`
+110 | `wep_incinerator`
+111 | `wep_super_plasma_cannon`
+112 | `wep_seeker_pistol`
+113 | `wep_seeker_shotgun`
+114 | `wep_eraser`
+115 | `wep_guitar`
+116 | `wep_bouncer_smg`
+117 | `wep_bouncer_shotgun`
+118 | `wep_hyper_slugger`
+119 | `wep_super_bazooka`
+120 | `wep_frog_pistol`
+121 | `wep_black_sword`
+122 | `wep_golden_nuke_launcher`
+123 | `wep_golden_disc_gun`
+124 | `wep_heavy_grenade_launcher`
+125 | `wep_gun_gun`
+126 | `wep_eggplant`
+127 | `wep_golden_frog_pistol`
+```

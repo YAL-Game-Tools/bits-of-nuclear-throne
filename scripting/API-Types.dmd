@@ -1,0 +1,60 @@
+```set title
+Value functions in NTGML
+```
+#[Checks]() {
+	#[typeof(value)->]() {
+		Returns the type of a value as a string.
+		
+		This is slower than calling the respective `is_` function or two.
+	}
+	#[is_number(value)->]() {
+		Same as `is_numeric`.
+	}
+	```gmblanks
+	is_real(value):#
+	is_numeric(val):#
+	is_string(val):#
+	is_undefined(val):#
+	is_int32(val):#
+	is_int64(val):#
+	is_ptr(val):#
+	is_bool(val):#
+	is_nan(val):#
+	is_infinity(val):#
+	is_struct(val):#
+	is_method(val):#
+	is_array(val):#
+	is_callable(val):#
+	is_handle(val):#
+	```
+	And the following are extra:
+	#[is_object(val)->]() {
+		Returns whether a value is a struct, but not a wrapper for a data structure/etc.
+	}
+	#[is_builtin(val)->]() {
+		Returns whether a value is a wrapper for a data structure/etc. and not a struct.
+	}
+	#[is_double(val)->]() {
+		In "legacy" NTGML, `is_real` is an alias for `is_numeric` and this is the actual `is_real`.
+	}
+}
+#[Conversions]() {
+	```gmblanks
+	real(value):
+	bool(value):#
+	string(value_or_template, ...values):#
+	int64(value):#
+	```
+	And the following are extra:
+	#[string_is_real(str)->]() {
+		Returns whether a string contains a valid number
+		(signed, fractional, no exponents/infinities).
+	}
+	#[string_to_real(str, default_value = 0)->]() {
+		Converts a string to a number if it's valid (rules per above)
+		or returns `default_value` if it isn't.
+		
+		In "legacy" NTGML, `real(str)` is equivalent
+		to `string_to_real(str, 0)` for backwards compatibility.
+	}
+}

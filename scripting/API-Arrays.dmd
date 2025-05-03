@@ -1,83 +1,153 @@
 ```set title
 NTGML API: Arrays
 ```
-Here you may observe an implementation detail:
-
-When I was making the scripting API for NTT,
-GameMaker did not have many built-in functions for array manipulation
-and I implemented a handful of these myself.
-
-Some years later GM added a good handful of array functions,
-but some of these have different signatures from how my functions,
-so they now have a `native_` prefix.
-
-NTT-specific functions use the built-in functions where appropriate
-so there is no speed penalty from using one or the other.
-
-The rest of NTT-specific functions are:
-#[array_clear(array, value)]() {
-	Replaces the contents of an array with the given value.
-	```
-	var arr = [1, 2, 3];
-	array_clear(arr, 4);
-	trace(arr); // [4, 4, 4]
-	```
+```gmblanks
+array_create(size, [value]):
+array_copy(dest, dest_index, src, src_index, length)
+array_resize(variable, newsize)
+array_length(val):
+```
+#[array_length_1d(val)->]() {
+	Same thing as array_length, here for backwards compatibility.
 }
-#[array_clone(array)->]() {
-	Returns a shallow copy of the given array.
-	```
-	var a = [1, 2, 3];
-	var b = array_clone(a);
-	a[1] = 4;
-	trace(a); // [1, 4, 3]
-	trace(b); // [1, 2, 3]
-	```
-}
-#[array_slice(array, start, length)->]() {
-	Returns a new array with values representing a section of an array.
+```gmblanks
+array_equals(a, b):
+array_get(variable, index):
+array_set(variable, index, val)
+array_push(array, ...values)
+array_pop(array)
+array_insert(array,index,val,...)
+array_delete(array,index,number)
+array_shift(array):
+```
+
+#[Prefixed functions](prefixed) {
+	Here you may observe an implementation detail:
 	
-	This is more or less a shortcut for `array_create(length)` + `array_copy`.
-	```
-	var arr = [1, 2, 3, 4, 5];
-	trace(array_slice(arr, 1, 3)); // [1, 2, 3]
-	```
-}
----
-#[array_find_index(array, value)->]() {
-	Returns the index of first occurrence of a value in the array.
-	```
-	var arr = ["a", "b", "c"];
-	trace(array_find_index(arr, "b")); // 1
-	trace(array_find_index(arr, "c")); // 2
-	trace(array_find_index(arr, "d")); // -1
-	```
-	This is the primary reason for the `native_` prefixes - in GML functions,
-	`array_find_index` uses a _predicate_ to search an array
-	while `array_get_index` searches for a value.
-	A confusing one given the names of `ds_list` functions.
-}
-#[array_find_index_ext(array, value, start)->]() {
-	Like above, but starts searching at a specific index (inclusive).
-}
-#[array_find_last_index(array, val)->]() {
-	Like above, but searches from the end of an array.
-}
-#[array_find_last_index_ext(array, val, start)->]() {
-	Like above, but searches for values before the specified index (exclusive).
-}
----
-#[array_join(array, delimiter:string)]() {
-	Joins the contents of an array into a string, separating them as specified.
-	```
-	var arr = [1, 2, 3];
-	trace(array_join(arr, "|")); // "1|2|3"
-	```
-	`string_split` can be considered a counterpart of this function.
-}
----
-#[array_sort_sub(array, sub_index, ascend)->]() {
-	Assuming an array of arrays,
-	sorts the contents based on `sub_index`-th element of each sub-array.
+	When I was making the scripting API for NTT,
+	GameMaker did not have many built-in functions for array manipulation
+	and I implemented a handful of these myself.
 	
-	These days you can pass a predicate function to `array_sort`.
+	Some years later GM added a good handful of array functions,
+	but some of these have different signatures from how my functions,
+	so they now have a `native_` prefix.
+	
+	NTT-specific functions use the built-in functions where appropriate
+	so there is no speed penalty from using one or the other.
+	```gmblanks
+	native_array_sort(array,sortType_or_function)
+	native_array_contains(array,value,[offset],[length])
+	native_array_contains_ext(array,values,matchAll,[offset],[length])
+	native_array_first(array)
+	native_array_last(array)
+	native_array_create_ext(size, function):
+	native_array_any(array,function,[offset],[length]):
+	native_array_all(array,function,[offset],[length]):
+	native_array_foreach(array,function,[offset],[length]):
+	native_array_reduce(array,function,[init_value],[offset],[length]):
+	native_array_filter(array,function,[offset],[length]):
+	native_array_filter_ext(array,function,[offset],[length]):
+	native_array_map(array,function,[offset],[length]):
+	native_array_map_ext(array,function,[offset],[length]):
+	native_array_copy_while(array,function,[offset],[length]):
+	native_array_unique(array,[offset],[length]):
+	native_array_unique_ext(array,[offset],[length]):
+	native_array_reverse(array,[offset],[length]):
+	native_array_reverse_ext(array,[offset],[length]):
+	native_array_concat(array0,array1,...):
+	native_array_union(array0,array1,...):
+	native_array_intersection(array0,array1,...):
+	```
+}
+#[NTT-specific functions](ntt) {
+	#[array_clear(array, value)]() {
+		Replaces the contents of an array with the given value.
+		```
+		var arr = [1, 2, 3];
+		array_clear(arr, 4);
+		trace(arr); // [4, 4, 4]
+		```
+	}
+	#[array_clone(array)->]() {
+		Returns a shallow copy of the given array.
+		```
+		var a = [1, 2, 3];
+		var b = array_clone(a);
+		a[1] = 4;
+		trace(a); // [1, 4, 3]
+		trace(b); // [1, 2, 3]
+		```
+	}
+	#[array_slice(array, start, length)->]() {
+		Returns a new array with values representing a section of an array.
+		
+		This is more or less a shortcut for `array_create(length)` + `array_copy`.
+		```
+		var arr = [1, 2, 3, 4, 5];
+		trace(array_slice(arr, 1, 3)); // [1, 2, 3]
+		```
+	}
+	---
+	#[array_find_index(array, value)->]() {
+		Returns the index of first occurrence of a value in the array.
+		```
+		var arr = ["a", "b", "c"];
+		trace(array_find_index(arr, "b")); // 1
+		trace(array_find_index(arr, "c")); // 2
+		trace(array_find_index(arr, "d")); // -1
+		```
+		This is the primary reason for the `native_` prefixes - in GML functions,
+		`array_find_index` uses a _predicate_ to search an array
+		while `array_get_index` searches for a value.
+		A confusing one given the names of `ds_list` functions.
+	}
+	#[array_find_index_ext(array, value, start)->]() {
+		Like above, but starts searching at a specific index (inclusive).
+	}
+	#[array_find_last_index(array, val)->]() {
+		Like above, but searches from the end of an array.
+	}
+	#[array_find_last_index_ext(array, val, start)->]() {
+		Like above, but searches for values before the specified index (exclusive).
+	}
+	---
+	#[array_filter(array, fn, copy=true)->]() {
+		Filters an array by passing each item to the filter function
+		and keeping only the ones that it returned `true` for.
+		
+		If `copy` is `true`, filtered items will be added to a new array.\
+		Otherwise the array is modified in place.
+		
+		Returns the array (either new or the input one) in both cases.
+		
+		On terms of modern GML, the function is a mix of
+		$[manual](array_filter) and $[manual](array_filter_ext).
+	}
+	#[array_map(array, fn, copy=true)->]() {
+		Modifies an array by passing all items through a mapper function.
+		
+		If `copy` is `true`, resulting items will be added to a new array.\
+		Otherwise the array is modified in place.
+		
+		Returns the array (either new or the input one) in both cases.
+		
+		On terms of modern GML, the function is a mix of
+		$[manual](array_map) and $[manual](array_map_ext).
+	}
+	---
+	#[array_join(array, delimiter:string)]() {
+		Joins the contents of an array into a string, separating them as specified.
+		```
+		var arr = [1, 2, 3];
+		trace(array_join(arr, "|")); // "1|2|3"
+		```
+		`string_split` can be considered a counterpart of this function.
+	}
+	---
+	#[array_sort_sub(array, sub_index, ascend)->]() {
+		Assuming an array of arrays,
+		sorts the contents based on `sub_index`-th element of each sub-array.
+		
+		These days you can pass a predicate function to `array_sort`.
+	}
 }

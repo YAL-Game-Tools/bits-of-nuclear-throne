@@ -70,7 +70,16 @@ function printBlanks(text, isGM) {
 	var rxName = new EReg("^(\\w+)", "");
 	for (sig in lines) {
 		sig = StringTools.trim(sig);
-		if (sig == "") continue;
+		if (sig == "") {
+			out.push("---");
+			continue;
+		}
+		if (StringTools.startsWith(sig, "//")) continue;
+		sig = StringTools.replace(sig, "$", "");
+		sig = StringTools.replace(sig, "£", "");
+		if (sig.indexOf("(") >= 0 && StringTools.endsWith(sig, "#")) {
+			sig = sig.substring(0, sig.length - 1);
+		}
 		while (StringTools.startsWith(sig, ":")) {
 			sig = sig.substring(1);
 		}
@@ -81,6 +90,9 @@ function printBlanks(text, isGM) {
 		var md = "#[" + sigMd + "] {}";
 		if (isGM && rxName.match(sig)) {
 			var name = rxName.matched(1);
+			if (StringTools.startsWith(name, "native_")) {
+				name = name.substring("native_".length);
+			}
 			var url = gmHelpLink(name);
 			//md = "[" + md + "](" + url + ")";
 			md = "#[" + sigMd + "](" + url + ") {}";
@@ -99,4 +111,46 @@ DocMd.addCodeTag("ntblanks", function(text) {
 DocMd.addCodeTag("gmblanks", function(text) {
 	return printBlanks(text, true);
 });
+DocMd.addCodeTag("gmdump", function(text) {
+	var rxFirst = new EReg("^\\s*(.+)", "");
+	var title = "Entries";
+	if (rxFirst.match(text)) {
+		title = rxFirst.matched(1);
+		text = rxFirst.matchedRight();
+	}
+	text = StringTools.trim(text).split("\n").map(function(line) {
+		return StringTools.trim(line);
+	}).join("\n");
+	text = StringTools.htmlEscape(text);
+	var html = '<details>'
+		+ '<summary>' + render(title) + '</summary>'
+		+ '<pre class="dump">' + text + '</pre>'
+	+ '</details>';
+	return html;
+});
+DocMd.addCodeTag("table", function(str) {
+	str = StringTools.trim(str);
+	var lines = str.split("\n");
+	var first = lines.shift();
+	first = "<tr><th>" + first.split("|").join("</th><th>") + "</th></tr>";
+	lines = lines.map(function(line) {
+		var cells = line.split("|");
+		cells = cells.map(function(cell) {
+			return render(cell);
+		});
+		return "<tr><td>" + cells.join("</td><td>") + "</td></tr>";
+	});
+	lines.unshift(first);
+	return "<table>" + lines.join("\n") + "</table>";
+});
+function fullWidth() {
+	return '<style>
+.page {
+	max-width: 100%;
+}
+table th {
+	text-align: left;
+}
+</style>';
+}
 ```
