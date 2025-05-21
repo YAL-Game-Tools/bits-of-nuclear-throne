@@ -84,6 +84,11 @@ of that kind.
 	</p></article></section></article></section><section><header id="json"><a href="#json" title="(permalink)">JSON</a></header><article><a class="sticky-side" href="#json" title="JSON"><span>JSON</span></a><section><header id="json_decode"><a href="#json_decode" title="(permalink)">json_decode(json:string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		This works closer to <a target="blank" rel="noreferrer noopener" href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=json_parse&ux=search">json_parse</a>
 		as it returns structs and arrays, not data structures.
+		</p><p>
+		If JSON fails to parse, it returns <code>json_error</code> (special value)
+		and stores the error text in <a href="#json_error_text">json_error_text</a>.
+	</p></article></section><section><header id="json_error_text"><a href="#json_error_text" title="(permalink)">json_error_text: string</a></header><article><p>
+		This stores the error message for the last failed <a href="#json_decode">json_decode</a>.
 	</p></article></section><section><header id="json_encode"><a href="#json_encode" title="(permalink)">json_encode(value, ?indent:string)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		This works closer to <a target="blank" rel="noreferrer noopener" href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=json_stringify&ux=search">json_stringify</a>
 		as it works with structs and arrays, not data structures.

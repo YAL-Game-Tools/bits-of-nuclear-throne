@@ -3,6 +3,75 @@ Legend:
 - Base-game versions are structured like 99r#(b#)
 - NTT versions are structured like 100.###
 
+---
+
+# 100.023 (May 2025)
+
+Most of the work behind this update is invisible because I'm updating the scripting system
+and migrating documentation [to GitHub](https://yal-game-tools.github.io/bits-of-nuclear-throne/).
+
+Additions:
+- Player now has grant_health and grant_ammo methods that you can override in custom races to change how healing/ammo gain work.
+(this also eliminates a bit of copy-pasted-but-slightly-different code, e.g. from LilHunter vs enemy)
+- Added support for `fast_file`, `not_fast`, and `no_using` pragmas
+- Added `char_custom`
+- Added `move_and_collide`
+- Added `instance_nearest_nonself`
+- Added `asset_get_ids`
+- There are now `prev`/`next` buttons for polling one direction of mouse wheel
+
+Improvements:
+- Legacy `instance_create` now also supports the `?vars` argument
+- `player_count_race` now accepts names
+
+Changes:
+- `real` and `is_real` now act like in normal GML in V2 mods
+
+Fixes:
+- Opening multiple game windows to test multiplayer on same PC is now safer (each gets its own temporary file names)
+- Fixed /gmlapi crashing the game _or_ not logging the assets to files
+- Fixed `#pragma using` not working for mods that are being loaded together on one frame.
+- Fixed string_split_list, which I don't think anyone used for a while now.
+- Fixed `mouse_x_nonsync` and `view_xview_nonsync` missing an array specifier
+- Fixed NTT add-ons to some functions (like drawing visibility) not applying
+
+# 99r2b21 (May 2025)
+
+This build is unrelesed at the time of writing this,
+but changes from it are in NTT 100.023 so it kind of needs to be here.
+It'll be pushed as soon as it is confirmed that the game doesn't randomly catch fire.
+
+Additions:
+- One new Melting loading screen tip
+- Anniversary cake returns (on Dec 5 each year)
+
+Fixes:
+- Fixed a seemingly-impossible crash with gamepad aiming
+- Fixed WaterMine bullets not being affected by Euphoria
+- Fixed RoguePickup creating RabbitPaw effect even thought it doesn't do anything for it
+- Fixed Tangle briefly panning camera on new throw
+- Eating weapons as Robot now doesn't grant health when you have CoLife instead of (incorrectly) CoDeath
+- Fixed hyper slugs never resetting their +1 bonus damage
+- Health chests created by Regurgitate can no longer break walls
+- Allies and Saplings are now affected by Impact Wrists, but you might hardly see a difference
+- Fixed type-based `SubAmmo:#` localization key not being supported
+- Fixed stick swap on gamepad not swapping the aim stick
+- The game _should_ run on Windows 7 again. If it doesn't, please report with error message(s).
+
+# 99r2b20 (February 2025)
+
+Changes:
+- I'm doing another experiment with how close-by audio plays, perhaps this one will be true-est to original
+- On L6 and later, the game will now slightly simplify how enemies collide with each other and bounce off walls. This brings a minor performance improvement
+- Boiling Veins now also applies to player-created flames and flame shells
+
+Fixes:
+- Fixed Big Bandit and Hammerhead breaking walls slower than before
+- Fixed WantRevivePopoFreak not being destroyed after firing their alarm
+- Fixed assassins not playing their "pretend" sound while lying low
+- Invalid numbers in weekly JSON should no longer crash the game
+- Fixed Rogue normal/TB portal strike sounds being the other way around
+
 # 100.021 (December 2024)
 
 Additions:

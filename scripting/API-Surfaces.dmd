@@ -1,0 +1,49 @@
+```set title
+Surfaces in NTT
+```
+
+```gmblanks
+surface_create(width, height, ?format):
+surface_free(surf)
+```
+#[surface_destroy(surf)->]() {
+	Alias for `surface_free`.
+}
+#[surface_destroy_soft(surf)->]() {
+	Like regular `surface_destroy`, but does not throw an error if you try to destroy a non-existing
+	surface.
+	
+	This is what "legacy" mods use instead of `surface_destroy`.
+}
+#[surface_valid(surf)->]() {
+	Same thing as with data structure checkers.
+}
+#[surface_exists(surf)->]() {
+	Alias for above.
+}
+---
+```gmblanks
+surface_get_width(surf):
+surface_get_height(surf):
+surface_get_texture(surf):
+surface_resize(surf, newWidth, newHeight)
+surface_set_target(surf)
+surface_set_target_ext(surf, index)
+surface_get_target():
+surface_get_target_ext(index):
+surface_reset_target()
+surface_depth_disable(disable)
+surface_get_depth_disable():
+surface_format_is_supported(format):
+```
+Constants:
+```gmblanks
+surface_rgba8unorm = 6
+surface_r16float = 9
+surface_r32float = 10
+surface_rgba4unorm = 11
+surface_r8unorm = 12
+surface_rg8unorm = 13
+surface_rgba16float = 14
+surface_rgba32float = 15
+```

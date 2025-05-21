@@ -134,6 +134,12 @@ of that kind.
 	#[json_decode(json:string)->]() {
 		This works closer to $[manual](json_parse)
 		as it returns structs and arrays, not data structures.
+		
+		If JSON fails to parse, it returns `json_error` (special value)
+		and stores the error text in [json_error_text].
+	}
+	#[json_error_text: string]() {
+		This stores the error message for the last failed [json_decode].
 	}
 	#[json_encode(value, ?indent:string)->]() {
 		This works closer to $[manual](json_stringify)
