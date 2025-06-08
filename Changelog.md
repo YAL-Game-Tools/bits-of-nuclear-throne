@@ -5,6 +5,11 @@ Legend:
 
 ---
 
+# 100.026 (June 2025)
+
+- Fixed a few oddities introduced by refactoring for 100.025
+- CustomChest now has a `can_shine` variable.
+
 # 100.025 (June 2025)
 
 - Fixed stats menu buttons not being focusable with mouse (how did this work before)

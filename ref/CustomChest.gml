@@ -13,24 +13,10 @@ on_destroy = null;
 on_cleanup = null;
 on_open = null;
 can_hatred = true;
+can_shine = true;
 
 #event destroy
 mod_refcall(on_destroy);
-
-#event cleanup
-mod_refcall(on_cleanup);
-
-#event other_animation_end
-mod_refcall(on_anim);
-
-#event other_user4
-mod_refcall(on_begin_step);
-
-#event other_user5
-mod_refcall(on_step);
-
-#event other_user6
-mod_refcall(on_end_step);
 
 #event collision:Player
 if instance_exists(GenCont) exit;
@@ -40,7 +26,24 @@ mod_refcall(on_open);
 #event collision:PortalShock
 mod_refcall(on_open);
 
+#event other_animation_end
+mod_refcall(on_anim);
+
+#event other_user4
+mod_refcall(on_begin_step);
+
+#event other_user5
+mod_refcall(on_step);
+if (can_shine) scrShine(0.04, 0.4);
+
+#event other_user6
+mod_refcall(on_end_step);
+
 #event draw
 if (on_draw == null) {
 	draw_self_w();
 } else mod_refcall(on_draw);
+
+
+#event cleanup
+mod_refcall(on_cleanup);
