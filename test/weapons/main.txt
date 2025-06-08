@@ -1,0 +1,1 @@
+/loadwep weapon_pan_factor

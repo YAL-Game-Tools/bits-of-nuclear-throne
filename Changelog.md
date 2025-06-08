@@ -365,6 +365,8 @@ Modding:
 - Since the game now runs on GM2022.11, IDs are now a `ref` type, but we'll pretend that they aren't for GMLv1 mods.
 - Projectiles now have a `creator_projectile` variable for tracking submunitions
 - Race mods can now define a `race_gets_chilly` script.
+- Race mods can now define a `race_makes_air_bubbles` script.
+- Area mods can now define a `area_set_music` script.
 - Fixed `instances_in_rectangle`/`instances_in_circle` not working with array arguments
 - Fixed `on_` script ID->script binding conversions being too generous (and applying when writing variables to objects that didn't use to do conversions)
 - New-format menus now create a single dummy button so that mods making use of instance_exists still work

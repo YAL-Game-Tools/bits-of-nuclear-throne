@@ -91,7 +91,9 @@ function TipsStruct() constructor {
 	];
 	loadUserTips(weekly, L, "Weekly:");
 	
-	var _sfmt = () => choose_w("", "", "", "", "", L("Hardmode:8", "what does SFMT stand for?"));
+	var _sfmt = () => {
+		return choose_w("", "", "", "", "", LS("Tips", "Hardmode:8", "what does SFMT stand for?"));
+	}
 	_sfmt.name = "sfmt";
 	hardmode = [
 		L("Hardmode:1", "heh"),
@@ -110,12 +112,12 @@ function TipsStruct() constructor {
 			These are shown based on player count in co-op
 		**/
 		switch (instance_number(Player) + instance_number(Revive)) {
-			case 0: return L("Coop:7", "no heads");
-			case 1: return L("Coop:8", "one head");
-			case 2: return L("Coop:9", "two heads");
-			case 3: return L("Coop:10", "three heads");
-			case 4: return L("Coop:11", "four heads");
-			default: return L("Coop:12", "many heads");
+			case 0: return LS("Tips", "Coop:7", "no heads");
+			case 1: return LS("Tips", "Coop:8", "one head");
+			case 2: return LS("Tips", "Coop:9", "two heads");
+			case 3: return LS("Tips", "Coop:10", "three heads");
+			case 4: return LS("Tips", "Coop:11", "four heads");
+			default:return LS("Tips", "Coop:12", "many heads");
 		}
 	};
 	_heads.name = "heads";

@@ -1,0 +1,42 @@
+/*
+/load test/CustomChest
+Enemies have a 1/3 chance to spawn a pitiful health chest
+*/
+
+#define step
+with (instances_matching(enemy, "__test_pickup", undefined)) {
+	with (self) { // this gets us a self-struct instead of an ID in gml2
+		wait_for_death();
+	}
+}
+
+#define wait_for_death
+__test_pickup = true;
+if (!fork()) exit;
+while (my_health > 0) wait 1;
+make_pickup();
+
+#define make_pickup
+if (random(maxhealth) < 3) exit;
+with (instance_create(x, y, CustomChest)) {
+	sprite_index = sprHealthChest;
+	on_open = function() {
+		if (other.object_index == Player) {
+			other.my_health = min(other.my_health + 1, other.maxhealth);
+		} else with (Player) {
+			my_health = min(my_health + 1, maxhealth);
+		}
+		sound_play(sndHPPickup);
+		instance_destroy();
+		// self is CustomPickup
+		// other is Player
+	}
+	on_destroy = function() {
+		with (instance_create(x, y, ChestOpen)) {
+			sprite_index = sprHealthChestOpen;
+			image_xscale = other.image_xscale;
+			image_yscale = other.image_yscale;
+		}
+		instance_create(x, y, FXChestOpen);
+	}
+}

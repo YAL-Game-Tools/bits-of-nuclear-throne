@@ -1,0 +1,25 @@
+#define weapon_name
+return "Sniper crossbow";
+#macro base_wep wep_crossbow
+
+#define weapon_type
+return weapon_get_type(base_wep);
+
+#define weapon_load
+return weapon_get_load(base_wep);
+
+#define weapon_area
+return weapon_get_area(base_wep);
+
+#define weapon_pan_factor
+return 1.5;
+
+#define weapon_sprt
+return sprCrossbow;
+
+#define weapon_fire
+// use the logic from the regular crossbow
+var _wep = wep;
+wep = wep_crossbow;
+player_fire();
+wep = _wep;
