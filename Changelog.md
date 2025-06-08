@@ -5,6 +5,23 @@ Legend:
 
 ---
 
+# 100.025 (June 2025)
+
+- Fixed stats menu buttons not being focusable with mouse (how did this work before)
+- Fixed the game sometimes crashing on loading screens in coop
+- Fixed method-type custom object callbacks not running correctly
+- Added CustomChest
+- Skin mods can now define `skin_sound`; more sprites are re-mappable using `skin_sprite`
+- Fixed `ds_map_keys_to_array` for real this time
+- Added `weapon_pan_factor` callback script for weapons and a `weapon_get_pan_factor` getter function.
+- Fixed a crash when minimizing the game window in native scale mode
+
+# 100.024 (May 2025)
+
+- Fixed the game sometimes crashing on loading screens in hardmode
+- Fixed mods misbehaving due to a YYC optimization
+- Fixed `surface_create`, `ds_map_keys_to_array`/`ds_map_values_to_array`, `background_color`
+
 # 100.023 (May 2025)
 
 Most of the work behind this update is invisible because I'm updating the scripting system

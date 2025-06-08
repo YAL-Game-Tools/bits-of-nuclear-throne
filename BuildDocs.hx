@@ -148,7 +148,7 @@ class BuildDocs {
 		procObjects();
 		for (file in [
 			"index.dmd",
-			"NTT-Scripting.dmd",
+			//"NTT-Scripting.dmd",
 			"NTT-FAQ.dmd",
 		]) {
 			Sys.println(file + "...");

@@ -64,7 +64,6 @@ body {
 	padding-left: 4px;
 	padding-top: 1px;
 	padding-bottom: 1px;
-	cursor: pointer;
 	display: flex;
 	align-items: center;
 }
@@ -93,6 +92,9 @@ body {
 }
 #doc section.empty > header::before {
 	content: " "; /*"·"*/
+}
+#doc section.link > header::before {
+	content: "→";
 }
 
 #doc header:hover,
@@ -449,11 +451,12 @@ Where would you rather be? </p><ul>
 	//
 	function h3bind(h3) {
 		var node = h3.parentNode;
+		var isLink = node.classList.contains("link");
 		var snip = node.children[1];
 		var id = h3.id || h3.textContent;
 		h3.snip = snip;
 		h3.doc_set = function(z) {
-			if (z) node.classList.add("open"); else node.classList.remove("open");
+			if (isLink) {} else if (z) node.classList.add("open"); else node.classList.remove("open");
 			if (state) {
 				state[id] = z;
 				window.localStorage.setItem(path, JSON.stringify(state));
