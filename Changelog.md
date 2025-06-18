@@ -5,6 +5,12 @@ Legend:
 
 ---
 
+# 100.027 (June 2025)
+
+- Ultra bolts now dig more predictably, especially in edge case scenarios (diagonal shots, BRRRAP, point-blank shots)
+- Added support for `view_xview[ind]`, `map[?ind]`, and `struct[$ key]` to `#pragma fast`
+- Big Dog missiles no longer stop firing around L20
+
 # 100.026 (June 2025)
 
 - Fixed a few oddities introduced by refactoring for 100.025
