@@ -5,7 +5,7 @@ Legend:
 
 ---
 
-# 100.027 (June 2025)
+# 99r2b21 / 100.027 (June 2025)
 
 - Ultra bolts now dig more predictably, especially in edge case scenarios (diagonal shots, BRRRAP, point-blank shots)
 - Added support for `view_xview[ind]`, `map[?ind]`, and `struct[$ key]` to `#pragma fast`
@@ -18,14 +18,17 @@ Legend:
 
 # 100.025 (June 2025)
 
-- Fixed stats menu buttons not being focusable with mouse (how did this work before)
+Base game:
+- Fixed a crash when minimizing the game window in native scale mode
 - Fixed the game sometimes crashing on loading screens in coop
+- Fixed stats menu buttons not being focusable with mouse (how did this work before)
+
+NTT:
 - Fixed method-type custom object callbacks not running correctly
 - Added CustomChest
 - Skin mods can now define `skin_sound`; more sprites are re-mappable using `skin_sprite`
 - Fixed `ds_map_keys_to_array` for real this time
 - Added `weapon_pan_factor` callback script for weapons and a `weapon_get_pan_factor` getter function.
-- Fixed a crash when minimizing the game window in native scale mode
 
 # 100.024 (May 2025)
 
@@ -65,7 +68,7 @@ Fixes:
 
 # 99r2b21 (May 2025)
 
-This build is unrelesed at the time of writing this,
+This build is unreleased at the time of writing this,
 but changes from it are in NTT 100.023 so it kind of needs to be here.
 It'll be pushed as soon as it is confirmed that the game doesn't randomly catch fire.
 
