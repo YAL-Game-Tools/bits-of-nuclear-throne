@@ -5,6 +5,12 @@ Legend:
 
 ---
 
+# 99r2b22 / 100.028 (June 2025)
+
+- Fixed walls on 0-1 not making debris/sounds when destroyed.
+- Fixed a few more oddities and edge cases with ultra bolts.
+- Added `[Controls] MouseDirect` option to INI for people with cursed computers that stop updating window mouse coordinates sometimes.
+
 # 99r2b21 / 100.027 (June 2025)
 
 - Ultra bolts now dig more predictably, especially in edge case scenarios (diagonal shots, BRRRAP, point-blank shots)
