@@ -5,6 +5,12 @@ Legend:
 
 ---
 
+# 99r2b23 / 100.029 (June 2025)
+
+- Voting for `/ultras all` + `own` will now pick `own`
+- Space is now allowed as "swap" shortcut in menus and hopefully that doesn't break anything
+- Even more tweaks for ultra bolts, 30fps-only edition
+
 # 99r2b22 / 100.028 (June 2025)
 
 - Fixed walls on 0-1 not making debris/sounds when destroyed.
