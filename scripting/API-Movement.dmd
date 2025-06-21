@@ -59,3 +59,11 @@ Movement in NTT
 	move_and_collide(dx,dy,obj, ?num_iterations, ?xoff,?yoff, ?max_x_move,?max_y_move):
 	```
 }
+#[Motion planning]() {
+	```gmblanks
+	:mp_linear_step(x:number, y:number, speed:number, checkall:bool)
+	:mp_potential_step(x:number, y:number, speed:number, checkall:bool)
+	:mp_linear_step_object(x:number, y:number, speed:number, obj:index)
+	:mp_potential_step_object(x:number, y:number, speed:number, obj:index)
+	```
+}

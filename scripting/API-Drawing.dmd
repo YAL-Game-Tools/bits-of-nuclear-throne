@@ -1,7 +1,7 @@
 ```set title
 Drawing in NTT
 ```
-#[Color functions](color) {
+#[Color functions](Color) {
 	```gmblanks
 	make_colour_rgb(red, green, blue):
 	make_color_rgb(red, green, blue):
@@ -21,9 +21,27 @@ Drawing in NTT
 	color_get_value(col):
 	merge_colour(col1, col2, amount):
 	merge_color(col1, col2, amount):
+	
+	c_aqua = 16776960
+	c_black = 0
+	c_blue = 16711680
+	c_dkgray = 4210752
+	c_fuchsia = 16711935
+	c_gray = 8421504
+	c_green = 32768
+	c_ltgray = 12632256
+	c_maroon = 128
+	c_navy = 8388608
+	c_olive = 32896
+	c_purple = 8388736
+	c_silver = 12632256
+	c_teal = 8421376
+	c_white = 16777215
+	c_yellow = 65535
+	c_orange = 4235519
 	```
 }
-#[Text drawing](text) {
+#[Text drawing](Text) {
 	State:
 	```gmblanks
 	draw_set_font(font)
@@ -63,8 +81,68 @@ Drawing in NTT
 	draw_text_ext_transformed_colour(x:number, y:number, string:string, sep, w:number, xscale:number, yscale:number, angle:number, c1:color, c2:color, c3:color, c4:color, alpha:number)
 	draw_text_ext_transformed_color(x:number, y:number, string:string, sep, w:number, xscale:number, yscale:number, angle:number, c1:color, c2:color, c3:color, c4:color, alpha:number)
 	```
+	Non-standard:
+	#[draw_text_shadow(x, y, string)]() {
+		Draws text with a simple shadow (black text at +1,0; 0,+1; +1,+1).
+		
+		Converts hashtags (`#`) to new lines.
+	}
+	#[draw_text_nt(x, y, string)]() {
+		Draws text with tags!
+		--{
+		-	`@s`: Silver
+		-	`@d`: Dark gray
+		-	`@y`: Yellow
+		-	`@r`: Red
+		-	`@b`: Blue
+		-	`@g`: Green
+		-	`@p`: Purple
+		-	`@w`: White
+		-	`@q`: Cursed/shaky text
+		-	`@(...)`, `@0(...)`, `@9(...)`:\
+			You can do `@(sprAmmo)` or `@(sprAmmo:1)` to draw sprites.
+			
+			`@0` .. `@9` indicates how much space the sprite takes up in text.
+			
+			This is also used for some special things: --{
+			-	`@(keysmall:action)`:\
+				Displays the current key binding for an action.
+				
+				Possible actions are: --{
+				-	`fire`
+				-	`spec`
+				-	`pick`
+				-	`swap`
+				-	`nort`
+				-	`sout`
+				-	`east`
+				-	`west`
+				}
+			-	`@(keysmall2:action)`:\
+				Displays the alternate key binding for an action.
+			-	`@(butsmall:action)`:\
+				Displays the current gamepad button binding for an action.
+			-	`@(butsmall2:action)`:\
+				Displays the alternate gamepad button binding for an action.
+			-	`@(butbig:action)`:\
+				Like above, but for big buttons.
+			-	`@(butbig2:action)`:\
+				Like above, but for big buttons and alternate binding.
+			-	`@(color:value)`:\
+				Applies a custom color.
+				
+				`value` can be either a numeric BGR color in GameMaker format
+				(such as from `make_color_rgb`) or a `#RrGgBb` hex.
+			}
+		}
+	}
+	#[draw_tooltip(x, y, string)]() {
+		Draws a tooltip in a signature balloon above the given point.
+		
+		Same tag support as [draw_text_nt].
+	}
 }
-#[State](state) {
+#[State]() {
 	```gmblanks
 	draw_set_colour(col)
 	draw_set_color(col)
@@ -72,5 +150,203 @@ Drawing in NTT
 	draw_get_colour():
 	draw_get_color():
 	draw_get_alpha():
+	
+	texture_set_interpolation(linear)
+	texture_set_blending(blend)
+	texture_set_repeat(repeat)
+	
+	draw_set_blend_mode(mode:int)
+	bm_normal = 0
+	bm_add = 1
+	bm_max = 2
+	bm_subtract = 3
+	
+	draw_set_blend_mode_ext(src:int, dest:int)
+	bm_zero = 1
+	bm_one = 2
+	bm_src_color = 3
+	bm_src_colour = 3
+	bm_inv_src_color = 4
+	bm_inv_src_colour = 4
+	bm_src_alpha = 5
+	bm_inv_src_alpha = 6
+	bm_dest_alpha = 7
+	bm_inv_dest_alpha = 8
+	bm_dest_color = 9
+	bm_dest_colour = 9
+	bm_inv_dest_color = 10
+	bm_inv_dest_colour = 10
+	bm_src_alpha_sat = 11
+	
+	draw_set_colour_write_enable(red:bool, green:bool, blue:bool, alpha:bool)
+	draw_set_color_write_enable(red:bool, green:bool, blue:bool, alpha:bool)
+	draw_set_alpha_test(enable:bool)
+	draw_set_alpha_test_ref_value(value:number)
+	draw_get_alpha_test():
+	draw_get_alpha_test_ref_value():
+	
+	d3d_set_fog(enable:bool, color:color, start:number, end:number)
+	draw_set_fog(enable:bool, color:color, start:number, end:number)
 	```
+}
+#[Projection]() {
+	These are convenience overrides for drawing something within a view/etc.
+	#[draw_set_projection(mode, ?index)]() {
+		Modes are as following: --{
+		-	`0`: Standard drawing
+		-	`1`: Draws relative to view.
+		-	`2`: Draws over the HUD of player `index`.
+		}
+	}
+	#[draw_reset_projection()]() {}
+}
+#[Shapes]() {
+	```gmblanks
+	draw_clear(:color)
+	draw_clear_alpha(:color, alpha:number)
+	
+	draw_point(x:number, y:number)
+	draw_line(x1:number, y1:number, x2:number, y2:number)
+	draw_line_width(x1:number, y1:number, x2:number, y2:number, width:number)
+	draw_rectangle(x1:number, y1:number, x2:number, y2:number, outline:bool)
+	draw_roundrect(x1:number, y1:number, x2:number, y2:number, outline:bool)
+	draw_roundrect_ext(x1:number, y1:number, x2:number, y2:number, radiusx:number, radiusy:number, outline:bool)
+	draw_triangle(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number, outline:bool)
+	draw_ellipse(x1:number, y1:number, x2:number, y2:number, outline:bool)
+	draw_set_circle_precision(precision:number)
+	draw_arrow(x1:number, y1:number, x2:number, y2:number, size:number)
+	draw_button(x1:number, y1:number, x2:number, y2:number, up:bool)
+	:draw_path(path:index, x:number, y:number, absolute:bool)
+	draw_healthbar(x1:number, y1:number, x2:number, y2:number, amount:number, backcol, mincol:color, maxcol:color, direction:number, showback:bool, showborder:bool)
+	
+	draw_point_colour(x:number, y:number, col1:color)
+draw_point_color(x:number, y:number, col1:color)
+draw_line_colour(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color)
+draw_line_color(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color)
+draw_line_width_colour(x1:number, y1:number, x2:number, y2:number, w:number, col1:color, col2:color)
+draw_line_width_color(x1:number, y1:number, x2:number, y2:number, w:number, col1:color, col2:color)
+draw_rectangle_colour(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, col3:color, col4:color, outline:bool)
+draw_rectangle_color(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, col3:color, col4:color, outline:bool)
+draw_roundrect_colour(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, outline:bool)
+draw_roundrect_color(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, outline:bool)
+draw_roundrect_colour_ext(x1:number, y1:number, x2:number, y2:number, radiusx:number, radiusy:number, col1:color, col2:color, outline:bool)
+draw_roundrect_color_ext(x1:number, y1:number, x2:number, y2:number, radiusx:number, radiusy:number, col1:color, col2:color, outline:bool)
+draw_triangle_colour(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number, col1:color, col2:color, col3:color, outline:bool)
+draw_triangle_color(x1:number, y1:number, x2:number, y2:number, x3:number, y3:number, col1:color, col2:color, col3:color, outline:bool)
+draw_circle_colour(x:number, y:number, r:number, col1:color, col2:color, outline:bool)
+draw_circle_color(x:number, y:number, r:number, col1:color, col2:color, outline:bool)
+draw_ellipse_colour(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, outline:bool)
+draw_ellipse_color(x1:number, y1:number, x2:number, y2:number, col1:color, col2:color, outline:bool)
+	```
+	Non-standard:
+	#[draw_rect_ext(x, y, width, height, color, alpha)]() {
+		Draws a colored filled rectangle using a sprite.
+	}
+}
+#[Sprites]() {
+	```gmblanks
+	:draw_self()
+	:draw_sprite(sprite:index, subimg:number, x:number, y:number)
+	:draw_sprite_pos(sprite:index, subimg:number, x1:number, y1:number, x2:number, y2:number, x3:number, y3:number, x4:number, y4:number, alpha:number)
+	:draw_sprite_ext(sprite:index, subimg:number, x:number, y:number, xscale:number, yscale:number, rot:number, :color, alpha:number)
+	:draw_sprite_stretched(sprite:index, subimg:number, x:number, y:number, w:number, h:number)
+	:draw_sprite_stretched_ext(sprite:index, subimg:number, x:number, y:number, w:number, h:number, :color, alpha:number)
+	:draw_sprite_tiled(sprite:index, subimg:number, x:number, y:number)
+	:draw_sprite_tiled_ext(sprite:index, subimg:number, x:number, y:number, xscale:number, yscale:number, :color, alpha:number)
+	:draw_sprite_part(sprite:index, subimg:number, left:number, top:number, width:number, height:number, x:number, y:number)
+	:draw_sprite_part_ext(sprite:index, subimg:number, left:number, top:number, width:number, height:number, x:number, y:number, xscale:number, yscale:number, :color, alpha:number)
+	:draw_sprite_general(sprite:index, subimg:number, left:number, top:number, width:number, height:number, x:number, y:number, xscale:number, yscale:number, rot:number, c1:color, c2:color, c3:color, c4:color, alpha:number)
+	```
+}
+#[Backgrounds]() {
+	Backgrounds aren't real in current GameMaker versions so these just draw
+	the first frame of a sprite.
+	```gmblanks
+	draw_background(back:index, x:number, y:number)
+	draw_background_ext(back:index, x:number, y:number, xscale:number, yscale:number, rot:number, :color, alpha:number)
+	draw_background_stretched(back:index, x:number, y:number, w:number, h:number)
+	draw_background_stretched_ext(back:index, x:number, y:number, w:number, h:number, :color, alpha:number)
+	draw_background_tiled(back:index, x:number, y:number)
+	draw_background_tiled_ext(back:index, x:number, y:number, xscale:number, yscale:number, :color, alpha:number)
+	draw_background_part(back:index, left:number, top:number, width:number, height:number, x:number, y:number)
+	draw_background_part_ext(back:index, left:number, top:number, width:number, height:number, x:number, y:number, xscale:number, yscale:number, :color, alpha:number)
+	draw_background_general(back:index, left:number, top:number, width:number, height:number, x:number, y:number, xscale:number, yscale:number, rot:number, c1:color, c2:color, c3:color, c4:color, alpha:number)
+	```
+}
+#[Surfaces]() {
+	```gmblanks
+	draw_surface(surf,x,y)
+	draw_surface_stretched(surf,x,y,w,h)
+	draw_surface_tiled(surf,x,y)
+	draw_surface_part(surf,left,top,width,height,x,y)
+	draw_surface_ext(surf,x,y,xscale,yscale,rot,col,alpha)
+	draw_surface_stretched_ext(surf,x,y,w,h,col,alpha)
+	draw_surface_tiled_ext(surf,x,y,xscale,yscale,col,alpha)
+	draw_surface_part_ext(surf,left,top,width,height,x,y,xscale,yscale,col,alpha)
+	draw_surface_general(surf, left, top, width, height, x, y, xscale, yscale, rot, c1, c2, c3, c4, alpha)
+	```
+}
+#[Primitives]() {
+	```gmblanks
+	draw_primitive_begin(kind:int)
+	draw_primitive_begin_texture(kind:int, texid)
+	draw_primitive_end()
+	draw_vertex(x:number, y:number)
+	draw_vertex_colour(x:number, y:number, col:color, alpha:number)
+	draw_vertex_color(x:number, y:number, col:color, alpha:number)
+	draw_vertex_texture(x:number, y:number, xtex:number, ytex:number)
+	draw_vertex_texture_colour(x:number, y:number, xtex:number, ytex:number, col:color, alpha:number)
+	draw_vertex_texture_color(x:number, y:number, xtex:number, ytex:number, col:color, alpha:number)
+	
+	pr_pointlist = 1
+	pr_linelist = 2
+	pr_linestrip = 3
+	pr_trianglelist = 4
+	pr_trianglestrip = 5
+	pr_trianglefan = 6
+	```
+	Texture/UV functions:
+	```gmblanks
+	sprite_get_texture(spr, subimg):
+	sprite_get_uvs(spr, subimg):
+	background_get_uvs(back:index):
+	background_get_texture(back:index):
+	font_get_uvs(font:index):
+	font_get_texture(font:index):
+	texture_get_width(texid):
+	texture_get_height(texid):
+	```
+}
+#[Matrices]() {
+	```gmblanks
+	matrix_get(type:int):
+	matrix_set(type:int,matrix:array)
+	matrix_build(x:number,y:number,z:number,xrotation:number,yrotation:number,zrotation:number,xscale:number,yscale:number,zscale:number):
+	matrix_multiply(matrix:array,matrix:array):
+	matrix_view = 0
+	matrix_projection = 1
+	matrix_world = 2
+	```
+}
+#[Visibility API]() {
+	These let you change whether the subsequently drawn graphics will be visible
+	to specific player(s).
+	
+	These were intended to be slightly easier to work with than 
+	using [dp_player_is_viewed_nonsync](NTT-Players.html#dp_player_is_viewed_nonsync).
+	```ntblanks
+	draw_set_visible(player:int, visible:bool)
+	draw_set_visible_all(visible:bool)
+	draw_get_visible(player:int):
+	draw_set_visible_bbox(player:int, left:number, top:number, right:number, bottom:number)
+	draw_set_visible_bbox_all(left:number, top:number, right:number, bottom:number)
+	```
+	#[draw_set_visible_bbox(player, left, top, right, bottom)]() {
+		Enables or disables drawing based on whether the given player
+		can see any portion of the given rectangle.
+	}
+	#[draw_set_visible_bbox_all(left, top, right, bottom)]() {
+		Enables or disables drawing based on whether the local player
+		can see any portion of the given rectangle.
+	}
 }

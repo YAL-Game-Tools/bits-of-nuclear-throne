@@ -1,0 +1,75 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Audio functions in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Audio functions in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+</p><section><header id="Built-in"><a href="#Built-in" title="(permalink)">Built-in</a></header><article><a class="sticky-side" href="#Built-in" title="Built-in"><span>Built-in</span></a><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_play_sound&ux=search" target="_blank" title="(opens a new tab)">audio_play_sound(soundid,priority,loops)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_play_sound_at&ux=search" target="_blank" title="(opens a new tab)">audio_play_sound_at(soundid, x,y,z, falloff_ref_dist,falloff_max_dist,falloff_factor,loops, priority)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_stop_sound&ux=search" target="_blank" title="(opens a new tab)">audio_stop_sound(soundid)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_resume_sound&ux=search" target="_blank" title="(opens a new tab)">audio_resume_sound(soundid)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_pause_sound&ux=search" target="_blank" title="(opens a new tab)">audio_pause_sound(soundid)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_get_type&ux=search" target="_blank" title="(opens a new tab)">audio_get_type(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_gain&ux=search" target="_blank" title="(opens a new tab)">audio_sound_gain(soundid,volume,time)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_pitch&ux=search" target="_blank" title="(opens a new tab)">audio_sound_pitch(soundid,pitch)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_stop_all&ux=search" target="_blank" title="(opens a new tab)">audio_stop_all()</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_resume_all&ux=search" target="_blank" title="(opens a new tab)">audio_resume_all()</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_pause_all&ux=search" target="_blank" title="(opens a new tab)">audio_pause_all()</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_is_paused&ux=search" target="_blank" title="(opens a new tab)">audio_is_paused(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_exists&ux=search" target="_blank" title="(opens a new tab)">audio_exists(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_get_gain&ux=search" target="_blank" title="(opens a new tab)">audio_sound_get_gain(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_get_pitch&ux=search" target="_blank" title="(opens a new tab)">audio_sound_get_pitch(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_get_name&ux=search" target="_blank" title="(opens a new tab)">audio_get_name(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_set_track_position&ux=search" target="_blank" title="(opens a new tab)">audio_sound_set_track_position(soundid, time)</a></header></section><p>
+	Non-sync:
+	</p><section><header id="audio_is_playing"><a href="#audio_is_playing" title="(permalink)">audio_is_playing(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Although the name doesn't suggest so,
+		the result of this function is currently <i>non-sync</i> so you should not use it
+		to do something when a sound finishes playing.
+	</p></article></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_length_nonsync&ux=search" target="_blank" title="(opens a new tab)">audio_sound_length_nonsync(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=audio_sound_get_track_position_nonsync&ux=search" target="_blank" title="(opens a new tab)">audio_sound_get_track_position_nonsync(soundid)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section></article></section><section><header id="NTT-specific"><a href="#NTT-specific" title="(permalink)">NTT-specific</a></header><article><a class="sticky-side" href="#NTT-specific" title="NTT-specific"><span>NTT-specific</span></a><p>
+	The naming scheme of these sort of mimics GM8.
+	</p><section class="empty"><header><span>sound_play(sound)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_loop(sound)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_play_pitch(sound, pitch)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_play_pitchvol(sound, pitch, volume)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_stop(sound)</span></header></section><section class="empty"><header><span>sound_stop_all()</span></header></section><section class="empty"><header><span>sound_set_track_position(sound, seconds)</span></header></section><section class="empty"><header><span>sound_pitch(sound, pitch)</span></header></section><section class="empty"><header><span>sound_volume(sound, volume)</span></header></section><section class="empty"><header><span>sound_exists(sound)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_get_name(sound)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_play_music(sound)</span></header></section><section class="empty"><header><span>sound_play_ambient(sound)</span></header></section><section><header id="sound_delete"><a href="#sound_delete" title="(permalink)">sound_delete(sound)</a></header><article><p>
+		Only for sounds that you created!
+	</p></article></section><hr/><section><header id="sound_play_gun"><a href="#sound_play_gun" title="(permalink)">sound_play_gun(sound, pitch_spread, fade)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Playing gun sounds briefly makes non-combat sound effects quieter.
+	</p></article></section><section><header id="sound_play_hit"><a href="#sound_play_hit" title="(permalink)">sound_play_hit(sound, pitch_spread)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Hit sounds are not allowed to repeat and use 3d audio rules when enabled.
+	</p></article></section><section><header id="sound_play_hit_big"><a href="#sound_play_hit_big" title="(permalink)">sound_play_hit_big(sound, pitch_spread)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Same deal as above, but with slower distance fade - used for explosions and such.
+	</p></article></section><p>
+	You can replace/restore sounds if you need to, just like with sprites:
+	</p><section class="empty"><header><span>sound_assign(original, replace)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_replace(original, path)&#8203;<span class="ret-arrow">&#10140;</span></span></header></section><section class="empty"><header><span>sound_restore(original)</span></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

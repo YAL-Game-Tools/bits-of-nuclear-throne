@@ -1,0 +1,82 @@
+```set title
+Sprite functions in NTT
+```
+Standard:
+```gmblanks
+sprite_exists(spr):
+sprite_get_number(spr):
+sprite_get_width(spr):
+sprite_get_height(spr):
+sprite_get_xoffset(spr):
+sprite_get_yoffset(spr):
+
+sprite_get_bbox_left(spr):
+sprite_get_bbox_right(spr):
+sprite_get_bbox_top(spr):
+sprite_get_bbox_bottom(spr):
+sprite_set_bbox_mode(ind,mode)
+sprite_set_bbox(ind,left,top,right,bottom)
+sprite_collision_mask(:sprite, sepmasks:bool, bboxmode:int, bbleft:number, bbtop:number, bbright:number, bbbottom:number, kind:int, tolerance:number):
+sprite_get_speed_type(spr):
+sprite_get_speed(spr):
+sprite_set_speed(sprite,speed,type)
+
+sprite_nineslice_create():
+sprite_get_nineslice(spr):
+sprite_set_nineslice(sprite,nineslice)
+spritespeed_framespersecond#
+spritespeed_framespergameframe#
+
+sprite_get_info(spr):
+sprite_get_texture(spr, subimg):
+sprite_get_uvs(spr, subimg):
+
+sprite_duplicate(sprite):
+sprite_delete(:sprite):
+```
+Tweaked:
+#[sprite_get_name(sprite)->]() {
+	Sprites added through `sprite_add` and alike will have their name set based on file name.
+}
+#[sprite_add(path, subimages, x, y)->]() {
+	The function had its `removeback` and `smooth` arguments removed
+	as those have been scarcely used after GameMaker 7.
+}
+#[sprite_replace(sprite, path, subimages, ?x, ?y)]() {
+	Similar to above, but also `xorigin` / `yorigin` arguments are now optional
+	in case you are replacing a sprite with a same-sized one.
+}
+Non-standard:
+#[sprite_add_base64(base64, subimages, x, y)->]() {
+	Adds a sprite from a base64 string (without the `data:image/png;base64` prefix).
+	
+	This is mostly convenient if your mod consists of one code file and a few sprites
+	and you'd rather pack it all into one file.
+}
+#[sprite_add_weapon(path, xorig, yorig)->]() {
+	Adds a single-frame weapon sprite and gives it a signature weapon shine animation.
+	
+	Weapon sprites are most often added this way.
+}
+#[sprite_add_weapon_base64(base64, xorig, yorig)->]() {
+	A mix of [sprite_add_base64] and [sprite_add_weapon].
+}
+---
+#[sprite_replace_base64(sprite, base64, subimages, ?x, ?y)]() {
+	A mix of [sprite_replace] and [sprite_add_base64].
+}
+#[sprite_replace_image(sprite, path, subimage, ?x, ?y)]() {
+	Replaces a single subimage of a sprite. A convenience function.
+}
+#[sprite_replace_image_base64(sprite, base64, subimage, ?x, ?y)]() {
+	A mix of [sprite_replace_image] and [sprite_replace_base64].
+}
+#[sprite_duplicate_ext(sprite, subimg_start, subimg_count)->]() {
+	Creates a new sprite that contains copies of specific frames of another sprite.
+}
+#[sprite_restore(sprite)->]() {
+	Undoes whatever changes made by `sprite_replace` and alike.
+	
+	Returns whether there was anything to undo.
+}
+#[]

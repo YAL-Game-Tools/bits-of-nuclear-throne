@@ -60,6 +60,9 @@ The following get/set various information on per-slot basis.
 	player_get_race_pick_id(player:int):
 	player_set_race_pick(player:int, race)
 	```
+	#[player_count_race(race)->]() {
+		Returns how many players have picked the given character on game start.
+	}
 }
 #[Skins]() {
 	#[player_get_skin(slot)->]() {

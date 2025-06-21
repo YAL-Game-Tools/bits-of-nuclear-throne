@@ -35,7 +35,14 @@ surface_reset_target()
 surface_depth_disable(disable)
 surface_get_depth_disable():
 surface_format_is_supported(format):
+surface_save(surf, fname)
+surface_save_part(surf, fname, x, y, w, h)
+surface_copy(dest, x, y, source)
+surface_copy_part(dest, x, y, source, xs, ys, ws, hs)
 ```
+#[surface_screenshot(dest)]() {
+	Takes a screenshot to a surface.
+}
 Constants:
 ```gmblanks
 surface_rgba8unorm = 6

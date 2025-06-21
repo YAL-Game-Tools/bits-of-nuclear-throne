@@ -1,0 +1,71 @@
+```set title
+Audio functions in NTT
+```
+#[Built-in]() {
+	```gmblanks
+	audio_play_sound(soundid:index,priority:number,loops:bool):
+	audio_play_sound_at(soundid:index, x:number,y:number,z:number, falloff_ref_dist:number,falloff_max_dist:number,falloff_factor:number,loops:bool, priority:number):
+	audio_stop_sound(soundid:index)
+	audio_resume_sound(soundid:index)
+	audio_pause_sound(soundid:index)
+	audio_get_type(soundid:index):
+	audio_sound_gain(soundid:index,volume:number,time:number):
+	audio_sound_pitch(soundid:index,pitch:number):
+	audio_stop_all()
+	audio_resume_all()
+	audio_pause_all()
+	audio_is_paused(soundid:index):
+	audio_exists(soundid:index):
+	audio_sound_get_gain(soundid:index):
+	audio_sound_get_pitch(soundid:index):
+	audio_get_name(soundid:index):
+	audio_sound_set_track_position(soundid:index, time:number)
+	```
+	Non-sync:
+	#[audio_is_playing(soundid)->]() {
+		Although the name doesn't suggest so,
+		the result of this function is currently _non-sync_ so you should not use it
+		to do something when a sound finishes playing.
+	}
+	```gmblanks
+	audio_sound_length_nonsync(soundid:index):
+	audio_sound_get_track_position_nonsync(soundid:index):
+	```
+}
+#[NTT-specific]() {
+	The naming scheme of these sort of mimics GM8.
+	```ntblanks
+	sound_play(:sound):
+	sound_loop(:sound):
+	sound_play_pitch(:sound, pitch:number):
+	sound_play_pitchvol(:sound, pitch:number, volume:number):
+	sound_stop(:sound)
+	sound_stop_all()
+	sound_set_track_position(:sound, seconds:number)
+	sound_pitch(:sound, pitch:number)
+	sound_volume(:sound, volume:number)
+	sound_exists(:sound):
+	sound_get_name(:sound):
+	sound_play_music(:sound)
+	sound_play_ambient(:sound)
+	```
+	#[sound_delete(sound)]() {
+		Only for sounds that you created!
+	}
+	---
+	#[sound_play_gun(sound, pitch_spread, fade)->]() {
+		Playing gun sounds briefly makes non-combat sound effects quieter.
+	}
+	#[sound_play_hit(sound, pitch_spread)->]() {
+		Hit sounds are not allowed to repeat and use 3d audio rules when enabled.
+	}
+	#[sound_play_hit_big(sound, pitch_spread)->]() {
+		Same deal as above, but with slower distance fade - used for explosions and such.
+	}
+	You can replace/restore sounds if you need to, just like with sprites:
+	```ntblanks
+	sound_assign(original:sound, replace:sound):
+	sound_replace(original:sound, path:string):
+	sound_restore(original:sound)
+	```
+}

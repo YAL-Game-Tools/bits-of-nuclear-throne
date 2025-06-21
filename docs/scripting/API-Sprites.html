@@ -1,0 +1,93 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Sprite functions in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Sprite functions in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+Standard:
+</p><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_exists&ux=search" target="_blank" title="(opens a new tab)">sprite_exists(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_number&ux=search" target="_blank" title="(opens a new tab)">sprite_get_number(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_width&ux=search" target="_blank" title="(opens a new tab)">sprite_get_width(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_height&ux=search" target="_blank" title="(opens a new tab)">sprite_get_height(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_xoffset&ux=search" target="_blank" title="(opens a new tab)">sprite_get_xoffset(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_yoffset&ux=search" target="_blank" title="(opens a new tab)">sprite_get_yoffset(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_bbox_left&ux=search" target="_blank" title="(opens a new tab)">sprite_get_bbox_left(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_bbox_right&ux=search" target="_blank" title="(opens a new tab)">sprite_get_bbox_right(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_bbox_top&ux=search" target="_blank" title="(opens a new tab)">sprite_get_bbox_top(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_bbox_bottom&ux=search" target="_blank" title="(opens a new tab)">sprite_get_bbox_bottom(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_set_bbox_mode&ux=search" target="_blank" title="(opens a new tab)">sprite_set_bbox_mode(ind,mode)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_set_bbox&ux=search" target="_blank" title="(opens a new tab)">sprite_set_bbox(ind,left,top,right,bottom)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_collision_mask&ux=search" target="_blank" title="(opens a new tab)">sprite_collision_mask(sprite, sepmasks, bboxmode, bbleft, bbtop, bbright, bbbottom, kind, tolerance)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_speed_type&ux=search" target="_blank" title="(opens a new tab)">sprite_get_speed_type(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_speed&ux=search" target="_blank" title="(opens a new tab)">sprite_get_speed(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_set_speed&ux=search" target="_blank" title="(opens a new tab)">sprite_set_speed(sprite,speed,type)</a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_nineslice_create&ux=search" target="_blank" title="(opens a new tab)">sprite_nineslice_create()&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_nineslice&ux=search" target="_blank" title="(opens a new tab)">sprite_get_nineslice(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_set_nineslice&ux=search" target="_blank" title="(opens a new tab)">sprite_set_nineslice(sprite,nineslice)</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=spritespeed_framespersecond&ux=search" target="_blank" title="(opens a new tab)">spritespeed_framespersecond#</a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=spritespeed_framespergameframe&ux=search" target="_blank" title="(opens a new tab)">spritespeed_framespergameframe#</a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_info&ux=search" target="_blank" title="(opens a new tab)">sprite_get_info(spr)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_texture&ux=search" target="_blank" title="(opens a new tab)">sprite_get_texture(spr, subimg)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_get_uvs&ux=search" target="_blank" title="(opens a new tab)">sprite_get_uvs(spr, subimg)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><hr/><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_duplicate&ux=search" target="_blank" title="(opens a new tab)">sprite_duplicate(sprite)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><section class="link"><header><a href="https://manual.gamemaker.io/monthly/en/index.htm#rhsearch=sprite_delete&ux=search" target="_blank" title="(opens a new tab)">sprite_delete(sprite)&#8203;<span class="ret-arrow">&#10140;</span></a></header></section><p>
+Tweaked:
+</p><section><header id="sprite_get_name"><a href="#sprite_get_name" title="(permalink)">sprite_get_name(sprite)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Sprites added through <code>sprite_add</code> and alike will have their name set based on file name.
+</p></article></section><section><header id="sprite_add"><a href="#sprite_add" title="(permalink)">sprite_add(path, subimages, x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	The function had its <code>removeback</code> and <code>smooth</code> arguments removed
+	as those have been scarcely used after GameMaker 7.
+</p></article></section><section><header id="sprite_replace"><a href="#sprite_replace" title="(permalink)">sprite_replace(sprite, path, subimages, ?x, ?y)</a></header><article><p>
+	Similar to above, but also <code>xorigin</code> / <code>yorigin</code> arguments are now optional
+	in case you are replacing a sprite with a same-sized one.
+</p></article></section><p>
+Non-standard:
+</p><section><header id="sprite_add_base64"><a href="#sprite_add_base64" title="(permalink)">sprite_add_base64(base64, subimages, x, y)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Adds a sprite from a base64 string (without the <code>data:image/png;base64</code> prefix).
+	</p><p>
+	This is mostly convenient if your mod consists of one code file and a few sprites
+	and you'd rather pack it all into one file.
+</p></article></section><section><header id="sprite_add_weapon"><a href="#sprite_add_weapon" title="(permalink)">sprite_add_weapon(path, xorig, yorig)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Adds a single-frame weapon sprite and gives it a signature weapon shine animation.
+	</p><p>
+	Weapon sprites are most often added this way.
+</p></article></section><section><header id="sprite_add_weapon_base64"><a href="#sprite_add_weapon_base64" title="(permalink)">sprite_add_weapon_base64(base64, xorig, yorig)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	A mix of <a href="#sprite_add_base64">sprite_add_base64</a> and <a href="#sprite_add_weapon">sprite_add_weapon</a>.
+</p></article></section><hr/><section><header id="sprite_replace_base64"><a href="#sprite_replace_base64" title="(permalink)">sprite_replace_base64(sprite, base64, subimages, ?x, ?y)</a></header><article><p>
+	A mix of <a href="#sprite_replace">sprite_replace</a> and <a href="#sprite_add_base64">sprite_add_base64</a>.
+</p></article></section><section><header id="sprite_replace_image"><a href="#sprite_replace_image" title="(permalink)">sprite_replace_image(sprite, path, subimage, ?x, ?y)</a></header><article><p>
+	Replaces a single subimage of a sprite. A convenience function.
+</p></article></section><section><header id="sprite_replace_image_base64"><a href="#sprite_replace_image_base64" title="(permalink)">sprite_replace_image_base64(sprite, base64, subimage, ?x, ?y)</a></header><article><p>
+	A mix of <a href="#sprite_replace_image">sprite_replace_image</a> and <a href="#sprite_replace_base64">sprite_replace_base64</a>.
+</p></article></section><section><header id="sprite_duplicate_ext"><a href="#sprite_duplicate_ext" title="(permalink)">sprite_duplicate_ext(sprite, subimg_start, subimg_count)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Creates a new sprite that contains copies of specific frames of another sprite.
+</p></article></section><section><header id="sprite_restore"><a href="#sprite_restore" title="(permalink)">sprite_restore(sprite)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	Undoes whatever changes made by <code>sprite_replace</code> and alike.
+	</p><p>
+	Returns whether there was anything to undo.
+</p></article></section><section class="empty"><header><span></span></header></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

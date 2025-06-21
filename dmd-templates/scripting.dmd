@@ -68,6 +68,7 @@ function printBlanks(text, isGM) {
 	var lines = text.split("\n");
 	var out = [];
 	var rxName = new EReg("^(\\w+)", "");
+	var rxArgt = new EReg("(\\w+)?:(\\w+)([,)])", "g");
 	for (sig in lines) {
 		sig = StringTools.trim(sig);
 		if (sig == "") {
@@ -77,6 +78,13 @@ function printBlanks(text, isGM) {
 		if (StringTools.startsWith(sig, "//")) continue;
 		sig = StringTools.replace(sig, "$", "");
 		sig = StringTools.replace(sig, "£", "");
+		sig = rxArgt.map(sig, function(rx) {
+			var name = rx.matched(1);
+			var type = rx.matched(2);
+			var sfx = rx.matched(3);
+			if (name == null) name = type;
+			return name + sfx;
+		});
 		if (sig.indexOf("(") >= 0 && StringTools.endsWith(sig, "#")) {
 			sig = sig.substring(0, sig.length - 1);
 		}

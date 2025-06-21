@@ -47,6 +47,10 @@ $[open](General functions)
 	$[page](Data structures : API-DS)
 	$[page](Buffers : API-Buffers)
 $[close]
+$[open](Asset functions)
+	$[page](Sprites : API-Sprites)
+	$[page](Audio : API-Audio)
+$[close]
 $[open](Instance functions)
 	$[page](Instances : API-Instances)
 	$[page](Collisions : API-Collisions)

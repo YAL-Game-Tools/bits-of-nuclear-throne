@@ -9,6 +9,12 @@ Instance functions in NTT
 	instance_create_depth(x, y, depth, obj, ?var_struct)->
 	instance_create_layer(x, y, layer, obj, ?var_struct)->
 	instance_destroy(?inst, ?perform_destroy)
+	```
+	#[instance_delete(inst)]() {
+		This is just a `instance_destroy(inst, false)` from a time before GM added
+		an optional argument to `instance_destroy`.
+	}
+	```gmblanks
 	instance_exists(obj):
 	```
 	#[instance_is(instance, object)->]() {
