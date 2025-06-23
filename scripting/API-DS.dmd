@@ -149,6 +149,12 @@ of that kind.
 		(or `undefined` / no argument to not pretty-print)
 		instead of a boolean flag like the built-in function does.
 	}
+	And these two used to be special values back when GM didn't have an easy way to check
+	whether something is a boolean, but now they're just aliases for `true`/`false`
+	```ntblanks
+	json_true*
+	json_false*
+	```
 }
 #[Queues and stacks](ds_other) {
 	Currently not implemented due to being easy to replace with lists/arrays.

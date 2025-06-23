@@ -69,4 +69,7 @@ $[open](NTT-specific)
 	$[page](Weapon table : NTT-Weapon-Table)
 	$[page](Synchronization : NTT-Sync)
 $[close]
-$[page](Performance)
+$[open](Technical)
+	$[page](/gmlapi : NTT-API)
+	$[page](Performance)
+$[close]

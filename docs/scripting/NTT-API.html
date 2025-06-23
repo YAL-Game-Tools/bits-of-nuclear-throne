@@ -1,0 +1,143 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>/gmlapi in NTT</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>/gmlapi in NTT</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+
+
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+If you run the <code>/gmlapi</code> command in chat,
+NTT will create an <code>api</code> folder in your save directory with a couple files in it.
+</p><section><header id="api.gml"><a href="#api.gml" title="(permalink)">api.gml</a></header><article><a class="sticky-side" href="#api.gml" title="api.gml"><span>api.gml</span></a><p>
+	This file contains describes all of the mod-accessible global functions, variables, and constants.
+	</p><p>
+	The contents can include:
+	</p><section><header id="Comments"><a href="#Comments" title="(permalink)">Comments</a></header><article><p>
+		GML-style, single-line (<code>// text</code>)
+		or multi-line (<code>/* text */</code>).
+	</p></article></section><section><header id="Constants"><a href="#Constants" title="(permalink)">Constants</a></header><article><p>
+		These can look like so:
+		</p><pre>
+ev_create#
+ev_destroy = 1
+</pre></article></section><section><header id="Variables"><a href="#Variables" title="(permalink)">Variables</a></header><article><p>
+		These can look like so:
+		</p><pre>
+room_speed
+current_time*
+view_xview[player]*
+</pre><p>
+		If something has a <code>[index]</code> after it, that's an array.
+		</p><p>
+		If something has a <code>*</code> after it, that's read-only.
+	</p></article></section><section><header id="Functions"><a href="#Functions" title="(permalink)">Functions</a></header><article><a class="sticky-side" href="#Functions" title="Functions"><span>Functions</span></a><p>
+		These can look like so:
+		</p><pre>
+trace(...values)
+sqrt(x):#
+array_create(size, [value]):
+struct_get(ctx, varname:string):
+:alarm_set(index, value)
+</pre><section><header>Prefixes</header><article><p>
+			Function definitions may be preceded by one of the following:
+			</p><ul>
+			<li>	<code>:</code>: a function accesses something from <code>self</code>.<br/>
+				You'll see this on most instance-related functions.
+			</li><li>	<code>::</code>: a function accesses something from <code>self</code> and <code>other</code>.<br/>
+				Currently this is only used for <code>event_perform</code>,
+				which may need <code>other</code> for collision events.
+			</li><li>	<code>:::</code>: a function accesses something from <code>self</code> and <i>maybe</i> <code>other</code>.<br/>
+				This is a silly workaround for weapon functions accidentally relying on <code>other</code>
+				and will likely be replaced with a <code>${tag}</code> in the future.
+			</li><li>	<code>${tag}</code>: special function tags.<br/>
+				These are mostly for special-case functions.
+			</li></ul><p>
+			If you are parsing <code>api.gml</code>, you can presume these to be
+			<code>(\$\{\w+}|:+)?</code> and be done with it.
+		</p></article></section><section><header>Suffixes</header><article><p>
+			Function definitions may be followed by one or more of the following:
+			</p><ul>
+			<li><p>	<code>:</code>: the function returns something.<br/>
+				A function without this marker might still have a return value -
+				this was only necessary in older GM versions where you could not
+				reference built-in functions by doing something like
+				</p><pre class="gmlmd">
+<span class="kw">var</span> <span class="lv">f</span> <span class="op">=</span> <span class="sv">instance_exists</span><span class="op">;</span>
+</pre></li><li>	<code>:type</code>: the function returns a specific type.<br/>
+				Very few functions have their return types marked at the moment
+				as this information is only useful for external editors.
+			</li><li>	<code>#</code>: the function is "<a href="https://en.wikipedia.org/wiki/Pure_function">pure</a>"
+				and can be evaluated during compilation if called with constant arguments.
+			</li><li>	<code>$</code>: US English spelling
+			</li><li>	<code>£</code>: UK English spelling
+			</li></ul></article></section></article></section></article></section><section><header id="raw-"><a href="#raw-" title="(permalink)">Name-list files</a></header><article><p>
+	Each of these has just the names of one or other thing.
+	</p><p>
+	These are good for syntax highlighting
+	and for editors that cannot parse <code>api.gml</code>.
+	</p><ul>
+	<li>	<code>raw-assets.gml</code>: All the assets.<br/>
+		If you're already parsing <code>api.gml</code>,
+		this is the only file you that you need to parse.
+	</li><li>	<code>raw-sprites.gml</code>
+	</li><li>	<code>raw-sounds.gml</code>
+	</li><li>	<code>raw-fonts.gml</code>
+	</li><li>	<code>raw-objects.gml</code>
+	</li><li>	<code>raw-functions.gml</code>
+	</li><li>	<code>raw-variables.gml</code>
+	</li><li>	<code>raw-constants.gml</code>
+	</li></ul></article></section><section><header id="fields.gml"><a href="#fields.gml" title="(permalink)">fields.gml</a></header><article><p>
+	This file is no longer generated by current versions of NTT
+	because there is no longer a whitelist of allowed variable names per object.
+	</p><p>
+	For purposes of figuring out what objects do,
+	see <a target="blank" rel="noreferrer noopener" href="../NTT-Objects.html">NTT-Objects</a>.
+</p></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>
