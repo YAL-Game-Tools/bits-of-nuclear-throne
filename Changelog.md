@@ -5,6 +5,24 @@ Legend:
 
 ---
 
+# 99r2b24 / 100.030 (June 2025)
+
+General:
+- Fixed Energy Hammer with Long Arms not breaking the wall in front of the player when aiming diagonally.
+- Fixed a crash when loading custom mini-font in localizations
+- Fixed Space toggling loadout while chat is open
+- Going Melting -> Skeleton -> Melting with Redemption now restores your originally chosen B-skin
+- Mode speedrun timer options and better timer drawing in coop
+
+NTT:
+- More options for draw_text_nt (see docs)
+- Fixed `ds_list_shuffle` not using the usual PRNG
+- Fixed `string_auto` having gone missing
+- `math_set_epsilon` appears to have never been functional and is now removed to avoid restoring epsilon after mod calls.
+- Fixed the game eventually crashing if you load a localization file and then keep switching between main menu and character select
+- Fixed the game not handling UTF-8 BOM in some places (mostly in localization files)
+- CustomProp now has an `on_draw` callback
+
 # 99r2b23 / 100.029 (June 2025)
 
 - Voting for `/ultras all` + `own` will now pick `own`
