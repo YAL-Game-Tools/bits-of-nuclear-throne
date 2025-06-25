@@ -1,0 +1,64 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>GmlMod</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>GmlMod</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GmlMod.html">GmlMod</a>
+</p><p>
+Objects of this kind are used as <code>self</code> instance for mods when called without context.
+</p><p>
+They do not have any built-in variables by default.
+</p><p>
+Variables:
+</p><section><header id="GmlMod"><a href="#GmlMod" title="(permalink)">from GmlMod</a></header><article><a class="sticky-side" href="#GmlMod" title="from GmlMod"><span>from GmlMod</span></a><section class="empty"><header id="owner"><a href="#owner" title="(permalink)">owner</a></header></section><section class="empty"><header id="ident"><a href="#ident" title="(permalink)">ident</a></header></section><section class="empty"><header id="path"><a href="#path" title="(permalink)">path</a></header></section><section class="empty"><header id="name"><a href="#name" title="(permalink)">name</a></header></section><section class="empty"><header id="type"><a href="#type" title="(permalink)">type</a></header></section><section class="empty"><header id="home"><a href="#home" title="(permalink)">home</a></header></section><section class="empty"><header id="program"><a href="#program" title="(permalink)">program: gml_program</a></header></section><section class="empty"><header id="scope"><a href="#scope" title="(permalink)">scope</a></header></section><section class="empty"><header id="scope_map"><a href="#scope_map" title="(permalink)">scope_map: ds_map</a></header></section><section class="empty"><header id="sprites"><a href="#sprites" title="(permalink)">sprites: ds_map&lt;sprite, bool&gt;</a></header></section><section class="empty"><header id="sprites_l"><a href="#sprites_l" title="(permalink)">sprites_l: ds_map&lt;load_id, sprite&gt;</a></header></section><section class="empty"><header id="sprites_n"><a href="#sprites_n" title="(permalink)">sprites_n: number</a></header></section><section class="empty"><header id="fonts"><a href="#fonts" title="(permalink)">fonts: ds_map&lt;font, bool&gt;</a></header></section><section class="empty"><header id="shaders"><a href="#shaders" title="(permalink)">shaders: ds_map&lt;shader, struct&gt;</a></header></section><section><header id="sounds"><a href="#sounds" title="(permalink)">sounds: ds_map</a></header><article><p>
+		{ds_map&lt;sound, bool&gt;
+	</p></article></section><section class="empty"><header id="files"><a href="#files" title="(permalink)">files: ds_map&lt;path:string, contents:buffer&gt;</a></header></section><section><header id="unload"><a href="#unload" title="(permalink)">unload: bool</a></header><article><p>
+		Whether to unload the mod as soon as the game resumes
+	</p></article></section><section class="empty"><header id="cansideload"><a href="#cansideload" title="(permalink)">cansideload: bool</a></header></section><section class="empty"><header id="wantsideload"><a href="#wantsideload" title="(permalink)">wantsideload: bool</a></header></section><section class="empty"><header id="notrace"><a href="#notrace" title="(permalink)">notrace: bool</a></header></section><section class="empty"><header id="noerror"><a href="#noerror" title="(permalink)">noerror: bool</a></header></section><section class="empty"><header id="save_path_prefix"><a href="#save_path_prefix" title="(permalink)">save_path_prefix: string</a></header></section><section class="empty"><header id="main_path_prefix"><a href="#main_path_prefix" title="(permalink)">main_path_prefix: string</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

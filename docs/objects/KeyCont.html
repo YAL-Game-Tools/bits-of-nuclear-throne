@@ -1,0 +1,60 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>KeyCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>KeyCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./KeyCont.html">KeyCont</a>
+</p><p>
+Legacy input controller object
+</p><p>
+Variables:
+</p><section><header id="KeyCont"><a href="#KeyCont" title="(permalink)">from KeyCont</a></header><article><a class="sticky-side" href="#KeyCont" title="from KeyCont"><span>from KeyCont</span></a><section class="empty"><header id="playid"><a href="#playid" title="(permalink)">playid: number</a></header></section><section class="empty"><header id="gamepad"><a href="#gamepad" title="(permalink)">gamepad: array&lt;number&gt;</a></header></section><section class="empty"><header id="players"><a href="#players" title="(permalink)">players</a></header></section><section class="empty"><header id="gunangle"><a href="#gunangle" title="(permalink)">gunangle: number</a></header></section></article></section><section><header id="scrKeyContInit"><a href="#scrKeyContInit" title="(permalink)">from scrKeyContInit</a></header><article><a class="sticky-side" href="#scrKeyContInit" title="from scrKeyContInit"><span>from scrKeyContInit</span></a><p>
+	ScrKeyContInit
+	</p><section class="empty"><header id="key_nort"><a href="#key_nort" title="(permalink)">key_nort: int[]</a></header></section><section class="empty"><header id="key_sout"><a href="#key_sout" title="(permalink)">key_sout: int[]</a></header></section><section class="empty"><header id="key_east"><a href="#key_east" title="(permalink)">key_east: int[]</a></header></section><section class="empty"><header id="key_west"><a href="#key_west" title="(permalink)">key_west: int[]</a></header></section><section class="empty"><header id="key_move_x"><a href="#key_move_x" title="(permalink)">key_move_x: number[]</a></header></section><section class="empty"><header id="key_move_y"><a href="#key_move_y" title="(permalink)">key_move_y: number[]</a></header></section><section class="empty"><header id="key_fire"><a href="#key_fire" title="(permalink)">key_fire: int[]</a></header></section><section class="empty"><header id="key_fire_ignore"><a href="#key_fire_ignore" title="(permalink)">key_fire_ignore: int[]</a></header></section><section class="empty"><header id="key_spec"><a href="#key_spec" title="(permalink)">key_spec: int[]</a></header></section><section class="empty"><header id="key_spec_ignore"><a href="#key_spec_ignore" title="(permalink)">key_spec_ignore: int[]</a></header></section><section class="empty"><header id="key_pick"><a href="#key_pick" title="(permalink)">key_pick: int[]</a></header></section><section class="empty"><header id="key_swap"><a href="#key_swap" title="(permalink)">key_swap: int[]</a></header></section><section class="empty"><header id="key_back"><a href="#key_back" title="(permalink)">key_back: int[]</a></header></section><section class="empty"><header id="key_paus"><a href="#key_paus" title="(permalink)">key_paus: int[]</a></header></section><section class="empty"><header id="key_x"><a href="#key_x" title="(permalink)">key_x: number[]</a></header></section><section class="empty"><header id="key_y"><a href="#key_y" title="(permalink)">key_y: number[]</a></header></section><section class="empty"><header id="aot_x"><a href="#aot_x" title="(permalink)">aot_x: number[]</a></header></section><section class="empty"><header id="aot_y"><a href="#aot_y" title="(permalink)">aot_y: number[]</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

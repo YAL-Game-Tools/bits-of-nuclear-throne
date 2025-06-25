@@ -1,0 +1,63 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Credits</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Credits</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./Credits.html">Credits</a>
+</p><p>
+The credits screen
+</p><p>
+Variables:
+</p><section><header id="Credits"><a href="#Credits" title="(permalink)">from Credits</a></header><article><a class="sticky-side" href="#Credits" title="from Credits"><span>from Credits</span></a><section class="empty"><header id="cred_page"><a href="#cred_page" title="(permalink)">cred_page: array</a></header></section><section class="empty"><header id="cred_pageb"><a href="#cred_pageb" title="(permalink)">cred_pageb: array</a></header></section><section class="empty"><header id="clicked"><a href="#clicked" title="(permalink)">clicked: number</a></header></section><section class="empty"><header id="page"><a href="#page" title="(permalink)">page: number</a></header></section><section class="empty"><header id="scroll"><a href="#scroll" title="(permalink)">scroll: number</a></header></section><section class="empty"><header id="wave"><a href="#wave" title="(permalink)">wave: number</a></header></section><section class="empty"><header id="ang"><a href="#ang" title="(permalink)">ang: number</a></header></section></article></section><section><header id="scrCredits"><a href="#scrCredits" title="(permalink)">from scrCredits</a></header><article><a class="sticky-side" href="#scrCredits" title="from scrCredits"><span>from scrCredits</span></a><p>
+	ScrCredits
+	</p><section class="empty"><header id="maxpage"><a href="#maxpage" title="(permalink)">maxpage</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

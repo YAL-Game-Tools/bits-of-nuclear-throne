@@ -1,0 +1,60 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>Loadout</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>Loadout</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./button.html">button</a> ➜ <a href="./Loadout.html">Loadout</a>
+</p><p>
+Variables:
+</p><section><header id="button"><a href="#button" title="(permalink)">from button</a></header><article><a class="sticky-side" href="#button" title="from button"><span>from button</span></a><p>
+	Object: <a href="./button.html">button</a>
+	</p><section class="empty"><header id="mouseover"><a href="#mouseover" title="(permalink)">mouseover: number</a></header></section><section class="empty"><header id="mouseoverx"><a href="#mouseoverx" title="(permalink)">mouseoverx</a></header></section><section class="empty"><header id="player"><a href="#player" title="(permalink)">player: number</a></header></section></article></section><section><header id="Loadout"><a href="#Loadout" title="(permalink)">from Loadout</a></header><article><a class="sticky-side" href="#Loadout" title="from Loadout"><span>from Loadout</span></a><section class="empty"><header id="anim"><a href="#anim" title="(permalink)">anim: number</a></header></section><section class="empty"><header id="openanim"><a href="#openanim" title="(permalink)">openanim: number</a></header></section><section class="empty"><header id="introsettle"><a href="#introsettle" title="(permalink)">introsettle: number</a></header></section><section class="empty"><header id="overy"><a href="#overy" title="(permalink)">overy: number</a></header></section><section class="empty"><header id="selected"><a href="#selected" title="(permalink)">selected: number</a></header></section><section class="empty"><header id="mode"><a href="#mode" title="(permalink)">mode: number</a></header></section><section class="empty"><header id="selectx"><a href="#selectx" title="(permalink)">selectx: array</a></header></section><section class="empty"><header id="selecty"><a href="#selecty" title="(permalink)">selecty: array</a></header></section><section class="empty"><header id="closeanim"><a href="#closeanim" title="(permalink)">closeanim: int</a></header></section><section class="empty"><header id="x1"><a href="#x1" title="(permalink)">x1: number</a></header></section><section class="empty"><header id="y1"><a href="#y1" title="(permalink)">y1: number</a></header></section><section class="empty"><header id="x2"><a href="#x2" title="(permalink)">x2: number</a></header></section><section class="empty"><header id="y2"><a href="#y2" title="(permalink)">y2: number</a></header></section></article></section><section><header id="scrCrowns"><a href="#scrCrowns" title="(permalink)">from scrCrowns</a></header><article><a class="sticky-side" href="#scrCrowns" title="from scrCrowns"><span>from scrCrowns</span></a><p>
+	ScrCrowns
+	</p><section class="empty"><header id="crownmax"><a href="#crownmax" title="(permalink)">crownmax: number</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

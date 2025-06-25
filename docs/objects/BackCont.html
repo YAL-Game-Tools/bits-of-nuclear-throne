@@ -1,0 +1,70 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>BackCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>BackCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./BackCont.html">BackCont</a>
+</p><p>
+Responsible for drawing shadows and area-specific effects
+</p><p>
+Variables:
+</p><section><header id="BackCont"><a href="#BackCont" title="(permalink)">from BackCont</a></header><article><a class="sticky-side" href="#BackCont" title="from BackCont"><span>from BackCont</span></a><section><header id="object"><a href="#object" title="(permalink)">object: Array&lt;instance&gt;</a></header><article><p>
+		Overrides player following
+	</p></article></section><section class="empty"><header id="dist"><a href="#dist" title="(permalink)">dist: array&lt;number?&gt;</a></header></section><section class="empty"><header id="shake_x"><a href="#shake_x" title="(permalink)">shake_x: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="shake_y"><a href="#shake_y" title="(permalink)">shake_y: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="viewx"><a href="#viewx" title="(permalink)">viewx: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="viewy"><a href="#viewy" title="(permalink)">viewy: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="viewx2"><a href="#viewx2" title="(permalink)">viewx2: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="viewy2"><a href="#viewy2" title="(permalink)">viewy2: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="shake"><a href="#shake" title="(permalink)">shake: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section class="empty"><header id="shad"><a href="#shad" title="(permalink)">shad: surface</a></header></section><section><header id="shadcol"><a href="#shadcol" title="(permalink)">shadcol: number</a></header><article><p>
+		Shadow color
+	</p></article></section><section><header id="shadalpha"><a href="#shadalpha" title="(permalink)">shadalpha: number</a></header><article><p>
+		Shadow alpha
+	</p></article></section><section><header id="followspd"><a href="#followspd" title="(permalink)">followspd: number</a></header><article><p>
+		How fast the camera follows the targets (multiplier)
+	</p></article></section><section class="empty"><header id="visible"><a href="#visible" title="(permalink)">visible: bool</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>: Spawns an area-specific effect (snow, rain, etc.)
+	</li><li> <code>alarm[2]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

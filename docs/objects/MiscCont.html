@@ -1,0 +1,60 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>MiscCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>MiscCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./MiscCont.html">MiscCont</a>
+</p><p>
+Does all sorts of things - Steam API calls, netcode, mod management, debug logging...
+</p><p>
+Variables:
+</p><section><header id="MiscCont"><a href="#MiscCont" title="(permalink)">from MiscCont</a></header><article><a class="sticky-side" href="#MiscCont" title="from MiscCont"><span>from MiscCont</span></a><section class="empty"><header id="createMenu"><a href="#createMenu" title="(permalink)">createMenu: bool</a></header></section><section class="empty"><header id="windowMove"><a href="#windowMove" title="(permalink)">windowMove: number</a></header></section><section class="empty"><header id="mouseReady"><a href="#mouseReady" title="(permalink)">mouseReady: bool</a></header></section><section class="empty"><header id="windowMoveX"><a href="#windowMoveX" title="(permalink)">windowMoveX: number</a></header></section><section class="empty"><header id="windowMoveY"><a href="#windowMoveY" title="(permalink)">windowMoveY: number</a></header></section><section class="empty"><header id="window_mouse_last_x"><a href="#window_mouse_last_x" title="(permalink)">window_mouse_last_x: int</a></header></section><section class="empty"><header id="window_mouse_last_y"><a href="#window_mouse_last_y" title="(permalink)">window_mouse_last_y: int</a></header></section><section class="empty"><header id="mouse_moved"><a href="#mouse_moved" title="(permalink)">mouse_moved: bool</a></header></section><section class="empty"><header id="mouse_moved_arr"><a href="#mouse_moved_arr" title="(permalink)">mouse_moved_arr: array&lt;?&gt;</a></header></section><section class="empty"><header id="dp_steam_is_available"><a href="#dp_steam_is_available" title="(permalink)">dp_steam_is_available: bool</a></header></section><section class="empty"><header id="dp_player_local_alias"><a href="#dp_player_local_alias" title="(permalink)">dp_player_local_alias</a></header></section><section><header id="update_req"><a href="#update_req" title="(permalink)">update_req: int</a></header><article><p>
+		Yal.cc/v/ntt/");
+	</p></article></section><section class="empty"><header id="update_avail"><a href="#update_avail" title="(permalink)">update_avail: bool</a></header></section><section class="empty"><header id="update_avail_sp"><a href="#update_avail_sp" title="(permalink)">update_avail_sp: number</a></header></section><section class="empty"><header id="update_avail_frame"><a href="#update_avail_frame" title="(permalink)">update_avail_frame: number</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

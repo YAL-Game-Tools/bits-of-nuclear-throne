@@ -1,0 +1,62 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>FireCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>FireCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./FireCont.html">FireCont</a>
+</p><p>
+Used as a sponge for side-effects when calling weapon_fire_ext.
+</p><p>
+May appear/disappear arbitrarily between levels.
+</p><p>
+Variables:
+</p><section><header id="FireCont"><a href="#FireCont" title="(permalink)">from FireCont</a></header><article><a class="sticky-side" href="#FireCont" title="from FireCont"><span>from FireCont</span></a><section class="empty"><header id="gunangle"><a href="#gunangle" title="(permalink)">gunangle: number</a></header></section><section><header id="aimDirection"><a href="#aimDirection" title="(permalink)">aimDirection: number</a></header><article><p>
+		Deprecated
+	</p></article></section><section class="empty"><header id="infammo"><a href="#infammo" title="(permalink)">infammo: number</a></header></section><section class="empty"><header id="can_shoot"><a href="#can_shoot" title="(permalink)">can_shoot: number</a></header></section><section class="empty"><header id="reload"><a href="#reload" title="(permalink)">reload: number</a></header></section><section class="empty"><header id="race_id"><a href="#race_id" title="(permalink)">race_id: number</a></header></section><section class="empty"><header id="race"><a href="#race" title="(permalink)">race: string</a></header></section><section class="empty"><header id="team"><a href="#team" title="(permalink)">team: number</a></header></section><section class="empty"><header id="wkick"><a href="#wkick" title="(permalink)">wkick: number</a></header></section><section class="empty"><header id="wepangle"><a href="#wepangle" title="(permalink)">wepangle: number</a></header></section><section class="empty"><header id="wshift"><a href="#wshift" title="(permalink)">wshift: number</a></header></section><section class="empty"><header id="wshake"><a href="#wshake" title="(permalink)">wshake: number</a></header></section><section class="empty"><header id="right"><a href="#right" title="(permalink)">right: number</a></header></section><section class="empty"><header id="accuracy"><a href="#accuracy" title="(permalink)">accuracy: number</a></header></section><section class="empty"><header id="index"><a href="#index" title="(permalink)">index: number</a></header></section><section class="empty"><header id="creator"><a href="#creator" title="(permalink)">creator</a></header></section><section class="empty"><header id="specfiring"><a href="#specfiring" title="(permalink)">specfiring: bool</a></header></section><section class="empty"><header id="wep"><a href="#wep" title="(permalink)">wep</a></header></section><section class="empty"><header id="ammo"><a href="#ammo" title="(permalink)">ammo: array&lt;?&gt;</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

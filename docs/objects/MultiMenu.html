@@ -1,0 +1,58 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>MultiMenu</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>MultiMenu</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./MultiMenu.html">MultiMenu</a>
+</p><p>
+NTT-specific Coop menu
+</p><p>
+Variables:
+</p><section><header id="MultiMenu"><a href="#MultiMenu" title="(permalink)">from MultiMenu</a></header><article><a class="sticky-side" href="#MultiMenu" title="from MultiMenu"><span>from MultiMenu</span></a><section class="empty"><header id="menu"><a href="#menu" title="(permalink)">menu: number</a></header></section><section class="empty"><header id="hub_refresh"><a href="#hub_refresh" title="(permalink)">hub_refresh: number</a></header></section><section class="empty"><header id="lobby_error"><a href="#lobby_error" title="(permalink)">lobby_error: string</a></header></section><section class="empty"><header id="escape_down"><a href="#escape_down" title="(permalink)">escape_down: bool</a></header></section><section class="empty"><header id="mr_error"><a href="#mr_error" title="(permalink)">mr_error</a></header></section><section class="empty"><header id="mr_connecting"><a href="#mr_connecting" title="(permalink)">mr_connecting</a></header></section><section class="empty"><header id="mr_searching"><a href="#mr_searching" title="(permalink)">mr_searching</a></header></section><section class="empty"><header id="mr_lobby"><a href="#mr_lobby" title="(permalink)">mr_lobby</a></header></section><section class="empty"><header id="mr_hub"><a href="#mr_hub" title="(permalink)">mr_hub</a></header></section><section class="empty"><header id="mr_host"><a href="#mr_host" title="(permalink)">mr_host</a></header></section><section class="empty"><header id="mr_join"><a href="#mr_join" title="(permalink)">mr_join</a></header></section><section class="empty"><header id="mr_replays"><a href="#mr_replays" title="(permalink)">mr_replays</a></header></section><section class="empty"><header id="mr_replays_sub"><a href="#mr_replays_sub" title="(permalink)">mr_replays_sub</a></header></section><section class="empty"><header id="mr_current"><a href="#mr_current" title="(permalink)">mr_current</a></header></section><section class="empty"><header id="mr_next"><a href="#mr_next" title="(permalink)">mr_next</a></header></section><section class="empty"><header id="mr_prev"><a href="#mr_prev" title="(permalink)">mr_prev</a></header></section><section class="empty"><header id="noinput"><a href="#noinput" title="(permalink)">noinput: number</a></header></section></article></section></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

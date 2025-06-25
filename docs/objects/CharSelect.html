@@ -1,0 +1,68 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>CharSelect</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>CharSelect</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./button.html">button</a> ➜ <a href="./menubutton.html">menubutton</a> ➜ <a href="./CharSelect.html">CharSelect</a>
+</p><p>
+Variables:
+</p><section><header id="button"><a href="#button" title="(permalink)">from button</a></header><article><a class="sticky-side" href="#button" title="from button"><span>from button</span></a><p>
+	Object: <a href="./button.html">button</a>
+	</p><section class="empty"><header id="mouseoverx"><a href="#mouseoverx" title="(permalink)">mouseoverx</a></header></section><section class="empty"><header id="player"><a href="#player" title="(permalink)">player: number</a></header></section><section class="empty"><header id="mouseover"><a href="#mouseover" title="(permalink)">mouseover: number</a></header></section></article></section><section><header id="menubutton"><a href="#menubutton" title="(permalink)">from menubutton</a></header><article><a class="sticky-side" href="#menubutton" title="from menubutton"><span>from menubutton</span></a><p>
+	Object: <a href="./menubutton.html">menubutton</a>
+	</p><section class="empty"><header id="mouseovery"><a href="#mouseovery" title="(permalink)">mouseovery: number</a></header></section><section class="empty"><header id="buttonanim"><a href="#buttonanim" title="(permalink)">buttonanim: number</a></header></section><section class="empty"><header id="startaddy"><a href="#startaddy" title="(permalink)">startaddy: number</a></header></section><section class="empty"><header id="startoffset"><a href="#startoffset" title="(permalink)">startoffset: number</a></header></section><section class="empty"><header id="offset"><a href="#offset" title="(permalink)">offset: number</a></header></section><section class="empty"><header id="creator"><a href="#creator" title="(permalink)">creator: MainMenu</a></header></section><section class="empty"><header id="mysplat"><a href="#mysplat" title="(permalink)">mysplat: sprite</a></header></section><section class="empty"><header id="num"><a href="#num" title="(permalink)">num: number</a></header></section></article></section><section><header id="CharSelect"><a href="#CharSelect" title="(permalink)">from CharSelect</a></header><article><a class="sticky-side" href="#CharSelect" title="from CharSelect"><span>from CharSelect</span></a><section class="empty"><header id="overy"><a href="#overy" title="(permalink)">overy: number</a></header></section><section class="empty"><header id="noinput"><a href="#noinput" title="(permalink)">noinput: number</a></header></section><section class="empty"><header id="race_id"><a href="#race_id" title="(permalink)">race_id</a></header></section><section class="empty"><header id="race"><a href="#race" title="(permalink)">race</a></header></section><section class="empty"><header id="index"><a href="#index" title="(permalink)">index: number</a></header></section><section class="empty"><header id="locked"><a href="#locked" title="(permalink)">locked: bool</a></header></section></article></section><section><header id="scrRaces"><a href="#scrRaces" title="(permalink)">from scrRaces</a></header><article><a class="sticky-side" href="#scrRaces" title="from scrRaces"><span>from scrRaces</span></a><p>
+	Once upon a time this script used to fill out all sorts of character information,
+	but all of that is in global variables now.
+	</p><section class="empty"><header id="racemax"><a href="#racemax" title="(permalink)">racemax</a></header></section></article></section><section><header id="scrWeapons"><a href="#scrWeapons" title="(permalink)">from scrWeapons</a></header><article><a class="sticky-side" href="#scrWeapons" title="from scrWeapons"><span>from scrWeapons</span></a><p>
+	ScrWeapons
+	</p><section class="empty"><header id="maxwep"><a href="#maxwep" title="(permalink)">maxwep: number</a></header></section><section class="empty"><header id="typ_ammo"><a href="#typ_ammo" title="(permalink)">typ_ammo: int[]</a></header></section><section class="empty"><header id="typ_amax"><a href="#typ_amax" title="(permalink)">typ_amax: int[]</a></header></section><section class="empty"><header id="typ_name"><a href="#typ_name" title="(permalink)">typ_name: string[]</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

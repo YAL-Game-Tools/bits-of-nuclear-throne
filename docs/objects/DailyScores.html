@@ -1,0 +1,70 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>DailyScores</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>DailyScores</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./button.html">button</a> ➜ <a href="./DailyScores.html">DailyScores</a>
+</p><p>
+Children: <a href="./WeeklyScores.html">WeeklyScores</a>
+</p><p>
+Variables:
+</p><section><header id="button"><a href="#button" title="(permalink)">from button</a></header><article><a class="sticky-side" href="#button" title="from button"><span>from button</span></a><p>
+	Object: <a href="./button.html">button</a>
+	</p><section class="empty"><header id="mouseoverx"><a href="#mouseoverx" title="(permalink)">mouseoverx</a></header></section><section class="empty"><header id="player"><a href="#player" title="(permalink)">player: number</a></header></section><section class="empty"><header id="mouseover"><a href="#mouseover" title="(permalink)">mouseover: number</a></header></section></article></section><section><header id="DailyScores"><a href="#DailyScores" title="(permalink)">from DailyScores</a></header><article><a class="sticky-side" href="#DailyScores" title="from DailyScores"><span>from DailyScores</span></a><section class="empty"><header id="prepareScoreGet"><a href="#prepareScoreGet" title="(permalink)">prepareScoreGet: number</a></header></section><section class="empty"><header id="get"><a href="#get" title="(permalink)">get: int</a></header></section><section class="empty"><header id="daily"><a href="#daily" title="(permalink)">daily: number</a></header></section><section class="empty"><header id="donedaily"><a href="#donedaily" title="(permalink)">donedaily: number</a></header></section><section class="empty"><header id="dailytimer"><a href="#dailytimer" title="(permalink)">dailytimer: number</a></header></section><section class="empty"><header id="dailyloaded"><a href="#dailyloaded" title="(permalink)">dailyloaded: number</a></header></section><section class="empty"><header id="score_get"><a href="#score_get" title="(permalink)">score_get: number</a></header></section></article></section><section><header id="scrDwCreate"><a href="#scrDwCreate" title="(permalink)">from scrDwCreate</a></header><article><a class="sticky-side" href="#scrDwCreate" title="from scrDwCreate"><span>from scrDwCreate</span></a><p>
+	ScrDwCreate(weekly)
+	</p><section class="empty"><header id="splatimg"><a href="#splatimg" title="(permalink)">splatimg: number</a></header></section><section class="empty"><header id="pkill"><a href="#pkill" title="(permalink)">pkill: number</a></header></section><section class="empty"><header id="length"><a href="#length" title="(permalink)">length: number</a></header></section><section><header id="pline"><a href="#pline" title="(permalink)">pline: int</a></header><article><p>
+		Local player's position
+	</p></article></section><section class="empty"><header id="prank"><a href="#prank" title="(permalink)">prank: number</a></header></section><section class="empty"><header id="loading"><a href="#loading" title="(permalink)">loading: number</a></header></section><section class="empty"><header id="getplayershit"><a href="#getplayershit" title="(permalink)">getplayershit: number</a></header></section><section class="empty"><header id="ranktext"><a href="#ranktext" title="(permalink)">ranktext: string</a></header></section><section class="empty"><header id="nametext"><a href="#nametext" title="(permalink)">nametext: string</a></header></section><section class="empty"><header id="nametext2"><a href="#nametext2" title="(permalink)">nametext2: string</a></header></section><section class="empty"><header id="killtext"><a href="#killtext" title="(permalink)">killtext: string</a></header></section><section class="empty"><header id="areatext"><a href="#areatext" title="(permalink)">areatext: string</a></header></section><section class="empty"><header id="type"><a href="#type" title="(permalink)">type: number</a></header></section><section class="empty"><header id="num"><a href="#num" title="(permalink)">num: number</a></header></section><section class="empty"><header id="name_pg"><a href="#name_pg" title="(permalink)">name_pg: number</a></header></section><section class="empty"><header id="mHaveNetwork"><a href="#mHaveNetwork" title="(permalink)">mHaveNetwork: bool</a></header></section><section class="empty"><header id="season"><a href="#season" title="(permalink)">season: number</a></header></section><section class="empty"><header id="prepareEmptyCheck"><a href="#prepareEmptyCheck" title="(permalink)">prepareEmptyCheck: bool</a></header></section><section class="empty"><header id="lb_emptyCheck"><a href="#lb_emptyCheck" title="(permalink)">lb_emptyCheck: bool</a></header></section><section class="empty"><header id="lb_failed"><a href="#lb_failed" title="(permalink)">lb_failed: bool</a></header></section><section class="empty"><header id="player_rank"><a href="#player_rank" title="(permalink)">player_rank: Array&lt;Array&lt;int&gt;&gt;</a></header></section><section class="empty"><header id="player_name"><a href="#player_name" title="(permalink)">player_name: Array&lt;Array&lt;string&gt;&gt;</a></header></section><section class="empty"><header id="player_score"><a href="#player_score" title="(permalink)">player_score: Array&lt;Array&lt;number&gt;&gt;</a></header></section><section><header id="player_data64"><a href="#player_data64" title="(permalink)">player_data64: Array&lt;Array&lt;int&gt;&gt;</a></header><article><p>
+		8 bytes of metadata
+	</p></article></section><section class="empty"><header id="lb_num_entries"><a href="#lb_num_entries" title="(permalink)">lb_num_entries: Array&lt;int&gt;</a></header></section><section class="empty"><header id="lb_loading"><a href="#lb_loading" title="(permalink)">lb_loading: Array&lt;bool&gt;</a></header></section><section class="empty"><header id="lb_loaded"><a href="#lb_loaded" title="(permalink)">lb_loaded: Array&lt;bool&gt;</a></header></section><section class="empty"><header id="leaderboard_id"><a href="#leaderboard_id" title="(permalink)">leaderboard_id</a></header></section><section class="empty"><header id="pname"><a href="#pname" title="(permalink)">pname: string</a></header></section><section class="empty"><header id="score_get_weekly"><a href="#score_get_weekly" title="(permalink)">score_get_weekly: number</a></header></section><section class="empty"><header id="prepareScoreGetWeekly"><a href="#prepareScoreGetWeekly" title="(permalink)">prepareScoreGetWeekly: bool</a></header></section><section class="empty"><header id="weeklyloaded"><a href="#weeklyloaded" title="(permalink)">weeklyloaded: bool</a></header></section><section class="empty"><header id="clickeddaily"><a href="#clickeddaily" title="(permalink)">clickeddaily: bool</a></header></section><section class="empty"><header id="weekly"><a href="#weekly" title="(permalink)">weekly: bool</a></header></section><section class="empty"><header id="doneweekly"><a href="#doneweekly" title="(permalink)">doneweekly: bool</a></header></section><section class="empty"><header id="clickedweekly"><a href="#clickedweekly" title="(permalink)">clickedweekly: bool</a></header></section><section class="empty"><header id="name"><a href="#name" title="(permalink)">name: Array&lt;string&gt;</a></header></section><section class="empty"><header id="char"><a href="#char" title="(permalink)">char: Array&lt;int&gt;</a></header></section><section class="empty"><header id="skin"><a href="#skin" title="(permalink)">skin: Array&lt;int&gt;</a></header></section><section class="empty"><header id="kill"><a href="#kill" title="(permalink)">kill: Array&lt;int&gt;</a></header></section><section class="empty"><header id="rank"><a href="#rank" title="(permalink)">rank: Array&lt;int&gt;</a></header></section><section class="empty"><header id="area"><a href="#area" title="(permalink)">area: Array&lt;int&gt;</a></header></section><section class="empty"><header id="suba"><a href="#suba" title="(permalink)">suba: Array&lt;int&gt;</a></header></section><section class="empty"><header id="loop"><a href="#loop" title="(permalink)">loop: Array&lt;int&gt;</a></header></section><section class="empty"><header id="win"><a href="#win" title="(permalink)">win: Array&lt;int&gt;</a></header></section><section class="empty"><header id="atxt"><a href="#atxt" title="(permalink)">atxt: Array&lt;string&gt;</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[1]</code>
+	</li><li> <code>alarm[2]</code>
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>

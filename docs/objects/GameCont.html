@@ -1,0 +1,182 @@
+<!DOCTYPE HTML><html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>GameCont</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="livenode" content="#doc" />
+	<meta property="theme-color" content="#FFF037" />
+	<script type="text/javascript">
+	if (document.location.host == "yal.cc" && location.protocol == "http:") {
+		document.location.protocol = "https:";
+	}
+	</script>
+	<link rel="stylesheet" href="../inc/page.css" />
+</head><body>
+	<input type="checkbox" id="night" checked/>
+	<div class="main ">
+		<script>(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+		<main class="page">
+			<section>
+				<a href="javascript:void(0)"><label for="night">Toggle night mode</label></a>
+				<h1 style='transform: skewX(-5deg); margin: 0.5em 0;'>GameCont</h1>
+			</section>
+			<section id="doc">
+<!--<doc--><p><p>
+
+
+
+<style>
+.main { background-color: #899FC6 }
+.page, .navmenu { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+</p><p>
+
+
+<a href="./GameCont.html">GameCont</a>
+</p><p>
+Variables:
+</p><section><header id="GameCont"><a href="#GameCont" title="(permalink)">from GameCont</a></header><article><a class="sticky-side" href="#GameCont" title="from GameCont"><span>from GameCont</span></a><section><header id="area"><a href="#area" title="(permalink)">area: number</a></header><article><p>
+		Current area (<code>3</code> for <code>3-2</code>)
+	</p></article></section><section><header id="areanum"><a href="#areanum" title="(permalink)">areanum: number</a></header><article><p>
+		Used as seed for custom areas, incremented once per area
+	</p></article></section><section><header id="subarea"><a href="#subarea" title="(permalink)">subarea: number</a></header><article><p>
+		Current subarea (<code>2</code> for <code>3-2</code>)
+	</p></article></section><section><header id="novans"><a href="#novans" title="(permalink)">novans: number</a></header><article><p>
+		Number of areas to not spawn vans in
+	</p></article></section><section><header id="lastarea"><a href="#lastarea" title="(permalink)">lastarea: number</a></header><article><p>
+		Area prior to entering a secret area
+	</p></article></section><section class="empty"><header id="lastsubarea"><a href="#lastsubarea" title="(permalink)">lastsubarea: number</a></header></section><section><header id="hard"><a href="#hard" title="(permalink)">hard: number</a></header><article><p>
+		Current difficulty scale. Affects: </p><ul>
+			<li>  Maximum tier for weapon drops
+			</li><li>  Minimum tier for cursed weapon drops
+			</li><li><p>  Chance of spawning enemies on each floor tile during generation,
+				</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">10</span> <span class="op">+</span> <a class="uv" href="#hard">hard</a><span class="op">)</span> <span class="op">&lt;</span> <a class="uv" href="#hard">hard</a> <span class="op">&amp;&amp;</span> <span class="op">.</span><span class="op">.</span><span class="op">.</span><span class="op">)</span> <span class="uf">area_pop_enemies</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+</pre></li><li>  Minimum number of enemies per area (3 + hard / 1.5)
+			</li><li><p>  Chance of spawning extra enemies with Crown of Blood,
+				</p><pre class="gmlmd">
+<span class="kw">if</span> <span class="op">(</span><span class="sf">random</span><span class="op">(</span><span class="nu">8</span> <span class="op">+</span> <a class="uv" href="#hard">hard</a><span class="op">)</span> <span class="op">&lt;</span> <a class="uv" href="#hard">hard</a> <span class="op">&amp;&amp;</span> <span class="op">.</span><span class="op">.</span><span class="op">.</span><span class="op">)</span> <span class="uf">area_pop_enemies</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+</pre></li></ul><p>
+		Increased at rate of 1 per area finished (2 in hardmode)
+	</p></article></section><section class="empty"><header id="loops"><a href="#loops" title="(permalink)">loops: number</a></header></section><section class="empty"><header id="kills"><a href="#kills" title="(permalink)">kills: number</a></header></section><section><header id="wepdrops"><a href="#wepdrops" title="(permalink)">wepdrops: number</a></header><article><p>
+		Number of weapon chests opened this level (for seeding)
+	</p></article></section><section><header id="deathcause"><a href="#deathcause" title="(permalink)">deathcause: number|array</a></header><article><p>
+		What was previously in <a href="./Player.html">Player</a>.lasthit
+	</p></article></section><section><header id="vaults"><a href="#vaults" title="(permalink)">vaults: number</a></header><article><p>
+		Number of vaults opened
+	</p></article></section><section><header id="win"><a href="#win" title="(permalink)">win: number</a></header><article><p>
+		Whether the run ended in victory
+	</p></article></section><section><header id="canspirit"><a href="#canspirit" title="(permalink)">canspirit: array&lt;?&gt;</a></header><article><p>
+		Array of whether given player can regain strong spirit
+	</p></article></section><section><header id="proto"><a href="#proto" title="(permalink)">proto: number</a></header><article><p>
+		Is set on area start with 5% chance or if player has &lt;=1 HP.
+			</p><p>
+			Plays alternate music tracks on 1-x/3-x/5-x/7-x and shows story tiles in vaults.
+	</p></article></section><section><header id="wepmuts"><a href="#wepmuts" title="(permalink)">wepmuts: number</a></header><article><p>
+		Number of weapon mutations taken so far
+	</p></article></section><section><header id="wepmuted"><a href="#wepmuted" title="(permalink)">wepmuted: number</a></header><article><p>
+		Whether Heavy Heart was offered
+	</p></article></section><section><header id="waypoints"><a href="#waypoints" title="(permalink)">waypoints: number</a></header><article><p>
+		Number of waypoints on the map
+	</p></article></section><section><header id="waypnt"><a href="#waypnt" title="(permalink)">waypnt: array</a></header><article><p>
+		Array of area per waypoint
+	</p></article></section><section><header id="waysub"><a href="#waysub" title="(permalink)">waysub: array</a></header><article><p>
+		Array of subarea per waypoint
+	</p></article></section><section><header id="waylps"><a href="#waylps" title="(permalink)">waylps: array</a></header><article><p>
+		Array of loops per waypoint
+	</p></article></section><section><header id="timer"><a href="#timer" title="(permalink)">timer: number</a></header><article><p>
+		Time elapsed since run start, in frames
+	</p></article></section><section><header id="popolevel"><a href="#popolevel" title="(permalink)">popolevel: number</a></header><article><p>
+		Shielders spawn at &gt;= 3, inspectors at &gt;= 5
+	</p></article></section><section><header id="crownvisits"><a href="#crownvisits" title="(permalink)">crownvisits: number</a></header><article><p>
+		Minimum loop before crown vaults can appear
+	</p></article></section><section><header id="droppedsword"><a href="#droppedsword" title="(permalink)">droppedsword: number</a></header><article><p>
+		Whether the player(s) dropped a Chicken Sword and a Black Sword should appear later.
+		</p><p>
+		This is checked on the end of first area entered.
+	</p></article></section><section><header id="droppedguitar"><a href="#droppedguitar" title="(permalink)">droppedguitar: number</a></header><article><p>
+		Whether the guitar(s) were already spawned for Fish(es).
+	</p></article></section><section><header id="horror"><a href="#horror" title="(permalink)">horror: number</a></header><article><p>
+		Whether a hostile Horror was spawned this session
+	</p></article></section><section><header id="nochest"><a href="#nochest" title="(permalink)">nochest: number</a></header><article><p>
+		Number of areas that player didn't open weapon chests for
+	</p></article></section><section><header id="norads"><a href="#norads" title="(permalink)">norads: number</a></header><article><p>
+		Number of areas that player didn't break rad canisters for
+	</p></article></section><section><header id="seenhq"><a href="#seenhq" title="(permalink)">seenhq: bool</a></header><article><p>
+		Whether the player been to HQ this session
+	</p></article></section><section><header id="crown"><a href="#crown" title="(permalink)">crown: number</a></header><article><p>
+		Current crown
+	</p></article></section><section class="empty"><header id="end_got"><a href="#end_got" title="(permalink)">end_got: array&lt;array&lt;?&gt;&gt;</a></header></section><section><header id="end_map"><a href="#end_map" title="(permalink)">end_map: ds_map</a></header><article><p>
+		&lt;race_id, array&lt;skill_id, got:bool&gt;&gt;
+	</p></article></section><section><header id="end_list"><a href="#end_list" title="(permalink)">end_list: ds_list</a></header><article><p>
+		&lt;<a href="#race-race_id-skill_id">race, race_id, skill_id</a>&gt;
+	</p></article></section><section><header id="level"><a href="#level" title="(permalink)">level: number</a></header><article><p>
+		Player level (the one you see in UI)
+	</p></article></section><section><header id="rad"><a href="#rad" title="(permalink)">rad: number</a></header><article><p>
+		Current rads
+	</p></article></section><section><header id="radmaxextra"><a href="#radmaxextra" title="(permalink)">radmaxextra: number</a></header><article><p>
+		Extends maximum rad capacity - used by Horror's Ultra C
+	</p></article></section><section><header id="endgame"><a href="#endgame" title="(permalink)">endgame: number</a></header><article><p>
+		Whether player is allowed to get level Ultra
+	</p></article></section><section><header id="endskill"><a href="#endskill" title="(permalink)">endskill: number</a></header><article><p>
+		Is non-0 once an ultra mutation was taken
+	</p></article></section><section><header id="endcount"><a href="#endcount" title="(permalink)">endcount: number</a></header><article><p>
+		Number of ultra mutations taken (for coop)
+	</p></article></section><section><header id="skillpoints"><a href="#skillpoints" title="(permalink)">skillpoints: number</a></header><article><p>
+		Number of available mutation points
+	</p></article></section><section><header id="crownpoints"><a href="#crownpoints" title="(permalink)">crownpoints: number</a></header><article><p>
+		Number of available crown points (0 or 1)
+	</p></article></section><section><header id="endpoints"><a href="#endpoints" title="(permalink)">endpoints: number</a></header><article><p>
+		Number of available ultra mutation points
+	</p></article></section><section><header id="mutindex"><a href="#mutindex" title="(permalink)">mutindex: number</a></header><article><p>
+		Increased whenever a mutation is taken
+	</p></article></section><section><header id="gameovertext"><a href="#gameovertext" title="(permalink)">gameovertext: string</a></header><article><p>
+		Custom game over text (instead of "you didn't reach ...")
+	</p></article></section><section class="empty"><header id="killenemies"><a href="#killenemies" title="(permalink)">killenemies: number</a></header></section><section><header id="junglevisits"><a href="#junglevisits" title="(permalink)">junglevisits: number</a></header><article><p>
+		Number of visits to the jungle (for seeding)
+	</p></article></section><section><header id="candestiny"><a href="#candestiny" title="(permalink)">candestiny: number</a></header><article><p>
+		Whether the player can get a mutation from crown of destiny
+	</p></article></section><section><header id="hud_patience"><a href="#hud_patience" title="(permalink)">hud_patience</a></header><article><p>
+		Null: not picked, 0: mark next mutation, other: mutation to mark
+	</p></article></section><section><header id="skeleloops"><a href="#skeleloops" title="(permalink)">skeleloops: number</a></header><article><p>
+		Number of melting-&gt;skeleton transitions this run
+	</p></article></section><section><header id="demoend"><a href="#demoend" title="(permalink)">demoend: number</a></header><article><p>
+		Shows "end of demo" in HUD, probably from old expo builds
+	</p></article></section><section class="empty"><header id="hqseed"><a href="#hqseed" title="(permalink)">hqseed</a></header></section><section class="empty"><header id="baseseed"><a href="#baseseed" title="(permalink)">baseseed: number</a></header></section><section class="empty"><header id="gameseed"><a href="#gameseed" title="(permalink)">gameseed: Array&lt;int&gt;</a></header></section><section class="empty"><header id="mutseed"><a href="#mutseed" title="(permalink)">mutseed: Array&lt;int&gt;</a></header></section><section class="empty"><header id="atseed"><a href="#atseed" title="(permalink)">atseed: int</a></header></section><section class="empty"><header id="levseed"><a href="#levseed" title="(permalink)">levseed: int</a></header></section><section class="empty"><header id="wepseed"><a href="#wepseed" title="(permalink)">wepseed: int</a></header></section><section><header id="patseed"><a href="#patseed" title="(permalink)">patseed: number</a></header><article><p>
+		Patience seed
+	</p></article></section><section class="empty"><header id="patpick"><a href="#patpick" title="(permalink)">patpick: bool</a></header></section><section><header id="codseed"><a href="#codseed" title="(permalink)">codseed: number</a></header><article><p>
+		Crown of destiny seed
+	</p></article></section><section><header id="codpick"><a href="#codpick" title="(permalink)">codpick: bool</a></header><article><p>
+		Picking a CoD mutation
+	</p></article></section><section><header id="junseed"><a href="#junseed" title="(permalink)">junseed</a></header><article><p>
+		Array of jungle seeds
+	</p></article></section><section><header id="junpick"><a href="#junpick" title="(permalink)">junpick: bool</a></header><article><p>
+		Picking a jungle mutation
+	</p></article></section></article></section><section><header id="scrSkills"><a href="#scrSkills" title="(permalink)">from scrSkills</a></header><article><a class="sticky-side" href="#scrSkills" title="from scrSkills"><span>from scrSkills</span></a><p>
+	ScrSkills
+	</p><section class="empty"><header id="maxskill"><a href="#maxskill" title="(permalink)">maxskill: number</a></header></section><section class="empty"><header id="skill_got"><a href="#skill_got" title="(permalink)">skill_got: array&lt;?&gt;</a></header></section></article></section><section><header id="scrCrowns"><a href="#scrCrowns" title="(permalink)">from scrCrowns</a></header><article><a class="sticky-side" href="#scrCrowns" title="from scrCrowns"><span>from scrCrowns</span></a><p>
+	ScrCrowns
+	</p><section class="empty"><header id="crownmax"><a href="#crownmax" title="(permalink)">crownmax: number</a></header></section></article></section><section><header id="scrSetSeed"><a href="#scrSetSeed" title="(permalink)">from scrSetSeed</a></header><article><a class="sticky-side" href="#scrSetSeed" title="from scrSetSeed"><span>from scrSetSeed</span></a><p>
+	ScrSetSeed
+	</p><section class="empty"><header id="stxt"><a href="#stxt" title="(permalink)">stxt: file_handle</a></header></section><section class="empty"><header id="seed"><a href="#seed" title="(permalink)">seed: number</a></header></section></article></section><p>
+Alarms: </p><ul>
+	<li> <code>alarm[0]</code>: Makes a crown
+</li></ul></p><!--doc>-->
+			</section>
+		</main>
+	</div>
+	<script type="text/javascript" src="../inc/page.js"></script>
+</body></html>
