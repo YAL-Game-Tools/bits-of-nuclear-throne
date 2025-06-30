@@ -59,11 +59,15 @@ The following get/set various information on per-slot basis.
 <span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">p</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">p</span> <span class="op">&lt;</span> <a class="sv" href="#maxp">maxp</a><span class="op">;</span> <span class="lv">p</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
     <span class="co">// ...</span>
 <span class="cb">}</span>
-</pre></article></section><section><header id="player_is_active"><a href="#player_is_active" title="(permalink)">player_is_active(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+</pre></article></section><hr/><section><header id="player_is_active"><a href="#player_is_active" title="(permalink)">player_is_active(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		Returns whether the given slot is occupied.
 		</p><p>
 		There can be "gaps" in the slot list if someone leaves mid-game.
-	</p></article></section><section><header id="player_get_uid"><a href="#player_get_uid" title="(permalink)">player_get_uid(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+	</p></article></section><section><header id="dp_player_count_active"><a href="#dp_player_count_active" title="(permalink)">dp_player_count_active()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns whether the total number of occupied player slots.
+		</p><p>
+		If P1 and P3 are taken, this will return <code>2</code>, for example.
+	</p></article></section><hr/><section><header id="player_get_uid"><a href="#player_get_uid" title="(permalink)">player_get_uid(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		Returns the numeric "unique ID" of a player controlling the slot.
 		</p><p>
 		If two slots have the same UID, they are being controlled from the same computer.
@@ -72,6 +76,14 @@ The following get/set various information on per-slot basis.
 		than a player that joined (or re-joined) the lobby later,
 		but otherwise no pattern is guaranteed for these,
 		and they can have "gaps".
+	</p></article></section><section><header id="dp_player_count_sources"><a href="#dp_player_count_sources" title="(permalink)">dp_player_count_sources()&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
+		Returns the number of input sources (physical computers)
+		being used across all player slots.
+		</p><p>
+		For example,
+		if P1 and P2 are playing locally on machine A
+		and P3 is connected to them over the internet from machine B,
+		this will return <code>2</code>.
 	</p></article></section></article></section><section><header id="Characters"><a href="#Characters" title="(permalink)">Characters</a></header><article><a class="sticky-side" href="#Characters" title="Characters"><span>Characters</span></a><section><header id="player_get_race"><a href="#player_get_race" title="(permalink)">player_get_race(slot)&#8203;<span class="ret-arrow">&#10140;</span></a></header><article><p>
 		Returns the current character for a player slot.
 		</p><p>

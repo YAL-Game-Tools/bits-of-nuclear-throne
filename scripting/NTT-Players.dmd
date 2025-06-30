@@ -14,11 +14,18 @@ The following get/set various information on per-slot basis.
 		}
 		```
 	}
+	---
 	#[player_is_active(slot)->]() {
 		Returns whether the given slot is occupied.
 		
 		There can be "gaps" in the slot list if someone leaves mid-game.
 	}
+	#[dp_player_count_active()->]() {
+		Returns whether the total number of occupied player slots.
+		
+		If P1 and P3 are taken, this will return `2`, for example.
+	}
+	---
 	#[player_get_uid(slot)->]() {
 		Returns the numeric "unique ID" of a player controlling the slot.
 		
@@ -28,6 +35,15 @@ The following get/set various information on per-slot basis.
 		than a player that joined (or re-joined) the lobby later,
 		but otherwise no pattern is guaranteed for these,
 		and they can have "gaps".
+	}
+	#[dp_player_count_sources()->]() {
+		Returns the number of input sources (physical computers)
+		being used across all player slots.
+		
+		For example,
+		if P1 and P2 are playing locally on machine A
+		and P3 is connected to them over the internet from machine B,
+		this will return `2`.
 	}
 }
 #[Characters]() {

@@ -5,6 +5,31 @@ Legend:
 
 ---
 
+# 100.031 (June 2025)
+
+- Exposed and documented dp_player_count_active, dp_player_count_sources
+- Fixed `ds_list_shuffle`
+
+# 99r2b25 (June 2025)
+
+- I (YAL) now appear on the "Vlambeer & ... present" screen, which might reduce the number of people asking JW to hire me to work on this game despite me working on this game since 2017.
+- You can now skip the intro screens by clicking when gamepad controls are enabled.
+- The credits screen has been overhauled:
+	- YYG Special Thanks pages have been merged into the rest of Special Thanks
+	- Special Thanks page now starts partially on-screen so that you can tell that it's not just an empty page
+	- You can now scroll the Special Thanks screen with up/down keys
+	- Ada (the other half of ThroneButt development team) is now credited
+	- lang-example now only includes parts of credits that make sense to localize instead of large blobs of text
+- Fixed the game crashing if your Steam avatar is a broken image (??)
+- Fixed "(golden weapon) stored!" notifications showing repeatedly.  
+  This one's quirky because it would only happen when making a release-mode build with optimizations enabled.
+- Fixed the timer not showing on Game Over screen when using the "Both" timer mode
+- You can now pick the random crown in loadout (when you have 2+ crowns unlocked)
+- Fixed some input oddities with loadout when using gamepad+mouse controls
+- Re-generated `lang-example.ini`.  
+  The sections are now ordered differently, but the existing localizations will still work.  
+  A handful of new "context" comments were introduced.
+
 # 99r2b24 / 100.030 (June 2025)
 
 General:

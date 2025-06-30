@@ -186,7 +186,7 @@ The following are specific to NTGML:
 	#[#pragma using <rel. path>](using) {
 		Makes `globalvar`-s and scripts from the specified mod available in the current mod.
 		
-		Path is relative (no directory).
+		Path is in `name.type.ext` format (no directory).
 		
 		The "used" mod must be loaded before the current mod.
 		
