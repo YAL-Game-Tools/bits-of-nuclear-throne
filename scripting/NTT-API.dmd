@@ -75,6 +75,15 @@ NTT will create an `api` folder in your save directory with a couple files in it
 			-	`£`: UK English spelling
 			}
 		}
+		#[Arguments] {
+			Function arguments support the following annotations:
+			--{
+			-	`arg:type`: type definitions for external editors.
+			-	`?arg`: optional argument (GMEdit style)
+			-	`[arg]`: optional argument (`fnames` style)
+			-	`...arg`: variable argument count (0 or more arguments starting with this one)
+			}
+		}
 	}
 }
 #[Name-list files](raw-) {

@@ -5,6 +5,18 @@ Legend:
 
 ---
 
+# 100.032 (July 2025)
+
+- Mod scripts can now have optional arguments (`function name(a, b = 1) {}`)
+- Fixed `loc` / `loc_set` in mod API
+
+# 99r2b26 (July 2025)
+
+- The game now lags visibly less when the stage has been dug up before a T2 fight.
+- And projectiles now disappear _slightly_ earlier when away from the stage.
+- Likely fixed weapons getting stuck on walls when being dragged into the portal.
+- Fixed a crash when flipping pages on daily/weekly leaderboards.
+
 # 100.031 (June 2025)
 
 - Exposed and documented dp_player_count_active, dp_player_count_sources
