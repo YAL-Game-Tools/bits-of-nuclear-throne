@@ -5,6 +5,18 @@ Legend:
 
 ---
 
+# 100.033 (July 2025)
+
+- Fixed loc() not working right when the string is not in the language
+
+# 99r2b27 (July 2025)
+
+- A few more tweaks to 3d audio; the scripts are now included for reference in this repo.
+- Fixed the weapon pickups sometimes rotating in place when there's a bunch of them in one spot.
+- Weapon pickups are now less likely to get stuck if they were spawned from a chest next to a wall.
+- Weapon pickups now push each other around a tiny bit stronger so that they overlap less.
+- Fixed Ultra Mutant achievement not granting on load if you're past 100% completion.
+
 # 100.032 (July 2025)
 
 - Mod scripts can now have optional arguments (`function name(a, b = 1) {}`)
