@@ -5,6 +5,20 @@ Legend:
 
 ---
 
+# 100r2 (December 2025)
+
+- Added a backup unlock check for Cuz\
+  There is as of yet no explanation as to why this broke only in release build
+- Fixed present ammo chests not playing their "open" sound
+- Fixed being able to select C-skins in co-op when you only have a B-skin
+- Dog Missile (which is unusable unless you're Big Dog) is no longer on the custom mode weapon picker
+- Adjusted unlock conditions for Eyes C and Steroids C to work even if you go beyond the intended spot
+- Adjusted unlock condition for Steroid C to allow starting with a golden weapon
+- Fixed Eyes C portrait being a little out of frame
+- Fixed some sprites (mostly Crystal C) having wrong playback speed
+- Rad attraction mode now defaults to Modern, but you can edit it in your `settings.json`
+- Horror C no longer unlocks from *observing* the target area instead of going there.
+
 # 100r1 (December 2025)
 
 **Note:** u100 NTT build is coming soon! 
