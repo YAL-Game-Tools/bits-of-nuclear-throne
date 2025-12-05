@@ -5,6 +5,39 @@ Legend:
 
 ---
 
+# 100r1 (December 2025)
+
+**Note:** u100 NTT build is coming soon! 
+
+The important:
+- New character: Cuz\
+  On NTT terms, the character still uses the original placeholder character ID,
+  but everything else is new; Cuz can no longer be chosen as a ""C-skin"" for YV in NTT.
+- Custom Mode\
+  CM allows to adjust a handful of game parameters without modding the game.\
+  Mods can change these dynamically using `UberCont.custom` (enable/disable) and `UberCont.customMode` (custom mode struct)
+- The game now supports up to 4-player local co-op.\
+  Also features improvements to co-op ultra mutations and co-op menus.
+- Co-op reviving has been reworked and now works with Revive Chests.\
+  In NTT, previous reviving is accessible using `/revmode u99`
+- New unlockable C-skins for every character (and new achievements for these).\
+  In NTT, this shifts community skins to D-skins where appropriate.
+- Localization for 15 languages: English, French, Italian, German, Spanish, Polish, BR Portuguese, Russian, Korean, Simplified Chinese, Traditional Chinese, Japanese, Ukrainian, Turkish, & Dutch\
+  Community localizations can also take advantage of new options in lang.ini and support for CSV languages.
+- Reworked and re-organized the settings menu.\
+  In NTT, new settings can be accessed through the `UberCont.opt` struct.\
+  Existing settings are kept as `UberCont.opt_*` for backwards compatibility.
+- New side art and a new cursor.
+- The game now has a modern Mac version, compatible with Apple Silicon.
+
+Smaller tweaks:
+- Buff gators may once again pop out of cocoons, but more occasionally than before
+- Open Mind has been buffed a little.
+- The game now runs better on Steam Deck.
+- The game now works better with gamepads, especially when multiple are connected.
+- Added 16:10, 21:9, and automatic aspect ratio options.
+- The game now runs at 60 fps by default.
+
 # 100.033 (July 2025)
 
 - Fixed loc() not working right when the string is not in the language
