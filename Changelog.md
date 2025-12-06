@@ -5,6 +5,33 @@ Legend:
 
 ---
 
+# 100r3 (December 2025)
+- Fixed Cuz B hint using the wrong color, and in some languages, wrong font style
+- Fixed Cuz/Cuz B achievements not being awarded (will award retroactively)
+- Fixed the game not transitioning to 2-x in Custom Mode if you've set the area size higher than 4
+- Fixed the game crashing upon entering the main menu if your save file exists and isn't empty, but is filled with 00 bytes instead of save data
+- Fixed Horror C unlock *still* being easier than intended\
+  There's a secondary issue being that the hint says "with no more than 3 mutations"
+  while the unlock says "without reaching level ultra" - we'll fix this later
+- Some Ukrainian localization tweaks ft. Ci8ird
+- Fixed the game crashing if you perish on the exact frame when Lil Hunter takes off
+- Fixed Custom Mode disclaimer not fitting on the screen on English 4:3
+- Fixed custom mode loadout showing an empty tooltip if you haven't set weapons/crowns/etc.
+- Added a separate HUD tear sprite for Cuz with Back Muscle
+- Fixed pickup messages only showing for the first player in coop
+- The first LQA line no longer shows a sub-header
+- Fixed mutation/crown pickers in Custom Mode not working with gamepads
+- Fixed the controls menu drawing off-screen when opened mid-run (*unless your screen is tall enough*)
+- Fixed "boss intros" setting not getting saved to .json
+- Fixed the Borderless Fullscreen setting not getting applied on game start
+- Fixed ammo pickups granting non-random ammo for melee weapons
+- Fixed timer/area display options not saving
+- Fixed a few cases when Cuz extra weapons weren't being considered:
+  - For Trigger Fingers
+  - For being reloaded by portals
+  - For CCC
+  - For gold weapon storing
+
 # 100r2 (December 2025)
 
 - Added a backup unlock check for Cuz\
