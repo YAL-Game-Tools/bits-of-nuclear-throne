@@ -5,6 +5,58 @@ Legend:
 
 ---
 
+# 100r4 (December 2025)
+
+Cuz:
+- Fixed it not being possible to pick up a non-cursed weapon as Cuz when your weapon is cursed but you still have 3rd+ weapon slots
+- Fixed repeated gold weapon popups when a gold weapon is in Cuz extra slots
+- You now only gain tears as Cuz if you took non-zero damage
+
+Cuz experiment:
+- Added an experiments > cuz_swap_mode to settings JSON that you can flip to 1 for an alternative swap mode.
+- Swap+1..6 sets a hotkey for the weapon slot (e.g. Space+1 on default keybindings)
+- 1..6 switches to that slot
+- This may get removed later if it doesn't feel good.
+
+Gameplay:
+- Fixed Frog being hard to control on >120fps
+- Added another safeguard for Frog getting stuck in walls, what a character
+- Fixed Cuz' extra weapons not getting un-cursed in vaults
+- Crowns no longer behave strangely on >120fps
+- Custom Mode mutation choice adjust now works with Destiny
+- Fixed Rad Attraction Mode not applying from settings JSON
+- Fixed Cuz not being counted for Fish B unlock condition
+- 7-3 chests now support the updated Open Mind
+- Revive chests now appear on 7-3
+- ??? are now slightly rarer, and visibly rarer in the ???. But it is very funny
+- Fixed ui.show_user_info option in settings JSON not working
+
+Controls:
+- The game now remembers which gamepad you wanted to use when backing out to the menu
+- Fixed previous/next keybinds not getting saved to settings JSON
+- Fixed mouse wheel directions coming out as just the mousewheel in keybinds
+
+Visual:
+- Fixed Chicken C reverting to A skin when re-gaining the head
+- Fixed an oddity with YV C Sit sprite
+- Some textures have been shuffled to other texture pages as the Default page was starting to run out of space
+- Fixed Rebel C allies not having an appearance animation
+
+UI:
+- Fixed the coop Custom Mode menu returning you to Play menu instead
+- Fixed loadout crowns selecting on gamepad press even if the cursor is in a different area
+- Fixed Plant C-skin slightly overlapping the B-skin in loadout
+- Sliders may no longer visually overflow when the value is out of bounds
+- Volumes are now clamped because negative volume does you no favors
+- Timer now draws in base-game font
+
+Text/localization:
+- Fixed Custom Mode disclaimer not getting localized after the last change
+- Fixed some glyphs not being displayed in localizations (e.g. dash vs em-dash vs en-dash)
+- Fixed some localized unlock popups not fitting in the corner of the screen
+- Fixed mismatched Custom Mode sub-menu captions
+- 
+
 # 100r3 (December 2025)
 - Fixed Cuz B hint using the wrong color, and in some languages, wrong font style
 - Fixed Cuz/Cuz B achievements not being awarded (will award retroactively)
