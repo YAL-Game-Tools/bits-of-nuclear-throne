@@ -5,6 +5,57 @@ Legend:
 
 ---
 
+# 100r5 (December 2025)
+
+Gameplay:
+- Fixed up explosions to work like they did before
+- Some improvements to "modern" rad pathfinding
+- Some tweaks to crowns' pathfinding
+
+Unlocks:
+- Fixed Ultra Mutant granting if you've locked some crowns/etc. on hidden characters but not all of the base cast
+- Horror C unlock condition now matches the unlock hint
+- Chicken C unlock now tracks what bosses have been defeated so that you may do funny things
+- Fixed Steroids/Rebel C-skins being cut off on the unlock screen
+- Fixed character sprite on END1 cutscene being slightly off-center
+
+Custom mode:
+- Fixed the game giving you another ultra point in Custom Mode if you started with an ultra
+
+Visuals:
+- Fixed Rebel C allies not playing their appearance animation
+- Auto Aspect Ratio is now off by default
+- "Golden weapon stored" popups no longer show when playing Skeleton or Frog
+- Fixed Stalker pellets not getting the C-skin color
+- Snipers may no longer aim right between the wall tiles
+- Fixed certain boss bullets lacking bloom
+
+Audio:
+- Fixed lightning cannon sound persisting if the portal destroys the lightning ball
+- Fixed Cuz golden pistol in loadout not playing the golden sound
+
+Cuz:
+- Fixed Cuz not being considered for best run on General Stats
+- Weapon generation now considers Cuz' extra weapons
+- Frog Pistol now considers Cuz extra weapons
+- Fixed "Hide HUD" not hiding Cuz extra weapons
+- Ammo highlighting in HUD now accounts for Cuz extra weapons
+- Trigger Fingers now reloads slightly slower if it is reloading more weapons than usual
+- Ammo pickups now get cursed when Cuz has 3+ cursed weapons
+
+Cuz experiments:
+- `cuz_swap_mode` 1 now auto-assigns weapon indexes
+- Added `cuz_swap_mode` 2, which matches the displayed weapon order to slot order
+- Added `cuz_show_swap_for` (time in frames), which briefly shows the new weapon and remaining ammo when swapping weapons as Cuz
+
+Localization:
+- ??? is now ??? until further notice
+- Fixed big fonts missing a few glyphs for Polish
+
+Localization (text)
+- Fixed Strong Spirit desc in Russian
+- Tweaked Cuz TB and Stress descriptions in Ukrainian for clarity
+
 # 100r4 (December 2025)
 
 Cuz:
