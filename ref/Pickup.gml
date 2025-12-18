@@ -9,3 +9,4 @@ A parent for pickups.
 
 The game itself doesn't use it for anything.
 */
+#macro __Pickup__min_time 3

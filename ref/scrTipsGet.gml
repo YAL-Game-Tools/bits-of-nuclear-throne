@@ -18,7 +18,7 @@ function TipsStruct() constructor {
 		L("General:6", "@wmelee weapons@s can deflect @yprojectiles@s"),
 		L("General:7", "@yshells@s deal more damage from up close"),
 		L("General:8", "assassins can pretend they're dead"),
-		L("General:9", "fish can roll"),
+		UberCont.aprilfools ? L("General:9:Alt", "fish can't roll") : L("General:9", "fish can roll"),
 		L("General:10", "always keep one eye on your @yammo@s"),
 		L("General:11", "robots can digest anything"),
 		L("General:12", "bandits like camping near barrels"),
@@ -62,6 +62,9 @@ function TipsStruct() constructor {
 		L("General:50", "doing alright"),
 		L("General:51", "there are other worlds out there"),
 	];
+	if (UberCont.custom) {
+		array_push(general, L("General:CustomMode", "TIME TO GRILL"));
+	}
 	loadUserTips(general, L, "General:");
 	
 	tutorial = [
@@ -326,7 +329,10 @@ function TipsStruct() constructor {
 			L("Ultra:15:5", "smell great")
 		],
 		[
-			L("Ultra:16:1", "what a good time") /// @loc Cuz (unused)
+			L("Ultra:16:1", "good job cuz!!!"), /// @loc Cuz
+			L("Ultra:16:2", "round and handsome"),
+			L("Ultra:16:3", "spherical miracle"),
+			L("Ultra:16:4", "gaming makes you smart")
 		],
 	];
 	for (var i = 0; i < array_length(race_ultra); i++) {
@@ -395,7 +401,8 @@ function TipsStruct() constructor {
 			L("Race:6:13", "guns that hate texas"), 
 			L("Race:6:14", "guns that wear vests it"), 
 			L("Race:6:15", "no @bpopo@s"), 
-			L("Race:6:16", "pop pop")
+			L("Race:6:16", "pop pop"),
+			L("Race:6:17", "shoutout 2 cuz")
 		],
 		[
 			L("Race:7:1", "time to flex"), /// @loc Steroids
@@ -473,12 +480,24 @@ function TipsStruct() constructor {
 			L("Race:15:5", "gas is good"), 
 			L("Race:15:6", "let it all out"), 
 			L("Race:15:7", "keep going"), 
-			L("Race:15:8", "don't hold it up"), 
+			L("Race:15:8", "don't hold it in"), 
 			L("Race:15:9", "wait for me")
 		],
 		[
 			L("Race:16:1", "cool"), /// @loc Cuz (mods only)
-			L("Race:16:2", "nice")
+			L("Race:16:2", "nice"),
+			L("Race:16:3", "shoutout 2 veenie"),
+			L("Race:16:4", "yung cuz!!!"),
+			L("Race:16:5", "every gun is my favorite gun"),
+			L("Race:16:6", "it’s ok to cry"),
+			L("Race:16:7", "crying is cool"),
+			L("Race:16:8", "strapped"),
+			L("Race:16:9", "don't upset me"),
+			L("Race:16:10", "need a snack"),
+			L("Race:16:11", "gunz god"),
+			L("Race:16:12", "cuz can carry multiple weapons"),
+			L("Race:16:13", "cuz can cry"),
+			L("Race:16:14", "take damage to gain tears")
 		],
 	];
 	for (var i = 0; i < array_length(race); i++) {
@@ -577,7 +596,7 @@ function scrTipsGet() {
 			return "";
 		}
 		
-		if (GameCont.level == 10 && random_w(5) < 1) {
+		if (GameCont.level >= GameCont.maxlevel && random_w(5) < 1) {
 			return scrTipsGetOneOf(tips.race_ultra, _player.race_id);
 		}
 		return scrTipsGetOneOf(tips.race, _player.race_id);

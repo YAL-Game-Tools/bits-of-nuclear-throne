@@ -19,8 +19,9 @@ function scrMakeFloor() {
 		} else instance_create(x, y, Floor);
 		break;
 	case 3:
-		if (random_w(8) < 1 || GameCont.subarea == 3) {
-			if (GameCont.subarea == 3) {
+		var _boss = scrAreaWantBoss();
+		if (random_w(8) < 1 || _boss) {
+			if (_boss) {
 				xoff = choose_w(32, 0, 0, -32);
 				yoff = choose_w(32, 0, 0, -32);
 			} else {

@@ -31,7 +31,7 @@ function scrPopEnemies(_spawnarea) {
 		break;
 	case 3:
 		if (random_w(5) >= 4) break;
-		if (GameCont.subarea == 3 && random_w(2) >= 1) break;
+		if (scrAreaWantBoss() && random_w(2) >= 1) break;
 		//
 		if (random_w(2) < random_w(GameCont.loops)) {
 			instance_create(x + 16, y + 16, choose_w(Sniper, Sniper, MeleeFake, MeleeFake, Salamander, SnowBot, Raven, BuffGator, Raven));
@@ -80,7 +80,7 @@ function scrPopEnemies(_spawnarea) {
 		}
 		break;
 	case 7:
-		if (GameCont.subarea == 3) break;
+		if (scrAreaWantBoss()) break;
 		if (random_w(2) >= 1) break;
 		if (random_w(2) < random_w(GameCont.loops)) {
 			instance_create(x + 16, y + 16, choose_w(ExploGuardian, DogGuardian, Sniper, DogGuardian, ExploGuardian, ExploFreak, JungleBandit, JungleBandit));
@@ -107,7 +107,7 @@ function scrPopEnemies(_spawnarea) {
 		}
 		break;
 	case 106:
-		if (GameCont.subarea == 3) break;
+		if (scrAreaWantBoss()) break;
 		if (random_w(12) >= 1) break;
 		if (random_w(7) < 1) {
 			instance_create(x + 16, y + 16, choose_w(EliteGrunt, EliteShielder, EliteInspector));

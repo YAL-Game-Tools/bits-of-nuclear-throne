@@ -4,6 +4,8 @@ function scrPopulate() {
 	var i, k, c, z, q, _x, _y;
 	var _area = GameCont.area;
 	var _sub = GameCont.subarea;
+	var _sub_count = scrAreaSize(_area);
+	var _want_boss = _sub == _sub_count;
 	var _spawn_dist = safedist;
 	var _spawn_x = self.spawn_x;
 	var _spawn_y = self.spawn_y;
@@ -89,7 +91,7 @@ function scrPopulate() {
 	random_set_seed_w(GameCont.levseed + 140000);
 	repeat (2) random_skip;
 	if (_area == 1 && UberCont.showtutorial == 0) instance_create(x, y, WantBoss);
-	if (_area == 5 && _sub == 3) instance_create(x, y, WantLH);
+	if (_area == 5 && _want_boss) instance_create(x, y, WantLH);
 	if (_area == 3 && _sub == 1) {
 		var _floor = scrFindFloor((_candidate) => {
 			with (_candidate) {
@@ -130,7 +132,7 @@ function scrPopulate() {
 	}
 	
 	//#mark Pizza entrance:
-	if (_area == 2) {
+	if (_area == 2 && _sub == 1) {
 		with (Floor) if (sprite_index == sprFloor2 && image_index == 1 || image_index == 5) instance_create(x, y, PizzaEntrance);
 		//
 		do {
@@ -168,9 +170,9 @@ function scrPopulate() {
 	//#mark Police 'n vans:
 	if (_area != 0
 		&& _area != 100
-		&& !(_area == 106 && _sub == 3)
+		&& !(_area == 106 && _want_boss)
 		&& _area != 107
-		&& !(_area == 7 && _sub == 3)
+		&& !(_area == 7 && _want_boss)
 	) {
 		repeat (scrCountRace(Race.Rogue)) instance_create(x, y, WantPopo);
 		repeat (GameCont.loops) instance_create(x, y, WantPopo);
@@ -225,21 +227,29 @@ function scrPopulate() {
 		}
 		
 		// frog mom:
-		if (_area == 2) with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, FrogQueen);
+		if (_area == 2 && _want_boss) {
+			with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, FrogQueen);
+		}
 		
 		// hyper crystal:
-		if ((_area == 4 || _area == 104)) with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, HyperCrystal);
+		if ((_area == 4 || _area == 104) && _want_boss) {
+			with (instance_furthest(10016, 10016, enemy)) instance_create(x, y, HyperCrystal);
+		}
 		
 		// technomancer:
-		if (_area == 6) {
+		if (_area == 6 && _want_boss) {
 			with (enemy) if (distance_to_object(TechnoMancer) > 120
 				&& point_distance(x, y, 10016, 10016) > 160
 			) instance_create(x, y, TechnoMancer);
+			
 			do {
 				with (instance_nearest(10016, 10016, TechnoMancer)) instance_destroy_w(id, false);
 			} until (instance_number(TechnoMancer) <= 2 + GameCont.loops);
+			
+			with (TechnoMancer) repeat (6) {
+				instance_create(x + random_w(120) - 60, y + random_w(120) - 60, PortalClear);
+			}
 		}
-		with (TechnoMancer) repeat (6) instance_create(x + random_w(120) - 60, y + random_w(120) - 60, PortalClear);
 	}
 	
 	//#mark Jungle flower:

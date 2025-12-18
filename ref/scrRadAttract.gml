@@ -1,19 +1,28 @@
 /// `pickup_rad_attract_step` for mods
-function scrRadAttract(_speed, _attraction_mode = global.rad_attraction_mode) {
+function scrRadAttract(_speed, _attraction_mode = UberCont.rad_attraction_mode) {
+	if (_attraction_mode == RadAttractionMode.None) exit;
+	
 	var _target;
+	var _target_dist = 0;
+	var _target_sight = -1;
 	repeat (1) {
 		_target = instance_nearest(x, y, ProtoStatue);
-		if (_target != noone
-			&& distance_to_object(_target) < 170
-			&& collision_line(x, y, _target.x, _target.y, Wall, false, false) == noone
-			&& _target.my_health < _target.maxhealth * 0.7
-		) break;
+		if (_target != noone) {
+			_target_dist = distance_to_object(_target);
+			if (_target_dist < 170) {
+				_target_sight = collision_line(x, y, _target.x, _target.y, Wall, false, false) == noone;
+				if (_target_sight && _target.my_health < _target.maxhealth * 0.7) break;
+			}
+		}
 		
 		_target = instance_nearest(x, y, EnemyHorror);
-		if (_target != noone
-			&& distance_to_object(_target) < 170
-			&& collision_line(x, y, _target.x, _target.y, Wall, false, false) == noone
-		) break;
+		if (_target != noone) {
+			_target_dist = distance_to_object(_target);
+			if (_target_dist < 170) {
+				_target_sight = collision_line(x, y, _target.x, _target.y, Wall, false, false) == noone;
+				if (_target_sight) break;
+			}
+		}
 		
 		_target = noone;
 		var _best_dist = ALOT;
@@ -23,23 +32,49 @@ function scrRadAttract(_speed, _attraction_mode = global.rad_attraction_mode) {
 			if (_dist < _attract_dist && _dist < _best_dist) {
 				_best_dist = _dist;
 				_target = id;
+				_target_dist = _dist;
+				_target_sight = -1;
 			}
 		}
 	}
 	if (_target == noone) exit;
 	
+	var _tx = _target.x, _ty = _target.y;
 	if (_attraction_mode != RadAttractionMode.Fast) {
-		if (_target != target || _attraction_mode != RadAttractionMode.Kind) {
+		if (_target != target) {
 			target = _target;
-			direction = point_direction(x, y, _target.x, _target.y);
+			if (_attraction_mode == RadAttractionMode.Kind) {
+				var _dir = point_direction(x, y, _tx, _ty);
+				var _diff = angle_difference(direction, _dir);
+			} else {
+				direction = point_direction(x, y, _tx, _ty);
+			}
 		}
-		mp_potential_step_ft(_target.x, _target.y, 6, 0);
-		mp_potential_step_ft(_target.x, _target.y, 6, 0);
+		if (_attraction_mode == RadAttractionMode.Kind) {
+			if (_target_dist < 18 * ft) {
+				if (_target_sight == -1) {
+					_target_sight = collision_line(x, y, _tx, _ty, Wall, true, false) == noone;
+				}
+				if (_target_sight) {
+					if (_target_dist < 12 * ft) {
+						x = _tx;
+						y = _ty;
+					} else {
+						var _mult = 12 * ft / point_distance(x, y, _tx, _ty);
+						x += (_tx - x) * _mult;
+						y += (_ty - y) * _mult;
+					}
+					exit;
+				}
+			}
+		}
+		mp_potential_step_ft(_tx, _ty, 6, 0);
+		mp_potential_step_ft(_tx, _ty, 6, 0);
 		exit;
 	}
 	
-	var dx = _target.x - x;
-	var dy = _target.y - y;
+	var dx = _tx - x;
+	var dy = _ty - y;
 	if (dx == 0 && dy == 0) exit;
 	
 	var _hor = abs(dx) > abs(dy);
@@ -51,7 +86,7 @@ function scrRadAttract(_speed, _attraction_mode = global.rad_attraction_mode) {
 	var _dist = sqrt(dx*dx + dy*dy);
 	
 	// no sticking at lv9+!
-	if (GameCont.level >= 9) {
+	if (GameCont.level >= GameCont.maxlevel) {
 		if (_steps > 1) {
 			var dd = _speed * _ft / _dist;
 			var nx = x + dx * dd;

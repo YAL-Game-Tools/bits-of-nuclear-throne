@@ -5,8 +5,13 @@
 /// @param ?dir
 function scrBulletHit() {
 	with (argument[0]) {
+		var _damage = argument[1];
 		var t = object_index;
-		if (t == Player) scrLastHit();
+		if (t == Player) {
+			scrLastHit();
+			_damage = scrPlayerDamageAdjust(_damage);
+			total_damage_taken += _damage;
+		}
 		//
 		var d, kb;
 		if (argument_count > 2) {
@@ -17,9 +22,9 @@ function scrBulletHit() {
 		} else d = other.direction;
 		//
 		if (t == CustomHitme || (t == CustomEnemy && on_hurt != null)) {
-			mod_refcall(on_hurt, argument[1], kb, d);
+			mod_refcall(on_hurt, _damage, kb, d);
 		} else {
-			my_health -= argument[1];
+			my_health -= _damage;
 			//
 			if (kb > 0) {
 				motion_add_ft(d, kb);
