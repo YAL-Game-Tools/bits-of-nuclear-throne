@@ -39,40 +39,72 @@ function scrRadAttract(_speed, _attraction_mode = UberCont.rad_attraction_mode) 
 	}
 	if (_target == noone) exit;
 	
+	switch (_attraction_mode) {
+		case RadAttractionMode.Fast:
+			scrRadAttract_fast(_speed, _target);
+			break;
+		case RadAttractionMode.Kind:
+			scrRadAttract_kind(_speed, _target, _target_dist, _target_sight);
+			break;
+		default:
+			scrRadAttract_classic(_speed, _target);
+			break;
+	}
+}
+function scrRadAttract_kind(_speed, _target, _target_dist, _target_sight) {
 	var _tx = _target.x, _ty = _target.y;
-	if (_attraction_mode != RadAttractionMode.Fast) {
-		if (_target != target) {
-			target = _target;
-			if (_attraction_mode == RadAttractionMode.Kind) {
-				var _dir = point_direction(x, y, _tx, _ty);
-				var _diff = angle_difference(direction, _dir);
-			} else {
-				direction = point_direction(x, y, _tx, _ty);
+	if (_target_sight == -1) {
+		_target_sight = collision_line(x, y, _tx, _ty, Wall, true, false) == noone;
+	}
+	//
+	if (_target_sight) {
+		var _can_see = true;
+		for (var _offset = -1; _offset <= 1; _offset += 2) {
+			if (collision_line(
+				x + lengthdir_x(_offset, direction),
+				y + lengthdir_y(_offset, direction),
+				_tx + lengthdir_x(_offset, direction),
+				_ty + lengthdir_y(_offset, direction),
+				Wall, false, false
+			) != noone) {
+				_target_sight = false;
+				break;
 			}
 		}
-		if (_attraction_mode == RadAttractionMode.Kind) {
-			if (_target_dist < 18 * ft) {
-				if (_target_sight == -1) {
-					_target_sight = collision_line(x, y, _tx, _ty, Wall, true, false) == noone;
-				}
-				if (_target_sight) {
-					if (_target_dist < 12 * ft) {
-						x = _tx;
-						y = _ty;
-					} else {
-						var _mult = 12 * ft / point_distance(x, y, _tx, _ty);
-						x += (_tx - x) * _mult;
-						y += (_ty - y) * _mult;
-					}
-					exit;
-				}
-			}
+	}
+	// we can clip through corners if we're close enough
+	if (_target_dist < 18 * ft && _target_sight) {
+		if (_target_dist < 12 * ft) {
+			x = _tx;
+			y = _ty;
+		} else {
+			var _mult = 12 * ft / point_distance(x, y, _tx, _ty);
+			x += (_tx - x) * _mult;
+			y += (_ty - y) * _mult;
 		}
-		mp_potential_step_ft(_tx, _ty, 6, 0);
-		mp_potential_step_ft(_tx, _ty, 6, 0);
 		exit;
 	}
-	
+	if (ft <= 0.5) {
+		var _ox = x, _oy = y;
+		mp_potential_step_ft(_tx, _ty, _speed, 0);
+		if (x == _ox && y == _oy) {
+			//trace("stuck?", _target_sight, collision_line(x, y - 1, _tx, _ty - 1, Wall, true, false) == noone, speed, direction);
+			direction = random_w(360);
+		}
+	} else {
+		mp_potential_step_ft(_tx, _ty, _speed/2, 0);
+		mp_potential_step_ft(_tx, _ty, _speed/2, 0);
+	}
+}
+function scrRadAttract_classic(_speed, _target) {
+	var _tx = _target.x, _ty = _target.y;
+	target = _target;
+	direction = point_direction(x, y, _tx, _ty);
+	mp_potential_step_ft(_tx, _ty, _speed/2, 0);
+	mp_potential_step_ft(_tx, _ty, _speed/2, 0);
+}
+function scrRadAttract_fast(_speed, _target) {
+	var _tx = _target.x, _ty = _target.y;
 	var dx = _tx - x;
 	var dy = _ty - y;
 	if (dx == 0 && dy == 0) exit;

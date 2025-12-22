@@ -5,6 +5,46 @@ Legend:
 
 ---
 
+# 100r6 (December 2025)
+
+Rad attraction:
+- Classic rad attraction mode is now the default (ID 0 or 1)
+- Modern rad attraction mode is now ID 3
+- Fixed some modern rad attraction code leaking into classic
+- Further fixes for rads getting stuck in modern rad attraction mode
+- Pretty much every improvement to modern mode makes it harder to "rad starve" so that's why it's no longer the default
+
+Unlocks:
+- YV B-skin condition now correctly considers Cuz; can be awarded retroactively
+- Fixed Fish B not counting Cuz and counting secret chars
+
+Custom mode:
+- Custom mode with Ultra Start no longer leaves Skeleton without ultra mutations; fixed Skeleton A not accounting for maximum level in custom mode
+- `seed.txt` no longer overrides a custom mode's seed
+- Storing a "no weapon" in a proto chest in Custom Mode now hands out a rusty revolver
+
+Visuals:
+- Fixed display timer counting fractions of seconds incorrectly
+- Fixed allies spawned by Rebel ultras not applying C-skin
+- Speedrun timer no longer draws over unlock popups
+- DAILY/WEEKLY/CUSTOM label on the pause menu no longer draws under the portraits
+- Chicken C now uses black feather particles
+- Fixed Throne II missing "II" in UA/RU locs
+
+Audio:
+- A shot-in-the-dark fix for music randomly stopping mid-level.  
+  Believe it or not, but this is pretty hard to re-create on purpose.
+- Fixed Lil Hunter music not stopping on one occasion
+
+Settings:
+- 21:9 aspect ratio with previously-auto setting will be reset to 4:3 one time not to confuse people
+- Weapon/mutation tooltips will be set one time to upgrade u99 settings (where they were off by default)
+- Added experiments>show_swap_for_everyone if you'd like those little weapon-ammo popups on other chars and not just Cuz
+
+Misc:
+- Fixed the game crashing on main menu if your settings file is sufficiently malformed
+- Stripped some unused DLLs from the build
+
 # 100r5 (December 2025)
 
 Gameplay:
