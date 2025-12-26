@@ -5,6 +5,12 @@ Legend:
 
 ---
 
+# 100r7 (December 2025)
+- Fixed a mystery crash on boot if your save file is weird
+- Fixed Chicken C not being achievable with Cuz if the black sword is in the 3rd+ slot
+- Another tweak for modern rad attraction mode
+Happy holidays!
+
 # 100r6 (December 2025)
 
 Rad attraction:

@@ -1,3 +1,4 @@
+/// @self {Rad}
 /// `pickup_rad_attract_step` for mods
 function scrRadAttract(_speed, _attraction_mode = UberCont.rad_attraction_mode) {
 	if (_attraction_mode == RadAttractionMode.None) exit;
@@ -51,10 +52,18 @@ function scrRadAttract(_speed, _attraction_mode = UberCont.rad_attraction_mode) 
 			break;
 	}
 }
+
+/// @self {Rad}
 function scrRadAttract_kind(_speed, _target, _target_dist, _target_sight) {
+	//
 	var _tx = _target.x, _ty = _target.y;
 	if (_target_sight == -1) {
 		_target_sight = collision_line(x, y, _tx, _ty, Wall, true, false) == noone;
+	}
+	//
+	if (target != _target) {
+		target = _target;
+		direction = point_direction(x, y, _tx, _ty);
 	}
 	//
 	if (_target_sight) {
@@ -96,6 +105,8 @@ function scrRadAttract_kind(_speed, _target, _target_dist, _target_sight) {
 		mp_potential_step_ft(_tx, _ty, _speed/2, 0);
 	}
 }
+
+/// @self {Rad}
 function scrRadAttract_classic(_speed, _target) {
 	var _tx = _target.x, _ty = _target.y;
 	target = _target;
@@ -103,6 +114,8 @@ function scrRadAttract_classic(_speed, _target) {
 	mp_potential_step_ft(_tx, _ty, _speed/2, 0);
 	mp_potential_step_ft(_tx, _ty, _speed/2, 0);
 }
+
+/// @self {Rad}
 function scrRadAttract_fast(_speed, _target) {
 	var _tx = _target.x, _ty = _target.y;
 	var dx = _tx - x;
