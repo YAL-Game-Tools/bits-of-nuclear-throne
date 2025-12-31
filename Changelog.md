@@ -5,6 +5,13 @@ Legend:
 
 ---
 
+# 100.034 (December 2025)
+This is a u100 NTT build. It seems to *run* but I've not had time to extensively test it nor fix the 20-something NTT-specific bugs that exist.
+
+Still, mods that worked in 100.033 should still work in 100.034, and maybe you'd like to see how u100-specific bits interact with mods.
+
+The last NTT build has been archived onto the "ntt_u99" branch.
+
 # 100r7 (December 2025)
 - Fixed a mystery crash on boot if your save file is weird
 - Fixed Chicken C not being achievable with Cuz if the black sword is in the 3rd+ slot
