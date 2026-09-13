@@ -5,6 +5,27 @@ Legend:
 
 ---
 
+# 101b1 (September 2026)
+
+The game is now running on GameMaker LTS 2026, which might fix some mystery issues and introduce others
+
+Additions:
+- There's now a SFX volume slider! Seems to work as intended.
+- There's now an (experimental) checkbox for whether volume should be log scale (default) or passed to GM as-is.
+
+Mechanics:
+- Fixed Big Bandits sometimes spawning unexpectedly when opening a vault portal on 1-2
+- Fixed it being possible to blow yourself up on higher framerates (lower time scales) by firing a nuke/bazooka while standing next to a wall
+
+Audio/visual:
+- Fixed wall sides disappearing on a frame-perfect pause
+- Music/Ambience randomly cutting off *might* be fixed by updating GM, but ultimately it's very hard to reproduce this.
+
+Custom Mode:
+- Fixed Heavy Heart being re-granted in CM if starting with HH and 3 weapon mutations
+- Fixed some edge cases with mutation/ultra mutation counts in CM (Horror(s) and/or Destiny)
+
+
 # 100.034 (December 2025)
 This is a u100 NTT build. It seems to *run* but I've not had time to extensively test it nor fix the 20-something NTT-specific bugs that exist.
 
